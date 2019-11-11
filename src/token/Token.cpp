@@ -4,47 +4,47 @@
 
 using namespace hdc;
 
-void Token::set_kind(TokenKind kind) {
+void Token::setKind(TokenKind kind) {
     this->kind = kind;
 }
 
 
-void Token::set_line(int line) {
+void Token::setLine(int line) {
     this->line = line;
 }
 
 
-void Token::set_column(int column) {
+void Token::setColumn(int column) {
     this->column = column;
 }
 
 
-void Token::set_lexem(std::string& lexem) {
+void Token::setLexem(std::string& lexem) {
     this->lexem = lexem;
 }
 
 
-enum TokenKind Token::get_kind() {
+enum TokenKind Token::getKind() {
     return this->kind;
 }
 
 
-int Token::get_line() {
+int Token::getLine() {
     return this->line;
 }
 
 
-int Token::get_column() {
+int Token::getColumn() {
     return this->column;
 }
 
 
-std::string& Token::get_lexem() {
+std::string& Token::getLexem() {
     return this->lexem;
 }
 
 
-std::string Token::get_kind_as_string() {
+std::string Token::getKindAsString() {
     std::string kind_as_str;
 
     switch (kind) {
@@ -589,10 +589,10 @@ std::string Token::get_kind_as_string() {
     return kind_as_str;
 }
 
-std::string Token::to_str() {
+std::string Token::toStr() {
     std::stringstream ss;
 
-    ss << "(" << get_kind_as_string() << ", " << line
+    ss << "(" << getKindAsString() << ", " << line
         << ", " << column;
 
     if (lexem.size() > 0) {

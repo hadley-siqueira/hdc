@@ -165,24 +165,25 @@ namespace hdc {
     };
 
     class Token {
+        public:
+            void setKind(TokenKind kind);
+            void setLine(int line);
+            void setColumn(int column);
+            void setLexem(std::string& lexem);
+
+            enum TokenKind getKind();
+            int getLine();
+            int getColumn();
+            std::string& getLexem();
+            std::string getKindAsString();
+            std::string toStr();
+
+        /* Private members */
         private:
             enum TokenKind kind;
             int line;
             int column;
             std::string lexem;
-
-        public:
-            void set_kind(TokenKind kind);
-            void set_line(int line);
-            void set_column(int column);
-            void set_lexem(std::string& lexem);
-
-            enum TokenKind get_kind();
-            int get_line();
-            int get_column();
-            std::string& get_lexem();
-            std::string get_kind_as_string();
-            std::string to_str();
     };
 }
 
