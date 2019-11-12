@@ -1,6 +1,6 @@
 #include <iostream>
 #include <fstream>
-#include "Lex.h"
+#include "lex/Lex.h"
 
 using namespace hdc;
 

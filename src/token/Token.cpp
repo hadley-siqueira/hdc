@@ -1,6 +1,6 @@
 #include <sstream>
 #include <iostream>
-#include "Token.h"
+#include "token/Token.h"
 
 using namespace hdc;
 

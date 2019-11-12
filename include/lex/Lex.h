@@ -4,7 +4,7 @@
 #include <vector>
 #include <stack>
 #include <map>
-#include "../token/Token.h"
+#include "token/Token.h"
 
 namespace hdc {
     class Lex {
