@@ -21,6 +21,6 @@ DotExpression::~DotExpression() {
 }
 
 /* Visitors */
-void DotExpression::accept(Visitor& visitor) {
-    visitor.visit(this);
+void DotExpression::accept(Visitor* visitor) {
+    visitor->visit(this);
 }

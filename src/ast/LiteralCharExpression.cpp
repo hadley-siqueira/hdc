@@ -17,6 +17,6 @@ LiteralCharExpression::~LiteralCharExpression() {
 }
 
 /* Visitors */
-void LiteralCharExpression::accept(Visitor& visitor) {
-    visitor.visit(this);
+void LiteralCharExpression::accept(Visitor* visitor) {
+    visitor->visit(this);
 }

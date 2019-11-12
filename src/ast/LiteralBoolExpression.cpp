@@ -17,6 +17,6 @@ LiteralBoolExpression::~LiteralBoolExpression() {
 }
 
 /* Visitors */
-void LiteralBoolExpression::accept(Visitor& visitor) {
-    visitor.visit(this);
+void LiteralBoolExpression::accept(Visitor* visitor) {
+    visitor->visit(this);
 }

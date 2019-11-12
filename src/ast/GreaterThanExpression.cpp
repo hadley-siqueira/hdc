@@ -21,6 +21,6 @@ GreaterThanExpression::~GreaterThanExpression() {
 }
 
 /* Visitors */
-void GreaterThanExpression::accept(Visitor& visitor) {
-    visitor.visit(this);
+void GreaterThanExpression::accept(Visitor* visitor) {
+    visitor->visit(this);
 }

@@ -17,6 +17,6 @@ LiteralDoubleExpression::~LiteralDoubleExpression() {
 }
 
 /* Visitors */
-void LiteralDoubleExpression::accept(Visitor& visitor) {
-    visitor.visit(this);
+void LiteralDoubleExpression::accept(Visitor* visitor) {
+    visitor->visit(this);
 }

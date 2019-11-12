@@ -12,6 +12,6 @@ UShortType::UShortType(Token& token) {
 }
 
 
-void UShortType::accept(Visitor& visitor) {
-    visitor.visit(this);
+void UShortType::accept(Visitor* visitor) {
+    visitor->visit(this);
 }

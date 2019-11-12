@@ -21,6 +21,6 @@ PlusExpression::~PlusExpression() {
 }
 
 /* Visitors */
-void PlusExpression::accept(Visitor& visitor) {
-    visitor.visit(this);
+void PlusExpression::accept(Visitor* visitor) {
+    visitor->visit(this);
 }

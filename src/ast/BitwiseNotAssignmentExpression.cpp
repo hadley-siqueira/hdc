@@ -21,6 +21,6 @@ BitwiseNotAssignmentExpression::~BitwiseNotAssignmentExpression() {
 }
 
 /* Visitors */
-void BitwiseNotAssignmentExpression::accept(Visitor& visitor) {
-    visitor.visit(this);
+void BitwiseNotAssignmentExpression::accept(Visitor* visitor) {
+    visitor->visit(this);
 }

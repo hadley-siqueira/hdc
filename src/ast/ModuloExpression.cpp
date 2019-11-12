@@ -21,6 +21,6 @@ ModuloExpression::~ModuloExpression() {
 }
 
 /* Visitors */
-void ModuloExpression::accept(Visitor& visitor) {
-    visitor.visit(this);
+void ModuloExpression::accept(Visitor* visitor) {
+    visitor->visit(this);
 }

@@ -12,6 +12,6 @@ IntType::IntType(Token& token) {
 }
 
 
-void IntType::accept(Visitor& visitor) {
-    visitor.visit(this);
+void IntType::accept(Visitor* visitor) {
+    visitor->visit(this);
 }

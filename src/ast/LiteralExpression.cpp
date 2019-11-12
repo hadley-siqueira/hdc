@@ -27,6 +27,6 @@ Token LiteralExpression::get_token() {
 }
 
 /* Visitors */
-void LiteralExpression::accept(Visitor& visitor) {
-    visitor.visit(this);
+void LiteralExpression::accept(Visitor* visitor) {
+    visitor->visit(this);
 }

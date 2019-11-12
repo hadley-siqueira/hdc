@@ -21,6 +21,6 @@ ModuloAssignmentExpression::~ModuloAssignmentExpression() {
 }
 
 /* Visitors */
-void ModuloAssignmentExpression::accept(Visitor& visitor) {
-    visitor.visit(this);
+void ModuloAssignmentExpression::accept(Visitor* visitor) {
+    visitor->visit(this);
 }

@@ -21,6 +21,6 @@ DereferenceExpression::~DereferenceExpression() {
 }
 
 /* Visitors */
-void DereferenceExpression::accept(Visitor& visitor) {
-    visitor.visit(this);
+void DereferenceExpression::accept(Visitor* visitor) {
+    visitor->visit(this);
 }

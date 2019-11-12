@@ -21,6 +21,6 @@ PlusAssignmentExpression::~PlusAssignmentExpression() {
 }
 
 /* Visitors */
-void PlusAssignmentExpression::accept(Visitor& visitor) {
-    visitor.visit(this);
+void PlusAssignmentExpression::accept(Visitor* visitor) {
+    visitor->visit(this);
 }

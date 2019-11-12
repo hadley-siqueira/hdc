@@ -27,7 +27,7 @@ BinaryOperator::~BinaryOperator() {
 }
 
 /* Setters */
-void BinaryOperator::set_left(Expression* left) {
+void BinaryOperator::setLeft(Expression* left) {
     if (this->left != NULL) {
         delete this->left;
     }
@@ -35,7 +35,7 @@ void BinaryOperator::set_left(Expression* left) {
     this->left = left;
 }
 
-void BinaryOperator::set_right(Expression* right) {
+void BinaryOperator::setRight(Expression* right) {
     if (this->right != NULL) {
         delete this->right;
     }
@@ -44,11 +44,11 @@ void BinaryOperator::set_right(Expression* right) {
 }
 
 /* Getters */
-Expression* BinaryOperator::get_left() {
+Expression* BinaryOperator::getLeft() {
     return left;
 }
 
-Expression* BinaryOperator::get_right() {
+Expression* BinaryOperator::getRight() {
     return right;
 }
 

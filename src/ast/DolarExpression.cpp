@@ -21,6 +21,6 @@ DolarExpression::~DolarExpression() {
 }
 
 /* Visitors */
-void DolarExpression::accept(Visitor& visitor) {
-    visitor.visit(this);
+void DolarExpression::accept(Visitor* visitor) {
+    visitor->visit(this);
 }

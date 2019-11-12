@@ -17,6 +17,6 @@ LiteralFloatExpression::~LiteralFloatExpression() {
 }
 
 /* Visitors */
-void LiteralFloatExpression::accept(Visitor& visitor) {
-    visitor.visit(this);
+void LiteralFloatExpression::accept(Visitor* visitor) {
+    visitor->visit(this);
 }

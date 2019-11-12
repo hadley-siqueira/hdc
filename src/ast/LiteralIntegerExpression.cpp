@@ -17,6 +17,6 @@ LiteralIntegerExpression::~LiteralIntegerExpression() {
 }
 
 /* Visitors */
-void LiteralIntegerExpression::accept(Visitor& visitor) {
-    visitor.visit(this);
+void LiteralIntegerExpression::accept(Visitor* visitor) {
+    visitor->visit(this);
 }

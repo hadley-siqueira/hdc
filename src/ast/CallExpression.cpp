@@ -59,7 +59,7 @@ void CallExpression::add_argument(Expression* expression) {
 }
 
 /* Visitors */
-void CallExpression::accept(Visitor& visitor) {
-    visitor.visit(this);
+void CallExpression::accept(Visitor* visitor) {
+    visitor->visit(this);
 }
 

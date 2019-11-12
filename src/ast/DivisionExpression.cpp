@@ -21,6 +21,6 @@ DivisionExpression::~DivisionExpression() {
 }
 
 /* Visitors */
-void DivisionExpression::accept(Visitor& visitor) {
-    visitor.visit(this);
+void DivisionExpression::accept(Visitor* visitor) {
+    visitor->visit(this);
 }

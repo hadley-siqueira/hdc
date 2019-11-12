@@ -6,12 +6,6 @@
 
 namespace hdc {
     class BinaryOperator : public Expression {
-        protected:
-            Expression* left;
-            Expression* right;
-            Token oper;
-            
-
         /* Constructors */
         public:
             BinaryOperator();
@@ -24,17 +18,22 @@ namespace hdc {
 
         /* Setters */
         public:
-            void set_left(Expression* left);
-            void set_right(Expression* right);
+            void setLeft(Expression* left);
+            void setRight(Expression* right);
 
         /* Getters */
         public:
-            Expression* get_left();
-            Expression* get_right();
+            Expression* getLeft();
+            Expression* getRight();
 
         /* Visitors */
         public:
             virtual void accept(Visitor* visitor);
+
+        protected:
+            Expression* left;
+            Expression* right;
+            Token oper;
     };
 }
 

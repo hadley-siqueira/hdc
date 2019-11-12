@@ -42,7 +42,7 @@ namespace hdc {
     class ASTNode {
         public:
             void set_kind(ASTKind kind);
-            ASTKind get_kind();
+            ASTKind getKind();
 
         /* Visitors */
         public:

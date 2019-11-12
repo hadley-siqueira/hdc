@@ -21,6 +21,6 @@ UnaryPlusExpression::~UnaryPlusExpression() {
 }
 
 /* Visitors */
-void UnaryPlusExpression::accept(Visitor& visitor) {
-    visitor.visit(this);
+void UnaryPlusExpression::accept(Visitor* visitor) {
+    visitor->visit(this);
 }

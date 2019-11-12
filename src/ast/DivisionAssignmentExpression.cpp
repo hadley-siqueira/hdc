@@ -21,6 +21,6 @@ DivisionAssignmentExpression::~DivisionAssignmentExpression() {
 }
 
 /* Visitors */
-void DivisionAssignmentExpression::accept(Visitor& visitor) {
-    visitor.visit(this);
+void DivisionAssignmentExpression::accept(Visitor* visitor) {
+    visitor->visit(this);
 }

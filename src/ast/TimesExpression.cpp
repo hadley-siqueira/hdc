@@ -21,6 +21,6 @@ TimesExpression::~TimesExpression() {
 }
 
 /* Visitors */
-void TimesExpression::accept(Visitor& visitor) {
-    visitor.visit(this);
+void TimesExpression::accept(Visitor* visitor) {
+    visitor->visit(this);
 }

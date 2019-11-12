@@ -17,6 +17,6 @@ LiteralSymbolExpression::~LiteralSymbolExpression() {
 }
 
 /* Visitors */
-void LiteralSymbolExpression::accept(Visitor& visitor) {
-    visitor.visit(this);
+void LiteralSymbolExpression::accept(Visitor* visitor) {
+    visitor->visit(this);
 }

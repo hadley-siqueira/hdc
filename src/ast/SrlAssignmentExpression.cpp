@@ -21,6 +21,6 @@ SrlAssignmentExpression::~SrlAssignmentExpression() {
 }
 
 /* Visitors */
-void SrlAssignmentExpression::accept(Visitor& visitor) {
-    visitor.visit(this);
+void SrlAssignmentExpression::accept(Visitor* visitor) {
+    visitor->visit(this);
 }

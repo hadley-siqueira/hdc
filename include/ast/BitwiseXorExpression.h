@@ -16,7 +16,7 @@ namespace hdc {
 
         /* Visitors */
         public:
-            virtual void accept(Visitor& visitor);
+            virtual void accept(Visitor* visitor);
     };
 }
 

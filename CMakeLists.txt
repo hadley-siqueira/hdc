@@ -8,8 +8,12 @@ set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -std=c++11")
 set(TOKEN_SRC src/token/Token.cpp)
 set(LEX_SRC src/lex/Lex.cpp)
 set(PARSER_SRC src/parser/Parser.cpp)
-set(AST_SRC src/ast/SourceFile.cpp src/ast/Import.cpp src/ast/Def.cpp src/ast/Class.cpp src/ast/Parameter.cpp
-
+set(AST_SRC
+    src/ast/SourceFile.cpp
+    src/ast/Import.cpp
+    src/ast/Def.cpp
+    src/ast/Class.cpp
+    src/ast/Parameter.cpp
     src/ast/AddressOfExpression.cpp
     src/ast/BitwiseXorAssignmentExpression.cpp
     src/ast/GreaterThanOrEqualExpression.cpp
@@ -31,7 +35,6 @@ set(AST_SRC src/ast/SourceFile.cpp src/ast/Import.cpp src/ast/Def.cpp src/ast/Cl
     src/ast/BinaryOperator.cpp
     src/ast/DereferenceExpression.cpp
     src/ast/IntegerDivisionAssignmentExpression.cpp
-    src/ast/LiteralOPERExpression.cpp
     src/ast/PlusExpression.cpp
     src/ast/SraAssignmentExpression.cpp
     src/ast/BitwiseAndAssignmentExpression.cpp
@@ -97,6 +100,7 @@ set(AST_SRC src/ast/SourceFile.cpp src/ast/Import.cpp src/ast/Def.cpp src/ast/Cl
     src/ast/Statement.cpp
     src/ast/CompoundStatement.cpp
     src/ast/WhileStatement.cpp
+    src/visitors/PrettyPrinter.cpp
 )
 
 set(SOURCES ${TOKEN_SRC} ${LEX_SRC} ${PARSER_SRC} ${AST_SRC} src/main.cpp)

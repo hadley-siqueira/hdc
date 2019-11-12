@@ -21,6 +21,6 @@ TimesAssignmentExpression::~TimesAssignmentExpression() {
 }
 
 /* Visitors */
-void TimesAssignmentExpression::accept(Visitor& visitor) {
-    visitor.visit(this);
+void TimesAssignmentExpression::accept(Visitor* visitor) {
+    visitor->visit(this);
 }

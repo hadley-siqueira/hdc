@@ -21,6 +21,6 @@ PreDecrementExpression::~PreDecrementExpression() {
 }
 
 /* Visitors */
-void PreDecrementExpression::accept(Visitor& visitor) {
-    visitor.visit(this);
+void PreDecrementExpression::accept(Visitor* visitor) {
+    visitor->visit(this);
 }

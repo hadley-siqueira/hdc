@@ -21,6 +21,6 @@ IntegerDivisionAssignmentExpression::~IntegerDivisionAssignmentExpression() {
 }
 
 /* Visitors */
-void IntegerDivisionAssignmentExpression::accept(Visitor& visitor) {
-    visitor.visit(this);
+void IntegerDivisionAssignmentExpression::accept(Visitor* visitor) {
+    visitor->visit(this);
 }

@@ -21,6 +21,6 @@ ParenthesisExpression::~ParenthesisExpression() {
 }
 
 /* Visitors */
-void ParenthesisExpression::accept(Visitor& visitor) {
-    visitor.visit(this);
+void ParenthesisExpression::accept(Visitor* visitor) {
+    visitor->visit(this);
 }

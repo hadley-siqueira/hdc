@@ -21,6 +21,6 @@ ShiftRightLogicalExpression::~ShiftRightLogicalExpression() {
 }
 
 /* Visitors */
-void ShiftRightLogicalExpression::accept(Visitor& visitor) {
-    visitor.visit(this);
+void ShiftRightLogicalExpression::accept(Visitor* visitor) {
+    visitor->visit(this);
 }

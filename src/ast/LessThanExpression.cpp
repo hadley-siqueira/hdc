@@ -21,6 +21,6 @@ LessThanExpression::~LessThanExpression() {
 }
 
 /* Visitors */
-void LessThanExpression::accept(Visitor& visitor) {
-    visitor.visit(this);
+void LessThanExpression::accept(Visitor* visitor) {
+    visitor->visit(this);
 }

@@ -21,6 +21,6 @@ BitwiseXorAssignmentExpression::~BitwiseXorAssignmentExpression() {
 }
 
 /* Visitors */
-void BitwiseXorAssignmentExpression::accept(Visitor& visitor) {
-    visitor.visit(this);
+void BitwiseXorAssignmentExpression::accept(Visitor* visitor) {
+    visitor->visit(this);
 }

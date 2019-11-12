@@ -21,6 +21,6 @@ GreaterThanOrEqualExpression::~GreaterThanOrEqualExpression() {
 }
 
 /* Visitors */
-void GreaterThanOrEqualExpression::accept(Visitor& visitor) {
-    visitor.visit(this);
+void GreaterThanOrEqualExpression::accept(Visitor* visitor) {
+    visitor->visit(this);
 }

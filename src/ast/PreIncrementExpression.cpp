@@ -21,6 +21,6 @@ PreIncrementExpression::~PreIncrementExpression() {
 }
 
 /* Visitors */
-void PreIncrementExpression::accept(Visitor& visitor) {
-    visitor.visit(this);
+void PreIncrementExpression::accept(Visitor* visitor) {
+    visitor->visit(this);
 }

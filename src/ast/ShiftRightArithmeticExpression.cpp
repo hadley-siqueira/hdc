@@ -21,6 +21,6 @@ ShiftRightArithmeticExpression::~ShiftRightArithmeticExpression() {
 }
 
 /* Visitors */
-void ShiftRightArithmeticExpression::accept(Visitor& visitor) {
-    visitor.visit(this);
+void ShiftRightArithmeticExpression::accept(Visitor* visitor) {
+    visitor->visit(this);
 }

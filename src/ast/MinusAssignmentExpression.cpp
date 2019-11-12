@@ -21,6 +21,6 @@ MinusAssignmentExpression::~MinusAssignmentExpression() {
 }
 
 /* Visitors */
-void MinusAssignmentExpression::accept(Visitor& visitor) {
-    visitor.visit(this);
+void MinusAssignmentExpression::accept(Visitor* visitor) {
+    visitor->visit(this);
 }

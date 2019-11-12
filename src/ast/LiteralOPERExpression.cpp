@@ -17,6 +17,6 @@ LiteralOPERExpression::~LiteralOPERExpression() {
 }
 
 /* Visitors */
-void LiteralOPERExpression::accept(Visitor& visitor) {
-    visitor.visit(this);
+void LiteralOPERExpression::accept(Visitor* visitor) {
+    visitor->visit(this);
 }

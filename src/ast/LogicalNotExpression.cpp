@@ -21,6 +21,6 @@ LogicalNotExpression::~LogicalNotExpression() {
 }
 
 /* Visitors */
-void LogicalNotExpression::accept(Visitor& visitor) {
-    visitor.visit(this);
+void LogicalNotExpression::accept(Visitor* visitor) {
+    visitor->visit(this);
 }

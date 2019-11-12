@@ -21,6 +21,6 @@ SizeofExpression::~SizeofExpression() {
 }
 
 /* Visitors */
-void SizeofExpression::accept(Visitor& visitor) {
-    visitor.visit(this);
+void SizeofExpression::accept(Visitor* visitor) {
+    visitor->visit(this);
 }

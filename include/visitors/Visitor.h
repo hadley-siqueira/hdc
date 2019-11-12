@@ -6,112 +6,106 @@
 namespace hdc {
     /* This is one of the base classes to visit ASTNodes */
     class Visitor {
-        protected:
-            std::string visitor_name;
-
-        protected:
-            void unhandled(std::string str);
-
         public:
-            virtual void visit(class SourceFile* file);
-            virtual void visit(class Import* import);
+            virtual void visit(class SourceFile* file)=0;
+            virtual void visit(class Import* import)=0;
 
-            virtual void visit(class Class* klass);
-            virtual void visit(class Def* def);
-            virtual void visit(class Parameter* parameter);
+            virtual void visit(class Class* klass)=0;
+            virtual void visit(class Def* def)=0;
+            virtual void visit(class Parameter* parameter)=0;
 
             /* Types */
-            virtual void visit(class Type* type);
-            virtual void visit(class IntType* type);
-            virtual void visit(class UIntType* type);
-            virtual void visit(class ShortType* type);
-            virtual void visit(class UShortType* type);
-            virtual void visit(class LongType* type);
-            virtual void visit(class ULongType* type);
-            virtual void visit(class CharType* type);
-            virtual void visit(class UCharType* type);
-            virtual void visit(class FloatType* type);
-            virtual void visit(class DoubleType* type);
-            virtual void visit(class VoidType* type);
-            virtual void visit(class BoolType* type);
-            virtual void visit(class SymbolType* type);
-            virtual void visit(class Int8Type* type);
-            virtual void visit(class Int16Type* type);
-            virtual void visit(class Int32Type* type);
-            virtual void visit(class Int64Type* type);
-            virtual void visit(class UInt8Type* type);
-            virtual void visit(class UInt16Type* type);
-            virtual void visit(class UInt32Type* type);
-            virtual void visit(class UInt64Type* type);
-            virtual void visit(class PointerType* type);
+            virtual void visit(class Type* type)=0;
+            virtual void visit(class IntType* type)=0;
+            virtual void visit(class UIntType* type)=0;
+            virtual void visit(class ShortType* type)=0;
+            virtual void visit(class UShortType* type)=0;
+            virtual void visit(class LongType* type)=0;
+            virtual void visit(class ULongType* type)=0;
+            virtual void visit(class CharType* type)=0;
+            virtual void visit(class UCharType* type)=0;
+            virtual void visit(class FloatType* type)=0;
+            virtual void visit(class DoubleType* type)=0;
+            virtual void visit(class VoidType* type)=0;
+            virtual void visit(class BoolType* type)=0;
+            virtual void visit(class SymbolType* type)=0;
+            virtual void visit(class Int8Type* type)=0;
+            virtual void visit(class Int16Type* type)=0;
+            virtual void visit(class Int32Type* type)=0;
+            virtual void visit(class Int64Type* type)=0;
+            virtual void visit(class UInt8Type* type)=0;
+            virtual void visit(class UInt16Type* type)=0;
+            virtual void visit(class UInt32Type* type)=0;
+            virtual void visit(class UInt64Type* type)=0;
+            virtual void visit(class PointerType* type)=0;
 
             /* Statements */
-            virtual void visit(class Statement* statement);
-            virtual void visit(class CompoundStatement* statement);
-            virtual void visit(class WhileStatement* statement);
+            virtual void visit(class Statement* statement)=0;
+            virtual void visit(class CompoundStatement* statement)=0;
+            virtual void visit(class WhileStatement* statement)=0;
 
             /* Expressions */
-            virtual void visit(class Expression* expression);
+            virtual void visit(class Expression* expression)=0;
 
             /* Unary Expressions */
-            virtual void visit(class LogicalNotExpression* expression);
-            virtual void visit(class BitwiseNotExpression* expression);
-            virtual void visit(class AddressOfExpression* expression);
-            virtual void visit(class UnaryMinusExpression* expression);
-            virtual void visit(class UnaryPlusExpression* expression);
-            virtual void visit(class DolarExpression* expression);
-            virtual void visit(class ParenthesisExpression* expression);
-            virtual void visit(class DereferenceExpression* expression);
-            virtual void visit(class PreIncrementExpression* expression);
-            virtual void visit(class PreDecrementExpression* expression);
-            virtual void visit(class SizeOfExpression* expression);
+            virtual void visit(class LogicalNotExpression* expression)=0;
+            virtual void visit(class BitwiseNotExpression* expression)=0;
+            virtual void visit(class AddressOfExpression* expression)=0;
+            virtual void visit(class UnaryMinusExpression* expression)=0;
+            virtual void visit(class UnaryPlusExpression* expression)=0;
+            virtual void visit(class DolarExpression* expression)=0;
+            virtual void visit(class ParenthesisExpression* expression)=0;
+            virtual void visit(class DereferenceExpression* expression)=0;
+            virtual void visit(class PreIncrementExpression* expression)=0;
+            virtual void visit(class PreDecrementExpression* expression)=0;
+            virtual void visit(class SizeOfExpression* expression)=0;
         
             /* Binary Expressions */
-            virtual void visit(class CallExpression* expression);
-            virtual void visit(class DotExpression* expression);
-            virtual void visit(class ArrowExpression* expression);
-            virtual void visit(class IndexExpression* expression);
+            virtual void visit(class CallExpression* expression)=0;
+            virtual void visit(class DotExpression* expression)=0;
+            virtual void visit(class ArrowExpression* expression)=0;
+            virtual void visit(class IndexExpression* expression)=0;
 
-            virtual void visit(class ShiftLeftLogicalExpression* expression);
-            virtual void visit(class ShiftRightLogicalExpression* expression);
-            virtual void visit(class ShiftRightArithmeticExpression* expression);
+            virtual void visit(class ShiftLeftLogicalExpression* expression)=0;
+            virtual void visit(class ShiftRightLogicalExpression* expression)=0;
+            virtual void visit(class ShiftRightArithmeticExpression* expression)=0;
 
-            virtual void visit(class BitwiseAndExpression* expression);
-            virtual void visit(class BitwiseXorExpression* expression);
-            virtual void visit(class BitwiseOrExpression* expression);
+            virtual void visit(class BitwiseAndExpression* expression)=0;
+            virtual void visit(class BitwiseXorExpression* expression)=0;
+            virtual void visit(class BitwiseOrExpression* expression)=0;
 
-            virtual void visit(class TimesExpression* expression);
-            virtual void visit(class DivisionExpression* expression);
-            virtual void visit(class IntegerDivisionExpression* expression);
-            virtual void visit(class ModuloExpression* expression);
+            virtual void visit(class TimesExpression* expression)=0;
+            virtual void visit(class DivisionExpression* expression)=0;
+            virtual void visit(class IntegerDivisionExpression* expression)=0;
+            virtual void visit(class ModuloExpression* expression)=0;
 
-            virtual void visit(class PlusExpression* expression);
-            virtual void visit(class MinusExpression* expression);
+            virtual void visit(class PlusExpression* expression)=0;
+            virtual void visit(class MinusExpression* expression)=0;
 
-            virtual void visit(class LessThanExpression* expression);
-            virtual void visit(class GreaterThanExpression* expression);
-            virtual void visit(class LessThanOrEqualExpression* expression);
-            virtual void visit(class GreaterThanOrEqualExpression* expression);
+            virtual void visit(class LessThanExpression* expression)=0;
+            virtual void visit(class GreaterThanExpression* expression)=0;
+            virtual void visit(class LessThanOrEqualExpression* expression)=0;
+            virtual void visit(class GreaterThanOrEqualExpression* expression)=0;
 
-            virtual void visit(class AssignmentExpression* expression);
-            virtual void visit(class BitwiseAndAssignmentExpression* expression);
-            virtual void visit(class BitwiseXorAssignmentExpression* expression);
-            virtual void visit(class BitwiseOrAssignmentExpression* expression);
-            virtual void visit(class BitwiseNotAssignmentExpression* expression);
-            virtual void visit(class DivisionAssignmentExpression* expression);
-            virtual void visit(class IntegerDivisionAssignmentExpression* expression);
-            virtual void visit(class MinusAssignmentExpression* expression);
-            virtual void visit(class ModuloAssignmentExpression* expression);
-            virtual void visit(class PlusAssignmentExpression* expression);
-            virtual void visit(class TimesAssignmentExpression* expression);
-            virtual void visit(class SllAssignmentExpression* expression);
-            virtual void visit(class SraAssignmentExpression* expression);
-            virtual void visit(class SrlAssignmentExpression* expression);
-            virtual void visit(class SpecialAssignmentExpression* expression);
+            virtual void visit(class AssignmentExpression* expression)=0;
+            virtual void visit(class BitwiseAndAssignmentExpression* expression)=0;
+            virtual void visit(class BitwiseXorAssignmentExpression* expression)=0;
+            virtual void visit(class BitwiseOrAssignmentExpression* expression)=0;
+            virtual void visit(class BitwiseNotAssignmentExpression* expression)=0;
+            virtual void visit(class DivisionAssignmentExpression* expression)=0;
+            virtual void visit(class IntegerDivisionAssignmentExpression* expression)=0;
+            virtual void visit(class MinusAssignmentExpression* expression)=0;
+            virtual void visit(class ModuloAssignmentExpression* expression)=0;
+            virtual void visit(class PlusAssignmentExpression* expression)=0;
+            virtual void visit(class TimesAssignmentExpression* expression)=0;
+            virtual void visit(class SllAssignmentExpression* expression)=0;
+            virtual void visit(class SraAssignmentExpression* expression)=0;
+            virtual void visit(class SrlAssignmentExpression* expression)=0;
+            virtual void visit(class SpecialAssignmentExpression* expression)=0;
 
-            virtual void visit(class LiteralIntegerExpression* expression);
+            virtual void visit(class LiteralIntegerExpression* expression)=0;
 
-            virtual void visit(class IdentifierExpression* id);
+            virtual void visit(class IdentifierExpression* id)=0;
     };
 }
 

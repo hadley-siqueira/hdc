@@ -37,7 +37,7 @@ Expression* UnaryOperator::get_expression() {
 }
 
 /* Visitors */
-void UnaryOperator::accept(Visitor& visitor) {
-    visitor.visit(this);
+void UnaryOperator::accept(Visitor* visitor) {
+    visitor->visit(this);
 }
 

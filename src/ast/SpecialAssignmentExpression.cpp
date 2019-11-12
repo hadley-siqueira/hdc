@@ -21,6 +21,6 @@ SpecialAssignmentExpression::~SpecialAssignmentExpression() {
 }
 
 /* Visitors */
-void SpecialAssignmentExpression::accept(Visitor& visitor) {
-    visitor.visit(this);
+void SpecialAssignmentExpression::accept(Visitor* visitor) {
+    visitor->visit(this);
 }

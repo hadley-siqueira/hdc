@@ -21,6 +21,6 @@ BitwiseAndExpression::~BitwiseAndExpression() {
 }
 
 /* Visitors */
-void BitwiseAndExpression::accept(Visitor& visitor) {
-    visitor.visit(this);
+void BitwiseAndExpression::accept(Visitor* visitor) {
+    visitor->visit(this);
 }

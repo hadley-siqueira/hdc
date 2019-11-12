@@ -3,6 +3,9 @@
 
 #include "token/Token.h"
 #include "lex/Lex.h"
+#include "parser/Parser.h"
+#include "ast/AST.h"
+#include "visitors/PrettyPrinter.h"
 
 using namespace std;
 using namespace hdc;
@@ -20,7 +23,32 @@ void testLex(string path) {
     }
 }
 
+void testParser(string path) {
+    Parser parser;
+    SourceFile* file;
+
+    file = parser.read(path);
+    delete file;
+}
+
+void testPrettyPrinter(string path) {
+    Parser parser;
+    PrettyPrinter printer;
+    SourceFile* file;
+
+    file = parser.read(path);
+    file->accept(&printer);
+    printer.print();
+
+    delete file;
+}
+
 int main(int argc, char* argv[]) {
-    testLex("/home/hadley/Projetos/hdc/samples/simple0.hd");
+    string path = "/home/hadley/Projetos/hdc/samples/simple0.hd";
+
+    testLex(path);
+    testParser(path);
+    testPrettyPrinter(path);
+
     return 0;
 }

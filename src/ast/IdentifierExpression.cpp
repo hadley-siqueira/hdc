@@ -39,6 +39,6 @@ std::string IdentifierExpression::get_name() {
 }
 
 /* Visitors */
-void IdentifierExpression::accept(Visitor& visitor) {
-    visitor.visit(this);
+void IdentifierExpression::accept(Visitor* visitor) {
+    visitor->visit(this);
 }

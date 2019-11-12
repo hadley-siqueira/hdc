@@ -14,7 +14,7 @@ namespace hdc {
             UShortType(Token& token);
 
         public:
-            virtual void accept(Visitor& visitor);
+            virtual void accept(Visitor* visitor);
     };
 }
 

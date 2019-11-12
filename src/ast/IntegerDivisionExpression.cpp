@@ -21,6 +21,6 @@ IntegerDivisionExpression::~IntegerDivisionExpression() {
 }
 
 /* Visitors */
-void IntegerDivisionExpression::accept(Visitor& visitor) {
-    visitor.visit(this);
+void IntegerDivisionExpression::accept(Visitor* visitor) {
+    visitor->visit(this);
 }

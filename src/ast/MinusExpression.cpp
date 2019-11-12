@@ -21,6 +21,6 @@ MinusExpression::~MinusExpression() {
 }
 
 /* Visitors */
-void MinusExpression::accept(Visitor& visitor) {
-    visitor.visit(this);
+void MinusExpression::accept(Visitor* visitor) {
+    visitor->visit(this);
 }
