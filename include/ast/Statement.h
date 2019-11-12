@@ -1,7 +1,7 @@
 #ifndef HDC_STATEMENT_H
 #define HDC_STATEMENT_H
 
-#include "ASTNode.h"
+#include "ast/ASTNode.h"
 
 namespace hdc {
     class Statement : public ASTNode {

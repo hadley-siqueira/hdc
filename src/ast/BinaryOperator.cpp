@@ -53,7 +53,7 @@ Expression* BinaryOperator::get_right() {
 }
 
 /* Visitors */
-void BinaryOperator::accept(Visitor& visitor) {
-    visitor.visit(this);
+void BinaryOperator::accept(Visitor* visitor) {
+    visitor->visit(this);
 }
 

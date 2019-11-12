@@ -3,7 +3,7 @@
 
 #include <vector>
 
-#include "Statement.h"
+#include "ast/Statement.h"
 
 namespace hdc {
     class CompoundStatement : public Statement {
@@ -23,7 +23,7 @@ namespace hdc {
             Statement* get_statement(int i);
 
         public:
-            virtual void accept(Visitor& visitor);
+            virtual void accept(Visitor* visitor);
     };
 }
 
