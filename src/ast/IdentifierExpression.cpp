@@ -4,12 +4,14 @@ using namespace hdc;
 
 IdentifierExpression::IdentifierExpression() {
     this->alias_flag = false;
+    this->setKind(AST_IDENTIFIER);
 }
 
 
 IdentifierExpression::IdentifierExpression(Token& name) {
     this->name = name;
     this->alias_flag = false;
+    this->setKind(AST_IDENTIFIER);
 }
 
 
@@ -17,6 +19,7 @@ IdentifierExpression::IdentifierExpression(Token& alias, Token& name) {
     this->name = name;
     this->alias = alias;
     this->alias_flag = true;
+    this->setKind(AST_IDENTIFIER);
 }
 
 
@@ -25,16 +28,16 @@ IdentifierExpression::~IdentifierExpression() {
 }
 
 /* Predicates */
-bool IdentifierExpression::has_alias() {
+bool IdentifierExpression::hasAlias() {
     return alias_flag;
 }
 
 /* Getters */
-std::string IdentifierExpression::get_alias() {
+std::string IdentifierExpression::getAlias() {
     return alias.getLexem();
 }
 
-std::string IdentifierExpression::get_name() {
+std::string IdentifierExpression::getName() {
     return name.getLexem();
 }
 

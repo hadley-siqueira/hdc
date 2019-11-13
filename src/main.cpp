@@ -6,6 +6,7 @@
 #include "parser/Parser.h"
 #include "ast/AST.h"
 #include "visitors/PrettyPrinter.h"
+#include "visitors/SymbolTableBuilderVisitor.h"
 
 using namespace std;
 using namespace hdc;
@@ -43,12 +44,28 @@ void testPrettyPrinter(string path) {
     delete file;
 }
 
+void testSymbolTableBuilder(string path) {
+    Parser parser;
+    PrettyPrinter printer;
+    SymbolTableBuilderVisitor sbuilder;
+    SourceFile* file;
+
+    file = parser.read(path);
+    file->accept(&printer);
+    printer.print();
+
+    file->accept(&sbuilder);
+
+    delete file;
+}
+
 int main(int argc, char* argv[]) {
-    string path = "/home/hadley/Projetos/hdc/samples/simple0.hd";
+    string path = "/home/hadley/Projetos/hdc/samples/simple01.hd";
 
     testLex(path);
     testParser(path);
     testPrettyPrinter(path);
+    testSymbolTableBuilder(path);
 
     return 0;
 }

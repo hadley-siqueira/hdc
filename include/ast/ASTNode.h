@@ -7,6 +7,7 @@ namespace hdc {
     enum ASTKind {
         AST_SOURCE,
         AST_CLASS,
+        AST_IDENTIFIER,
 
         /* Types */
         AST_PRIMITIVE_TYPE,
@@ -41,7 +42,7 @@ namespace hdc {
 
     class ASTNode {
         public:
-            void set_kind(ASTKind kind);
+            void setKind(ASTKind kind);
             ASTKind getKind();
 
         /* Visitors */

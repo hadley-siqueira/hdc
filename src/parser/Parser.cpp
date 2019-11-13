@@ -521,7 +521,7 @@ Def* Parser::parse_def() {
         ptype = parse_type();
         expect(TK_NEWLINE);
 
-        def->add_parameter(name, ptype);
+        def->addParameter(name, ptype);
     }
 
     def->set_statements(parse_statements());
@@ -573,11 +573,11 @@ SourceFile* Parser::read(std::string path) {
 
     while (true) { 
         if (lookahead(TK_IMPORT)) {
-            file->add_import(parse_import());
+            file->addImport(parse_import());
         } else if (lookahead(TK_DEF)) {
-            file->add_def(parse_def());
+            file->addDef(parse_def());
         } else if (lookahead(TK_CLASS)) {
-            file->add_class(parse_class());
+            file->addClass(parse_class());
         } else {
             break;
         }

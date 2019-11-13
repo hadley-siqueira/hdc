@@ -3,10 +3,11 @@
 using namespace hdc;
 
 Def::Def() {
-    klass = NULL;
-    file = NULL;
-    return_type = NULL;
-    statements = NULL;
+    klass = nullptr;
+    file = nullptr;
+    return_type = nullptr;
+    statements = nullptr;
+    symbolTable = nullptr;
 }
 
 
@@ -17,6 +18,7 @@ Def::~Def() {
 
     delete return_type;
     delete statements;
+    delete symbolTable;
 }
 
 
@@ -36,7 +38,7 @@ void Def::set_file(hdc::SourceFile* file) {
 
 
 void Def::set_return_type(Type* type) {
-    if (this->return_type != NULL) {
+    if (this->return_type != nullptr) {
         delete this->return_type;
     }
 
@@ -45,7 +47,7 @@ void Def::set_return_type(Type* type) {
 
 
 void Def::set_statements(CompoundStatement* statements) {
-    if (this->statements != NULL) {
+    if (this->statements != nullptr) {
         delete this->statements;
     }
 
@@ -53,31 +55,31 @@ void Def::set_statements(CompoundStatement* statements) {
 }
 
 
-std::string Def::get_name() {
+std::string Def::getName() {
     return name.getLexem();
 }
 
 
-Parameter* Def::get_parameter(int i) {
+Parameter* Def::getParameter(int i) {
     if (i < parameters.size()) {
         return parameters[i];
     } else {
-        return NULL;
+        return nullptr;
     }
 }
 
 
-Type* Def::get_return_type() {
+Type* Def::getReturnType() {
     return return_type;
 }
 
 
-CompoundStatement* Def::get_statements() {
+CompoundStatement* Def::getStatements() {
     return statements;
 }
 
 
-void Def::add_parameter(hdc::Token& name, Type* type) {
+void Def::addParameter(hdc::Token& name, Type* type) {
     parameters.push_back(new Parameter(name, type));
 }
 
@@ -88,4 +90,12 @@ int Def::n_parameters() {
 
 void Def::accept(Visitor* visitor) {
     visitor->visit(this);
+}
+
+SymbolTable* Def::getSymbolTable() const {
+    return symbolTable;
+}
+
+void Def::setSymbolTable(SymbolTable* value) {
+    symbolTable = value;
 }

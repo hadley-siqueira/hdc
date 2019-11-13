@@ -10,40 +10,50 @@
 #include "ast/Class.h"
 
 #include "visitors/Visitor.h"
+#include "symtab/SymbolTable.h"
 
 namespace hdc {
     class Class;
     class Def;
 
     class SourceFile : public ASTNode {
-        private:
-            std::string path;
-            std::vector<Class*> classes;
-            std::vector<Import*> imports;
-            std::vector<Def*> defs;
-
         public:
             SourceFile();
             SourceFile(std::string& path);
 
             ~SourceFile();
 
-            void add_import(Import* import);
-            void add_class(Class* klass);
-            void add_def(Def* def);
+            void addImport(Import* import);
+            void addClass(Class* klass);
+            void addDef(Def* def);
 
             int n_defs();
             int n_imports();
             int n_classes();
 
-            std::string get_path();
-            
-            Class* get_class(int i);
-            Def* get_def(int i);
-            Import* get_import(int i);
+            Class* getClass(int i);
+            Def* getDef(int i);
+            Import* getImport(int i);
 
+        /* Getters */
+        public:
+            std::string getPath();
+            SymbolTable* getSymbolTable() const;
+
+        /* Setters */
+        public:
+            void setSymbolTable(SymbolTable* value);
+
+        /* Visitors */
         public:
             virtual void accept(Visitor* visitor);
+
+        private:
+            std::string path;
+            std::vector<Class*> classes;
+            std::vector<Import*> imports;
+            std::vector<Def*> defs;
+            SymbolTable* symbolTable;
     };
 }
 

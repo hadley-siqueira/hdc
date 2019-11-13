@@ -20,12 +20,12 @@ namespace hdc {
 
         /* Predicates */
         public:
-            bool has_alias();
+            bool hasAlias();
 
         /* Getters */
         public:
-            std::string get_alias();
-            std::string get_name();
+            std::string getAlias();
+            std::string getName();
 
         /* Visitors */
         public:

@@ -34,23 +34,23 @@ void PrettyPrinter::print() {
 
 void PrettyPrinter::visit(SourceFile* file) {
     output << "Contents of file '";
-    output << file->get_path();
+    output << file->getPath();
     output << "'\n\n";
 
     for (int i = 0; i < file->n_imports(); ++i) {
-        file->get_import(i)->accept(this);
+        file->getImport(i)->accept(this);
         output << "\n";
     }
 
     output << "\n";
 
     for (int i = 0; i < file->n_defs(); ++i) {
-        file->get_def(i)->accept(this);
+        file->getDef(i)->accept(this);
         output << "\n\n";
     }
 
     for (int i = 0; i < file->n_classes(); ++i) {
-        file->get_class(i)->accept(this);
+        file->getClass(i)->accept(this);
         output << "\n\n";
     }
 }
@@ -82,18 +82,18 @@ void PrettyPrinter::visit(Class* klass) {
 
 void PrettyPrinter::visit(Def* def) {
     print_indentation();
-    output << "def " << def->get_name() << " : ";
-    def->get_return_type()->accept(this);
+    output << "def " << def->getName() << " : ";
+    def->getReturnType()->accept(this);
     output << "\n";
 
     indent();
 
     for (int i = 0; i < def->n_parameters(); ++i) {
-        def->get_parameter(i)->accept(this);
+        def->getParameter(i)->accept(this);
     }
 
     output << '\n';
-    def->get_statements()->accept(this);
+    def->getStatements()->accept(this);
     dedent();
 }
 
@@ -524,10 +524,10 @@ void PrettyPrinter::visit(LiteralIntegerExpression* expression) {
 }
 
 void PrettyPrinter::visit(IdentifierExpression* id) {
-    if (id->has_alias()) {
-        output << id->get_alias();
+    if (id->hasAlias()) {
+        output << id->getAlias();
         output << "::";
     }
 
-    output << id->get_name();
+    output << id->getName();
 }
