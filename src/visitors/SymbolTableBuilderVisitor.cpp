@@ -17,6 +17,7 @@ void SymbolTableBuilderVisitor::visit(SourceFile* file) {
     SymbolTable* oldSymbolTable = symbolTable;
     symbolTable = new SymbolTable();
     file->setSymbolTable(symbolTable);
+    currentSourceFile = file;
 
     // add functions to the symbolTable
     for (int i = 0; i < file->n_defs(); ++i) {
@@ -24,6 +25,10 @@ void SymbolTableBuilderVisitor::visit(SourceFile* file) {
     }
 
     // add classes
+    for (int i = 0; i < file->n_classes(); ++i) {
+        symbolTable->addClass(file->getClass(i));
+    }
+
     // add global variables
     // add constants
 

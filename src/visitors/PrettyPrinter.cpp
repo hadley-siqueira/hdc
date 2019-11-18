@@ -61,11 +61,11 @@ void PrettyPrinter::visit(Import* import) {
 }
 
 void PrettyPrinter::visit(Class* klass) {
-    output << "class " << klass->get_name();
+    output << "class " << klass->getName();
 
-    if (klass->has_parent()) {
+    if (klass->hasParent()) {
         output << "(";
-        klass->get_parent()->accept(this);
+        klass->getParent()->accept(this);
         output << ")";
     }
 
@@ -73,7 +73,7 @@ void PrettyPrinter::visit(Class* klass) {
     indent();
 
     for (int i = 0; i < klass->n_methods(); ++i) {
-        klass->get_method(i)->accept(this);
+        klass->getMethod(i)->accept(this);
         output << '\n';
     }
 

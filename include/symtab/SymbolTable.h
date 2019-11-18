@@ -16,6 +16,7 @@ namespace hdc {
 
         /* Actions */
         public:
+            void addClass(Class* klass);
             void addDef(Def* def);
             void addLocalVariable(LocalVariable* var);
             void addParameter(Parameter* parameter);

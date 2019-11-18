@@ -5,6 +5,7 @@
 
 namespace hdc {
     typedef enum SymbolKind {
+        SYMBOL_CLASS,
         SYMBOL_DEF,
         SYMBOL_METHOD,
         SYMBOL_PARAMETER,
@@ -14,6 +15,7 @@ namespace hdc {
     class Symbol {
         /* Constructors */
         public:
+            Symbol(Class* klass);
             Symbol(Def* def);
             Symbol(LocalVariable* var);
             Symbol(Parameter* parameter);

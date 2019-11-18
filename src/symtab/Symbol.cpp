@@ -3,19 +3,24 @@
 
 using namespace hdc;
 
+Symbol::Symbol(Class* klass) {
+    kind = SYMBOL_CLASS;
+    descriptor = klass;
+}
+
 hdc::Symbol::Symbol(hdc::Def* def) {
-    this->kind = SYMBOL_DEF;
-    this->descriptor = def;
+    kind = SYMBOL_DEF;
+    descriptor = def;
 }
 
 hdc::Symbol::Symbol(hdc::LocalVariable* var) {
-    this->kind = SYMBOL_LOCAL_VARIABLE;
-    this->descriptor = var;
+    kind = SYMBOL_LOCAL_VARIABLE;
+    descriptor = var;
 }
 
 Symbol::Symbol(Parameter* parameter) {
-    this->kind = SYMBOL_PARAMETER;
-    this->descriptor = parameter;
+    kind = SYMBOL_PARAMETER;
+    descriptor = parameter;
 }
 
 void* Symbol::getDescriptor() const {

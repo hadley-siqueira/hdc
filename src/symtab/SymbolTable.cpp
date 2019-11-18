@@ -6,6 +6,10 @@ bool hdc::SymbolTable::hasParent() {
     return parent != nullptr;
 }
 
+void SymbolTable::addClass(Class* klass) {
+    symbols[klass->getName()] = new Symbol(klass);
+}
+
 void SymbolTable::addDef(Def* def) {
     /*std::string name = def->getName();
 

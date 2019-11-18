@@ -101,6 +101,7 @@ namespace hdc {
             SymbolTable* symbolTable;
             Class* currentClass;
             Def* currentDef;
+            SourceFile* currentSourceFile;
             bool checkingAssignment;
     };
 }

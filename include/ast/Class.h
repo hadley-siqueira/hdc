@@ -23,22 +23,22 @@ namespace hdc {
 
         /* Setters */
         public:
-            void set_name(Token& token);
-            void set_parent(IdentifierExpression* parent);
+            void setName(Token& token);
+            void setParent(IdentifierExpression* parent);
 
         /* Getters */
         public:
-            std::string get_name();
-            IdentifierExpression* get_parent();
-            Def* get_method(int i);
+            std::string getName();
+            IdentifierExpression* getParent();
+            Def* getMethod(int i);
 
         /* Predicates */
         public:
-            bool has_parent();
+            bool hasParent();
             int n_methods();
 
         public:
-            void add_method(Def* def);
+            void addMethod(Def* def);
 
         /* Visitors */
         public:

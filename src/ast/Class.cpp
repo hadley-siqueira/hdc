@@ -18,11 +18,11 @@ Class::~Class() {
 }
 
 /* Setters */
-void Class::set_name(Token& token) {
+void Class::setName(Token& token) {
     name = token;
 }
 
-void Class::set_parent(IdentifierExpression* parent) {
+void Class::setParent(IdentifierExpression* parent) {
     if (this->parent != NULL) {
         delete this->parent;
     }
@@ -31,15 +31,15 @@ void Class::set_parent(IdentifierExpression* parent) {
 }
 
 /* Getters */
-std::string Class::get_name() {
+std::string Class::getName() {
     return name.getLexem();
 }
 
-IdentifierExpression* Class::get_parent() {
+IdentifierExpression* Class::getParent() {
     return parent;
 }
 
-Def* Class::get_method(int i) {
+Def* Class::getMethod(int i) {
     if (i < methods.size()) {
         return methods[i];
     }
@@ -48,7 +48,7 @@ Def* Class::get_method(int i) {
 }
 
 /* Predicates */
-bool Class::has_parent() {
+bool Class::hasParent() {
     return parent != NULL;
 }
 
@@ -56,7 +56,7 @@ int Class::n_methods() {
     return methods.size();
 }
 
-void Class::add_method(Def* def) {
+void Class::addMethod(Def* def) {
     methods.push_back(def);
     def->setClass(this);
     def->setFile(this->file);

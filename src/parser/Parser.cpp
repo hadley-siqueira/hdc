@@ -538,11 +538,11 @@ Class* Parser::parse_class() {
 
     expect(TK_CLASS);
     expect(TK_ID);
-    klass->set_name(*matched);
+    klass->setName(*matched);
     name = *matched;
 
     if (match(TK_LEFT_PARENTHESIS)) {
-        klass->set_parent(parse_identifier_expression());
+        klass->setParent(parse_identifier_expression());
         expect(TK_RIGHT_PARENTHESIS);
     }
 
@@ -552,7 +552,7 @@ Class* Parser::parse_class() {
 
     while (true) {
         if (lookahead(TK_DEF)) {
-            klass->add_method(parse_def());
+            klass->addMethod(parse_def());
         } else {
             break;
         }
