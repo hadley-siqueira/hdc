@@ -3,3 +3,15 @@ def main : void
 
     i = 0
     i = a + b
+
+    if a > 0:
+        i = i + 1
+
+        if a > 0:
+            i = i + 1
+            i = i + 1
+        elif a > 0:
+            i = i + 2
+        else:
+            i = 0
+            c = 0

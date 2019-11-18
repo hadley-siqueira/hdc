@@ -214,11 +214,16 @@ void PrettyPrinter::visit(Statement* statement) {
 
 void PrettyPrinter::visit(class CompoundStatement* statement) {
     if (statement->n_statements() > 0) {
-        for (int i = 0; i < statement->n_statements(); ++i) {
+        int i;
+
+        for (i = 0; i < statement->n_statements() - 1; ++i) {
             print_indentation();
             statement->getStatement(i)->accept(this);
             output << '\n';
         }
+
+        print_indentation();
+        statement->getStatement(i)->accept(this);
     } else {
         print_indentation();
         output << "pass\n";
@@ -229,6 +234,45 @@ void PrettyPrinter::visit(WhileStatement* statement) {
     output << "while ";
     statement->getExpression()->accept(this);
     output << ":\n";
+    indent();
+    statement->getStatements()->accept(this);
+    dedent();
+}
+
+void PrettyPrinter::visit(IfStatement* statement) {
+    output << "if ";
+    statement->getExpression()->accept(this);
+    output << ":\n";
+    indent();
+    statement->getStatements()->accept(this);
+    dedent();
+
+    if (statement->getElifStatement()) {
+        statement->getElifStatement()->accept(this);
+    } else if (statement->getElseStatement()) {
+        statement->getElseStatement()->accept(this);
+    }
+}
+
+void PrettyPrinter::visit(ElifStatement* statement) {
+    print_indentation();
+    output << "elif ";
+    statement->getExpression()->accept(this);
+    output << ":\n";
+    indent();
+    statement->getStatements()->accept(this);
+    dedent();
+
+    if (statement->getElifStatement()) {
+        statement->getElifStatement()->accept(this);
+    } else if (statement->getElseStatement()) {
+        statement->getElseStatement()->accept(this);
+    }
+}
+
+void PrettyPrinter::visit(ElseStatement* statement) {
+    print_indentation();
+    output << "else:\n";
     indent();
     statement->getStatements()->accept(this);
     dedent();

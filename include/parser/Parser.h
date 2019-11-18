@@ -44,6 +44,9 @@ namespace hdc {
             Expression* parse_expression();
 
             WhileStatement* parse_while_statement();
+            IfStatement* parse_if_statement();
+            ElifStatement* parse_elif_statement();
+            ElseStatement* parse_else_statement();
             CompoundStatement* parse_statements();
             Statement* parse_statement();
 

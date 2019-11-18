@@ -103,12 +103,13 @@ set(AST_SRC
     src/ast/Variable.cpp
     src/ast/LocalVariable.cpp
     src/ast/WhileStatement.cpp
-    src/visitors/PrettyPrinter.cpp
-    src/visitors/SymbolTableBuilderVisitor.cpp
+    src/ast/IfStatement.cpp
+    src/ast/ElifStatement.cpp
+    src/ast/ElseStatement.cpp
 )
 
+set(VISITORS_SRC src/visitors/PrettyPrinter.cpp src/visitors/SymbolTableBuilderVisitor.cpp)
 set(SYMTAB_SRC src/symtab/Symbol.cpp src/symtab/SymbolTable.cpp)
-
-set(SOURCES ${TOKEN_SRC} ${LEX_SRC} ${PARSER_SRC} ${AST_SRC} ${SYMTAB_SRC} src/main.cpp)
+set(SOURCES ${TOKEN_SRC} ${LEX_SRC} ${PARSER_SRC} ${AST_SRC} ${SYMTAB_SRC} ${VISITORS_SRC} src/main.cpp)
 
 add_executable(${PROJECT_NAME} ${SOURCES})

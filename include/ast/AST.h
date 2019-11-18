@@ -15,6 +15,9 @@
 #include "ast/Statement.h"
 #include "ast/CompoundStatement.h"
 #include "ast/WhileStatement.h"
+#include "ast/IfStatement.h"
+#include "ast/ElifStatement.h"
+#include "ast/ElseStatement.h"
 
 /* Expressions */
 #include "ast/Expression.h"

@@ -348,10 +348,58 @@ void SymbolTableBuilderVisitor::visit(IdentifierExpression* id) {
             LocalVariable* var = new LocalVariable(id->getNameAsToken());
             symbolTable->addLocalVariable(var);
             currentDef->addLocalVariable(var);
+            std::cout << "Adding variable: " << id->getName() << std::endl;
         }
     } else {
         if (symbolTable->hasLocalVariableOrParameter(id->getName()) == nullptr) {
             std::cout << "error: undefined variable '" << id->getName() << "'\n";
         }
     }
+}
+
+void SymbolTableBuilderVisitor::visit(IfStatement* statement) {
+    SymbolTable* oldSymbolTable;
+
+    oldSymbolTable = symbolTable;
+    symbolTable = new SymbolTable(symbolTable);
+    statement->setSymbolTable(symbolTable);
+    statement->getExpression()->accept(this);
+    statement->getStatements()->accept(this);
+
+    symbolTable = oldSymbolTable;
+
+    if (statement->getElifStatement()) {
+        statement->getElifStatement()->accept(this);
+    } else if (statement->getElseStatement()) {
+        statement->getElseStatement()->accept(this);
+    }
+}
+
+void SymbolTableBuilderVisitor::visit(ElifStatement* statement) {
+    SymbolTable* oldSymbolTable;
+
+    oldSymbolTable = symbolTable;
+    symbolTable = new SymbolTable(symbolTable);
+    statement->setSymbolTable(symbolTable);
+    statement->getExpression()->accept(this);
+    statement->getStatements()->accept(this);
+
+    symbolTable = oldSymbolTable;
+
+    if (statement->getElifStatement()) {
+        statement->getElifStatement()->accept(this);
+    } else if (statement->getElseStatement()) {
+        statement->getElseStatement()->accept(this);
+    }
+}
+
+void SymbolTableBuilderVisitor::visit(ElseStatement* statement) {
+    SymbolTable* oldSymbolTable;
+
+    oldSymbolTable = symbolTable;
+    symbolTable = new SymbolTable(symbolTable);
+    statement->setSymbolTable(symbolTable);
+    statement->getStatements()->accept(this);
+
+    symbolTable = oldSymbolTable;
 }

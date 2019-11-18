@@ -11,6 +11,15 @@ namespace hdc {
     class Symbol;
 
     class SymbolTable {
+        /* Constructors */
+        public:
+            SymbolTable();
+            SymbolTable(SymbolTable* parent);
+
+        /* Destructors */
+        public:
+            ~SymbolTable();
+
         public:
             bool hasParent();
 

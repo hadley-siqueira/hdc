@@ -464,15 +464,73 @@ WhileStatement* Parser::parse_while_statement() {
     statements = parse_statements();
     expect(TK_END);
 
-    return new WhileStatement(expression, statements);    
+    return new WhileStatement(expression, statements);
 }
 
+IfStatement* Parser::parse_if_statement() {
+    Expression* expression;
+    CompoundStatement* statements;
+
+    expect(TK_IF);
+    expression = parse_expression();
+
+    expect(TK_COLON);
+    expect(TK_NEWLINE);
+    expect(TK_BEGIN);
+    statements = parse_statements();
+    expect(TK_END);
+
+    if (lookahead(TK_ELIF)) {
+        return new IfStatement(expression, statements, parse_elif_statement());
+    } else if (lookahead(TK_ELSE)) {
+        return new IfStatement(expression, statements, parse_else_statement());
+    }
+
+    return new IfStatement(expression, statements);
+}
+
+ElifStatement* Parser::parse_elif_statement() {
+    Expression* expression;
+    CompoundStatement* statements;
+
+    expect(TK_ELIF);
+    expression = parse_expression();
+
+    expect(TK_COLON);
+    expect(TK_NEWLINE);
+    expect(TK_BEGIN);
+    statements = parse_statements();
+    expect(TK_END);
+
+    if (lookahead(TK_ELIF)) {
+        return new ElifStatement(expression, statements, parse_elif_statement());
+    } else if (lookahead(TK_ELSE)) {
+        return new ElifStatement(expression, statements, parse_else_statement());
+    }
+
+    return new ElifStatement(expression, statements);
+}
+
+ElseStatement* Parser::parse_else_statement() {
+    CompoundStatement* statements;
+
+    expect(TK_ELSE);
+    expect(TK_COLON);
+    expect(TK_NEWLINE);
+    expect(TK_BEGIN);
+    statements = parse_statements();
+    expect(TK_END);
+
+    return new ElseStatement(statements);
+}
 
 Statement* Parser::parse_statement() {
     Statement* statement;
 
     if (lookahead(TK_WHILE)) {
         statement = parse_while_statement();
+    } else if (lookahead(TK_IF)) {
+        statement = parse_if_statement();
     } else {
         statement = parse_expression();
         expect(TK_NEWLINE);

@@ -96,6 +96,10 @@ namespace hdc {
             virtual void visit(LiteralIntegerExpression* expression) override;
             virtual void visit(IdentifierExpression* id) override;
 
+            virtual void visit(IfStatement* statement) override;
+            virtual void visit(ElifStatement* statement) override;
+            virtual void visit(ElseStatement* statement) override;
+
         private:
             // pointer to the current symboltable
             SymbolTable* symbolTable;

@@ -2,6 +2,22 @@
 
 using namespace hdc;
 
+/* Constructors */
+SymbolTable::SymbolTable() {
+    parent = nullptr;
+}
+
+SymbolTable::SymbolTable(SymbolTable* parent) {
+    this->parent = parent;
+}
+
+/* Destructors */
+SymbolTable::~SymbolTable() {
+    for (std::map<std::string, Symbol*>::iterator it= symbols.begin(); it != symbols.end(); ++it) {
+        delete it->second;
+    }
+}
+
 bool hdc::SymbolTable::hasParent() {
     return parent != nullptr;
 }
