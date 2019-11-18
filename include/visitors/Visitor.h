@@ -12,7 +12,11 @@ namespace hdc {
 
             virtual void visit(class Class* klass)=0;
             virtual void visit(class Def* def)=0;
+
+            /* Variables */
+            virtual void visit(class Variable* variable)=0;
             virtual void visit(class Parameter* parameter)=0;
+            virtual void visit(class LocalVariable* variable)=0;
 
             /* Types */
             virtual void visit(class Type* type)=0;

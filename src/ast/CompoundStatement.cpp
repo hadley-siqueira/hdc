@@ -13,7 +13,7 @@ int CompoundStatement::n_statements() {
     return statements.size();
 }
 
-Statement* CompoundStatement::get_statement(int i) {
+Statement* CompoundStatement::getStatement(int i) {
     if (i < n_statements()) {
         return statements[i];
     } else {
@@ -21,7 +21,7 @@ Statement* CompoundStatement::get_statement(int i) {
     }
 }
 
-void CompoundStatement::add_statement(Statement* statement) {
+void CompoundStatement::addStatement(Statement* statement) {
     statements.push_back(statement);
 }
 

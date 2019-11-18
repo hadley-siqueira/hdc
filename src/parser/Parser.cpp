@@ -489,7 +489,7 @@ CompoundStatement* Parser::parse_statements() {
         expect(TK_NEWLINE);
     } else {
         while (!lookahead(TK_END)) {
-            statements->add_statement(parse_statement());
+            statements->addStatement(parse_statement());
         }
     }
 
@@ -502,10 +502,10 @@ Def* Parser::parse_def() {
     expect(TK_DEF);
     expect(TK_ID);
 
-    def->set_name(*matched);
+    def->setName(*matched);
 
     expect(TK_COLON);
-    def->set_return_type(parse_type());
+    def->setReturnType(parse_type());
 
     expect(TK_NEWLINE);
     expect(TK_BEGIN);
@@ -524,7 +524,7 @@ Def* Parser::parse_def() {
         def->addParameter(name, ptype);
     }
 
-    def->set_statements(parse_statements());
+    def->setStatements(parse_statements());
     expect(TK_END);
 
     return def;

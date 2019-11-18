@@ -26,6 +26,7 @@ namespace hdc {
         public:
             std::string getAlias();
             std::string getName();
+            Token& getNameAsToken();
 
         /* Visitors */
         public:

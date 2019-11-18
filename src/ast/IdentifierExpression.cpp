@@ -41,6 +41,10 @@ std::string IdentifierExpression::getName() {
     return name.getLexem();
 }
 
+Token& IdentifierExpression::getNameAsToken() {
+    return name;
+}
+
 /* Visitors */
 void IdentifierExpression::accept(Visitor* visitor) {
     visitor->visit(this);

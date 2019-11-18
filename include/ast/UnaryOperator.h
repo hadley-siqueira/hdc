@@ -22,11 +22,11 @@ namespace hdc {
 
         /* Setters */
         public:
-            void set_expression(Expression* left);
+            void setExpression(Expression* left);
 
         /* Getters */
         public:
-            Expression* get_expression();
+            Expression* getExpression();
 
         /* Visitors */
         public:

@@ -2,3 +2,4 @@ def main : void
     @a : int
 
     i = 0
+    i = a + b

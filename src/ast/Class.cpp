@@ -58,8 +58,8 @@ int Class::n_methods() {
 
 void Class::add_method(Def* def) {
     methods.push_back(def);
-    def->set_class(this);
-    def->set_file(this->file);
+    def->setClass(this);
+    def->setFile(this->file);
 }
 
 /* Visitors */

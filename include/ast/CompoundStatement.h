@@ -14,13 +14,13 @@ namespace hdc {
             virtual ~CompoundStatement();
 
         public:
-            void add_statement(Statement* statement);
+            void addStatement(Statement* statement);
 
             int n_statements();
 
         /* Getters */
         public:
-            Statement* get_statement(int i);
+            Statement* getStatement(int i);
 
         public:
             virtual void accept(Visitor* visitor);

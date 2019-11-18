@@ -8,8 +8,8 @@
 #include "ast/ASTNode.h"
 #include "ast/Class.h"
 #include "ast/Type.h"
+#include "ast/LocalVariable.h"
 #include "ast/Parameter.h"
-
 #include "ast/Statement.h"
 #include "ast/CompoundStatement.h"
 
@@ -18,6 +18,7 @@
 namespace hdc {
     class Class;
     class SourceFile;
+    class SymbolTable;
 
     class Def : public ASTNode {
         public:
@@ -26,11 +27,11 @@ namespace hdc {
 
         /* Setters */
         public:
-            void set_name(hdc::Token name);
-            void set_class(hdc::Class* klass);
-            void set_file(hdc::SourceFile* file);
-            void set_return_type(Type* type);
-            void set_statements(CompoundStatement* statements);
+            void setName(hdc::Token name);
+            void setClass(hdc::Class* klass);
+            void setFile(hdc::SourceFile* file);
+            void setReturnType(Type* type);
+            void setStatements(CompoundStatement* statements);
             void setSymbolTable(SymbolTable* value);
 
         /* Getters */
@@ -44,6 +45,9 @@ namespace hdc {
             void addParameter(hdc::Token& name, Type* type);
             int n_parameters();
 
+        public:
+            void addLocalVariable(LocalVariable* variable);
+
         /* Visitors */
         public:
             virtual void accept(Visitor* visitor);
@@ -54,6 +58,7 @@ namespace hdc {
             hdc::SourceFile* file;
             hdc::Type* return_type;
             std::vector<Parameter*> parameters;
+            std::vector<LocalVariable*> localVariables;
             CompoundStatement* statements;
             SymbolTable* symbolTable;
     };

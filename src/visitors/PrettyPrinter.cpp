@@ -100,9 +100,17 @@ void PrettyPrinter::visit(Def* def) {
 
 void PrettyPrinter::visit(Parameter* parameter) {
     print_indentation();
-    output << "@" << parameter->get_name() << " : ";
-    parameter->get_type()->accept(this);
+    output << "@" << parameter->getName() << " : ";
+    parameter->getType()->accept(this);
     output << "\n";
+}
+
+void PrettyPrinter::visit(Variable* variable) {
+
+}
+
+void PrettyPrinter::visit(LocalVariable* variable) {
+
 }
 
 
@@ -208,7 +216,7 @@ void PrettyPrinter::visit(class CompoundStatement* statement) {
     if (statement->n_statements() > 0) {
         for (int i = 0; i < statement->n_statements(); ++i) {
             print_indentation();
-            statement->get_statement(i)->accept(this);
+            statement->getStatement(i)->accept(this);
             output << '\n';
         }
     } else {
@@ -219,10 +227,10 @@ void PrettyPrinter::visit(class CompoundStatement* statement) {
 
 void PrettyPrinter::visit(WhileStatement* statement) {
     output << "while ";
-    statement->get_expression()->accept(this);
+    statement->getExpression()->accept(this);
     output << ":\n";
     indent();
-    statement->get_statements()->accept(this);
+    statement->getStatements()->accept(this);
     dedent();
 }
 
@@ -234,58 +242,58 @@ void PrettyPrinter::visit(Expression* expression) {
 /* Unary Expressions */
 void PrettyPrinter::visit(LogicalNotExpression* expression) {
     output << "!";
-    expression->get_expression()->accept(this);
+    expression->getExpression()->accept(this);
 }
 
 void PrettyPrinter::visit(BitwiseNotExpression* expression) {
     output << "~";
-    expression->get_expression()->accept(this);
+    expression->getExpression()->accept(this);
 }
 
 void PrettyPrinter::visit(AddressOfExpression* expression) {
     output << "&";
-    expression->get_expression()->accept(this);
+    expression->getExpression()->accept(this);
 }
 
 void PrettyPrinter::visit(UnaryMinusExpression* expression) {
     output << "-";
-    expression->get_expression()->accept(this);
+    expression->getExpression()->accept(this);
 }
 
 void PrettyPrinter::visit(UnaryPlusExpression* expression) {
     output << "+";
-    expression->get_expression()->accept(this);
+    expression->getExpression()->accept(this);
 }
 
 void PrettyPrinter::visit(DolarExpression* expression) {
     output << "$";
-    expression->get_expression()->accept(this);
+    expression->getExpression()->accept(this);
 }
 
 void PrettyPrinter::visit(ParenthesisExpression* expression) {
     output << "(";
-    expression->get_expression()->accept(this);
+    expression->getExpression()->accept(this);
     output << ")";
 }
 
 void PrettyPrinter::visit(DereferenceExpression* expression) {
     output << "*";
-    expression->get_expression()->accept(this);
+    expression->getExpression()->accept(this);
 }
 
 void PrettyPrinter::visit(PreIncrementExpression* expression) {
     output << "++";
-    expression->get_expression()->accept(this);
+    expression->getExpression()->accept(this);
 }
 
 void PrettyPrinter::visit(PreDecrementExpression* expression) {
     output << "--";
-    expression->get_expression()->accept(this);
+    expression->getExpression()->accept(this);
 }
 
 void PrettyPrinter::visit(SizeOfExpression* expression) {
     output << "sizeof(";
-    expression->get_expression()->accept(this);
+    expression->getExpression()->accept(this);
     output << ")";
 }
 

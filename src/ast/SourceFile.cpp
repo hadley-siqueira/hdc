@@ -9,7 +9,6 @@ SourceFile::SourceFile() {
 SourceFile::SourceFile(std::string& path) {
     this->path = path;
     this->symbolTable = nullptr;
-    this->symbolTable->setSourceFile(this);
 }
 
 SourceFile::~SourceFile() {
@@ -34,7 +33,7 @@ void SourceFile::addClass(Class* klass) {
 
 void SourceFile::addDef(Def* def) {
     defs.push_back(def);
-    def->set_file(this);
+    def->setFile(this);
 }
 
 

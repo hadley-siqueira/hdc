@@ -32,6 +32,8 @@ namespace hdc {
         public:
             Expression* get_expression();
             std::vector<Expression*>& get_arguments();
+            Expression* getArgument(int i);
+            int n_arguments();
 
         /* Actions */
         public:

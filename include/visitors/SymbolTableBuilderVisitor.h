@@ -11,14 +11,15 @@ namespace hdc {
         public:
             SymbolTableBuilderVisitor();
 
-        public:
         /* Visitor interface */
         public:
             virtual void visit(SourceFile* file) override;
             virtual void visit(Import* import) override;
-            virtual void visit(Class* klass) override;
-            virtual void visit(Def* def) override;
+            virtual void visit(Class* currentClass) override;
+            virtual void visit(Def* currentDef) override;
             virtual void visit(Parameter* parameter) override;
+            virtual void visit(Variable* variable) override;
+            virtual void visit(LocalVariable* variable) override;
             virtual void visit(Type* type) override;
             virtual void visit(IntType* type) override;
             virtual void visit(UIntType* type) override;
@@ -98,7 +99,9 @@ namespace hdc {
         private:
             // pointer to the current symboltable
             SymbolTable* symbolTable;
-            Class* klass;
+            Class* currentClass;
+            Def* currentDef;
+            bool checkingAssignment;
     };
 }
 #endif

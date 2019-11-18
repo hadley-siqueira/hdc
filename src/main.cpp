@@ -51,16 +51,17 @@ void testSymbolTableBuilder(string path) {
     SourceFile* file;
 
     file = parser.read(path);
-    file->accept(&printer);
-    printer.print();
+
 
     file->accept(&sbuilder);
+    file->accept(&printer);
+    printer.print();
 
     delete file;
 }
 
 int main(int argc, char* argv[]) {
-    string path = "/home/hadley/Projetos/hdc/samples/simple01.hd";
+    string path = "/home/hadley/Projetos/hdc/samples/simple02.hd";
 
     testLex(path);
     testParser(path);

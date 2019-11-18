@@ -1,10 +1,15 @@
 #ifndef HDC_AST_H
 #define HDC_AST_H
 
+#include "ast/ASTNode.h"
 #include "ast/SourceFile.h"
-#include "ast/AST.h"
 #include "ast/Def.h"
 #include "ast/Class.h"
+
+/* Variables */
+#include "ast/Variable.h"
+#include "ast/Parameter.h"
+#include "ast/LocalVariable.h"
 
 /* Statements */
 #include "ast/Statement.h"

@@ -16,28 +16,28 @@ Def::~Def() {
         delete parameters[i];
     }
 
+    for (int i = 0; i < localVariables.size(); ++i) {
+        delete localVariables[i];
+    }
+
     delete return_type;
     delete statements;
     delete symbolTable;
 }
 
-
-void Def::set_name(hdc::Token name) {
+void Def::setName(hdc::Token name) {
     this->name = name;
 }
 
-
-void Def::set_class(hdc::Class* klass) {
+void Def::setClass(hdc::Class* klass) {
     this->klass = klass;
 }
 
-
-void Def::set_file(hdc::SourceFile* file) {
+void Def::setFile(hdc::SourceFile* file) {
     this->file = file;
 }
 
-
-void Def::set_return_type(Type* type) {
+void Def::setReturnType(Type* type) {
     if (this->return_type != nullptr) {
         delete this->return_type;
     }
@@ -45,8 +45,7 @@ void Def::set_return_type(Type* type) {
     this->return_type = type;
 }
 
-
-void Def::set_statements(CompoundStatement* statements) {
+void Def::setStatements(CompoundStatement* statements) {
     if (this->statements != nullptr) {
         delete this->statements;
     }
@@ -54,11 +53,9 @@ void Def::set_statements(CompoundStatement* statements) {
     this->statements = statements;
 }
 
-
 std::string Def::getName() {
     return name.getLexem();
 }
-
 
 Parameter* Def::getParameter(int i) {
     if (i < parameters.size()) {
@@ -68,24 +65,27 @@ Parameter* Def::getParameter(int i) {
     }
 }
 
-
 Type* Def::getReturnType() {
     return return_type;
 }
-
 
 CompoundStatement* Def::getStatements() {
     return statements;
 }
 
 
+#include <iostream>
+
 void Def::addParameter(hdc::Token& name, Type* type) {
     parameters.push_back(new Parameter(name, type));
 }
 
-
 int Def::n_parameters() {
     return parameters.size();
+}
+
+void Def::addLocalVariable(LocalVariable* variable) {
+    localVariables.push_back(variable);
 }
 
 void Def::accept(Visitor* visitor) {

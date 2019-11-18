@@ -25,11 +25,11 @@ WhileStatement::~WhileStatement() {
 }
 
 /* Getters */
-Expression* WhileStatement::get_expression() {
+Expression* WhileStatement::getExpression() {
     return expression;
 }
 
-CompoundStatement* WhileStatement::get_statements() {
+CompoundStatement* WhileStatement::getStatements() {
     return statements;
 }
 

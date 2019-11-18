@@ -3,10 +3,12 @@
 
 #include <map>
 #include "symtab/Symbol.h"
+#include "ast/LocalVariable.h"
 
 namespace hdc {
     class SourceFile;
     class Def;
+    class Symbol;
 
     class SymbolTable {
         public:
@@ -15,11 +17,14 @@ namespace hdc {
         /* Actions */
         public:
             void addDef(Def* def);
-            void addLocalVar(std::string name);
+            void addLocalVariable(LocalVariable* var);
+            void addParameter(Parameter* parameter);
 
         /* Predicates */
         public:
             Symbol* has(std::string& name);
+            Symbol* hasLocalVariable(std::string& name);
+            Symbol* hasLocalVariableOrParameter(const std::string& name);
 
         /* Getters */
         public:

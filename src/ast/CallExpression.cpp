@@ -53,6 +53,14 @@ std::vector<Expression*>& CallExpression::get_arguments() {
     return arguments;
 }
 
+Expression* CallExpression::getArgument(int i) {
+    return arguments[i];
+}
+
+int CallExpression::n_arguments() {
+    return arguments.size();
+}
+
 /* Actions */
 void CallExpression::add_argument(Expression* expression) {
     arguments.push_back(expression);

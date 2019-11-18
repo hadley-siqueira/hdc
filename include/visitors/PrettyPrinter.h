@@ -2,7 +2,9 @@
 #define HDC_PRETTY_PRINTER_H
 
 #include <sstream>
+
 #include "visitors/Visitor.h"
+//#include "ast/AST.h"
 
 namespace hdc {
     class PrettyPrinter : public Visitor {
@@ -27,7 +29,11 @@ namespace hdc {
 
             virtual void visit(class Class* klass);
             virtual void visit(class Def* def);
+
+            /* Variables */
             virtual void visit(class Parameter* parameter);
+            virtual void visit(class Variable* variable);
+            virtual void visit(class LocalVariable* variable);
 
             /* Types */
             virtual void visit(class Type* type);

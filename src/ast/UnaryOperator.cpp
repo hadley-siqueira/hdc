@@ -23,7 +23,7 @@ UnaryOperator::~UnaryOperator() {
 }
 
 /* Setters */
-void UnaryOperator::set_expression(Expression* expression) {
+void UnaryOperator::setExpression(Expression* expression) {
     if (this->expression != NULL) {
         delete this->expression;
     }
@@ -32,7 +32,7 @@ void UnaryOperator::set_expression(Expression* expression) {
 }
 
 /* Getters */
-Expression* UnaryOperator::get_expression() {
+Expression* UnaryOperator::getExpression() {
     return expression;
 }
 

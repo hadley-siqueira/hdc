@@ -15,6 +15,14 @@ void SymbolTable::addDef(Def* def) {
     symbols[def->getName()] = symbol;*/
 }
 
+void SymbolTable::addLocalVariable(LocalVariable* var) {
+    symbols[var->getName()] = new Symbol(var);
+}
+
+void SymbolTable::addParameter(Parameter* parameter) {
+    symbols[parameter->getName()] = new Symbol(parameter);
+}
+
 Symbol* SymbolTable::has(std::string& name) {
     if (symbols.count(name) > 0) {
         return symbols[name];
@@ -23,6 +31,39 @@ Symbol* SymbolTable::has(std::string& name) {
     if (hasParent()) {
         return parent->has(name);
     }
+}
+
+Symbol* SymbolTable::hasLocalVariable(std::string& name) {
+    Symbol* symbol = symbols[name];
+
+    if (symbol != nullptr && symbol->getKind() == SYMBOL_LOCAL_VARIABLE) {
+        return symbol;
+    }
+
+    if (hasParent()) {
+        return parent->hasLocalVariable(name);
+    }
+
+    return nullptr;
+}
+
+Symbol*SymbolTable::hasLocalVariableOrParameter(const std::string& name) {
+    Symbol* symbol = symbols[name];
+    SymbolKind kind;
+
+    if (symbol != nullptr) {
+        kind = symbol->getKind();
+
+        if (kind == SYMBOL_LOCAL_VARIABLE || kind == SYMBOL_PARAMETER) {
+            return symbol;
+        }
+    }
+
+    if (hasParent()) {
+        return parent->hasLocalVariableOrParameter(name);
+    }
+
+    return nullptr;
 }
 
 SymbolTable* SymbolTable::getParent() const {

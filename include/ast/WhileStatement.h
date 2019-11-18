@@ -15,8 +15,8 @@ namespace hdc {
 
         /* Getters */
         public:
-            Expression* get_expression();
-            CompoundStatement* get_statements();
+            Expression* getExpression();
+            CompoundStatement* getStatements();
 
         /* Visitors */
         public:

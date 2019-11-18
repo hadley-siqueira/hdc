@@ -3,12 +3,13 @@ project(hdc)
 
 include_directories(include)
 
-set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -std=c++11")
+set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -std=c++11 -g")
 
 set(TOKEN_SRC src/token/Token.cpp)
 set(LEX_SRC src/lex/Lex.cpp)
 set(PARSER_SRC src/parser/Parser.cpp)
 set(AST_SRC
+    src/ast/ASTNode.cpp
     src/ast/SourceFile.cpp
     src/ast/Import.cpp
     src/ast/Def.cpp
@@ -99,6 +100,8 @@ set(AST_SRC
     src/ast/UInt8Type.cpp
     src/ast/Statement.cpp
     src/ast/CompoundStatement.cpp
+    src/ast/Variable.cpp
+    src/ast/LocalVariable.cpp
     src/ast/WhileStatement.cpp
     src/visitors/PrettyPrinter.cpp
     src/visitors/SymbolTableBuilderVisitor.cpp
