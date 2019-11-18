@@ -31,6 +31,8 @@ Symbol* SymbolTable::has(std::string& name) {
     if (hasParent()) {
         return parent->has(name);
     }
+
+    return nullptr;
 }
 
 Symbol* SymbolTable::hasLocalVariable(std::string& name) {

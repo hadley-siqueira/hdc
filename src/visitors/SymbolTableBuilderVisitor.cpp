@@ -226,11 +226,30 @@ void SymbolTableBuilderVisitor::visit(PlusExpression* expression) {
     expression->getRight()->accept(this);
 }
 
-void SymbolTableBuilderVisitor::visit(MinusExpression* expression) {}
-void SymbolTableBuilderVisitor::visit(LessThanExpression* expression) {}
-void SymbolTableBuilderVisitor::visit(GreaterThanExpression* expression) {}
-void SymbolTableBuilderVisitor::visit(LessThanOrEqualExpression* expression) {}
-void SymbolTableBuilderVisitor::visit(GreaterThanOrEqualExpression* expression) {}
+void SymbolTableBuilderVisitor::visit(MinusExpression* expression) {
+    expression->getLeft()->accept(this);
+    expression->getRight()->accept(this);
+}
+
+void SymbolTableBuilderVisitor::visit(LessThanExpression* expression) {
+    expression->getLeft()->accept(this);
+    expression->getRight()->accept(this);
+}
+
+void SymbolTableBuilderVisitor::visit(GreaterThanExpression* expression) {
+    expression->getLeft()->accept(this);
+    expression->getRight()->accept(this);
+}
+
+void SymbolTableBuilderVisitor::visit(LessThanOrEqualExpression* expression) {
+    expression->getLeft()->accept(this);
+    expression->getRight()->accept(this);
+}
+
+void SymbolTableBuilderVisitor::visit(GreaterThanOrEqualExpression* expression) {
+    expression->getLeft()->accept(this);
+    expression->getRight()->accept(this);
+}
 
 void SymbolTableBuilderVisitor::visit(AssignmentExpression* expression) {
     bool oldCheckingAssignment;
@@ -246,20 +265,76 @@ void SymbolTableBuilderVisitor::visit(AssignmentExpression* expression) {
     checkingAssignment = oldCheckingAssignment;
 }
 
-void SymbolTableBuilderVisitor::visit(BitwiseAndAssignmentExpression* expression) {}
-void SymbolTableBuilderVisitor::visit(BitwiseXorAssignmentExpression* expression) {}
-void SymbolTableBuilderVisitor::visit(BitwiseOrAssignmentExpression* expression) {}
-void SymbolTableBuilderVisitor::visit(BitwiseNotAssignmentExpression* expression) {}
-void SymbolTableBuilderVisitor::visit(DivisionAssignmentExpression* expression) {}
-void SymbolTableBuilderVisitor::visit(IntegerDivisionAssignmentExpression* expression) {}
-void SymbolTableBuilderVisitor::visit(MinusAssignmentExpression* expression) {}
-void SymbolTableBuilderVisitor::visit(ModuloAssignmentExpression* expression) {}
-void SymbolTableBuilderVisitor::visit(PlusAssignmentExpression* expression) {}
-void SymbolTableBuilderVisitor::visit(TimesAssignmentExpression* expression) {}
-void SymbolTableBuilderVisitor::visit(SllAssignmentExpression* expression) {}
-void SymbolTableBuilderVisitor::visit(SraAssignmentExpression* expression) {}
-void SymbolTableBuilderVisitor::visit(SrlAssignmentExpression* expression) {}
-void SymbolTableBuilderVisitor::visit(SpecialAssignmentExpression* expression) {}
+void SymbolTableBuilderVisitor::visit(BitwiseAndAssignmentExpression* expression) {
+    expression->getLeft()->accept(this);
+    expression->getRight()->accept(this);
+}
+
+void SymbolTableBuilderVisitor::visit(BitwiseXorAssignmentExpression* expression) {
+    expression->getLeft()->accept(this);
+    expression->getRight()->accept(this);
+}
+
+void SymbolTableBuilderVisitor::visit(BitwiseOrAssignmentExpression* expression) {
+    expression->getLeft()->accept(this);
+    expression->getRight()->accept(this);
+}
+
+void SymbolTableBuilderVisitor::visit(BitwiseNotAssignmentExpression* expression) {
+    expression->getLeft()->accept(this);
+    expression->getRight()->accept(this);
+}
+
+void SymbolTableBuilderVisitor::visit(DivisionAssignmentExpression* expression) {
+    expression->getLeft()->accept(this);
+    expression->getRight()->accept(this);
+}
+
+void SymbolTableBuilderVisitor::visit(IntegerDivisionAssignmentExpression* expression) {
+    expression->getLeft()->accept(this);
+    expression->getRight()->accept(this);
+}
+
+void SymbolTableBuilderVisitor::visit(MinusAssignmentExpression* expression) {
+    expression->getLeft()->accept(this);
+    expression->getRight()->accept(this);
+}
+
+void SymbolTableBuilderVisitor::visit(ModuloAssignmentExpression* expression) {
+    expression->getLeft()->accept(this);
+    expression->getRight()->accept(this);
+}
+
+void SymbolTableBuilderVisitor::visit(PlusAssignmentExpression* expression) {
+    expression->getLeft()->accept(this);
+    expression->getRight()->accept(this);
+}
+
+void SymbolTableBuilderVisitor::visit(TimesAssignmentExpression* expression) {
+    expression->getLeft()->accept(this);
+    expression->getRight()->accept(this);
+}
+
+void SymbolTableBuilderVisitor::visit(SllAssignmentExpression* expression) {
+    expression->getLeft()->accept(this);
+    expression->getRight()->accept(this);
+}
+
+void SymbolTableBuilderVisitor::visit(SraAssignmentExpression* expression) {
+    expression->getLeft()->accept(this);
+    expression->getRight()->accept(this);
+}
+
+void SymbolTableBuilderVisitor::visit(SrlAssignmentExpression* expression) {
+    expression->getLeft()->accept(this);
+    expression->getRight()->accept(this);
+}
+
+void SymbolTableBuilderVisitor::visit(SpecialAssignmentExpression* expression) {
+    expression->getLeft()->accept(this);
+    expression->getRight()->accept(this);
+}
+
 void SymbolTableBuilderVisitor::visit(LiteralIntegerExpression* expression) {}
 
 void SymbolTableBuilderVisitor::visit(IdentifierExpression* id) {
