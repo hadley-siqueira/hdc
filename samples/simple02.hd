@@ -26,3 +26,12 @@ def main : void
 
     while a != 0x2 + a:
         i = i - 1
+
+        while a == 9:
+            while a == 9:
+                i = 0
+
+            if a == 0:
+                i = 0
+            else:
+                i = 1

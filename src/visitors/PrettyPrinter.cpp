@@ -255,6 +255,7 @@ void PrettyPrinter::visit(IfStatement* statement) {
 }
 
 void PrettyPrinter::visit(ElifStatement* statement) {
+    output << "\n";
     print_indentation();
     output << "elif ";
     statement->getExpression()->accept(this);
@@ -271,6 +272,7 @@ void PrettyPrinter::visit(ElifStatement* statement) {
 }
 
 void PrettyPrinter::visit(ElseStatement* statement) {
+    output << "\n";
     print_indentation();
     output << "else:\n";
     indent();
