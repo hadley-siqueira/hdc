@@ -63,6 +63,8 @@
 #include "ast/GreaterThanExpression.h"
 #include "ast/LessThanOrEqualExpression.h"
 #include "ast/GreaterThanOrEqualExpression.h"
+#include "ast/EqualExpression.h"
+#include "ast/NotEqualExpression.h"
 
 #include "ast/AssignmentExpression.h"
 #include "ast/BitwiseAndAssignmentExpression.h"

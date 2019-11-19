@@ -480,6 +480,18 @@ void PrettyPrinter::visit(GreaterThanOrEqualExpression* expression) {
     expression->getRight()->accept(this);
 }
 
+void PrettyPrinter::visit(EqualExpression* expression) {
+    expression->getLeft()->accept(this);
+    output << " == ";
+    expression->getRight()->accept(this);
+}
+
+void PrettyPrinter::visit(NotEqualExpression* expression) {
+    expression->getLeft()->accept(this);
+    output << " != ";
+    expression->getRight()->accept(this);
+}
+
 void PrettyPrinter::visit(AssignmentExpression* expression) {
     expression->getLeft()->accept(this);
     output << " = ";

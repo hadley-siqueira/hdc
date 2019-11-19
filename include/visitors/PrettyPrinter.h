@@ -110,6 +110,8 @@ namespace hdc {
             virtual void visit(class GreaterThanExpression* expression);
             virtual void visit(class LessThanOrEqualExpression* expression);
             virtual void visit(class GreaterThanOrEqualExpression* expression);
+            virtual void visit(class EqualExpression* expression);
+            virtual void visit(class NotEqualExpression* expression);
 
             virtual void visit(class AssignmentExpression* expression);
             virtual void visit(class BitwiseAndAssignmentExpression* expression);

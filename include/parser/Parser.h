@@ -38,6 +38,7 @@ namespace hdc {
             Expression* parse_term_expression();
             Expression* parse_arith_expression();
             Expression* parse_relational_expression();
+            Expression* parse_equality_expression();
 
             Expression* parse_assignment_expression();
 

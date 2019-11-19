@@ -53,6 +53,8 @@ set(AST_SRC
     src/ast/BitwiseNotAssignmentExpression.cpp
     src/ast/DolarExpression.cpp
     src/ast/LessThanOrEqualExpression.cpp
+    src/ast/EqualExpression.cpp
+    src/ast/NotEqualExpression.cpp
     src/ast/LogicalNotExpression.cpp
     src/ast/ShiftLeftLogicalExpression.cpp
     src/ast/TimesExpression.cpp

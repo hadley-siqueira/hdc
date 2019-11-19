@@ -433,6 +433,7 @@ void Lex::getNumber() {
     }
 
     endLexem();
+    lexemEnd--;
     createToken(kind);
 }
 

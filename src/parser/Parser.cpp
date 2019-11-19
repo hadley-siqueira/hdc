@@ -403,41 +403,60 @@ Expression* Parser::parse_relational_expression() {
     return expression;
 }
 
-Expression* Parser::parse_assignment_expression() {
+Expression*Parser::parse_equality_expression() {
     Token oper;
     Expression* expression = parse_relational_expression();
 
     while (true) {
+        if (match(TK_EQ)) {
+            oper = *matched;
+            expression = new EqualExpression(oper, expression, parse_relational_expression());
+        } else if (match(TK_NE)) {
+            oper = *matched;
+            expression = new NotEqualExpression(oper, expression, parse_relational_expression());
+        } else {
+            break;
+        }
+    }
+
+    return expression;
+}
+
+Expression* Parser::parse_assignment_expression() {
+    Token oper;
+    Expression* expression = parse_equality_expression();
+
+    while (true) {
         if (match(TK_ASSIGNMENT)) {
-            expression = new AssignmentExpression(oper, expression, parse_relational_expression());
+            expression = new AssignmentExpression(oper, expression, parse_equality_expression());
         } else if (match(TK_BITWISE_AND_ASSIGNMENT)) {
-            expression = new BitwiseAndAssignmentExpression(oper, expression, parse_relational_expression());
+            expression = new BitwiseAndAssignmentExpression(oper, expression, parse_equality_expression());
         } else if (match(TK_BITWISE_XOR_ASSIGNMENT)) {
-            expression = new BitwiseXorAssignmentExpression(oper, expression, parse_relational_expression());
+            expression = new BitwiseXorAssignmentExpression(oper, expression, parse_equality_expression());
         } else if (match(TK_BITWISE_OR_ASSIGNMENT)) {
-            expression = new BitwiseOrAssignmentExpression(oper, expression, parse_relational_expression());
+            expression = new BitwiseOrAssignmentExpression(oper, expression, parse_equality_expression());
         } else if (match(TK_BITWISE_NOT_ASSIGNMENT)) {
-            expression = new BitwiseNotAssignmentExpression(oper, expression, parse_relational_expression());
+            expression = new BitwiseNotAssignmentExpression(oper, expression, parse_equality_expression());
         } else if (match(TK_DIVISION_ASSIGNMENT)) {
-            expression = new DivisionAssignmentExpression(oper, expression, parse_relational_expression());
+            expression = new DivisionAssignmentExpression(oper, expression, parse_equality_expression());
         } else if (match(TK_INTEGER_DIVISION_ASSIGNMENT)) {
-            expression = new IntegerDivisionAssignmentExpression(oper, expression, parse_relational_expression());
+            expression = new IntegerDivisionAssignmentExpression(oper, expression, parse_equality_expression());
         } else if (match(TK_MINUS_ASSIGNMENT)) {
-            expression = new MinusAssignmentExpression(oper, expression, parse_relational_expression());
+            expression = new MinusAssignmentExpression(oper, expression, parse_equality_expression());
         } else if (match(TK_MODULO_ASSIGNMENT)) {
-            expression = new ModuloAssignmentExpression(oper, expression, parse_relational_expression());
+            expression = new ModuloAssignmentExpression(oper, expression, parse_equality_expression());
         } else if (match(TK_PLUS_ASSIGNMENT)) {
-            expression = new PlusAssignmentExpression(oper, expression, parse_relational_expression());
+            expression = new PlusAssignmentExpression(oper, expression, parse_equality_expression());
         } else if (match(TK_TIMES_ASSIGNMENT)) {
-            expression = new TimesAssignmentExpression(oper, expression, parse_relational_expression());
+            expression = new TimesAssignmentExpression(oper, expression, parse_equality_expression());
         } else if (match(TK_SLL_ASSIGNMENT)) {
-            expression = new SllAssignmentExpression(oper, expression, parse_relational_expression());
+            expression = new SllAssignmentExpression(oper, expression, parse_equality_expression());
         } else if (match(TK_SRA_ASSIGNMENT)) {
-            expression = new SraAssignmentExpression(oper, expression, parse_relational_expression());
+            expression = new SraAssignmentExpression(oper, expression, parse_equality_expression());
         } else if (match(TK_SRL_ASSIGNMENT)) {
-            expression = new SrlAssignmentExpression(oper, expression, parse_relational_expression());
+            expression = new SrlAssignmentExpression(oper, expression, parse_equality_expression());
         } else if (match(TK_SPECIAL_ASSIGNMENT)) {
-            expression = new SpecialAssignmentExpression(oper, expression, parse_relational_expression());
+            expression = new SpecialAssignmentExpression(oper, expression, parse_equality_expression());
         } else {
             break;
         }

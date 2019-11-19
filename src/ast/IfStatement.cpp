@@ -7,6 +7,7 @@ IfStatement::IfStatement(Expression* expression, CompoundStatement* statements) 
     this->statements = statements;
     this->elifStatement = nullptr;
     this->elseStatement = nullptr;
+    this->symbolTable = nullptr;
 }
 
 IfStatement::IfStatement(Expression* expression, CompoundStatement* statements, ElifStatement* elifStatement) {
@@ -14,6 +15,7 @@ IfStatement::IfStatement(Expression* expression, CompoundStatement* statements, 
     this->statements = statements;
     this->elifStatement = elifStatement;
     this->elseStatement = nullptr;
+    this->symbolTable = nullptr;
 }
 
 IfStatement::IfStatement(Expression* expression, CompoundStatement* statements, ElseStatement* elseStatement) {
@@ -21,6 +23,7 @@ IfStatement::IfStatement(Expression* expression, CompoundStatement* statements, 
     this->statements = statements;
     this->elifStatement = nullptr;
     this->elseStatement = elseStatement;
+    this->symbolTable = nullptr;
 }
 
 IfStatement::~IfStatement() {
@@ -28,6 +31,7 @@ IfStatement::~IfStatement() {
     delete statements;
     delete elifStatement;
     delete elseStatement;
+    delete symbolTable;
 }
 
 ElifStatement* IfStatement::getElifStatement() const {

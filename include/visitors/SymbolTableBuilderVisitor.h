@@ -77,6 +77,8 @@ namespace hdc {
             virtual void visit(LessThanExpression* expression) override;
             virtual void visit(GreaterThanExpression* expression) override;
             virtual void visit(LessThanOrEqualExpression* expression) override;
+            virtual void visit(EqualExpression* expression) override;
+            virtual void visit(NotEqualExpression* expression) override;
             virtual void visit(GreaterThanOrEqualExpression* expression) override;
             virtual void visit(AssignmentExpression* expression) override;
             virtual void visit(BitwiseAndAssignmentExpression* expression) override;

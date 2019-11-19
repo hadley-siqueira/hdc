@@ -251,6 +251,16 @@ void SymbolTableBuilderVisitor::visit(LessThanOrEqualExpression* expression) {
     expression->getRight()->accept(this);
 }
 
+void SymbolTableBuilderVisitor::visit(EqualExpression* expression) {
+    expression->getLeft()->accept(this);
+    expression->getRight()->accept(this);
+}
+
+void SymbolTableBuilderVisitor::visit(NotEqualExpression* expression) {
+    expression->getLeft()->accept(this);
+    expression->getRight()->accept(this);
+}
+
 void SymbolTableBuilderVisitor::visit(GreaterThanOrEqualExpression* expression) {
     expression->getLeft()->accept(this);
     expression->getRight()->accept(this);
