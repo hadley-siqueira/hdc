@@ -7,6 +7,7 @@
 #include "ast/AST.h"
 #include "visitors/PrettyPrinter.h"
 #include "visitors/SymbolTableBuilderVisitor.h"
+#include "visitors/CppPrinter.h"
 
 using namespace std;
 using namespace hdc;
@@ -60,13 +61,30 @@ void testSymbolTableBuilder(string path) {
     delete file;
 }
 
+void testCppPrinter(string path) {
+    Parser parser;
+    CppPrinter printer;
+    SourceFile* file;
+    SymbolTableBuilderVisitor sbuilder;
+
+    file = parser.read(path);
+
+    file->accept(&sbuilder);
+    file->accept(&printer);
+
+    printer.print();
+
+    delete file;
+}
+
 int main(int argc, char* argv[]) {
     string path = "/home/hadley/Projetos/hdc/samples/simple02.hd";
 
-    testLex(path);
-    testParser(path);
-    testPrettyPrinter(path);
-    testSymbolTableBuilder(path);
+    //testLex(path);
+    //testParser(path);
+    //testPrettyPrinter(path);
+    //testSymbolTableBuilder(path);
+    testCppPrinter(path);
 
     return 0;
 }

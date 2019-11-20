@@ -23,7 +23,7 @@ PointerType::~PointerType() {
 }
 
 
-Type* PointerType::get_subtype() {
+Type* PointerType::getSubtype() {
     return subtype;
 }
 

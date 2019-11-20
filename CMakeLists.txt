@@ -110,7 +110,7 @@ set(AST_SRC
     src/ast/ElseStatement.cpp
 )
 
-set(VISITORS_SRC src/visitors/PrettyPrinter.cpp src/visitors/SymbolTableBuilderVisitor.cpp)
+set(VISITORS_SRC src/visitors/PrettyPrinter.cpp src/visitors/SymbolTableBuilderVisitor.cpp src/visitors/CppPrinter.cpp)
 set(SYMTAB_SRC src/symtab/Symbol.cpp src/symtab/SymbolTable.cpp)
 set(SOURCES ${TOKEN_SRC} ${LEX_SRC} ${PARSER_SRC} ${AST_SRC} ${SYMTAB_SRC} ${VISITORS_SRC} src/main.cpp)
 

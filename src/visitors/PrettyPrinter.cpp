@@ -203,7 +203,7 @@ void PrettyPrinter::visit(class UInt64Type* type) {
 }
 
 void PrettyPrinter::visit(PointerType* type) {
-    type->get_subtype()->accept(this);
+    type->getSubtype()->accept(this);
     output << "*";
 }
 

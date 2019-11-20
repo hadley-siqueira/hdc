@@ -16,7 +16,7 @@ namespace hdc {
 
             virtual ~PointerType();
 
-            Type* get_subtype();
+            Type* getSubtype();
 
         public:
             virtual void accept(Visitor* visitor);
