@@ -8,6 +8,7 @@ Def::Def() {
     return_type = nullptr;
     statements = nullptr;
     symbolTable = nullptr;
+    localVarNameCounter = 0;
 }
 
 
@@ -85,7 +86,11 @@ CompoundStatement* Def::getStatements() {
 #include <iostream>
 
 void Def::addParameter(hdc::Token& name, Type* type) {
-    parameters.push_back(new Parameter(name, type));
+    Parameter* param;
+
+    param = new Parameter(name, type);
+    param->setLocalName(localVarNameCounter++);
+    parameters.push_back(param);
 }
 
 int Def::n_parameters() {
@@ -97,6 +102,7 @@ int Def::n_local_variables() {
 }
 
 void Def::addLocalVariable(LocalVariable* variable) {
+    variable->setLocalName(localVarNameCounter++);
     localVariables.push_back(variable);
 }
 

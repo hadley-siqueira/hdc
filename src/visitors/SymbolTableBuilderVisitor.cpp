@@ -154,7 +154,7 @@ void SymbolTableBuilderVisitor::visit(SizeOfExpression* expression) {
 }
 
 void SymbolTableBuilderVisitor::visit(CallExpression* expression) {
-    expression->get_expression()->accept(this);
+    expression->getExpression()->accept(this);
 
     for (int i = 0; i < expression->n_arguments(); ++i) {
         expression->getArgument(i)->accept(this);

@@ -345,9 +345,9 @@ void PrettyPrinter::visit(SizeOfExpression* expression) {
 
 void PrettyPrinter::visit(CallExpression* expression) {
     int i;
-    std::vector<Expression*>& arguments = expression->get_arguments();
+    std::vector<Expression*>& arguments = expression->getArguments();
 
-    expression->get_expression()->accept(this);
+    expression->getExpression()->accept(this);
     output << "(";
 
     if (arguments.size() > 0) {

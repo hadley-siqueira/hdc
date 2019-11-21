@@ -63,6 +63,7 @@ namespace hdc {
             std::vector<LocalVariable*> localVariables;
             CompoundStatement* statements;
             SymbolTable* symbolTable;
+            int localVarNameCounter;
     };
 }
 

@@ -340,7 +340,24 @@ void CppPrinter::visit(SizeOfExpression* expression) {
 }
 
 /* Binary Expresisons */
-void CppPrinter::visit(CallExpression* expression) {}
+void CppPrinter::visit(CallExpression* expression) {
+    int i = 0;
+
+    expression->getExpression()->accept(this);
+
+    output << "(";
+
+    if (expression->n_arguments() > 0) {
+        for (i = 0; i < expression->n_arguments() - 1; ++i) {
+            expression->getArgument(i)->accept(this);
+            output << ", ";
+        }
+
+        expression->getArgument(i)->accept(this);
+    }
+
+    output << ")";
+}
 
 void CppPrinter::visit(DotExpression* expression) {
     isExpression = true;

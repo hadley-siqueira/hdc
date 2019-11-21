@@ -28,7 +28,7 @@ CallExpression::~CallExpression() {
 }
 
 /* Setters */
-void CallExpression::set_expression(Expression* expression) {
+void CallExpression::setExpression(Expression* expression) {
     if (this->expression != NULL) {
         delete this->expression;
     }
@@ -36,7 +36,7 @@ void CallExpression::set_expression(Expression* expression) {
     this->expression = expression;
 }
 
-void CallExpression::set_arguments(std::vector<Expression*> arguments) {
+void CallExpression::setArguments(std::vector<Expression*> arguments) {
     for (int i = 0; i < this->arguments.size(); ++i) {
         delete this->arguments[i];
     }
@@ -45,11 +45,11 @@ void CallExpression::set_arguments(std::vector<Expression*> arguments) {
 }
 
 /* Getters */
-Expression* CallExpression::get_expression() {
+Expression* CallExpression::getExpression() {
     return expression;
 }
 
-std::vector<Expression*>& CallExpression::get_arguments() {
+std::vector<Expression*>& CallExpression::getArguments() {
     return arguments;
 }
 
@@ -62,7 +62,7 @@ int CallExpression::n_arguments() {
 }
 
 /* Actions */
-void CallExpression::add_argument(Expression* expression) {
+void CallExpression::addArgument(Expression* expression) {
     arguments.push_back(expression);
 }
 

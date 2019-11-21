@@ -19,10 +19,18 @@ namespace hdc {
 
             std::string getName();
 
+            int getLocalName() const;
+            void setLocalName(int value);
+
+            unsigned long long getGlobalName() const;
+            void setGlobalName(unsigned long long value);
+
         protected:
             Token token;
             Type* type;
             int offset;
+            int localName;
+            unsigned long long globalName;
     };
 }
 

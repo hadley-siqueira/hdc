@@ -10,11 +10,9 @@ void Parser::advance() {
     } 
 }
 
-
 bool Parser::lookahead(TokenKind kind) {
     return (*current_token).getKind() == kind;
 }
-
 
 bool Parser::match(TokenKind kind) {
     if (lookahead(kind)) {

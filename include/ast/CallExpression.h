@@ -25,19 +25,19 @@ namespace hdc {
 
         /* Setters */
         public:
-            void set_expression(Expression* expression);
-            void set_arguments(std::vector<Expression*> arguments);
+            void setExpression(Expression* expression);
+            void setArguments(std::vector<Expression*> arguments);
 
         /* Getters */
         public:
-            Expression* get_expression();
-            std::vector<Expression*>& get_arguments();
+            Expression* getExpression();
+            std::vector<Expression*>& getArguments();
             Expression* getArgument(int i);
             int n_arguments();
 
         /* Actions */
         public:
-            void add_argument(Expression* expression);
+            void addArgument(Expression* expression);
 
         /* Visitors */
         public:

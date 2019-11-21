@@ -21,3 +21,19 @@ void Variable::setOffset(int value) {
 std::string hdc::Variable::getName() {
     return token.getLexem();
 }
+
+int Variable::getLocalName() const {
+    return localName;
+}
+
+void Variable::setLocalName(int value) {
+    localName = value;
+}
+
+unsigned long long Variable::getGlobalName() const {
+    return globalName;
+}
+
+void Variable::setGlobalName(unsigned long long value) {
+    globalName = value;
+}
