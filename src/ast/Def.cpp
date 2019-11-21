@@ -60,9 +60,17 @@ std::string Def::getName() {
 Parameter* Def::getParameter(int i) {
     if (i < parameters.size()) {
         return parameters[i];
-    } else {
-        return nullptr;
     }
+
+    return nullptr;
+}
+
+LocalVariable*Def::getLocalVariable(int i) {
+    if (i < localVariables.size()) {
+        return localVariables[i];
+    }
+
+    return nullptr;
 }
 
 Type* Def::getReturnType() {
@@ -82,6 +90,10 @@ void Def::addParameter(hdc::Token& name, Type* type) {
 
 int Def::n_parameters() {
     return parameters.size();
+}
+
+int Def::n_local_variables() {
+    return localVariables.size();
 }
 
 void Def::addLocalVariable(LocalVariable* variable) {

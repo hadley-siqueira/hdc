@@ -13,6 +13,7 @@ namespace hdc {
 
         public:
             std::string print();
+            void save(std::string path);
 
         /* Visitor */
         public:
@@ -131,9 +132,14 @@ namespace hdc {
             void dedent();
 
         private:
+            void generateDefParameters(Def* def);
+            void generateDefLocalVariables(Def* def);
+
+        private:
             int n_spaces;
             std::stringstream output;
             bool isExpression;
+            bool prototypeFlag;
     };
 }
 

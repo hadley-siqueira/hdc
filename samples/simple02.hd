@@ -1,8 +1,10 @@
-def main : void
+def main : int
     @a : int
 
     i = 0
+    b = 0
     i = a + b
+    i = a
 
     if a > 0:
         i = i + 1

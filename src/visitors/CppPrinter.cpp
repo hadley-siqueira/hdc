@@ -1,10 +1,17 @@
 #include <iostream>
+#include <fstream>
 #include "visitors/CppPrinter.h"
 
 using namespace hdc;
 
 CppPrinter::CppPrinter() {
     n_spaces = 0;
+    output << "#include <iostream>\n";
+    output << "#include <vector>\n";
+    output << "#include <sstream>\n";
+    output << "#include <map>\n";
+
+    output << "\nusing namespace std;\n\n";
 }
 
 std::string CppPrinter::print() {
@@ -12,7 +19,17 @@ std::string CppPrinter::print() {
     return output.str();
 }
 
+void CppPrinter::save(std::string path) {
+    std::ofstream file;
+
+    file.open(path);
+    file << output.str();
+    file.close();
+}
+
 void hdc::CppPrinter::visit(SourceFile* file) {
+    prototypeFlag = true;
+
     for (int i = 0; i < file->n_defs(); ++i) {
         file->getDef(i)->accept(this);
     }
@@ -37,24 +54,33 @@ void hdc::CppPrinter::visit(Class* klass) {
 }
 
 void CppPrinter::visit(Def* def) {
-    print_indentation();
+    int i;
 
+    print_indentation();
     def->getReturnType()->accept(this);
     output << " " << def->getName() << "(";
 
-    for (int i = 0; i < def->n_parameters(); ++i) {
-        def->getParameter(i)->accept(this);
-    }
-
+    generateDefParameters(def);
     output << ") {\n";
+
     indent();
+
+    generateDefLocalVariables(def);
+    output << "\n";
+
     def->getStatements()->accept(this);
     dedent();
     output << "}\n\n";
 }
 
 void CppPrinter::visit(Parameter* parameter) {
+    if (parameter->getType()) {
+        parameter->getType()->accept(this);
+    } else {
+        output << "int";
+    }
 
+    output << " " << parameter->getName();
 }
 
 void CppPrinter::visit(Variable* variable) {
@@ -62,7 +88,15 @@ void CppPrinter::visit(Variable* variable) {
 }
 
 void CppPrinter::visit(LocalVariable* variable) {
+    print_indentation();
 
+    if (variable->getType()) {
+        variable->getType()->accept(this);
+    } else {
+        output << "int";
+    }
+
+    output << " " << variable->getName() << ";\n";
 }
 
 /* Types */
@@ -172,20 +206,69 @@ void CppPrinter::visit(CompoundStatement* statement) {
             if (isExpression) output << ";";
             output << "\n";
         }
-
-        print_indentation();
-        statement->getStatement(i)->accept(this);
-        output << "\n";
     }
 }
 
 void CppPrinter::visit(WhileStatement* statement) {
+    output << "while (";
+    statement->getExpression()->accept(this);
+    output << ") {\n";
 
+    indent();
+    statement->getStatements()->accept(this);
+    dedent();
+    print_indentation();
+    output << "}\n";
+    isExpression = false;
 }
 
-void CppPrinter::visit(IfStatement* statement) {}
-void CppPrinter::visit(ElifStatement* statement) {}
-void CppPrinter::visit(ElseStatement* statement) {}
+void CppPrinter::visit(IfStatement* statement) {
+    output << "if (";
+    statement->getExpression()->accept(this);
+    output << ") {\n";
+
+    indent();
+    statement->getStatements()->accept(this);
+    dedent();
+
+    print_indentation();
+    output << "}";
+
+    if (statement->getElifStatement()) {
+        statement->getElifStatement()->accept(this);
+    } else if (statement->getElseStatement()) {
+        statement->getElseStatement()->accept(this);
+    }
+}
+
+void CppPrinter::visit(ElifStatement* statement) {
+    output << " else if (";
+    statement->getExpression()->accept(this);
+    output << ") {\n";
+
+    indent();
+    statement->getStatements()->accept(this);
+    dedent();
+
+    print_indentation();
+    output << "}";
+
+    if (statement->getElifStatement()) {
+        statement->getElifStatement()->accept(this);
+    } else if (statement->getElseStatement()) {
+        statement->getElseStatement()->accept(this);
+    }
+}
+
+void CppPrinter::visit(ElseStatement* statement) {
+    output << " else {\n";
+    indent();
+    statement->getStatements()->accept(this);
+    dedent();
+
+    print_indentation();
+    output << "}";
+}
 
 /* Expressions */
 void CppPrinter::visit(Expression* expression) {}
@@ -194,45 +277,275 @@ void CppPrinter::visit(Expression* expression) {}
 void CppPrinter::visit(LogicalNotExpression* expression) {
 
 }
+
 void CppPrinter::visit(BitwiseNotExpression* expression) {}
-void CppPrinter::visit(AddressOfExpression* expression) {}
-void CppPrinter::visit(UnaryMinusExpression* expression) {}
-void CppPrinter::visit(UnaryPlusExpression* expression) {}
-void CppPrinter::visit(DolarExpression* expression) {}
-void CppPrinter::visit(ParenthesisExpression* expression) {}
-void CppPrinter::visit(DereferenceExpression* expression) {}
-void CppPrinter::visit(PreIncrementExpression* expression) {}
-void CppPrinter::visit(PreDecrementExpression* expression) {}
-void CppPrinter::visit(SizeOfExpression* expression) {}
+
+void CppPrinter::visit(AddressOfExpression* expression) {
+    isExpression = true;
+
+    output << "&";
+    expression->getExpression()->accept(this);
+}
+
+void CppPrinter::visit(UnaryMinusExpression* expression) {
+    isExpression = true;
+
+    output << "-";
+    expression->getExpression()->accept(this);
+}
+
+void CppPrinter::visit(UnaryPlusExpression* expression) {
+    isExpression = true;
+
+    output << "+";
+    expression->getExpression()->accept(this);
+}
+
+void CppPrinter::visit(DolarExpression* expression) {
+    isExpression = true;
+
+    output << "$";
+    expression->getExpression()->accept(this);
+}
+
+void CppPrinter::visit(ParenthesisExpression* expression) {
+    output << "(";
+    expression->getExpression()->accept(this);
+    output << ")";
+}
+
+void CppPrinter::visit(DereferenceExpression* expression) {
+    isExpression = true;
+
+    output << "*";
+    expression->getExpression()->accept(this);
+}
+
+void CppPrinter::visit(PreIncrementExpression* expression) {
+    isExpression = true;
+
+    output << "++";
+    expression->getExpression()->accept(this);
+}
+
+void CppPrinter::visit(PreDecrementExpression* expression) {
+    isExpression = true;
+
+    output << "--";
+    expression->getExpression()->accept(this);
+}
+
+void CppPrinter::visit(SizeOfExpression* expression) {
+
+}
 
 /* Binary Expresisons */
 void CppPrinter::visit(CallExpression* expression) {}
-void CppPrinter::visit(DotExpression* expression) {}
-void CppPrinter::visit(ArrowExpression* expression) {}
-void CppPrinter::visit(IndexExpression* expression) {}
 
-void CppPrinter::visit(ShiftLeftLogicalExpression* expression) {}
-void CppPrinter::visit(ShiftRightLogicalExpression* expression) {}
-void CppPrinter::visit(ShiftRightArithmeticExpression* expression) {}
+void CppPrinter::visit(DotExpression* expression) {
+    isExpression = true;
 
-void CppPrinter::visit(BitwiseAndExpression* expression) {}
-void CppPrinter::visit(BitwiseXorExpression* expression) {}
-void CppPrinter::visit(BitwiseOrExpression* expression) {}
+    expression->getLeft()->accept(this);
+    output << ".";
+    expression->getRight()->accept(this);
+}
 
-void CppPrinter::visit(TimesExpression* expression) {}
-void CppPrinter::visit(DivisionExpression* expression) {}
-void CppPrinter::visit(IntegerDivisionExpression* expression) {}
-void CppPrinter::visit(ModuloExpression* expression) {}
+void CppPrinter::visit(ArrowExpression* expression) {
+    isExpression = true;
 
-void CppPrinter::visit(PlusExpression* expression) {}
-void CppPrinter::visit(MinusExpression* expression) {}
+    expression->getLeft()->accept(this);
+    output << "->";
+    expression->getRight()->accept(this);
+}
 
-void CppPrinter::visit(LessThanExpression* expression) {}
-void CppPrinter::visit(GreaterThanExpression* expression) {}
-void CppPrinter::visit(LessThanOrEqualExpression* expression) {}
-void CppPrinter::visit(GreaterThanOrEqualExpression* expression) {}
-void CppPrinter::visit(EqualExpression* expression) {}
-void CppPrinter::visit(NotEqualExpression* expression) {}
+void CppPrinter::visit(IndexExpression* expression) {
+    isExpression = true;
+
+    expression->getLeft()->accept(this);
+    output << "[";
+    expression->getRight()->accept(this);
+    output << "]";
+}
+
+void CppPrinter::visit(ShiftLeftLogicalExpression* expression) {
+    isExpression = true;
+
+    output << "(";
+    expression->getLeft()->accept(this);
+    output << " << ";
+    expression->getRight()->accept(this);
+    output << ")";
+}
+
+void CppPrinter::visit(ShiftRightLogicalExpression* expression) {
+    isExpression = true;
+
+    output << "(";
+    expression->getLeft()->accept(this);
+    output << " >> ";
+    expression->getRight()->accept(this);
+    output << ")";
+}
+
+void CppPrinter::visit(ShiftRightArithmeticExpression* expression) {
+    isExpression = true;
+
+    output << "(";
+    expression->getLeft()->accept(this);
+    output << " >> ";
+    expression->getRight()->accept(this);
+    output << ")";
+}
+
+void CppPrinter::visit(BitwiseAndExpression* expression) {
+    isExpression = true;
+
+    output << "(";
+    expression->getLeft()->accept(this);
+    output << " & ";
+    expression->getRight()->accept(this);
+    output << ")";
+}
+
+void CppPrinter::visit(BitwiseXorExpression* expression) {
+    isExpression = true;
+
+    output << "(";
+    expression->getLeft()->accept(this);
+    output << " ^ ";
+    expression->getRight()->accept(this);
+    output << ")";
+}
+
+void CppPrinter::visit(BitwiseOrExpression* expression) {
+    isExpression = true;
+
+    output << "(";
+    expression->getLeft()->accept(this);
+    output << " | ";
+    expression->getRight()->accept(this);
+    output << ")";
+}
+
+void CppPrinter::visit(TimesExpression* expression) {
+    isExpression = true;
+
+    output << "(";
+    expression->getLeft()->accept(this);
+    output << " * ";
+    expression->getRight()->accept(this);
+    output << ")";
+}
+
+void CppPrinter::visit(DivisionExpression* expression) {
+    isExpression = true;
+
+    output << "(";
+    expression->getLeft()->accept(this);
+    output << " / ";
+    expression->getRight()->accept(this);
+    output << ")";
+}
+
+void CppPrinter::visit(IntegerDivisionExpression* expression) {
+    isExpression = true;
+
+    output << "(";
+    expression->getLeft()->accept(this);
+    output << " / ";
+    expression->getRight()->accept(this);
+    output << ")";
+}
+
+void CppPrinter::visit(ModuloExpression* expression) {
+    isExpression = true;
+
+    output << "(";
+    expression->getLeft()->accept(this);
+    output << " % ";
+    expression->getRight()->accept(this);
+    output << ")";
+}
+
+void CppPrinter::visit(PlusExpression* expression) {
+    isExpression = true;
+
+    output << "(";
+    expression->getLeft()->accept(this);
+    output << " + ";
+    expression->getRight()->accept(this);
+    output << ")";
+}
+
+void CppPrinter::visit(MinusExpression* expression) {
+    isExpression = true;
+
+    output << "(";
+    expression->getLeft()->accept(this);
+    output << " - ";
+    expression->getRight()->accept(this);
+    output << ")";
+}
+
+void CppPrinter::visit(LessThanExpression* expression) {
+    isExpression = true;
+
+    output << "(";
+    expression->getLeft()->accept(this);
+    output << " < ";
+    expression->getRight()->accept(this);
+    output << ")";
+}
+
+void CppPrinter::visit(GreaterThanExpression* expression) {
+    isExpression = true;
+
+    output << "(";
+    expression->getLeft()->accept(this);
+    output << " > ";
+    expression->getRight()->accept(this);
+    output << ")";
+}
+
+void CppPrinter::visit(LessThanOrEqualExpression* expression) {
+    isExpression = true;
+
+    output << "(";
+    expression->getLeft()->accept(this);
+    output << " <= ";
+    expression->getRight()->accept(this);
+    output << ")";
+}
+
+void CppPrinter::visit(GreaterThanOrEqualExpression* expression) {
+    isExpression = true;
+
+    output << "(";
+    expression->getLeft()->accept(this);
+    output << " >= ";
+    expression->getRight()->accept(this);
+    output << ")";
+}
+
+void CppPrinter::visit(EqualExpression* expression) {
+    isExpression = true;
+
+    output << "(";
+    expression->getLeft()->accept(this);
+    output << " == ";
+    expression->getRight()->accept(this);
+    output << ")";
+}
+
+void CppPrinter::visit(NotEqualExpression* expression) {
+    isExpression = true;
+
+    output << "(";
+    expression->getLeft()->accept(this);
+    output << " != ";
+    expression->getRight()->accept(this);
+    output << ")";
+}
 
 void CppPrinter::visit(AssignmentExpression* expression) {
     isExpression = true;
@@ -385,4 +698,23 @@ void CppPrinter::indent() {
 
 void CppPrinter::dedent() {
     n_spaces--;
+}
+
+void CppPrinter::generateDefParameters(Def* def) {
+    int i;
+
+    if (def->n_parameters() > 0) {
+        for (i = 0; i < def->n_parameters() - 1; ++i) {
+            def->getParameter(i)->accept(this);
+            output << ", ";
+        }
+
+        def->getParameter(i)->accept(this);
+    }
+}
+
+void CppPrinter::generateDefLocalVariables(Def* def){
+    for (int i = 0; i < def->n_local_variables(); ++i) {
+        def->getLocalVariable(i)->accept(this);
+    }
 }

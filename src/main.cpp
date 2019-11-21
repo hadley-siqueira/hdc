@@ -73,6 +73,7 @@ void testCppPrinter(string path) {
     file->accept(&printer);
 
     printer.print();
+    printer.save("/tmp/test.cpp");
 
     delete file;
 }

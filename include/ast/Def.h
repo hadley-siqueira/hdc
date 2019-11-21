@@ -39,11 +39,13 @@ namespace hdc {
             std::string getName();
             SymbolTable* getSymbolTable() const;
             Parameter* getParameter(int i);
+            LocalVariable* getLocalVariable(int i);
             Type* getReturnType();
             CompoundStatement* getStatements();
 
             void addParameter(hdc::Token& name, Type* type);
             int n_parameters();
+            int n_local_variables();
 
         public:
             void addLocalVariable(LocalVariable* variable);
