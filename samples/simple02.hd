@@ -6,6 +6,8 @@ def main : int
     i = a + b
     i = a
 
+    s = 'Hello, world!'
+    
     if a > 0:
         i = i + 1
 

@@ -125,7 +125,7 @@ namespace hdc {
 
             virtual void visit(LiteralIntegerExpression* expression);
 
-            virtual void visit(IdentifierExpression* id);
+            void visit(IdentifierExpression* id);
 
         private:
             void print_indentation();

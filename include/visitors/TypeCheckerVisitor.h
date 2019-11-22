@@ -1,15 +1,14 @@
-#ifndef HDC_SYMBOLTABLE_BUILDER_VISITOR_H
-#define HDC_SYMBOLTABLE_BUILDER_VISITOR_H
+#ifndef HDC_TYPE_CHECKER_VISITOR_H
+#define HDC_TYPE_CHECKER_VISITOR_H
 
 #include "visitors/Visitor.h"
 #include "ast/AST.h"
 #include "symtab/SymbolTable.h"
 
 namespace hdc {
-    class SymbolTableBuilderVisitor : public Visitor {
-        /* Constructors */
+    class TypeCheckerVisitor : public Visitor {
         public:
-            SymbolTableBuilderVisitor();
+
 
         /* Visitor interface */
         public:
@@ -122,14 +121,7 @@ namespace hdc {
             void visit(LiteralIntegerExpression* expression);
 
             void visit(IdentifierExpression* id);
-
-        private:
-            // pointer to the current symboltable
-            SymbolTable* symbolTable;
-            Class* currentClass;
-            Def* currentDef;
-            SourceFile* currentSourceFile;
-            bool checkingAssignment;
     };
 }
+
 #endif
