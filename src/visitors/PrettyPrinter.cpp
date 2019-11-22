@@ -280,6 +280,15 @@ void PrettyPrinter::visit(ElseStatement* statement) {
     dedent();
 }
 
+void PrettyPrinter::visit(ReturnStatement* statement) {
+    output << "return";
+
+    if (statement->getExpression()) {
+        output << " ";
+        statement->getExpression()->accept(this);
+    }
+}
+
 /* Expressions */
 void PrettyPrinter::visit(Expression* expression) {
     output << "UNKNOWN EXPRESSION";

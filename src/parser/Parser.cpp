@@ -33,8 +33,8 @@ void Parser::expect(TokenKind kind) {
     expected.setKind(kind);
 
     std::cout << (*current_token).getLine() << ": ";
-    std::cout << "expected " << expected.getKindAsString()
-        << ' ' << (*current_token).getKindAsString() << '\n';
+    std::cout << "expected a " << expected.getKindAsString()
+        << " but got a " << (*current_token).getKindAsString() << " instead\n";
 
     exit(0);
 }
@@ -467,6 +467,23 @@ Expression* Parser::parse_expression() {
     return parse_assignment_expression();
 }
 
+ReturnStatement* Parser::parse_return_statement() {
+    Token token;
+    ReturnStatement* ret;
+
+    expect(TK_RETURN);
+    token = *matched;
+
+    if (lookahead(TK_NEWLINE)) {
+        ret = new ReturnStatement(token);
+    } else {
+        ret = new ReturnStatement(token, parse_expression());
+    }
+
+    expect(TK_NEWLINE);
+    return ret;
+}
+
 
 WhileStatement* Parser::parse_while_statement() {
     Expression* expression;
@@ -548,6 +565,8 @@ Statement* Parser::parse_statement() {
         statement = parse_while_statement();
     } else if (lookahead(TK_IF)) {
         statement = parse_if_statement();
+    } else if (lookahead(TK_RETURN)) {
+        statement = parse_return_statement();
     } else {
         statement = parse_expression();
         expect(TK_NEWLINE);

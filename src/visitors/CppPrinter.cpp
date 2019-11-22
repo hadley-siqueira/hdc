@@ -270,6 +270,15 @@ void CppPrinter::visit(ElseStatement* statement) {
     output << "}";
 }
 
+void CppPrinter::visit(ReturnStatement* statement) {
+    output << "return";
+
+    if (statement->getExpression()) {
+        output << " ";
+        statement->getExpression()->accept(this);
+    }
+}
+
 /* Expressions */
 void CppPrinter::visit(Expression* expression) {}
 

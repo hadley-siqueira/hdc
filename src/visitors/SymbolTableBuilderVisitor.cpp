@@ -413,3 +413,7 @@ void SymbolTableBuilderVisitor::visit(ElseStatement* statement) {
 
     symbolTable = oldSymbolTable;
 }
+
+void SymbolTableBuilderVisitor::visit(ReturnStatement* statement) {
+
+}

@@ -60,6 +60,7 @@ namespace hdc {
             virtual void visit(IfStatement* statement);
             virtual void visit(ElifStatement* statement);
             virtual void visit(ElseStatement* statement);
+            virtual void visit(ReturnStatement* statement);
 
             /* Expressions */
             virtual void visit(Expression* expression);

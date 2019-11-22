@@ -37,3 +37,7 @@ def main : int
                 i = 0
             else:
                 i = 1
+
+    return
+    return a + b
+    return 0

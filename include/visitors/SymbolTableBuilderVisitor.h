@@ -101,6 +101,7 @@ namespace hdc {
             virtual void visit(IfStatement* statement) override;
             virtual void visit(ElifStatement* statement) override;
             virtual void visit(ElseStatement* statement) override;
+            virtual void visit(ReturnStatement* statement) override;
 
         private:
             // pointer to the current symboltable

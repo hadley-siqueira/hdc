@@ -108,6 +108,7 @@ set(AST_SRC
     src/ast/IfStatement.cpp
     src/ast/ElifStatement.cpp
     src/ast/ElseStatement.cpp
+    src/ast/ReturnStatement.cpp
 )
 
 set(VISITORS_SRC src/visitors/PrettyPrinter.cpp src/visitors/SymbolTableBuilderVisitor.cpp src/visitors/CppPrinter.cpp)

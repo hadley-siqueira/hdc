@@ -18,6 +18,7 @@
 #include "ast/IfStatement.h"
 #include "ast/ElifStatement.h"
 #include "ast/ElseStatement.h"
+#include "ast/ReturnStatement.h"
 
 /* Expressions */
 #include "ast/Expression.h"
