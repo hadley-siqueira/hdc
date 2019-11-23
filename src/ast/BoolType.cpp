@@ -11,6 +11,10 @@ BoolType::BoolType(Token& token) {
     this->kind = AST_BOOL_TYPE;
 }
 
+Type* BoolType::clone() {
+    return new BoolType(token);
+}
+
 
 void BoolType::accept(Visitor* visitor) {
     visitor->visit(this);

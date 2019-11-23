@@ -11,6 +11,10 @@ CharType::CharType(Token& token) {
     this->kind = AST_CHAR_TYPE;
 }
 
+Type* CharType::clone() {
+    return new CharType(token);
+}
+
 
 void CharType::accept(Visitor* visitor) {
     visitor->visit(this);

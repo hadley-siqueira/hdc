@@ -9,6 +9,9 @@ namespace hdc {
             virtual ~Type();
 
         public:
+            virtual Type* clone()=0;
+
+        public:
             virtual void accept(Visitor* visitor);
     };
 }

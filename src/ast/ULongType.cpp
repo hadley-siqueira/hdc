@@ -11,6 +11,10 @@ ULongType::ULongType(Token& token) {
     this->kind = AST_ULONG_TYPE;
 }
 
+Type* ULongType::clone() {
+    return new ULongType(token);
+}
+
 
 void ULongType::accept(Visitor* visitor) {
     visitor->visit(this);

@@ -11,6 +11,10 @@ UIntType::UIntType(Token& token) {
     this->kind = AST_UINT_TYPE;
 }
 
+Type* UIntType::clone() {
+    return new UIntType(token);
+}
+
 
 void UIntType::accept(Visitor* visitor) {
     visitor->visit(this);

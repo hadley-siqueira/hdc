@@ -11,6 +11,10 @@ ShortType::ShortType(Token& token) {
     this->kind = AST_SHORT_TYPE;
 }
 
+Type* ShortType::clone() {
+    return new ShortType(token);
+}
+
 
 void ShortType::accept(Visitor* visitor) {
     visitor->visit(this);

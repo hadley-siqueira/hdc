@@ -11,6 +11,10 @@ Int8Type::Int8Type(Token& token) {
     this->kind = AST_INT8_TYPE;
 }
 
+Type* Int8Type::clone() {
+    return new Int8Type(token);
+}
+
 
 void Int8Type::accept(Visitor* visitor) {
     visitor->visit(this);

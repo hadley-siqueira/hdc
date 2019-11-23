@@ -4,11 +4,17 @@
 #include "visitors/Visitor.h"
 #include "ast/AST.h"
 #include "symtab/SymbolTable.h"
+#include "symtab/SymbolTableStack.h"
 
 namespace hdc {
     class TypeCheckerVisitor : public Visitor {
+        /* Constructors */
         public:
+            TypeCheckerVisitor();
 
+        /* Destructors */
+        public:
+            ~TypeCheckerVisitor();
 
         /* Visitor interface */
         public:
@@ -24,29 +30,29 @@ namespace hdc {
             void visit(LocalVariable* variable);
 
             /* Types */
-            void visit(Type* type);
-            void visit(IntType* type);
-            void visit(UIntType* type);
-            void visit(ShortType* type);
-            void visit(UShortType* type);
-            void visit(LongType* type);
-            void visit(ULongType* type);
-            void visit(CharType* type);
-            void visit(UCharType* type);
-            void visit(FloatType* type);
-            void visit(DoubleType* type);
-            void visit(VoidType* type);
-            void visit(BoolType* type);
-            void visit(SymbolType* type);
-            void visit(Int8Type* type);
-            void visit(Int16Type* type);
-            void visit(Int32Type* type);
-            void visit(Int64Type* type);
-            void visit(UInt8Type* type);
-            void visit(UInt16Type* type);
-            void visit(UInt32Type* type);
-            void visit(UInt64Type* type);
-            void visit(PointerType* type);
+            void visit(Type* lastType);
+            void visit(IntType* lastType);
+            void visit(UIntType* lastType);
+            void visit(ShortType* lastType);
+            void visit(UShortType* lastType);
+            void visit(LongType* lastType);
+            void visit(ULongType* lastType);
+            void visit(CharType* lastType);
+            void visit(UCharType* lastType);
+            void visit(FloatType* lastType);
+            void visit(DoubleType* lastType);
+            void visit(VoidType* lastType);
+            void visit(BoolType* lastType);
+            void visit(SymbolType* lastType);
+            void visit(Int8Type* lastType);
+            void visit(Int16Type* lastType);
+            void visit(Int32Type* lastType);
+            void visit(Int64Type* lastType);
+            void visit(UInt8Type* lastType);
+            void visit(UInt16Type* lastType);
+            void visit(UInt32Type* lastType);
+            void visit(UInt64Type* lastType);
+            void visit(PointerType* lastType);
 
             /* Statements */
             void visit(Statement* statement);
@@ -121,6 +127,14 @@ namespace hdc {
             void visit(LiteralIntegerExpression* expression);
 
             void visit(IdentifierExpression* id);
+
+        private:
+            void checkFunctions(SourceFile* file);
+
+        private:
+            SymbolTableStack* symbolTableStack;
+            SymbolTable* symbolTable;
+            Type* lastType;
     };
 }
 

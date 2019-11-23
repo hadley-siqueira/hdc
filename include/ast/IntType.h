@@ -15,6 +15,9 @@ namespace hdc {
             IntType(Token& token);
 
         public:
+            Type* clone();
+
+        public:
             virtual void accept(Visitor* visitor);
     };
 }

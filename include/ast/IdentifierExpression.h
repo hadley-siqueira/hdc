@@ -3,19 +3,19 @@
 
 #include "Expression.h"
 #include "token/Token.h"
+#include "symtab/Symbol.h"
 
 namespace hdc {
-    class IdentifierExpression : public Expression {
-        private:
-            Token name;
-            Token alias;
-            bool alias_flag;
+    class Symbol;
 
+    class IdentifierExpression : public Expression {
         public:
             IdentifierExpression();
             IdentifierExpression(Token& name);
             IdentifierExpression(Token& alias, Token& name);
 
+        /* Destructors */
+        public:
             virtual ~IdentifierExpression();
 
         /* Predicates */
@@ -27,10 +27,18 @@ namespace hdc {
             std::string getAlias();
             std::string getName();
             Token& getNameAsToken();
+            Symbol* getSymbol() const;
+            void setSymbol(Symbol* value);
 
         /* Visitors */
         public:
             virtual void accept(Visitor* visitor);
+
+        private:
+            Token name;
+            Token alias;
+            bool alias_flag;
+            Symbol* symbol;
     };
 }
 

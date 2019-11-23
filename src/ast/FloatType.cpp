@@ -11,6 +11,10 @@ FloatType::FloatType(Token& token) {
     this->kind = AST_FLOAT_TYPE;
 }
 
+Type* FloatType::clone() {
+    return new FloatType(token);
+}
+
 
 void FloatType::accept(Visitor* visitor) {
     visitor->visit(this);

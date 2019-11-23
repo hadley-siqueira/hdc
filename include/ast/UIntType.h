@@ -14,6 +14,9 @@ namespace hdc {
             UIntType(Token& token);
 
         public:
+            Type* clone();
+
+        public:
             virtual void accept(Visitor* visitor);
     };
 }

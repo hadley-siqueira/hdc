@@ -11,6 +11,10 @@ UInt32Type::UInt32Type(Token& token) {
     this->kind = AST_UINT32_TYPE;
 }
 
+Type* UInt32Type::clone() {
+    return new UInt32Type(token);
+}
+
 
 void UInt32Type::accept(Visitor* visitor) {
     visitor->visit(this);

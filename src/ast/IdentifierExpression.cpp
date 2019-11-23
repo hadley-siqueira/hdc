@@ -49,3 +49,13 @@ Token& IdentifierExpression::getNameAsToken() {
 void IdentifierExpression::accept(Visitor* visitor) {
     visitor->visit(this);
 }
+
+Symbol* IdentifierExpression::getSymbol() const
+{
+    return symbol;
+}
+
+void IdentifierExpression::setSymbol(Symbol* value)
+{
+    symbol = value;
+}

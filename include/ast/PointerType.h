@@ -19,6 +19,9 @@ namespace hdc {
             Type* getSubtype();
 
         public:
+            Type* clone();
+
+        public:
             virtual void accept(Visitor* visitor);
     };
 }

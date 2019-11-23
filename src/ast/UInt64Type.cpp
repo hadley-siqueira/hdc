@@ -11,6 +11,10 @@ UInt64Type::UInt64Type(Token& token) {
     this->kind = AST_UINT64_TYPE;
 }
 
+Type* UInt64Type::clone() {
+    return new UInt64Type(token);
+}
+
 
 void UInt64Type::accept(Visitor* visitor) {
     visitor->visit(this);

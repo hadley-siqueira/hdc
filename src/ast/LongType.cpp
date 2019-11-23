@@ -11,6 +11,10 @@ LongType::LongType(Token& token) {
     this->kind = AST_LONG_TYPE;
 }
 
+Type* LongType::clone() {
+    return new LongType(token);
+}
+
 
 void LongType::accept(Visitor* visitor) {
     visitor->visit(this);

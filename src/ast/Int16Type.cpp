@@ -11,6 +11,10 @@ Int16Type::Int16Type(Token& token) {
     this->kind = AST_INT16_TYPE;
 }
 
+Type* Int16Type::clone() {
+    return new Int16Type(token);
+}
+
 
 void Int16Type::accept(Visitor* visitor) {
     visitor->visit(this);

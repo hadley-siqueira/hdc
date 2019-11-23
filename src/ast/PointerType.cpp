@@ -27,6 +27,10 @@ Type* PointerType::getSubtype() {
     return subtype;
 }
 
+Type*PointerType::clone() {
+    return new PointerType(subtype->clone(), token);
+}
+
 
 void PointerType::accept(Visitor* visitor) {
     visitor->visit(this);
