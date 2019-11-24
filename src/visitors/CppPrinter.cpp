@@ -234,6 +234,8 @@ void CppPrinter::visit(IfStatement* statement) {
     } else if (statement->getElseStatement()) {
         statement->getElseStatement()->accept(this);
     }
+
+    isExpression = false;
 }
 
 void CppPrinter::visit(ElifStatement* statement) {
@@ -347,6 +349,7 @@ void CppPrinter::visit(SizeOfExpression* expression) {
 void CppPrinter::visit(CallExpression* expression) {
     int i = 0;
 
+    isExpression = true;
     expression->getExpression()->accept(this);
 
     output << "(";

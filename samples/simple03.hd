@@ -5,4 +5,12 @@ def main : int
     d = a + c
     e = *b
     f = b
-    println(a)
+    g = &f
+
+    if a == 0:
+        println(a)
+
+    i = 0
+    while i < 100:
+        println(i)
+        i = i + 1
