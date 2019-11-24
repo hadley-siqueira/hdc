@@ -95,7 +95,20 @@ void TypeCheckerVisitor::visit(UnaryMinusExpression* expression) {}
 void TypeCheckerVisitor::visit(UnaryPlusExpression* expression) {}
 void TypeCheckerVisitor::visit(DolarExpression* expression) {}
 void TypeCheckerVisitor::visit(ParenthesisExpression* expression) {}
-void TypeCheckerVisitor::visit(DereferenceExpression* expression) {}
+
+void TypeCheckerVisitor::visit(DereferenceExpression* expression) {
+    Type* subtype;
+
+    expression->getExpression()->accept(this);
+
+    if (lastType->getKind() == AST_POINTER_TYPE) {
+        subtype = ((PointerType*) lastType)->getSubtype();
+    }
+
+    expression->setType(subtype->clone());
+    lastType = expression->getType();
+}
+
 void TypeCheckerVisitor::visit(PreIncrementExpression* expression) {}
 void TypeCheckerVisitor::visit(PreDecrementExpression* expression) {}
 void TypeCheckerVisitor::visit(SizeOfExpression* expression) {}
@@ -119,7 +132,22 @@ void TypeCheckerVisitor::visit(DivisionExpression* expression) {}
 void TypeCheckerVisitor::visit(IntegerDivisionExpression* expression) {}
 void TypeCheckerVisitor::visit(ModuloExpression* expression) {}
 
-void TypeCheckerVisitor::visit(PlusExpression* expression) {}
+void TypeCheckerVisitor::visit(PlusExpression* expression) {
+    Type* left;
+    Type* right;
+    Type* type;
+
+    expression->getLeft()->accept(this);
+    left = lastType;
+
+    expression->getRight()->accept(this);
+    right = lastType;
+
+    type = typeCoercion(left, right);
+    expression->setType(type);
+    lastType = type;
+}
+
 void TypeCheckerVisitor::visit(MinusExpression* expression) {}
 
 void TypeCheckerVisitor::visit(LessThanExpression* expression) {}
@@ -167,6 +195,9 @@ void TypeCheckerVisitor::visit(IdentifierExpression* id) {
             var->setType(lastType->clone());
             id->setType(lastType->clone());
             lastType = var->getType();
+        } else {
+            id->setType(var->getType()->clone());
+            lastType = id->getType();
         }
     }
 }
@@ -175,4 +206,32 @@ void TypeCheckerVisitor::checkFunctions(SourceFile* file) {
     for (int i = 0; i < file->n_defs(); ++i) {
         file->getDef(i)->accept(this);
     }
+}
+
+ASTKind typeTable[100][100];
+
+Type*TypeCheckerVisitor::typeCoercion(Type* left, Type* right) {
+    Type* type = nullptr;
+    ASTKind leftKind = left->getKind();
+    ASTKind rightKind = right->getKind();
+
+    typeTable[AST_INT_TYPE][AST_INT_TYPE] = AST_INT_TYPE;
+    typeTable[AST_INT_TYPE][AST_DOUBLE_TYPE] = AST_DOUBLE_TYPE;
+    typeTable[AST_DOUBLE_TYPE][AST_INT_TYPE] = AST_DOUBLE_TYPE;
+
+    switch (typeTable[leftKind][rightKind]) {
+    case AST_INT_TYPE:
+        type = new IntType();
+        break;
+
+    case AST_DOUBLE_TYPE:
+        type = new DoubleType();
+        break;
+
+    default:
+        type = new IntType();
+        break;
+    }
+
+    return type;
 }

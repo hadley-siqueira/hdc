@@ -131,6 +131,7 @@ namespace hdc {
             void print_indentation();
             void indent();
             void dedent();
+            void printStart();
 
         private:
             void generateDefParameters(Def* def);

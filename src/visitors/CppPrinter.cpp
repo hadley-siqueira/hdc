@@ -6,12 +6,7 @@ using namespace hdc;
 
 CppPrinter::CppPrinter() {
     n_spaces = 0;
-    output << "#include <iostream>\n";
-    output << "#include <vector>\n";
-    output << "#include <sstream>\n";
-    output << "#include <map>\n";
-
-    output << "\nusing namespace std;\n\n";
+    printStart();
 }
 
 std::string CppPrinter::print() {
@@ -724,6 +719,21 @@ void CppPrinter::indent() {
 
 void CppPrinter::dedent() {
     n_spaces--;
+}
+
+void CppPrinter::printStart() {
+    output << "#include <iostream>\n";
+    output << "#include <vector>\n";
+    output << "#include <sstream>\n";
+    output << "#include <map>\n";
+
+    output << "\nusing namespace std;\n\n";
+
+    output << "void println(char v) { std::cout << v << '\\n'; }\n";
+    output << "void println(int v) { std::cout << v << '\\n'; }\n";
+    output << "void println(float v) { std::cout << v << '\\n'; }\n";
+    output << "void println(double v) { std::cout << v << '\\n'; }\n";
+    output << "\n";
 }
 
 void CppPrinter::generateDefParameters(Def* def) {
