@@ -1,3 +1,10 @@
+def soma : int
+    @a : int
+    @b : int
+
+    return a + b
+
+
 def main : int
     a = 0
     c = 1
@@ -10,7 +17,14 @@ def main : int
     if a == 0:
         println(a)
 
+    println("Numbers from 0 to 99")
     i = 0
     while i < 100:
         println(i)
         i = i + 1
+
+#    s = 'Hello'
+#    s = 'Hello, world'
+#    t = "Hello, world again"
+#    t = "Hello, world again\n\n"
+    return 0

@@ -113,7 +113,9 @@ namespace hdc {
             virtual void visit(class SrlAssignmentExpression* expression)=0;
             virtual void visit(class SpecialAssignmentExpression* expression)=0;
 
+            /* Literals */
             virtual void visit(class LiteralIntegerExpression* expression)=0;
+            virtual void visit(class LiteralStringExpression* expression)=0;
 
             virtual void visit(class IdentifierExpression* id)=0;
     };

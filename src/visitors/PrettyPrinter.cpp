@@ -598,6 +598,10 @@ void PrettyPrinter::visit(LiteralIntegerExpression* expression) {
     output << expression->get_token().getLexem();
 }
 
+void PrettyPrinter::visit(LiteralStringExpression* expression) {
+    output << expression->get_token().getLexem();
+}
+
 void PrettyPrinter::visit(IdentifierExpression* id) {
     if (id->hasAlias()) {
         output << id->getAlias();

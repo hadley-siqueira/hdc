@@ -130,7 +130,9 @@ namespace hdc {
             void visit(SrlAssignmentExpression* expression);
             void visit(SpecialAssignmentExpression* expression);
 
+            /* Literals */
             void visit(LiteralIntegerExpression* expression);
+            void visit(LiteralStringExpression* expression);
 
             void visit(IdentifierExpression* id);
     };

@@ -183,6 +183,11 @@ void TypeCheckerVisitor::visit(LiteralIntegerExpression* expression) {
     lastType = expression->getType();
 }
 
+void TypeCheckerVisitor::visit(LiteralStringExpression* expression) {
+    expression->setType((new PointerType(new CharType())));
+    lastType = expression->getType();
+}
+
 void TypeCheckerVisitor::visit(IdentifierExpression* id) {
     Symbol* symbol;
 

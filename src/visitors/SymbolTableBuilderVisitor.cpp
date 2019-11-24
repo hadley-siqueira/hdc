@@ -352,17 +352,24 @@ void SymbolTableBuilderVisitor::visit(SpecialAssignmentExpression* expression) {
 
 void SymbolTableBuilderVisitor::visit(LiteralIntegerExpression* expression) {}
 
+void SymbolTableBuilderVisitor::visit(LiteralStringExpression* expression) {
+
+}
+
 void SymbolTableBuilderVisitor::visit(IdentifierExpression* id) {
     Symbol* symbol;
 
     if (checkingAssignment) {
-        if (symbolTable->hasLocalVariableOrParameter(id->getName()) == nullptr) {
+        symbol = symbolTable->hasLocalVariableOrParameter(id->getName());
+
+        if (symbol == nullptr) {
             LocalVariable* var = new LocalVariable(id->getNameAsToken());
             symbol = symbolTable->addLocalVariable(var);
             currentDef->addLocalVariable(var);
             std::cout << "Adding variable: " << id->getName() << std::endl;
-            id->setSymbol(symbol);
         }
+
+        id->setSymbol(symbol);
     } else {
         symbol = symbolTable->hasLocalVariableOrParameter(id->getName());
 

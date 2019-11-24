@@ -706,6 +706,11 @@ void CppPrinter::visit(LiteralIntegerExpression* expression) {
     output << expression->get_token().getLexem();
 }
 
+void CppPrinter::visit(LiteralStringExpression* expression) {
+    isExpression = true;
+    output << expression->get_token().getLexem();
+}
+
 void CppPrinter::visit(IdentifierExpression* id) {
     output << id->getName();
 }
@@ -736,6 +741,7 @@ void CppPrinter::printStart() {
     output << "void println(int v) { std::cout << v << '\\n'; }\n";
     output << "void println(float v) { std::cout << v << '\\n'; }\n";
     output << "void println(double v) { std::cout << v << '\\n'; }\n";
+    output << "void println(char* v) { std::cout << v << '\\n'; }\n";
     output << "\n";
 }
 

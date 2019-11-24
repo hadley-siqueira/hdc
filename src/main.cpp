@@ -86,7 +86,7 @@ int main(int argc, char* argv[]) {
 
     //testLex(path);
     //testParser(path);
-    //testPrettyPrinter(path);
+    testPrettyPrinter(path);
     //testSymbolTableBuilder(path);
     testCppPrinter(path);
 
