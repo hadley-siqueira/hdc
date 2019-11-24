@@ -278,6 +278,10 @@ void Lex::endLexem() {
     lexemEnd = idx;
 }
 
+void Lex::endLexem(int offset) {
+    lexemEnd = idx + offset;
+}
+
 
 bool Lex::lookahead(char c) {
     return idx < buffer.size() && buffer[idx] == c;
@@ -325,8 +329,8 @@ void Lex::skipComment() {
 
 
 void Lex::getDoubleQuoteString() {
-    startLexem(true);
     advance();
+    startLexem(true);
 
     while (!lookahead('"')) {
         if (lookahead('\\')) {
@@ -336,8 +340,8 @@ void Lex::getDoubleQuoteString() {
         advance();
     }
 
+    endLexem(-1);
     advance();
-    endLexem();
     createToken(TK_LITERAL_STRING);
 }
 
@@ -345,8 +349,8 @@ void Lex::getDoubleQuoteString() {
 void Lex::getSingleQuoteString() {
     int steps = 0;
 
-    startLexem(true);
     advance();
+    startLexem(true);
 
     while (!lookahead('\'')) {
         if (lookahead('\\')) {
@@ -357,8 +361,8 @@ void Lex::getSingleQuoteString() {
         ++steps;
     }
 
+    endLexem(-1);
     advance();
-    endLexem();
 
     if (steps > 1) {
         createToken(TK_LITERAL_STRING);
@@ -432,8 +436,7 @@ void Lex::getNumber() {
         }
     }
 
-    endLexem();
-    lexemEnd--;
+    endLexem(-1);
     createToken(kind);
 }
 
@@ -461,9 +464,7 @@ void Lex::getKeywordOrIdentifier() {
         advance();
     }
 
-    endLexem();
-    lexemEnd--;
-
+    endLexem(-1);
     kind = getKeywordKind();
 
     if (kind != TK_ID) {

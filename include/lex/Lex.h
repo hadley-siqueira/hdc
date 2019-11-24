@@ -43,6 +43,7 @@ namespace hdc {
             void startLexem();
             void startLexem(bool flag);
             void endLexem();
+            void endLexem(int offset);
             bool lookahead(char c);
             void createToken(TokenKind kind);
             void getNextToken();

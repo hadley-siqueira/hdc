@@ -1,0 +1,15 @@
+def main : int
+    println("P3\n800\n600\n255")
+
+    i = 0
+    c = 0
+    while i < 480000:
+        println(c)
+        println(c)
+        println(c)
+
+        i = i + 1
+        c = c + 1
+
+        if c == 256:
+            c = 0

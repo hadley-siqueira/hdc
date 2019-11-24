@@ -708,7 +708,7 @@ void CppPrinter::visit(LiteralIntegerExpression* expression) {
 
 void CppPrinter::visit(LiteralStringExpression* expression) {
     isExpression = true;
-    output << expression->get_token().getLexem();
+    output << '"' << expression->get_token().getLexem() << '"';
 }
 
 void CppPrinter::visit(IdentifierExpression* id) {
