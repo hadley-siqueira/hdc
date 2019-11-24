@@ -20,7 +20,13 @@ void SymbolTableStack::push(SymbolTable* symbolTable) {
 
 void SymbolTableStack::pop() {
     symbolTableStack.pop();
-    current = symbolTableStack.top();
+
+    if (symbolTableStack.empty()) {
+        current = nullptr;
+    } else {
+        current = symbolTableStack.top();
+    }
+
     setSymbolTable();
 }
 

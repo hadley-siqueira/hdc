@@ -9,6 +9,10 @@ PointerType::PointerType() {
     this->subtype = NULL;
 }
 
+PointerType::PointerType(Type* type) {
+    this->subtype = type;
+}
+
 
 PointerType::PointerType(Type* type, Token& token) {
     this->kind = AST_POINTER_TYPE;
@@ -17,9 +21,17 @@ PointerType::PointerType(Type* type, Token& token) {
 }
 
 PointerType::~PointerType() {
-    if (subtype != NULL) {
+    if (subtype != nullptr) {
         delete subtype;
     }
+}
+
+void PointerType::setSubtype(Type* type) {
+    if (this->subtype != nullptr) {
+        delete this->subtype;
+    }
+
+    this->subtype = type;
 }
 
 

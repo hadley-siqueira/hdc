@@ -22,11 +22,13 @@ bool hdc::SymbolTable::hasParent() {
     return parent != nullptr;
 }
 
-void SymbolTable::addClass(Class* klass) {
-    symbols[klass->getName()] = new Symbol(klass);
+Symbol* SymbolTable::addClass(Class* klass) {
+    Symbol* symbol = new Symbol(klass);
+    symbols[klass->getName()] = symbol;
+    return symbol;
 }
 
-void SymbolTable::addDef(Def* def) {
+Symbol* SymbolTable::addDef(Def* def) {
     /*std::string name = def->getName();
 
     if (symbols.find(name) == symbols.end())
@@ -35,12 +37,16 @@ void SymbolTable::addDef(Def* def) {
     symbols[def->getName()] = symbol;*/
 }
 
-void SymbolTable::addLocalVariable(LocalVariable* var) {
-    symbols[var->getName()] = new Symbol(var);
+Symbol* SymbolTable::addLocalVariable(LocalVariable* var) {
+    Symbol* symbol = new Symbol(var);
+    symbols[var->getName()] = symbol;
+    return symbol;
 }
 
-void SymbolTable::addParameter(Parameter* parameter) {
-    symbols[parameter->getName()] = new Symbol(parameter);
+Symbol* SymbolTable::addParameter(Parameter* parameter) {
+    Symbol* symbol = new Symbol(parameter);
+    symbols[parameter->getName()] = symbol;
+    return symbol;
 }
 
 Symbol* SymbolTable::has(std::string& name) {

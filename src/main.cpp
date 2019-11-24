@@ -7,6 +7,7 @@
 #include "ast/AST.h"
 #include "visitors/PrettyPrinter.h"
 #include "visitors/SymbolTableBuilderVisitor.h"
+#include "visitors/TypeCheckerVisitor.h"
 #include "visitors/CppPrinter.h"
 
 using namespace std;
@@ -66,10 +67,12 @@ void testCppPrinter(string path) {
     CppPrinter printer;
     SourceFile* file;
     SymbolTableBuilderVisitor sbuilder;
+    TypeCheckerVisitor typer;
 
     file = parser.read(path);
 
     file->accept(&sbuilder);
+    file->accept(&typer);
     file->accept(&printer);
 
     printer.print();
@@ -79,7 +82,7 @@ void testCppPrinter(string path) {
 }
 
 int main(int argc, char* argv[]) {
-    string path = "/home/hadley/Projetos/hdc/samples/simple02.hd";
+    string path = "/home/hadley/Projetos/hdc/samples/simple03.hd";
 
     //testLex(path);
     //testParser(path);

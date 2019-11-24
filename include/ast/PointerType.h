@@ -6,16 +6,19 @@
 
 namespace hdc {
     class PointerType : public Type {
-        private:
-            Type* subtype;
-            Token token;
-
         public:
             PointerType();
+            PointerType(Type* type);
             PointerType(Type* type, Token& token);
 
             virtual ~PointerType();
 
+        /* Setters */
+        public:
+            void setSubtype(Type* type);
+
+        /* Getters */
+        public:
             Type* getSubtype();
 
         public:
@@ -23,6 +26,11 @@ namespace hdc {
 
         public:
             virtual void accept(Visitor* visitor);
+
+        private:
+            Type* subtype;
+            Token token;
+
     };
 }
 

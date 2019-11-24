@@ -63,7 +63,7 @@ void TypeCheckerVisitor::visit(Statement* statement) {}
 
 void TypeCheckerVisitor::visit(CompoundStatement* statement) {
     for (int i = 0; i < statement->n_statements(); ++i) {
-        statement->getStatement(i)->accept(this);
+        statement->getStatement(i)->accept(this');
     }
 }
 

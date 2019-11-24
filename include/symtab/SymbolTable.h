@@ -25,10 +25,10 @@ namespace hdc {
 
         /* Actions */
         public:
-            void addClass(Class* klass);
-            void addDef(Def* def);
-            void addLocalVariable(LocalVariable* var);
-            void addParameter(Parameter* parameter);
+            Symbol* addClass(Class* klass);
+            Symbol* addDef(Def* def);
+            Symbol* addLocalVariable(LocalVariable* var);
+            Symbol* addParameter(Parameter* parameter);
 
         /* Predicates */
         public:
