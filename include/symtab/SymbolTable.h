@@ -29,10 +29,12 @@ namespace hdc {
             Symbol* addDef(Def* def);
             Symbol* addLocalVariable(LocalVariable* var);
             Symbol* addParameter(Parameter* parameter);
+            Symbol* addMethod(Def* def);
+            Symbol* addClassVariable(ClassVariable* var);
 
         /* Predicates */
         public:
-            Symbol* has(std::string& name);
+            Symbol* has(std::string name);
             Symbol* hasLocalVariable(std::string& name);
             Symbol* hasLocalVariableOrParameter(const std::string& name);
 

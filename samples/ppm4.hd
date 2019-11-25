@@ -14,7 +14,7 @@ def rgb : Pixel
     @g : int
     @b : int
 
-    pass
+    p = Pixel()
 
 def main : int
     return 0

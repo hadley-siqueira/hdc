@@ -9,13 +9,17 @@ SymbolTableBuilderVisitor::SymbolTableBuilderVisitor() {
     symbolTable = nullptr;
     currentClass = nullptr;
     checkingAssignment = false;
+    stack = new SymbolTableStack(&symbolTable);
+}
+
+SymbolTableBuilderVisitor::~SymbolTableBuilderVisitor() {
+    delete stack;
 }
 
 void SymbolTableBuilderVisitor::visit(SourceFile* file) {
     std::cout << "Building SymbolTable for file '" << file->getPath() << "'\n";
 
-    SymbolTable* oldSymbolTable = symbolTable;
-    symbolTable = new SymbolTable();
+    stack->push(new SymbolTable());
     file->setSymbolTable(symbolTable);
     currentSourceFile = file;
 
@@ -36,7 +40,11 @@ void SymbolTableBuilderVisitor::visit(SourceFile* file) {
         file->getDef(i)->accept(this);
     }
 
-    symbolTable = oldSymbolTable;
+    for (int i = 0; i < file->n_classes(); ++i) {
+        file->getClass(i)->accept(this);
+    }
+
+    stack->pop();
 }
 
 void SymbolTableBuilderVisitor::visit(Import* import) {
@@ -44,7 +52,22 @@ void SymbolTableBuilderVisitor::visit(Import* import) {
 }
 
 void SymbolTableBuilderVisitor::visit(Class* klass) {
+    stack->push(new SymbolTable(symbolTable));
+    klass->setSymbolTable(symbolTable);
 
+    for (int i = 0; i < klass->n_methods(); ++i) {
+        symbolTable->addMethod(klass->getMethod(i));
+    }
+
+    for (int i = 0; i < klass->n_variables(); ++i) {
+        symbolTable->addClassVariable(klass->getVariable(i));
+    }
+
+    for (int i = 0; i < klass->n_methods(); ++i) {
+        klass->getMethod(i)->accept(this);
+    }
+
+    stack->pop();
 }
 
 void SymbolTableBuilderVisitor::visit(Def* def) {
@@ -396,10 +419,10 @@ void SymbolTableBuilderVisitor::visit(IdentifierExpression* id) {
 
         id->setSymbol(symbol);
     } else {
-        symbol = symbolTable->hasLocalVariableOrParameter(id->getName());
+        symbol = symbolTable->has(id->getName());
 
         if (symbol == nullptr) {
-            std::cout << "error: undefined variable '" << id->getName() << "'\n";
+            std::cout << "error: '" << id->getName() << "' not defined in this scope\n";
         } else {
             id->setSymbol(symbol);
         }

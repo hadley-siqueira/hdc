@@ -8,10 +8,12 @@
 #include "ast/Def.h"
 #include "ast/IdentifierExpression.h"
 #include "ast/ClassVariable.h"
+#include "symtab/SymbolTable.h"
 
 namespace hdc {
     class SourceFile;
     class Def;
+    class SymbolTable;
 
     class Class : public ASTNode {
         /* Constructors */
@@ -48,12 +50,16 @@ namespace hdc {
         public:
             void accept(Visitor* visitor);
 
+            SymbolTable* getSymbolTable() const;
+            void setSymbolTable(SymbolTable* value);
+
         private:
             Token name;
             IdentifierExpression* parent;
             SourceFile* file;
             std::vector<Def*> methods;
             std::vector<ClassVariable*> variables;
+            SymbolTable* symbolTable;
 
     };
 }

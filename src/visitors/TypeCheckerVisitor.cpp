@@ -151,7 +151,22 @@ void TypeCheckerVisitor::visit(SizeOfExpression* expression) {
 }
 
 /* Binary Expresisons */
-void TypeCheckerVisitor::visit(CallExpression* expression) {}
+void TypeCheckerVisitor::visit(CallExpression* expression) {
+    Symbol* symbol;
+    Expression* sub = expression->getExpression();
+
+    /* Is a constructor */
+    if (sub->getKind() == AST_IDENTIFIER) {
+        IdentifierExpression* id = (IdentifierExpression*) sub;
+
+        if (id->getSymbol()->getKind() == SYMBOL_CLASS) {
+            id->setType(new NamedType(new IdentifierExpression(id)));
+            expression->setType(new NamedType(new IdentifierExpression(id)));
+            lastType = expression->getType();
+        }
+    }
+}
+
 void TypeCheckerVisitor::visit(DotExpression* expression) {}
 void TypeCheckerVisitor::visit(ArrowExpression* expression) {}
 void TypeCheckerVisitor::visit(IndexExpression* expression) {}

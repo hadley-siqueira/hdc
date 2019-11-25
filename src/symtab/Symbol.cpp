@@ -23,6 +23,11 @@ Symbol::Symbol(Parameter* parameter) {
     descriptor = parameter;
 }
 
+Symbol::Symbol(ClassVariable* var) {
+    kind = SYMBOL_CLASS_VARIABLE;
+    descriptor = var;
+}
+
 void* Symbol::getDescriptor() const {
     return descriptor;
 }

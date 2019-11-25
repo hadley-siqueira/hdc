@@ -29,12 +29,9 @@ Symbol* SymbolTable::addClass(Class* klass) {
 }
 
 Symbol* SymbolTable::addDef(Def* def) {
-    /*std::string name = def->getName();
-
-    if (symbols.find(name) == symbols.end())
-    Symbol* symbol = Symbol.newDef(def);
-
-    symbols[def->getName()] = symbol;*/
+    Symbol* symbol = new Symbol(def);
+    symbols[def->getName()] = symbol;
+    return symbol;
 }
 
 Symbol* SymbolTable::addLocalVariable(LocalVariable* var) {
@@ -49,7 +46,19 @@ Symbol* SymbolTable::addParameter(Parameter* parameter) {
     return symbol;
 }
 
-Symbol* SymbolTable::has(std::string& name) {
+Symbol* SymbolTable::addMethod(Def* def) {
+    Symbol* symbol = new Symbol(def);
+    symbols[def->getName()] = symbol;
+    return symbol;
+}
+
+Symbol* SymbolTable::addClassVariable(ClassVariable* var) {
+    Symbol* symbol = new Symbol(var);
+    symbols[var->getName()] = symbol;
+    return symbol;
+}
+
+Symbol* SymbolTable::has(std::string name) {
     if (symbols.count(name) > 0) {
         return symbols[name];
     }

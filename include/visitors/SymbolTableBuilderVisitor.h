@@ -4,12 +4,17 @@
 #include "visitors/Visitor.h"
 #include "ast/AST.h"
 #include "symtab/SymbolTable.h"
+#include "symtab/SymbolTableStack.h"
 
 namespace hdc {
     class SymbolTableBuilderVisitor : public Visitor {
         /* Constructors */
         public:
             SymbolTableBuilderVisitor();
+
+        /* Destructors */
+        public:
+            ~SymbolTableBuilderVisitor();
 
         /* Visitor interface */
         public:
@@ -138,6 +143,7 @@ namespace hdc {
             Def* currentDef;
             SourceFile* currentSourceFile;
             bool checkingAssignment;
+            SymbolTableStack* stack;
     };
 }
 #endif

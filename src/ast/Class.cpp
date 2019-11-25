@@ -14,6 +14,7 @@ Class::~Class() {
         delete methods[i];
     }
 
+    delete symbolTable;
     delete parent;
 }
 
@@ -81,4 +82,14 @@ void Class::addVariable(ClassVariable* variable) {
 /* Visitors */
 void Class::accept(Visitor* visitor) {
     visitor->visit(this);
+}
+
+SymbolTable* Class::getSymbolTable() const
+{
+    return symbolTable;
+}
+
+void Class::setSymbolTable(SymbolTable* value)
+{
+    symbolTable = value;
 }
