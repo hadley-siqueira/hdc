@@ -98,6 +98,11 @@ void SymbolTableBuilderVisitor::visit(UInt16Type* type) {}
 void SymbolTableBuilderVisitor::visit(UInt32Type* type) {}
 void SymbolTableBuilderVisitor::visit(UInt64Type* type) {}
 void SymbolTableBuilderVisitor::visit(PointerType* type) {}
+
+void SymbolTableBuilderVisitor::visit(NamedType* type) {
+
+}
+
 void SymbolTableBuilderVisitor::visit(Statement* statement) {}
 
 void SymbolTableBuilderVisitor::visit(CompoundStatement* statement) {

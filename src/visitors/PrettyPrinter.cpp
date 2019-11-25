@@ -207,6 +207,10 @@ void PrettyPrinter::visit(PointerType* type) {
     output << "*";
 }
 
+void PrettyPrinter::visit(NamedType* type) {
+    type->getName()->accept(this);
+}
+
 /* Statements */
 void PrettyPrinter::visit(Statement* statement) {
     output << "UNKNOWN STATEMENT";

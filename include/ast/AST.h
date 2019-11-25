@@ -98,6 +98,7 @@
 #include "ast/PrimitiveType.h"
 #include "ast/PointerType.h"
 #include "ast/IntType.h"
+#include "ast/NamedType.h"
 
 #include "ast/UIntType.h"
 #include "ast/ShortType.h"

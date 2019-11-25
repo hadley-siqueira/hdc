@@ -9,5 +9,12 @@ class Pixel:
         blue = 255 - blue
         v = 0
 
+def rgb : Pixel
+    @r : int
+    @g : int
+    @b : int
+
+    pass
+
 def main : int
     return 0

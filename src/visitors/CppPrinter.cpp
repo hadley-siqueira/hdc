@@ -51,6 +51,7 @@ void hdc::CppPrinter::visit(Class* klass) {
     output << '\n';
 
     for (int i = 0; i < klass->n_variables(); ++i) {
+        print_indentation();
         klass->getVariable(i)->getType()->accept(this);
         output << " " << klass->getVariable(i)->getName() << ";\n";
     }
@@ -76,6 +77,7 @@ void CppPrinter::visit(Def* def) {
 
     def->getStatements()->accept(this);
     dedent();
+    print_indentation();
     output << "}\n\n";
 }
 
@@ -195,6 +197,10 @@ void CppPrinter::visit(UInt64Type* type) {
 void CppPrinter::visit(PointerType* type) {
     type->getSubtype()->accept(this);
     output << "*";
+}
+
+void CppPrinter::visit(NamedType* type) {
+    type->getName()->accept(this);
 }
 
 /* Statements */

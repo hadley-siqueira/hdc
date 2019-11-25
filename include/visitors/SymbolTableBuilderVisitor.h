@@ -48,6 +48,7 @@ namespace hdc {
             void visit(UInt32Type* type);
             void visit(UInt64Type* type);
             void visit(PointerType* type);
+            void visit(NamedType* type);
 
             /* Statements */
             void visit(Statement* statement);

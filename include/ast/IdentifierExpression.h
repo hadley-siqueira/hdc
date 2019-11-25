@@ -13,6 +13,7 @@ namespace hdc {
             IdentifierExpression();
             IdentifierExpression(Token& name);
             IdentifierExpression(Token& alias, Token& name);
+            IdentifierExpression(IdentifierExpression* id);
 
         /* Destructors */
         public:

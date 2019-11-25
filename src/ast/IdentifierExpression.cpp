@@ -5,6 +5,7 @@ using namespace hdc;
 IdentifierExpression::IdentifierExpression() {
     this->alias_flag = false;
     this->setKind(AST_IDENTIFIER);
+    this->symbol = nullptr;
 }
 
 
@@ -12,6 +13,7 @@ IdentifierExpression::IdentifierExpression(Token& name) {
     this->name = name;
     this->alias_flag = false;
     this->setKind(AST_IDENTIFIER);
+    this->symbol = nullptr;
 }
 
 
@@ -20,6 +22,15 @@ IdentifierExpression::IdentifierExpression(Token& alias, Token& name) {
     this->alias = alias;
     this->alias_flag = true;
     this->setKind(AST_IDENTIFIER);
+    this->symbol = nullptr;
+}
+
+IdentifierExpression::IdentifierExpression(IdentifierExpression* id) {
+    this->name = id->name;
+    this->alias = id->alias;
+    this->alias_flag = id->alias_flag;
+    this->setKind(AST_IDENTIFIER);
+    this->symbol = id->symbol;
 }
 
 
@@ -50,12 +61,10 @@ void IdentifierExpression::accept(Visitor* visitor) {
     visitor->visit(this);
 }
 
-Symbol* IdentifierExpression::getSymbol() const
-{
+Symbol* IdentifierExpression::getSymbol() const {
     return symbol;
 }
 
-void IdentifierExpression::setSymbol(Symbol* value)
-{
+void IdentifierExpression::setSymbol(Symbol* value) {
     symbol = value;
 }

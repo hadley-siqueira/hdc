@@ -58,6 +58,10 @@ void TypeCheckerVisitor::visit(UInt32Type* type) {}
 void TypeCheckerVisitor::visit(UInt64Type* type) {}
 void TypeCheckerVisitor::visit(PointerType* type) {}
 
+void TypeCheckerVisitor::visit(NamedType* type) {
+
+}
+
 /* Statements */
 void TypeCheckerVisitor::visit(Statement* statement) {}
 

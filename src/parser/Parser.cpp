@@ -108,6 +108,8 @@ Type* Parser::parse_type() {
         type = new UInt32Type(*matched);
     } else if (match(TK_U64)) {
         type = new UInt64Type(*matched);
+    } else if (lookahead(TK_ID)) {
+        type = parse_named_type();
     }
 
     while (type != NULL) {
@@ -573,6 +575,14 @@ Statement* Parser::parse_statement() {
     }
 
     return statement;
+}
+
+Type* Parser::parse_named_type() {
+    IdentifierExpression* name;
+
+    name = parse_identifier_expression();
+
+    return new NamedType(name);
 }
 
 
