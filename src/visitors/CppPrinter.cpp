@@ -281,10 +281,18 @@ void CppPrinter::visit(Expression* expression) {}
 
 /* Unary Expressions */
 void CppPrinter::visit(LogicalNotExpression* expression) {
+    isExpression = true;
 
+    output << "!";
+    expression->getExpression()->accept(this);
 }
 
-void CppPrinter::visit(BitwiseNotExpression* expression) {}
+void CppPrinter::visit(BitwiseNotExpression* expression) {
+    isExpression = true;
+
+    output << "~";
+    expression->getExpression()->accept(this);
+}
 
 void CppPrinter::visit(AddressOfExpression* expression) {
     isExpression = true;
@@ -342,7 +350,11 @@ void CppPrinter::visit(PreDecrementExpression* expression) {
 }
 
 void CppPrinter::visit(SizeOfExpression* expression) {
+    isExpression = true;
 
+    output << "sizeof(";
+    expression->getExpression()->accept(this);
+    output << ")";
 }
 
 /* Binary Expresisons */
@@ -584,7 +596,7 @@ void CppPrinter::visit(BitwiseAndAssignmentExpression* expression) {
 
     output << "(";
     expression->getLeft()->accept(this);
-    output << " & ";
+    output << " &= ";
     expression->getRight()->accept(this);
     output << ")";
 }
@@ -594,7 +606,7 @@ void CppPrinter::visit(BitwiseXorAssignmentExpression* expression) {
 
     output << "(";
     expression->getLeft()->accept(this);
-    output << " ^ ";
+    output << " ^= ";
     expression->getRight()->accept(this);
     output << ")";
 }
@@ -604,13 +616,19 @@ void CppPrinter::visit(BitwiseOrAssignmentExpression* expression) {
 
     output << "(";
     expression->getLeft()->accept(this);
-    output << " | ";
+    output << " |= ";
     expression->getRight()->accept(this);
     output << ")";
 }
 
 void CppPrinter::visit(BitwiseNotAssignmentExpression* expression) {
+    isExpression = true;
 
+    output << "(";
+    expression->getLeft()->accept(this);
+    output << " ~= ";
+    expression->getRight()->accept(this);
+    output << ")";
 }
 
 void CppPrinter::visit(DivisionAssignmentExpression* expression) {
@@ -634,7 +652,7 @@ void CppPrinter::visit(MinusAssignmentExpression* expression) {
 
     output << "(";
     expression->getLeft()->accept(this);
-    output << " - ";
+    output << " -= ";
     expression->getRight()->accept(this);
     output << ")";
 }
@@ -644,7 +662,7 @@ void CppPrinter::visit(ModuloAssignmentExpression* expression) {
 
     output << "(";
     expression->getLeft()->accept(this);
-    output << " % ";
+    output << " %= ";
     expression->getRight()->accept(this);
     output << ")";
 }
@@ -654,7 +672,7 @@ void CppPrinter::visit(PlusAssignmentExpression* expression) {
 
     output << "(";
     expression->getLeft()->accept(this);
-    output << " + ";
+    output << " += ";
     expression->getRight()->accept(this);
     output << ")";
 }
@@ -664,7 +682,7 @@ void CppPrinter::visit(TimesAssignmentExpression* expression) {
 
     output << "(";
     expression->getLeft()->accept(this);
-    output << " * ";
+    output << " *= ";
     expression->getRight()->accept(this);
     output << ")";
 }
@@ -674,7 +692,7 @@ void CppPrinter::visit(SllAssignmentExpression* expression) {
 
     output << "(";
     expression->getLeft()->accept(this);
-    output << " << ";
+    output << " <<= ";
     expression->getRight()->accept(this);
     output << ")";
 }
@@ -684,7 +702,7 @@ void CppPrinter::visit(SraAssignmentExpression* expression) {
 
     output << "(";
     expression->getLeft()->accept(this);
-    output << " >> ";
+    output << " >>= ";
     expression->getRight()->accept(this);
     output << ")";
 }
@@ -694,7 +712,7 @@ void CppPrinter::visit(SrlAssignmentExpression* expression) {
 
     output << "(";
     expression->getLeft()->accept(this);
-    output << " >> ";
+    output << " >>= ";
     expression->getRight()->accept(this);
     output << ")";
 }
@@ -709,6 +727,31 @@ void CppPrinter::visit(LiteralIntegerExpression* expression) {
 void CppPrinter::visit(LiteralStringExpression* expression) {
     isExpression = true;
     output << '"' << expression->get_token().getLexem() << '"';
+}
+
+void CppPrinter::visit(LiteralCharExpression* expression) {
+    isExpression = true;
+    output << "'" << expression->get_token().getLexem() << "'";
+}
+
+void CppPrinter::visit(LiteralFloatExpression* expression) {
+    isExpression = true;
+    output << expression->get_token().getLexem();
+}
+
+void CppPrinter::visit(LiteralDoubleExpression* expression) {
+    isExpression = true;
+    output << expression->get_token().getLexem();
+}
+
+void CppPrinter::visit(LiteralSymbolExpression* expression) {
+    isExpression = true;
+    output << '"' << expression->get_token().getLexem() << '"';
+}
+
+void CppPrinter::visit(LiteralBoolExpression* expression) {
+    isExpression = true;
+    output << expression->get_token().getLexem();
 }
 
 void CppPrinter::visit(IdentifierExpression* id) {
@@ -734,8 +777,15 @@ void CppPrinter::printStart() {
     output << "#include <vector>\n";
     output << "#include <sstream>\n";
     output << "#include <map>\n";
+    output << "#include <cstdio>\n";
 
     output << "\nusing namespace std;\n\n";
+
+    output << "void print(char v) { std::cout << v; }\n";
+    output << "void print(int v) { std::cout << v; }\n";
+    output << "void print(float v) { std::cout << v; }\n";
+    output << "void print(double v) { std::cout << v; }\n";
+    output << "void print(char* v) { std::cout << v; }\n";
 
     output << "void println(char v) { std::cout << v << '\\n'; }\n";
     output << "void println(int v) { std::cout << v << '\\n'; }\n";

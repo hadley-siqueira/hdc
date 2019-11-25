@@ -91,10 +91,29 @@ void TypeCheckerVisitor::visit(AddressOfExpression* expression) {
     lastType = expression->getType();
 }
 
-void TypeCheckerVisitor::visit(UnaryMinusExpression* expression) {}
-void TypeCheckerVisitor::visit(UnaryPlusExpression* expression) {}
-void TypeCheckerVisitor::visit(DolarExpression* expression) {}
-void TypeCheckerVisitor::visit(ParenthesisExpression* expression) {}
+void TypeCheckerVisitor::visit(UnaryMinusExpression* expression) {
+    expression->getExpression()->accept(this);
+    expression->setType(lastType->clone());
+    lastType = expression->getType();
+}
+
+void TypeCheckerVisitor::visit(UnaryPlusExpression* expression) {
+    expression->getExpression()->accept(this);
+    expression->setType(lastType->clone());
+    lastType = expression->getType();
+}
+
+void TypeCheckerVisitor::visit(DolarExpression* expression) {
+    expression->getExpression()->accept(this);
+    expression->setType(lastType->clone());
+    lastType = expression->getType();
+}
+
+void TypeCheckerVisitor::visit(ParenthesisExpression* expression) {
+    expression->getExpression()->accept(this);
+    expression->setType(lastType->clone());
+    lastType = expression->getType();
+}
 
 void TypeCheckerVisitor::visit(DereferenceExpression* expression) {
     Type* subtype;
@@ -109,9 +128,23 @@ void TypeCheckerVisitor::visit(DereferenceExpression* expression) {
     lastType = expression->getType();
 }
 
-void TypeCheckerVisitor::visit(PreIncrementExpression* expression) {}
-void TypeCheckerVisitor::visit(PreDecrementExpression* expression) {}
-void TypeCheckerVisitor::visit(SizeOfExpression* expression) {}
+void TypeCheckerVisitor::visit(PreIncrementExpression* expression) {
+    expression->getExpression()->accept(this);
+    expression->setType(lastType->clone());
+    lastType = expression->getType();
+}
+
+void TypeCheckerVisitor::visit(PreDecrementExpression* expression) {
+    expression->getExpression()->accept(this);
+    expression->setType(lastType->clone());
+    lastType = expression->getType();
+}
+
+void TypeCheckerVisitor::visit(SizeOfExpression* expression) {
+    expression->getExpression()->accept(this);
+    expression->setType(new IntType());
+    lastType = expression->getType();
+}
 
 /* Binary Expresisons */
 void TypeCheckerVisitor::visit(CallExpression* expression) {}
@@ -119,18 +152,165 @@ void TypeCheckerVisitor::visit(DotExpression* expression) {}
 void TypeCheckerVisitor::visit(ArrowExpression* expression) {}
 void TypeCheckerVisitor::visit(IndexExpression* expression) {}
 
-void TypeCheckerVisitor::visit(ShiftLeftLogicalExpression* expression) {}
-void TypeCheckerVisitor::visit(ShiftRightLogicalExpression* expression) {}
-void TypeCheckerVisitor::visit(ShiftRightArithmeticExpression* expression) {}
+void TypeCheckerVisitor::visit(ShiftLeftLogicalExpression* expression) {
+    Type* left;
+    Type* right;
+    Type* type;
 
-void TypeCheckerVisitor::visit(BitwiseAndExpression* expression) {}
-void TypeCheckerVisitor::visit(BitwiseXorExpression* expression) {}
-void TypeCheckerVisitor::visit(BitwiseOrExpression* expression) {}
+    expression->getLeft()->accept(this);
+    left = lastType;
 
-void TypeCheckerVisitor::visit(TimesExpression* expression) {}
-void TypeCheckerVisitor::visit(DivisionExpression* expression) {}
-void TypeCheckerVisitor::visit(IntegerDivisionExpression* expression) {}
-void TypeCheckerVisitor::visit(ModuloExpression* expression) {}
+    expression->getRight()->accept(this);
+    right = lastType;
+
+    type = typeCoercion(left, right);
+    expression->setType(type);
+    lastType = type;
+}
+
+void TypeCheckerVisitor::visit(ShiftRightLogicalExpression* expression) {
+    Type* left;
+    Type* right;
+    Type* type;
+
+    expression->getLeft()->accept(this);
+    left = lastType;
+
+    expression->getRight()->accept(this);
+    right = lastType;
+
+    type = typeCoercion(left, right);
+    expression->setType(type);
+    lastType = type;
+}
+
+void TypeCheckerVisitor::visit(ShiftRightArithmeticExpression* expression) {
+    Type* left;
+    Type* right;
+    Type* type;
+
+    expression->getLeft()->accept(this);
+    left = lastType;
+
+    expression->getRight()->accept(this);
+    right = lastType;
+
+    type = typeCoercion(left, right);
+    expression->setType(type);
+    lastType = type;
+}
+
+void TypeCheckerVisitor::visit(BitwiseAndExpression* expression) {
+    Type* left;
+    Type* right;
+    Type* type;
+
+    expression->getLeft()->accept(this);
+    left = lastType;
+
+    expression->getRight()->accept(this);
+    right = lastType;
+
+    type = typeCoercion(left, right);
+    expression->setType(type);
+    lastType = type;
+}
+
+void TypeCheckerVisitor::visit(BitwiseXorExpression* expression) {
+    Type* left;
+    Type* right;
+    Type* type;
+
+    expression->getLeft()->accept(this);
+    left = lastType;
+
+    expression->getRight()->accept(this);
+    right = lastType;
+
+    type = typeCoercion(left, right);
+    expression->setType(type);
+    lastType = type;
+}
+
+void TypeCheckerVisitor::visit(BitwiseOrExpression* expression) {
+    Type* left;
+    Type* right;
+    Type* type;
+
+    expression->getLeft()->accept(this);
+    left = lastType;
+
+    expression->getRight()->accept(this);
+    right = lastType;
+
+    type = typeCoercion(left, right);
+    expression->setType(type);
+    lastType = type;
+}
+
+void TypeCheckerVisitor::visit(TimesExpression* expression) {
+    Type* left;
+    Type* right;
+    Type* type;
+
+    expression->getLeft()->accept(this);
+    left = lastType;
+
+    expression->getRight()->accept(this);
+    right = lastType;
+
+    type = typeCoercion(left, right);
+    expression->setType(type);
+    lastType = type;
+}
+
+void TypeCheckerVisitor::visit(DivisionExpression* expression) {
+    Type* left;
+    Type* right;
+    Type* type;
+
+    expression->getLeft()->accept(this);
+    left = lastType;
+
+    expression->getRight()->accept(this);
+    right = lastType;
+
+    type = typeCoercion(left, right);
+    expression->setType(type);
+    lastType = type;
+}
+
+void TypeCheckerVisitor::visit(IntegerDivisionExpression* expression) {
+    Type* left;
+    Type* right;
+    Type* type;
+
+    expression->getLeft()->accept(this);
+    left = lastType;
+
+    expression->getRight()->accept(this);
+    right = lastType;
+
+    type = typeCoercion(left, right);
+    expression->setType(type);
+    lastType = type;
+}
+
+void TypeCheckerVisitor::visit(ModuloExpression* expression) {
+    Type* left;
+    Type* right;
+    Type* type;
+
+    expression->getLeft()->accept(this);
+    left = lastType;
+
+    expression->getRight()->accept(this);
+    right = lastType;
+
+    type = typeCoercion(left, right);
+    expression->setType(type);
+    lastType = type;
+}
 
 void TypeCheckerVisitor::visit(PlusExpression* expression) {
     Type* left;
@@ -148,34 +328,210 @@ void TypeCheckerVisitor::visit(PlusExpression* expression) {
     lastType = type;
 }
 
-void TypeCheckerVisitor::visit(MinusExpression* expression) {}
+void TypeCheckerVisitor::visit(MinusExpression* expression) {
+    Type* left;
+    Type* right;
+    Type* type;
 
-void TypeCheckerVisitor::visit(LessThanExpression* expression) {}
-void TypeCheckerVisitor::visit(GreaterThanExpression* expression) {}
-void TypeCheckerVisitor::visit(LessThanOrEqualExpression* expression) {}
-void TypeCheckerVisitor::visit(GreaterThanOrEqualExpression* expression) {}
-void TypeCheckerVisitor::visit(EqualExpression* expression) {}
-void TypeCheckerVisitor::visit(NotEqualExpression* expression) {}
+    expression->getLeft()->accept(this);
+    left = lastType;
+
+    expression->getRight()->accept(this);
+    right = lastType;
+
+    type = typeCoercion(left, right);
+    expression->setType(type);
+    lastType = type;
+}
+
+void TypeCheckerVisitor::visit(LessThanExpression* expression) {
+    Type* left;
+    Type* right;
+    Type* type;
+
+    expression->getLeft()->accept(this);
+    left = lastType;
+
+    expression->getRight()->accept(this);
+    right = lastType;
+
+    expression->setType(new BoolType());
+    lastType = type;
+}
+
+void TypeCheckerVisitor::visit(GreaterThanExpression* expression) {
+    Type* left;
+    Type* right;
+    Type* type;
+
+    expression->getLeft()->accept(this);
+    left = lastType;
+
+    expression->getRight()->accept(this);
+    right = lastType;
+
+    expression->setType(new BoolType());
+    lastType = type;
+}
+
+void TypeCheckerVisitor::visit(LessThanOrEqualExpression* expression) {
+    Type* left;
+    Type* right;
+    Type* type;
+
+    expression->getLeft()->accept(this);
+    left = lastType;
+
+    expression->getRight()->accept(this);
+    right = lastType;
+
+    expression->setType(new BoolType());
+    lastType = type;
+}
+
+void TypeCheckerVisitor::visit(GreaterThanOrEqualExpression* expression) {
+    Type* left;
+    Type* right;
+    Type* type;
+
+    expression->getLeft()->accept(this);
+    left = lastType;
+
+    expression->getRight()->accept(this);
+    right = lastType;
+
+    expression->setType(new BoolType());
+    lastType = type;
+}
+
+void TypeCheckerVisitor::visit(EqualExpression* expression) {
+    Type* left;
+    Type* right;
+    Type* type;
+
+    expression->getLeft()->accept(this);
+    left = lastType;
+
+    expression->getRight()->accept(this);
+    right = lastType;
+
+    expression->setType(new BoolType());
+    lastType = type;
+}
+
+void TypeCheckerVisitor::visit(NotEqualExpression* expression) {
+    Type* left;
+    Type* right;
+    Type* type;
+
+    expression->getLeft()->accept(this);
+    left = lastType;
+
+    expression->getRight()->accept(this);
+    right = lastType;
+
+    expression->setType(new BoolType());
+    lastType = type;
+}
 
 void TypeCheckerVisitor::visit(AssignmentExpression* expression) {
     expression->getRight()->accept(this);
     expression->getLeft()->accept(this);
     expression->setType(lastType->clone());
+    lastType = expression->getType();
 }
 
-void TypeCheckerVisitor::visit(BitwiseAndAssignmentExpression* expression) {}
-void TypeCheckerVisitor::visit(BitwiseXorAssignmentExpression* expression) {}
-void TypeCheckerVisitor::visit(BitwiseOrAssignmentExpression* expression) {}
-void TypeCheckerVisitor::visit(BitwiseNotAssignmentExpression* expression) {}
-void TypeCheckerVisitor::visit(DivisionAssignmentExpression* expression) {}
-void TypeCheckerVisitor::visit(IntegerDivisionAssignmentExpression* expression) {}
-void TypeCheckerVisitor::visit(MinusAssignmentExpression* expression) {}
-void TypeCheckerVisitor::visit(ModuloAssignmentExpression* expression) {}
-void TypeCheckerVisitor::visit(PlusAssignmentExpression* expression) {}
-void TypeCheckerVisitor::visit(TimesAssignmentExpression* expression) {}
-void TypeCheckerVisitor::visit(SllAssignmentExpression* expression) {}
-void TypeCheckerVisitor::visit(SraAssignmentExpression* expression) {}
-void TypeCheckerVisitor::visit(SrlAssignmentExpression* expression) {}
+void TypeCheckerVisitor::visit(BitwiseAndAssignmentExpression* expression) {
+    expression->getRight()->accept(this);
+    expression->getLeft()->accept(this);
+    expression->setType(lastType->clone());
+    lastType = expression->getType();
+}
+
+void TypeCheckerVisitor::visit(BitwiseXorAssignmentExpression* expression) {
+    expression->getRight()->accept(this);
+    expression->getLeft()->accept(this);
+    expression->setType(lastType->clone());
+    lastType = expression->getType();
+}
+
+void TypeCheckerVisitor::visit(BitwiseOrAssignmentExpression* expression) {
+    expression->getRight()->accept(this);
+    expression->getLeft()->accept(this);
+    expression->setType(lastType->clone());
+    lastType = expression->getType();
+}
+
+void TypeCheckerVisitor::visit(BitwiseNotAssignmentExpression* expression) {
+    expression->getRight()->accept(this);
+    expression->getLeft()->accept(this);
+    expression->setType(lastType->clone());
+    lastType = expression->getType();
+}
+
+void TypeCheckerVisitor::visit(DivisionAssignmentExpression* expression) {
+    expression->getRight()->accept(this);
+    expression->getLeft()->accept(this);
+    expression->setType(lastType->clone());
+    lastType = expression->getType();
+}
+
+void TypeCheckerVisitor::visit(IntegerDivisionAssignmentExpression* expression) {
+    expression->getRight()->accept(this);
+    expression->getLeft()->accept(this);
+    expression->setType(lastType->clone());
+    lastType = expression->getType();
+}
+
+void TypeCheckerVisitor::visit(MinusAssignmentExpression* expression) {
+    expression->getRight()->accept(this);
+    expression->getLeft()->accept(this);
+    expression->setType(lastType->clone());
+    lastType = expression->getType();
+}
+
+void TypeCheckerVisitor::visit(ModuloAssignmentExpression* expression) {
+    expression->getRight()->accept(this);
+    expression->getLeft()->accept(this);
+    expression->setType(lastType->clone());
+    lastType = expression->getType();
+}
+
+void TypeCheckerVisitor::visit(PlusAssignmentExpression* expression) {
+    expression->getRight()->accept(this);
+    expression->getLeft()->accept(this);
+    expression->setType(lastType->clone());
+    lastType = expression->getType();
+}
+
+void TypeCheckerVisitor::visit(TimesAssignmentExpression* expression) {
+    expression->getRight()->accept(this);
+    expression->getLeft()->accept(this);
+    expression->setType(lastType->clone());
+    lastType = expression->getType();
+}
+
+void TypeCheckerVisitor::visit(SllAssignmentExpression* expression) {
+    expression->getRight()->accept(this);
+    expression->getLeft()->accept(this);
+    expression->setType(lastType->clone());
+    lastType = expression->getType();
+}
+
+void TypeCheckerVisitor::visit(SraAssignmentExpression* expression) {
+    expression->getRight()->accept(this);
+    expression->getLeft()->accept(this);
+    expression->setType(lastType->clone());
+    lastType = expression->getType();
+}
+
+void TypeCheckerVisitor::visit(SrlAssignmentExpression* expression) {
+    expression->getRight()->accept(this);
+    expression->getLeft()->accept(this);
+    expression->setType(lastType->clone());
+    lastType = expression->getType();
+}
+
 void TypeCheckerVisitor::visit(SpecialAssignmentExpression* expression) {}
 
 void TypeCheckerVisitor::visit(LiteralIntegerExpression* expression) {
@@ -185,6 +541,31 @@ void TypeCheckerVisitor::visit(LiteralIntegerExpression* expression) {
 
 void TypeCheckerVisitor::visit(LiteralStringExpression* expression) {
     expression->setType((new PointerType(new CharType())));
+    lastType = expression->getType();
+}
+
+void TypeCheckerVisitor::visit(LiteralCharExpression* expression) {
+    expression->setType(new CharType());
+    lastType = expression->getType();
+}
+
+void TypeCheckerVisitor::visit(LiteralFloatExpression* expression) {
+    expression->setType(new FloatType());
+    lastType = expression->getType();
+}
+
+void TypeCheckerVisitor::visit(LiteralDoubleExpression* expression) {
+    expression->setType(new DoubleType());
+    lastType = expression->getType();
+}
+
+void TypeCheckerVisitor::visit(LiteralSymbolExpression* expression) {
+    expression->setType(new SymbolType());
+    lastType = expression->getType();
+}
+
+void TypeCheckerVisitor::visit(LiteralBoolExpression* expression) {
+    expression->setType(new BoolType());
     lastType = expression->getType();
 }
 
@@ -222,7 +603,10 @@ Type*TypeCheckerVisitor::typeCoercion(Type* left, Type* right) {
 
     typeTable[AST_INT_TYPE][AST_INT_TYPE] = AST_INT_TYPE;
     typeTable[AST_INT_TYPE][AST_DOUBLE_TYPE] = AST_DOUBLE_TYPE;
+
     typeTable[AST_DOUBLE_TYPE][AST_INT_TYPE] = AST_DOUBLE_TYPE;
+    typeTable[AST_DOUBLE_TYPE][AST_FLOAT_TYPE] = AST_DOUBLE_TYPE;
+    typeTable[AST_DOUBLE_TYPE][AST_DOUBLE_TYPE] = AST_DOUBLE_TYPE;
 
     switch (typeTable[leftKind][rightKind]) {
     case AST_INT_TYPE:

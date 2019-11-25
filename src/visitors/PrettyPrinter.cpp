@@ -599,6 +599,26 @@ void PrettyPrinter::visit(LiteralIntegerExpression* expression) {
 }
 
 void PrettyPrinter::visit(LiteralStringExpression* expression) {
+    output << '"' << expression->get_token().getLexem() << '"';
+}
+
+void PrettyPrinter::visit(LiteralCharExpression* expression) {
+    output << "'" << expression->get_token().getLexem() << "'";
+}
+
+void PrettyPrinter::visit(LiteralFloatExpression* expression) {
+    output << expression->get_token().getLexem();
+}
+
+void PrettyPrinter::visit(LiteralDoubleExpression* expression) {
+    output << expression->get_token().getLexem();
+}
+
+void PrettyPrinter::visit(LiteralSymbolExpression* expression) {
+    output << expression->get_token().getLexem();
+}
+
+void PrettyPrinter::visit(LiteralBoolExpression* expression) {
     output << expression->get_token().getLexem();
 }
 

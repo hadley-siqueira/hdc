@@ -116,6 +116,11 @@ namespace hdc {
             /* Literals */
             virtual void visit(class LiteralIntegerExpression* expression)=0;
             virtual void visit(class LiteralStringExpression* expression)=0;
+            virtual void visit(class LiteralCharExpression* expression)=0;
+            virtual void visit(class LiteralFloatExpression* expression)=0;
+            virtual void visit(class LiteralDoubleExpression* expression)=0;
+            virtual void visit(class LiteralSymbolExpression* expression)=0;
+            virtual void visit(class LiteralBoolExpression* expression)=0;
 
             virtual void visit(class IdentifierExpression* id)=0;
     };

@@ -3,6 +3,11 @@ def main : int
 
     i = 0
     c = 0
+    h = 'a'
+    z = 2.34
+
+    println(h)
+    scanf("%i", &i)
     while i < 480000:
         println(c)
         println(c)

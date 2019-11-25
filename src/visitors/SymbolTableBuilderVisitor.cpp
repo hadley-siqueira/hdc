@@ -356,6 +356,26 @@ void SymbolTableBuilderVisitor::visit(LiteralStringExpression* expression) {
 
 }
 
+void SymbolTableBuilderVisitor::visit(LiteralCharExpression* expression) {
+
+}
+
+void SymbolTableBuilderVisitor::visit(LiteralFloatExpression* expression) {
+
+}
+
+void SymbolTableBuilderVisitor::visit(LiteralDoubleExpression* expression) {
+
+}
+
+void SymbolTableBuilderVisitor::visit(LiteralSymbolExpression* expression) {
+
+}
+
+void SymbolTableBuilderVisitor::visit(LiteralBoolExpression* expression) {
+
+}
+
 void SymbolTableBuilderVisitor::visit(IdentifierExpression* id) {
     Symbol* symbol;
 

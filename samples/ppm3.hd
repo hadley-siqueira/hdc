@@ -1,0 +1,18 @@
+def main : int
+    r = 0
+    g = 0
+    b = 0
+    w = 800
+    h = 600
+
+    scanf('%i %i %i', &r, &g, &b)
+    printf('P3\n%i %i\n255\n', w, h)
+
+    i = 0
+    while i < w * h:
+        if i < w * h / 2:
+            printf('%i %i %i\n', r, g, b)
+        else:
+            printf('%i %i %i\n', 255 - r, 255 - g, 255 - b)
+
+        ++i

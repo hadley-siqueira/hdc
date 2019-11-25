@@ -1,0 +1,22 @@
+def main : int
+    r = 0
+    g = 0
+    b = 0
+    width = 0
+    height = 0
+
+    print('width: ')
+    scanf('%i', &width)
+
+    print('height: ')
+    scanf('%i', &height)
+
+    print('color: ')
+    scanf('%i %i %i', &r, &g, &b)
+
+    printf('P3\n%i %i\n255\n', width, height)
+
+    i = 0
+    while i < width * height:
+        printf('%i %i %i\n', r, g, b)
+        i = i + 1
