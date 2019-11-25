@@ -44,7 +44,15 @@ Def* Class::getMethod(int i) {
         return methods[i];
     }
 
-    return NULL;
+    return nullptr;
+}
+
+ClassVariable*Class::getVariable(int i) {
+    if (i < variables.size()) {
+        return variables[i];
+    }
+
+    return nullptr;
 }
 
 /* Predicates */
@@ -56,10 +64,18 @@ int Class::n_methods() {
     return methods.size();
 }
 
+int Class::n_variables() {
+    return variables.size();
+}
+
 void Class::addMethod(Def* def) {
     methods.push_back(def);
     def->setClass(this);
     def->setFile(this->file);
+}
+
+void Class::addVariable(ClassVariable* variable) {
+    variables.push_back(variable);
 }
 
 /* Visitors */

@@ -626,8 +626,6 @@ Def* Parser::parse_def() {
 
 Class* Parser::parse_class() {
     Token name;
-    IdentifierExpression* parent;
-
     Class* klass = new Class();
 
     expect(TK_CLASS);
@@ -647,6 +645,8 @@ Class* Parser::parse_class() {
     while (true) {
         if (lookahead(TK_DEF)) {
             klass->addMethod(parse_def());
+        } else if (lookahead(TK_ID)){
+            klass->addVariable(parse_class_variable());
         } else {
             break;
         }
@@ -655,6 +655,20 @@ Class* Parser::parse_class() {
     expect(TK_END);
 
     return klass;
+}
+
+ClassVariable* Parser::parse_class_variable() {
+    Token token;
+    Type* type;
+
+    expect(TK_ID);
+    token = *matched;
+
+    expect(TK_COLON);
+    type = parse_type();
+    expect(TK_NEWLINE);
+
+    return new ClassVariable(token, type);
 }
 
 

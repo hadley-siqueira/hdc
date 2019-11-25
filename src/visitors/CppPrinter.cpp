@@ -23,7 +23,11 @@ void CppPrinter::save(std::string path) {
 }
 
 void hdc::CppPrinter::visit(SourceFile* file) {
-    prototypeFlag = true;
+    generatePrototypes(file);
+
+    for (int i = 0; i < file->n_classes(); ++i) {
+        file->getClass(i)->accept(this);
+    }
 
     for (int i = 0; i < file->n_defs(); ++i) {
         file->getDef(i)->accept(this);
@@ -36,12 +40,19 @@ void CppPrinter::visit(Import* import) {
 
 void hdc::CppPrinter::visit(Class* klass) {
     output << "class " << klass->getName();
-    output << "{\n";
+    output << " {\npublic:\n";
 
     indent();
 
     for (int i = 0; i < klass->n_methods(); ++i) {
         klass->getMethod(i)->accept(this);
+    }
+
+    output << '\n';
+
+    for (int i = 0; i < klass->n_variables(); ++i) {
+        klass->getVariable(i)->getType()->accept(this);
+        output << " " << klass->getVariable(i)->getName() << ";\n";
     }
 
     dedent();
@@ -793,6 +804,32 @@ void CppPrinter::printStart() {
     output << "void println(double v) { std::cout << v << '\\n'; }\n";
     output << "void println(char* v) { std::cout << v << '\\n'; }\n";
     output << "\n";
+}
+
+void CppPrinter::generatePrototypes(SourceFile* file) {
+    for (int i = 0; i < file->n_classes(); ++i) {
+        generatePrototype(file->getClass(i));
+    }
+
+    output << '\n';
+
+    for (int i = 0; i < file->n_defs(); ++i) {
+        generatePrototype(file->getDef(i));
+    }
+
+    output << '\n';
+}
+
+void CppPrinter::generatePrototype(Def* def) {
+    def->getReturnType()->accept(this);
+    output << " " << def->getName() << "(";
+
+    generateDefParameters(def);
+    output << ");\n";
+}
+
+void CppPrinter::generatePrototype(Class* klass) {
+    output << "class " << klass->getName() << ";\n";
 }
 
 void CppPrinter::generateDefParameters(Def* def) {

@@ -10,6 +10,7 @@
 #include "ast/Variable.h"
 #include "ast/Parameter.h"
 #include "ast/LocalVariable.h"
+#include "ast/ClassVariable.h"
 
 /* Statements */
 #include "ast/Statement.h"

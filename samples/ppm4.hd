@@ -1,0 +1,13 @@
+class Pixel:
+    red   : int
+    green : int
+    blue  : int
+
+    def negative : void
+        red = 255 - red
+        green = 255 - green
+        blue = 255 - blue
+        v = 0
+
+def main : int
+    return 0

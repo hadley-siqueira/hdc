@@ -17,115 +17,115 @@ namespace hdc {
 
         /* Visitor */
         public:
-            virtual void visit(SourceFile* file);
-            virtual void visit(Import* import);
+            void visit(SourceFile* file);
+            void visit(Import* import);
 
-            virtual void visit(Class* klass);
-            virtual void visit(Def* def);
+            void visit(Class* klass);
+            void visit(Def* def);
 
             /* Variables */
-            virtual void visit(Parameter* parameter);
-            virtual void visit(Variable* variable);
-            virtual void visit(LocalVariable* variable);
+            void visit(Parameter* parameter);
+            void visit(Variable* variable);
+            void visit(LocalVariable* variable);
 
             /* Types */
-            virtual void visit(Type* type);
-            virtual void visit(IntType* type);
-            virtual void visit(UIntType* type);
-            virtual void visit(ShortType* type);
-            virtual void visit(UShortType* type);
-            virtual void visit(LongType* type);
-            virtual void visit(ULongType* type);
-            virtual void visit(CharType* type);
-            virtual void visit(UCharType* type);
-            virtual void visit(FloatType* type);
-            virtual void visit(DoubleType* type);
-            virtual void visit(VoidType* type);
-            virtual void visit(BoolType* type);
-            virtual void visit(SymbolType* type);
-            virtual void visit(Int8Type* type);
-            virtual void visit(Int16Type* type);
-            virtual void visit(Int32Type* type);
-            virtual void visit(Int64Type* type);
-            virtual void visit(UInt8Type* type);
-            virtual void visit(UInt16Type* type);
-            virtual void visit(UInt32Type* type);
-            virtual void visit(UInt64Type* type);
-            virtual void visit(PointerType* type);
+            void visit(Type* type);
+            void visit(IntType* type);
+            void visit(UIntType* type);
+            void visit(ShortType* type);
+            void visit(UShortType* type);
+            void visit(LongType* type);
+            void visit(ULongType* type);
+            void visit(CharType* type);
+            void visit(UCharType* type);
+            void visit(FloatType* type);
+            void visit(DoubleType* type);
+            void visit(VoidType* type);
+            void visit(BoolType* type);
+            void visit(SymbolType* type);
+            void visit(Int8Type* type);
+            void visit(Int16Type* type);
+            void visit(Int32Type* type);
+            void visit(Int64Type* type);
+            void visit(UInt8Type* type);
+            void visit(UInt16Type* type);
+            void visit(UInt32Type* type);
+            void visit(UInt64Type* type);
+            void visit(PointerType* type);
 
             /* Statements */
-            virtual void visit(Statement* statement);
-            virtual void visit(CompoundStatement* statement);
-            virtual void visit(WhileStatement* statement);
-            virtual void visit(IfStatement* statement);
-            virtual void visit(ElifStatement* statement);
-            virtual void visit(ElseStatement* statement);
-            virtual void visit(ReturnStatement* statement);
+            void visit(Statement* statement);
+            void visit(CompoundStatement* statement);
+            void visit(WhileStatement* statement);
+            void visit(IfStatement* statement);
+            void visit(ElifStatement* statement);
+            void visit(ElseStatement* statement);
+            void visit(ReturnStatement* statement);
 
             /* Expressions */
-            virtual void visit(Expression* expression);
+            void visit(Expression* expression);
 
             /* Unary Expressions */
-            virtual void visit(LogicalNotExpression* expression);
-            virtual void visit(BitwiseNotExpression* expression);
-            virtual void visit(AddressOfExpression* expression);
-            virtual void visit(UnaryMinusExpression* expression);
-            virtual void visit(UnaryPlusExpression* expression);
-            virtual void visit(DolarExpression* expression);
-            virtual void visit(ParenthesisExpression* expression);
-            virtual void visit(DereferenceExpression* expression);
-            virtual void visit(PreIncrementExpression* expression);
-            virtual void visit(PreDecrementExpression* expression);
-            virtual void visit(SizeOfExpression* expression);
+            void visit(LogicalNotExpression* expression);
+            void visit(BitwiseNotExpression* expression);
+            void visit(AddressOfExpression* expression);
+            void visit(UnaryMinusExpression* expression);
+            void visit(UnaryPlusExpression* expression);
+            void visit(DolarExpression* expression);
+            void visit(ParenthesisExpression* expression);
+            void visit(DereferenceExpression* expression);
+            void visit(PreIncrementExpression* expression);
+            void visit(PreDecrementExpression* expression);
+            void visit(SizeOfExpression* expression);
 
             /* Binary Expresisons */
-            virtual void visit(CallExpression* expression);
-            virtual void visit(DotExpression* expression);
-            virtual void visit(ArrowExpression* expression);
-            virtual void visit(IndexExpression* expression);
+            void visit(CallExpression* expression);
+            void visit(DotExpression* expression);
+            void visit(ArrowExpression* expression);
+            void visit(IndexExpression* expression);
 
-            virtual void visit(ShiftLeftLogicalExpression* expression);
-            virtual void visit(ShiftRightLogicalExpression* expression);
-            virtual void visit(ShiftRightArithmeticExpression* expression);
+            void visit(ShiftLeftLogicalExpression* expression);
+            void visit(ShiftRightLogicalExpression* expression);
+            void visit(ShiftRightArithmeticExpression* expression);
 
-            virtual void visit(BitwiseAndExpression* expression);
-            virtual void visit(BitwiseXorExpression* expression);
-            virtual void visit(BitwiseOrExpression* expression);
+            void visit(BitwiseAndExpression* expression);
+            void visit(BitwiseXorExpression* expression);
+            void visit(BitwiseOrExpression* expression);
 
-            virtual void visit(TimesExpression* expression);
-            virtual void visit(DivisionExpression* expression);
-            virtual void visit(IntegerDivisionExpression* expression);
-            virtual void visit(ModuloExpression* expression);
+            void visit(TimesExpression* expression);
+            void visit(DivisionExpression* expression);
+            void visit(IntegerDivisionExpression* expression);
+            void visit(ModuloExpression* expression);
 
-            virtual void visit(PlusExpression* expression);
-            virtual void visit(MinusExpression* expression);
+            void visit(PlusExpression* expression);
+            void visit(MinusExpression* expression);
 
-            virtual void visit(LessThanExpression* expression);
-            virtual void visit(GreaterThanExpression* expression);
-            virtual void visit(LessThanOrEqualExpression* expression);
-            virtual void visit(GreaterThanOrEqualExpression* expression);
-            virtual void visit(EqualExpression* expression);
-            virtual void visit(NotEqualExpression* expression);
+            void visit(LessThanExpression* expression);
+            void visit(GreaterThanExpression* expression);
+            void visit(LessThanOrEqualExpression* expression);
+            void visit(GreaterThanOrEqualExpression* expression);
+            void visit(EqualExpression* expression);
+            void visit(NotEqualExpression* expression);
 
-            virtual void visit(AssignmentExpression* expression);
-            virtual void visit(BitwiseAndAssignmentExpression* expression);
-            virtual void visit(BitwiseXorAssignmentExpression* expression);
-            virtual void visit(BitwiseOrAssignmentExpression* expression);
-            virtual void visit(BitwiseNotAssignmentExpression* expression);
-            virtual void visit(DivisionAssignmentExpression* expression);
-            virtual void visit(IntegerDivisionAssignmentExpression* expression);
-            virtual void visit(MinusAssignmentExpression* expression);
-            virtual void visit(ModuloAssignmentExpression* expression);
-            virtual void visit(PlusAssignmentExpression* expression);
-            virtual void visit(TimesAssignmentExpression* expression);
-            virtual void visit(SllAssignmentExpression* expression);
-            virtual void visit(SraAssignmentExpression* expression);
-            virtual void visit(SrlAssignmentExpression* expression);
-            virtual void visit(SpecialAssignmentExpression* expression);
+            void visit(AssignmentExpression* expression);
+            void visit(BitwiseAndAssignmentExpression* expression);
+            void visit(BitwiseXorAssignmentExpression* expression);
+            void visit(BitwiseOrAssignmentExpression* expression);
+            void visit(BitwiseNotAssignmentExpression* expression);
+            void visit(DivisionAssignmentExpression* expression);
+            void visit(IntegerDivisionAssignmentExpression* expression);
+            void visit(MinusAssignmentExpression* expression);
+            void visit(ModuloAssignmentExpression* expression);
+            void visit(PlusAssignmentExpression* expression);
+            void visit(TimesAssignmentExpression* expression);
+            void visit(SllAssignmentExpression* expression);
+            void visit(SraAssignmentExpression* expression);
+            void visit(SrlAssignmentExpression* expression);
+            void visit(SpecialAssignmentExpression* expression);
 
             /* Literals */
-            virtual void visit(LiteralIntegerExpression* expression);
-            virtual void visit(LiteralStringExpression* expression);
+            void visit(LiteralIntegerExpression* expression);
+            void visit(LiteralStringExpression* expression);
             void visit(LiteralCharExpression* expression);
             void visit(LiteralFloatExpression* expression);
             void visit(LiteralDoubleExpression* expression);
@@ -142,6 +142,9 @@ namespace hdc {
             void printStart();
 
         private:
+            void generatePrototypes(SourceFile* file);
+            void generatePrototype(Def* def);
+            void generatePrototype(Class* klass);
             void generateDefParameters(Def* def);
             void generateDefLocalVariables(Def* def);
 

@@ -7,6 +7,7 @@
 #include "ast/SourceFile.h"
 #include "ast/Def.h"
 #include "ast/IdentifierExpression.h"
+#include "ast/ClassVariable.h"
 
 namespace hdc {
     class SourceFile;
@@ -31,14 +32,17 @@ namespace hdc {
             std::string getName();
             IdentifierExpression* getParent();
             Def* getMethod(int i);
+            ClassVariable* getVariable(int i);
 
         /* Predicates */
         public:
             bool hasParent();
             int n_methods();
+            int n_variables();
 
         public:
             void addMethod(Def* def);
+            void addVariable(ClassVariable* variable);
 
         /* Visitors */
         public:
@@ -49,6 +53,7 @@ namespace hdc {
             IdentifierExpression* parent;
             SourceFile* file;
             std::vector<Def*> methods;
+            std::vector<ClassVariable*> variables;
 
     };
 }

@@ -109,6 +109,7 @@ set(AST_SRC
     src/ast/ElifStatement.cpp
     src/ast/ElseStatement.cpp
     src/ast/ReturnStatement.cpp
+    src/ast/ClassVariable.cpp
 )
 
 set(VISITORS_SRC src/visitors/PrettyPrinter.cpp src/visitors/SymbolTableBuilderVisitor.cpp src/visitors/TypeCheckerVisitor.cpp src/visitors/CppPrinter.cpp)
