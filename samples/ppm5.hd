@@ -67,11 +67,14 @@ class PPMImage:
 
         while i < @width * @height:
             pixels[i].negative()
+            ++i
 
     def save : void
+        @path : char*
+
         f = File()
 
-        f.open('/tmp/image.ppm', "w")
+        f.open(path, "w")
         f.write('P3\n')
         f.write(@width)
         f.write(" ")
@@ -102,5 +105,8 @@ def main : int
     p.blue = 255
 
     img.clear(p)
-    img.save()
+    img.save('/tmp/image.ppm')
+    img.negative()
+    img.save('/tmp/negative.ppm')
+
     return 0
