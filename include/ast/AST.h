@@ -83,6 +83,7 @@
 #include "ast/SraAssignmentExpression.h"
 #include "ast/SrlAssignmentExpression.h"
 #include "ast/SpecialAssignmentExpression.h"
+#include "ast/AtExpression.h"
 
 #include "ast/LiteralExpression.h"
 #include "ast/LiteralIntegerExpression.h"

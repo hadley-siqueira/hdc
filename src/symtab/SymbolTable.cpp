@@ -103,6 +103,20 @@ Symbol*SymbolTable::hasLocalVariableOrParameter(const std::string& name) {
     return nullptr;
 }
 
+Symbol* SymbolTable::hasClassVariable(std::string& name) {
+    Symbol* symbol = symbols[name];
+
+    if (symbol != nullptr && symbol->getKind() == SYMBOL_CLASS_VARIABLE) {
+        return symbol;
+    }
+
+    if (hasParent()) {
+        return parent->hasClassVariable(name);
+    }
+
+    return nullptr;
+}
+
 SymbolTable* SymbolTable::getParent() const {
     return parent;
 }

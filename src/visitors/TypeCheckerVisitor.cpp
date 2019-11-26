@@ -113,6 +113,10 @@ void TypeCheckerVisitor::visit(DolarExpression* expression) {
     lastType = expression->getType();
 }
 
+void TypeCheckerVisitor::visit(AtExpression* expression) {
+    IdentifierExpression* id = (IdentifierExpression*) expression->getExpression();
+}
+
 void TypeCheckerVisitor::visit(ParenthesisExpression* expression) {
     expression->getExpression()->accept(this);
     expression->setType(lastType->clone());

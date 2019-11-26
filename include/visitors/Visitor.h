@@ -63,6 +63,7 @@ namespace hdc {
             virtual void visit(class UnaryMinusExpression* expression)=0;
             virtual void visit(class UnaryPlusExpression* expression)=0;
             virtual void visit(class DolarExpression* expression)=0;
+            virtual void visit(class AtExpression* expression)=0;
             virtual void visit(class ParenthesisExpression* expression)=0;
             virtual void visit(class DereferenceExpression* expression)=0;
             virtual void visit(class PreIncrementExpression* expression)=0;

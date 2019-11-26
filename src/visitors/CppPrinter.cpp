@@ -334,8 +334,16 @@ void CppPrinter::visit(UnaryPlusExpression* expression) {
 
 void CppPrinter::visit(DolarExpression* expression) {
     isExpression = true;
+    LiteralStringExpression* str;
 
-    output << "$";
+    str = (LiteralStringExpression*) expression->getExpression();
+    output << str->get_token().getLexem();
+}
+
+void CppPrinter::visit(AtExpression* expression) {
+    isExpression = true;
+
+    output << "this->";
     expression->getExpression()->accept(this);
 }
 

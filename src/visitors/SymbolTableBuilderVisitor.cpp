@@ -161,6 +161,20 @@ void SymbolTableBuilderVisitor::visit(DolarExpression* expression) {
     expression->getExpression()->accept(this);
 }
 
+void SymbolTableBuilderVisitor::visit(AtExpression* expression) {
+    Symbol* symbol;
+    IdentifierExpression* id;
+    std::string name;
+
+    id = (IdentifierExpression*) expression->getExpression();
+    name = id->getName();
+    symbol = symbolTable->hasClassVariable(name);
+
+    if (symbol != nullptr) {
+        id->setSymbol(symbol);
+    }
+}
+
 void SymbolTableBuilderVisitor::visit(ParenthesisExpression* expression) {
     expression->getExpression()->accept(this);
 }

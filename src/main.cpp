@@ -82,7 +82,7 @@ void testCppPrinter(string path) {
 }
 
 int main(int argc, char* argv[]) {
-    string path = "/home/hadley/Projetos/hdc/samples/ppm4.hd";
+    string path = "/home/hadley/Projetos/hdc/samples/ppm5.hd";
 
     //testLex(path);
     //testParser(path);

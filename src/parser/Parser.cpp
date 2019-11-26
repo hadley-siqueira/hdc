@@ -39,6 +39,24 @@ void Parser::expect(TokenKind kind) {
     exit(0);
 }
 
+bool Parser::hasParameters() {
+    std::vector<Token>::iterator it = current_token;
+
+    if ((*it).getKind() == TK_AT) {
+        ++it;
+
+        if ((*it).getKind() == TK_ID) {
+            ++it;
+
+            if ((*it).getKind() == TK_COLON) {
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
 
 Import* Parser::parse_import() {
     Import* import = new Import();
@@ -155,7 +173,12 @@ Expression* Parser::parse_primary_expression() {
         expect(TK_RIGHT_PARENTHESIS);
     } else if (match(TK_DOLAR)) {
         oper = *matched;
-        expression = new DolarExpression(oper, parse_identifier_expression());
+
+        expect(TK_LITERAL_STRING);
+        expression = new DolarExpression(oper, new LiteralStringExpression(*matched));
+    } else if (match(TK_AT)) {
+        oper = *matched;
+        expression = new AtExpression(oper, parse_identifier_expression());
     } else if (match(TK_LITERAL_INTEGER)) {
         expression = new LiteralIntegerExpression(*matched);
     } else if (match(TK_LITERAL_CHAR)) {
@@ -614,7 +637,9 @@ Def* Parser::parse_def() {
     expect(TK_NEWLINE);
     expect(TK_BEGIN);
 
-    while (match(TK_AT)) {
+    while (hasParameters()) {
+    //while (match(TK_AT)) {
+        match(TK_AT);
         Token name;
         Type* ptype;
 

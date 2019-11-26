@@ -1,0 +1,71 @@
+def read_int : int
+    v = 0
+    $"scanf('%i', &v)"
+    return v
+
+class File:
+    ptr  : void*
+
+    def open : void
+        @path : char*
+
+        pass
+
+    def close : void
+        pass
+
+    def write : void
+        pass
+
+
+class Pixel:
+    red   : int
+    green : int
+    blue  : int
+
+    def negative : void
+        @red = 255 - @red
+        @green = 255 - @green
+        @blue = 255 - @blue
+
+
+class PPMImage:
+    width  : int
+    height : int
+    pixels : Pixel*
+
+    def init : void
+        @width  : int
+        @height : int
+
+        @width = width
+        @height = height
+
+    def clear : void
+        @color : Pixel
+
+        i = 0
+        while i < @width * @height:
+            pixels[i] = color
+            i = i + 1
+
+    def negative : void
+        i = 0
+
+        while i < @width * @height:
+            pixels[i].negative()
+
+
+    def save : void
+        f = File()
+
+        f.open('/tmp/image.ppm')
+        f.write('P3\n')
+        f.write(@width)
+        f.write('\n')
+        f.write(@height)
+        f.write(255)
+        
+
+def main : int
+    return 0

@@ -329,6 +329,11 @@ void PrettyPrinter::visit(DolarExpression* expression) {
     expression->getExpression()->accept(this);
 }
 
+void PrettyPrinter::visit(AtExpression* expression) {
+    output << "@";
+    expression->getExpression()->accept(this);
+}
+
 void PrettyPrinter::visit(ParenthesisExpression* expression) {
     output << "(";
     expression->getExpression()->accept(this);

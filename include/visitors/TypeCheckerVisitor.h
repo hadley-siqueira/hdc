@@ -74,6 +74,7 @@ namespace hdc {
             void visit(UnaryMinusExpression* expression);
             void visit(UnaryPlusExpression* expression);
             void visit(DolarExpression* expression);
+            void visit(AtExpression* expression);
             void visit(ParenthesisExpression* expression);
             void visit(DereferenceExpression* expression);
             void visit(PreIncrementExpression* expression);

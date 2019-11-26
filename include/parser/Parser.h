@@ -16,6 +16,7 @@ namespace hdc {
             bool lookahead(TokenKind kind);
             bool match(TokenKind kind);
             void expect(TokenKind kind);
+            bool hasParameters();
 
         private:
             Import* parse_import();

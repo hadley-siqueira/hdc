@@ -37,6 +37,7 @@ namespace hdc {
             Symbol* has(std::string name);
             Symbol* hasLocalVariable(std::string& name);
             Symbol* hasLocalVariableOrParameter(const std::string& name);
+            Symbol* hasClassVariable(std::string& name);
 
         /* Getters */
         public:

@@ -9,12 +9,18 @@ class Pixel:
         blue = 255 - blue
         v = 0
 
+    def neg : void
+        @red = 255 - @red
+        @green = 255 - @green
+        @blue = 255 - @blue
+
 def rgb : Pixel
     @r : int
     @g : int
     @b : int
 
     p = Pixel()
+    p.neg()
 
 def main : int
     return 0

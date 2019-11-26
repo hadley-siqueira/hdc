@@ -111,6 +111,7 @@ set(AST_SRC
     src/ast/ReturnStatement.cpp
     src/ast/ClassVariable.cpp
     src/ast/NamedType.cpp
+    src/ast/AtExpression.cpp
 )
 
 set(VISITORS_SRC src/visitors/PrettyPrinter.cpp src/visitors/SymbolTableBuilderVisitor.cpp src/visitors/TypeCheckerVisitor.cpp src/visitors/CppPrinter.cpp)
