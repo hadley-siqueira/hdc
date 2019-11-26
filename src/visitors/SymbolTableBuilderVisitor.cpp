@@ -71,10 +71,7 @@ void SymbolTableBuilderVisitor::visit(Class* klass) {
 }
 
 void SymbolTableBuilderVisitor::visit(Def* def) {
-    SymbolTable* oldSymbolTable = symbolTable;
-
-    symbolTable = new SymbolTable();
-    symbolTable->setParent(oldSymbolTable);
+    stack->push(new SymbolTable(symbolTable));
     currentDef = def;
 
     def->setSymbolTable(symbolTable);
@@ -84,8 +81,7 @@ void SymbolTableBuilderVisitor::visit(Def* def) {
     }
 
     def->getStatements()->accept(this);
-
-    symbolTable = oldSymbolTable;
+    stack->pop();
 }
 
 void SymbolTableBuilderVisitor::visit(Parameter* parameter) {}

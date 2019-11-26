@@ -1,6 +1,6 @@
 def read_int : int
     v = 0
-    $"scanf('%i', &v)"
+    $'scanf("%i", &v)'
     return v
 
 class File:
@@ -8,14 +8,22 @@ class File:
 
     def open : void
         @path : char*
+        @mode : char*
 
-        pass
+        $'ptr = fopen(path, mode)'
 
     def close : void
-        pass
+        $'fclose((FILE*) ptr)'
 
     def write : void
-        pass
+        @str : char*
+
+        $'fprintf((FILE*) ptr, "%s", str)'
+
+    def write : void
+        @v : int
+
+        $'fprintf((FILE*) ptr, "%i", v)'
 
 
 class Pixel:
@@ -41,6 +49,8 @@ class PPMImage:
         @width = width
         @height = height
 
+        $'pixels = new Pixel[width * height]'
+
     def clear : void
         @color : Pixel
 
@@ -49,23 +59,48 @@ class PPMImage:
             pixels[i] = color
             i = i + 1
 
+    def clear : void
+        pass
+
     def negative : void
         i = 0
 
         while i < @width * @height:
             pixels[i].negative()
 
-
     def save : void
         f = File()
 
-        f.open('/tmp/image.ppm')
+        f.open('/tmp/image.ppm', "w")
         f.write('P3\n')
         f.write(@width)
-        f.write('\n')
+        f.write(" ")
         f.write(@height)
-        f.write(255)
-        
+        f.write('\n255\n')
+
+        i = 0
+
+        while i < @width * @height:
+            f.write(pixels[i].red)
+            f.write(" ")
+            f.write(pixels[i].green)
+            f.write(" ")
+            f.write(pixels[i].blue)
+            f.write("\n")
+            ++i
+
+        f.close()
+
 
 def main : int
+    img = PPMImage()
+
+    img.init(800, 600)
+    p = Pixel()
+    p.red = 255
+    p.green = 0
+    p.blue = 255
+
+    img.clear(p)
+    img.save()
     return 0

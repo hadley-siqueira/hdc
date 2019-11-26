@@ -139,6 +139,7 @@ namespace hdc {
 
         private:
             void checkFunctions(SourceFile* file);
+            void checkClasses(SourceFile* file);
             Type* typeCoercion(Type* left, Type* right);
 
         private:

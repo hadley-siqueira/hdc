@@ -16,11 +16,20 @@ TypeCheckerVisitor::~TypeCheckerVisitor() {
 
 void TypeCheckerVisitor::visit(SourceFile* file) {
     checkFunctions(file);
+    checkClasses(file);
 }
 
 void TypeCheckerVisitor::visit(Import* import) {}
 
-void TypeCheckerVisitor::visit(Class* klass) {}
+void TypeCheckerVisitor::visit(Class* klass) {
+    symbolTableStack->push(klass->getSymbolTable());
+
+    for (int i = 0; i < klass->n_methods(); ++i) {
+        klass->getMethod(i)->accept(this);
+    }
+
+    symbolTableStack->pop();
+}
 
 void TypeCheckerVisitor::visit(Def* def) {
     symbolTableStack->push(def->getSymbolTable());
@@ -614,6 +623,12 @@ void TypeCheckerVisitor::visit(IdentifierExpression* id) {
 void TypeCheckerVisitor::checkFunctions(SourceFile* file) {
     for (int i = 0; i < file->n_defs(); ++i) {
         file->getDef(i)->accept(this);
+    }
+}
+
+void TypeCheckerVisitor::checkClasses(SourceFile* file) {
+    for (int i = 0; i < file->n_classes(); ++i) {
+        file->getClass(i)->accept(this);
     }
 }
 

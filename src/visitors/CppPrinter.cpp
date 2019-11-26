@@ -780,6 +780,7 @@ void CppPrinter::visit(LiteralBoolExpression* expression) {
 }
 
 void CppPrinter::visit(IdentifierExpression* id) {
+    isExpression = true;
     output << id->getName();
 }
 
