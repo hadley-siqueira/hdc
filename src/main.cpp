@@ -9,6 +9,7 @@
 #include "visitors/SymbolTableBuilderVisitor.h"
 #include "visitors/TypeCheckerVisitor.h"
 #include "visitors/CppPrinter.h"
+#include "driver/Driver.h"
 
 using namespace std;
 using namespace hdc;
@@ -83,6 +84,7 @@ void testCppPrinter(string path) {
 
 int main(int argc, char* argv[]) {
     string path = "/home/hadley/Projetos/hdc/samples/ppm5.hd";
+    Driver driver;
 
     //testLex(path);
     //testParser(path);
