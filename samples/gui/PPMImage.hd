@@ -1,6 +1,9 @@
+import gui.Pixel
+
 class PPMImage:
     width  : int
     height : int
+    pixels : Pixel*
 
     def init : void
         pass

@@ -99,10 +99,16 @@ void Driver::parseMultipleImport(Import* import) {
     if (files.size() > 0) {
         for (int i = 0; i < files.size(); ++i) {
             path = basePath + files[i];
-            file = parseFile(path);
-            import->addSourceFile(file);
 
-            parseImports(file);
+            if (sourceFiles.count(path) > 0) {
+                import->addSourceFile(sourceFiles[path]);
+                logger.log(LOG_INTERNAL_DRIVER, "file '" + path + "' was already parsed");
+            } else {
+                file = parseFile(path);
+                import->addSourceFile(file);
+
+                parseImports(file);
+            }
         }
     }
 }
@@ -198,8 +204,6 @@ std::vector<std::string> Driver::getFilesFromDirectory(std::string path, int& er
 
             if (strcmp(name, ".hd") == 0) {
                 files.push_back(std::string(dp->d_name));
-            } else {
-                std::cout << dp->d_name << ' ' << name << std::endl;
             }
         }
     }
