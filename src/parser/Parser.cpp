@@ -57,7 +57,6 @@ bool Parser::hasParameters() {
     return false;
 }
 
-
 Import* Parser::parse_import() {
     Import* import = new Import();
 
@@ -67,6 +66,11 @@ Import* Parser::parse_import() {
     import->add(*matched);
 
     while (match(TK_DOT)) {
+        if (match(TK_TIMES)) {
+            import->add(*matched);
+            break;
+        }
+
         expect(TK_ID);
         import->add(*matched);
     }

@@ -1,5 +1,12 @@
 #include <iostream>
 #include <fstream>
+#include <cstdio>
+#include <cstring>
+#include <sys/types.h>
+#include <dirent.h>
+#include <vector>
+#include <string>
+
 
 #include "driver/Driver.h"
 #include "parser/Parser.h"
@@ -58,7 +65,7 @@ void Driver::parseImports(SourceFile* file) {
 
 void Driver::parseImport(Import* import) {
     if (import->isMultipleImport()) {
-
+        parseMultipleImport(import);
     } else {
         parseSimpleImport(import);
     }
@@ -76,6 +83,27 @@ void Driver::parseSimpleImport(Import* import) {
         import->setSourceFile(file);
 
         parseImports(file);
+    }
+}
+
+void Driver::parseMultipleImport(Import* import) {
+    int err;
+    SourceFile* file;
+    std::string basePath;
+    std::string path;
+    std::vector<std::string> files;
+
+    basePath = buildPathForMultipleImport(import);
+    files = getFilesFromDirectory(basePath, err);
+
+    if (files.size() > 0) {
+        for (int i = 0; i < files.size(); ++i) {
+            path = basePath + files[i];
+            file = parseFile(path);
+            import->addSourceFile(file);
+
+            parseImports(file);
+        }
     }
 }
 
@@ -118,6 +146,19 @@ std::string Driver::buildPathForImport(Import* import) {
     return str;
 }
 
+std::string Driver::buildPathForMultipleImport(Import* import) {
+    std::string str = rootPath;
+    std::vector<Token> path = import->getPath();
+
+    for (int i = 0; i < path.size() - 1; ++i) {
+        str += pathDelimiter;
+        str += path[i].getLexem();
+    }
+
+    str += pathDelimiter;
+    return str;
+}
+
 void Driver::setRootPathFromMainFile() {
     int c;
 
@@ -130,4 +171,38 @@ void Driver::setRootPathFromMainFile() {
     }
 
     logger.log(LOG_INTERNAL_DRIVER, "setting rootPath as '" + rootPath + "'");
+}
+
+std::vector<std::string> Driver::getFilesFromDirectory(std::string path, int& err) {
+    std::vector<std::string> files;
+
+    DIR* dirp;
+    struct dirent* dp;
+
+    dirp = opendir(path.c_str());
+
+    if (dirp == nullptr) {
+        err = 1;
+        return files;
+    }
+
+    while ((dp = readdir(dirp)) != NULL) {
+        char* name = dp->d_name;
+
+        if (strlen(name) > 3) {
+            while (*name != '\0') {
+                ++name;
+            }
+
+            name = name - 3;
+
+            if (strcmp(name, ".hd") == 0) {
+                files.push_back(std::string(dp->d_name));
+            } else {
+                std::cout << dp->d_name << ' ' << name << std::endl;
+            }
+        }
+    }
+
+    return files;
 }

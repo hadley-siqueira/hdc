@@ -66,3 +66,7 @@ void Import::setPath(const std::vector<hdc::Token>& value)
 {
     path = value;
 }
+
+void Import::addSourceFile(SourceFile* file) {
+    sourceFiles.push_back(file);
+}

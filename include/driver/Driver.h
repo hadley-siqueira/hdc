@@ -27,10 +27,14 @@ namespace hdc {
             void parseImports(SourceFile* file);
             void parseImport(Import* import);
             void parseSimpleImport(Import* import);
+            void parseMultipleImport(Import* import);
             bool fileExists(std::string path);
             std::string buildPathForImport(Import* import);
+            std::string buildPathForMultipleImport(Import* import);
 
             void setRootPathFromMainFile();
+
+            std::vector<std::string> getFilesFromDirectory(std::string path, int& err);
 
         private:
             std::map<std::string, SourceFile*> sourceFiles;

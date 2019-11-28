@@ -28,11 +28,13 @@ namespace hdc {
             std::vector<hdc::Token> getPath() const;
             void setPath(const std::vector<hdc::Token>& value);
 
+            void addSourceFile(SourceFile* file);
+
         private:
             std::vector<hdc::Token> path;
             hdc::Token alias;
             SourceFile* sourceFile;
-
+            std::vector<SourceFile*> sourceFiles; // for multiple import
     };
 }
 

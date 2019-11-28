@@ -1,0 +1,6 @@
+class PPMImage:
+    width  : int
+    height : int
+
+    def init : void
+        pass
