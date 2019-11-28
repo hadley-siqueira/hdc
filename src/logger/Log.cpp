@@ -34,5 +34,9 @@ void Log::print() {
     case LOG_INTERNAL_DRIVER:
         std::cout << "\033[34mDriver: \u001b[0m" << message << std::endl;
         break;
+
+    case LOG_ERROR:
+        std::cout << "\u001b[31mError: \u001b[0m" << message << std::endl;
+        break;
     }
 }

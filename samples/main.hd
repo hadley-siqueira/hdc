@@ -1,0 +1,5 @@
+import std.io
+import std.io
+
+def main : int
+    return 0

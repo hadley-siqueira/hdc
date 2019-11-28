@@ -32,7 +32,7 @@ void Driver::setFlags(int argc, char* argv[]) {
     logger.logLex(true);
 
     //mainFilePath = std::string(argv[1]);
-    mainFilePath = "/home/hadley/Projetos/hdc/samples/ppm5.hd";
+    mainFilePath = "/home/hadley/Projetos/hdc/samples/main.hd";
     setRootPathFromMainFile();
 }
 
@@ -45,8 +45,14 @@ void Driver::showLogs() {
 }
 
 void Driver::parseImports(SourceFile* file) {
-    for (int i = 0; i < file->n_imports(); ++i) {
-        parseImport(file->getImport(i));
+    if (file != nullptr) {
+        if (file->n_imports() > 0) {
+            logger.log(LOG_INTERNAL_DRIVER, "reading imports from '" + file->getPath() + "'");
+
+            for (int i = 0; i < file->n_imports(); ++i) {
+                parseImport(file->getImport(i));
+            }
+        }
     }
 }
 
@@ -64,6 +70,7 @@ void Driver::parseSimpleImport(Import* import) {
 
     if (sourceFiles.count(path) > 0) {
         import->setSourceFile(sourceFiles[path]);
+        logger.log(LOG_INTERNAL_DRIVER, "file '" + path + "' was already parsed");
     } else {
         file = parseFile(path);
         import->setSourceFile(file);
@@ -76,12 +83,15 @@ SourceFile* Driver::parseFile(std::string path) {
     Parser parser;
     SourceFile* file;
 
+    logger.log(LOG_INTERNAL_DRIVER, "parsing file '" + path + "'");
+
     if (sourceFiles.count(path) > 0) {
         return sourceFiles[path];
     }
 
     if (!fileExists(path)) {
         logger.log(LOG_ERROR, "couldn't find file or directory '" + path + "'");
+        return nullptr;
     }
 
     file = parser.read(path);
@@ -119,8 +129,5 @@ void Driver::setRootPathFromMainFile() {
         rootPath += mainFilePath[i];
     }
 
-    //std::cout << "root: \033[34m" << rootPath << std::endl;
-    //std::cout << "\u001b[0mteste\n";
-    //exit(0);
     logger.log(LOG_INTERNAL_DRIVER, "setting rootPath as '" + rootPath + "'");
 }

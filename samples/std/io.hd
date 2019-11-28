@@ -1,0 +1,13 @@
+import std.File
+
+def println : void
+    @str : char*
+
+    $'printf("%s\n", str)'
+
+
+def open : File
+    @path : char*
+    @mode : char*
+
+    pass
