@@ -88,9 +88,13 @@ int main(int argc, char* argv[]) {
 
     //testLex(path);
     //testParser(path);
-    testPrettyPrinter(path);
+    //testPrettyPrinter(path);
     //testSymbolTableBuilder(path);
-    testCppPrinter(path);
+    //testCppPrinter(path);
+
+    driver.setFlags(argc, argv);
+    driver.run();
+    driver.showLogs();
 
     return 0;
 }

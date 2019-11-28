@@ -1,3 +1,4 @@
+#include "ast/SourceFile.h"
 #include "ast/Import.h"
 #include <iostream>
 #include <sstream>
@@ -36,6 +37,32 @@ std::string Import::str() {
     return output.str();
 }
 
+bool Import::isMultipleImport() {
+    if (path.size() > 0) {
+        return path[path.size() - 1].getKind() == TK_TIMES;
+    }
+
+    return false;
+}
+
 void Import::accept(Visitor* visitor) {
     visitor->visit(this);
+}
+
+SourceFile* Import::getSourceFile() const {
+    return sourceFile;
+}
+
+void Import::setSourceFile(SourceFile* value) {
+    sourceFile = value;
+}
+
+std::vector<hdc::Token> Import::getPath() const
+{
+    return path;
+}
+
+void Import::setPath(const std::vector<hdc::Token>& value)
+{
+    path = value;
 }

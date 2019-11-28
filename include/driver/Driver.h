@@ -4,6 +4,7 @@
 #include <map>
 #include <string>
 #include "ast/SourceFile.h"
+#include "logger/Logger.h"
 
 namespace hdc {
     class Driver {
@@ -16,17 +17,27 @@ namespace hdc {
             ~Driver();
 
         public:
-            /* This is the main entry point of the Driver class. It receives a path to the main file and
-             * proceeds wit full compilation of the main file and all files included by main recursively
-             */
-            void compile(std::string pathToMain);
+            void run();
+            void setFlags(int argc, char* argv[]);
+            void parseProgram();
+            void showLogs();
 
         private:
-            void parseFile(std::string path);
+            SourceFile* parseFile(std::string path);
+            void parseImports(SourceFile* file);
+            void parseImport(Import* import);
+            void parseSimpleImport(Import* import);
             bool fileExists(std::string path);
+            std::string buildPathForImport(Import* import);
+
+            void setRootPathFromMainFile();
 
         private:
             std::map<std::string, SourceFile*> sourceFiles;
+            Logger logger;
+            std::string mainFilePath;
+            std::string rootPath;
+            char pathDelimiter;
     };
 }
 
