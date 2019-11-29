@@ -1,6 +1,7 @@
 #ifndef HDC_SYMBOL_H
 #define HDC_SYMBOL_H
 
+#include <vector>
 #include "ast/AST.h"
 
 namespace hdc {
@@ -22,16 +23,24 @@ namespace hdc {
             Symbol(Parameter* parameter);
             Symbol(class ClassVariable* var);
 
-
             SymbolKind getKind() const;
             void setKind(const SymbolKind& value);
 
             void* getDescriptor() const;
             void setDescriptor(void* value);
 
+            int getLine() const;
+            void setLine(int value);
+
+            int getColumn() const;
+            void setColumn(int value);
+
         private:
             SymbolKind kind;
             void* descriptor;
+            std::vector<void*> overloadedDescriptors;
+            int line;
+            int column;
     };
 }
 

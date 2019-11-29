@@ -36,6 +36,26 @@ void Symbol::setDescriptor(void* value) {
     descriptor = value;
 }
 
+int Symbol::getLine() const
+{
+    return line;
+}
+
+void Symbol::setLine(int value)
+{
+    line = value;
+}
+
+int Symbol::getColumn() const
+{
+    return column;
+}
+
+void Symbol::setColumn(int value)
+{
+    column = value;
+}
+
 SymbolKind Symbol::getKind() const {
     return kind;
 }

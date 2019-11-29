@@ -28,7 +28,11 @@ std::string Import::str() {
         output << path[i].getLexem() << ".";
     }
 
-    output << path[i].getLexem();
+    if (path[i].getKind() == TK_TIMES) {
+        output << "*";
+    } else {
+        output << path[i].getLexem();
+    }
 
     if (hasAlias()) {
         output << " as " << alias.getLexem();

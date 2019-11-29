@@ -44,6 +44,13 @@ void PrettyPrinter::visit(SourceFile* file) {
 
     output << "\n";
 
+    for (int i = 0; i < file->n_global_variables(); ++i) {
+        file->getGlobalVariable(i)->accept(this);
+        output << "\n";
+    }
+
+    output << "\n";
+
     for (int i = 0; i < file->n_defs(); ++i) {
         file->getDef(i)->accept(this);
         output << "\n\n";
@@ -88,11 +95,14 @@ void PrettyPrinter::visit(Def* def) {
 
     indent();
 
-    for (int i = 0; i < def->n_parameters(); ++i) {
-        def->getParameter(i)->accept(this);
+    if (def->n_parameters() > 0) {
+        for (int i = 0; i < def->n_parameters(); ++i) {
+            def->getParameter(i)->accept(this);
+        }
+
+        output << '\n';
     }
 
-    output << '\n';
     def->getStatements()->accept(this);
     dedent();
 }
@@ -111,6 +121,27 @@ void PrettyPrinter::visit(Variable* variable) {
 
 void PrettyPrinter::visit(LocalVariable* variable) {
 
+}
+
+void PrettyPrinter::visit(GlobalVariable* variable) {
+    Type* type;
+    Expression* expression;
+
+    output << "var ";
+    output << variable->getName();
+
+    type = variable->getType();
+    expression = variable->getExpression();
+
+    if (type != nullptr) {
+        output << " : ";
+        type->accept(this);
+    }
+
+    if (expression != nullptr) {
+        output << " = ";
+        expression->accept(this);
+    }
 }
 
 

@@ -107,6 +107,10 @@ void CppPrinter::visit(LocalVariable* variable) {
     output << " " << variable->getName() << ";\n";
 }
 
+void CppPrinter::visit(GlobalVariable* variable) {
+
+}
+
 /* Types */
 void CppPrinter::visit(Type* type) {}
 

@@ -23,6 +23,7 @@ namespace hdc {
             Def* parse_def();
             Class* parse_class();
             ClassVariable* parse_class_variable();
+            GlobalVariable* parse_global_variable();
 
             std::vector<Expression*> parse_argument_list();
             IdentifierExpression* parse_identifier_expression();

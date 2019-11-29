@@ -42,6 +42,10 @@ void TypeCheckerVisitor::visit(Parameter* parameter) {}
 void TypeCheckerVisitor::visit(Variable* variable) {}
 void TypeCheckerVisitor::visit(LocalVariable* variable) {}
 
+void TypeCheckerVisitor::visit(GlobalVariable* variable) {
+
+}
+
 /* Types */
 void TypeCheckerVisitor::visit(Type* type) {}
 void TypeCheckerVisitor::visit(IntType* type) {}

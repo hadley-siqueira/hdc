@@ -710,6 +710,30 @@ ClassVariable* Parser::parse_class_variable() {
     return new ClassVariable(token, type);
 }
 
+GlobalVariable* Parser::parse_global_variable() {
+    Token name;
+    Type* type = nullptr;
+    Expression* expression = nullptr;
+
+    expect(TK_VAR);
+    expect(TK_ID);
+    name = *matched;
+
+    if (match(TK_COLON)) {
+        type = parse_type();
+
+        if (match(TK_ASSIGNMENT)) {
+            expression = parse_expression();
+        }
+    } else {
+        expect(TK_ASSIGNMENT);
+        expression = parse_expression();
+    }
+
+    expect(TK_NEWLINE);
+    return new GlobalVariable(name, type, expression);
+}
+
 
 SourceFile* Parser::read(std::string path) {
     Lex lex;
@@ -725,6 +749,8 @@ SourceFile* Parser::read(std::string path) {
             file->addDef(parse_def());
         } else if (lookahead(TK_CLASS)) {
             file->addClass(parse_class());
+        } else if (lookahead(TK_VAR)) {
+            file->addGlobalVariable(parse_global_variable());
         } else {
             break;
         }

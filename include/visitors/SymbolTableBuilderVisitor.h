@@ -16,6 +16,10 @@ namespace hdc {
         public:
             ~SymbolTableBuilderVisitor();
 
+        public:
+            bool getFirstPass() const;
+            void setFirstPass(bool value);
+
         /* Visitor interface */
         public:
             void visit(SourceFile* file);
@@ -28,6 +32,7 @@ namespace hdc {
             void visit(Parameter* parameter);
             void visit(Variable* variable);
             void visit(LocalVariable* variable);
+            void visit(GlobalVariable* variable);
 
             /* Types */
             void visit(Type* type);
@@ -145,6 +150,7 @@ namespace hdc {
             SourceFile* currentSourceFile;
             bool checkingAssignment;
             SymbolTableStack* stack;
+            bool firstPass;
     };
 }
 #endif

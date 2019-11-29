@@ -16,6 +16,14 @@ SymbolTableBuilderVisitor::~SymbolTableBuilderVisitor() {
     delete stack;
 }
 
+bool SymbolTableBuilderVisitor::getFirstPass() const {
+    return firstPass;
+}
+
+void SymbolTableBuilderVisitor::setFirstPass(bool value) {
+    firstPass = value;
+}
+
 void SymbolTableBuilderVisitor::visit(SourceFile* file) {
     std::cout << "Building SymbolTable for file '" << file->getPath() << "'\n";
 
@@ -91,6 +99,10 @@ void SymbolTableBuilderVisitor::visit(Variable* variable) {
 }
 
 void SymbolTableBuilderVisitor::visit(LocalVariable* variable) {
+
+}
+
+void SymbolTableBuilderVisitor::visit(GlobalVariable* variable) {
 
 }
 

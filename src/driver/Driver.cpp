@@ -11,6 +11,10 @@
 #include "driver/Driver.h"
 #include "parser/Parser.h"
 #include "logger/Logger.h"
+#include "visitors/SymbolTableBuilderVisitor.h"
+#include "visitors/TypeCheckerVisitor.h"
+#include "visitors/CppPrinter.h"
+#include "visitors/PrettyPrinter.h"
 
 using namespace hdc;
 
@@ -31,6 +35,8 @@ Driver::~Driver() {
 
 void Driver::run() {
     parseProgram();
+    buildSymbolTables();
+    prettyPrintAllFiles();
 }
 
 void Driver::setFlags(int argc, char* argv[]) {
@@ -49,6 +55,34 @@ void Driver::parseProgram() {
 
 void Driver::showLogs() {
     logger.printLogs();
+}
+
+void Driver::buildSymbolTables() {
+    std::map<std::string, SourceFile*>::iterator it;
+
+    for (it = sourceFiles.begin(); it != sourceFiles.end(); ++it) {
+        SymbolTableBuilderVisitor builder;
+
+        builder.setFirstPass(true);
+        it->second->accept(&builder);
+    }
+
+    for (it = sourceFiles.begin(); it != sourceFiles.end(); ++it) {
+        SymbolTableBuilderVisitor builder;
+
+        it->second->accept(&builder);
+    }
+}
+
+void Driver::prettyPrintAllFiles() {
+    std::map<std::string, SourceFile*>::iterator it;
+
+    for (it = sourceFiles.begin(); it != sourceFiles.end(); ++it) {
+        PrettyPrinter printer;
+
+        it->second->accept(&printer);
+        printer.print();
+    }
 }
 
 void Driver::parseImports(SourceFile* file) {

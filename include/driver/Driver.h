@@ -23,6 +23,9 @@ namespace hdc {
             void showLogs();
 
         private:
+            void buildSymbolTables();
+            void prettyPrintAllFiles();
+
             SourceFile* parseFile(std::string path);
             void parseImports(SourceFile* file);
             void parseImport(Import* import);

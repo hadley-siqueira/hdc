@@ -11,6 +11,7 @@
 #include "ast/Parameter.h"
 #include "ast/LocalVariable.h"
 #include "ast/ClassVariable.h"
+#include "ast/GlobalVariable.h"
 
 /* Statements */
 #include "ast/Statement.h"

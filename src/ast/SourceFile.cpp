@@ -20,6 +20,10 @@ SourceFile::~SourceFile() {
         delete defs[i];
     }
 
+    for (int i = 0; i < globalVariables.size(); ++i) {
+        delete globalVariables[i];
+    }
+
     delete symbolTable;
 }
 
@@ -36,6 +40,11 @@ void SourceFile::addDef(Def* def) {
     def->setFile(this);
 }
 
+void SourceFile::addGlobalVariable(GlobalVariable* var) {
+    globalVariables.push_back(var);
+    var->setSourceFile(this);
+}
+
 
 int SourceFile::n_defs() {
     return defs.size();
@@ -50,6 +59,10 @@ int SourceFile::n_classes() {
     return classes.size();
 }
 
+int SourceFile::n_global_variables() {
+    return globalVariables.size();
+}
+
 std::string SourceFile::getPath() {
     return path;
 }
@@ -59,14 +72,14 @@ Class* SourceFile::getClass(int i) {
         return classes[i];
     }
 
-    return NULL;
+    return nullptr;
 }
 
 Def* SourceFile::getDef(int i) {
     if (i < defs.size()) {
         return defs[i];
     } else {
-        return NULL;
+        return nullptr;
     }
 }
 
@@ -75,7 +88,15 @@ Import* SourceFile::getImport(int i) {
     if (i < imports.size()) {
         return imports[i];
     } else {
-        return NULL;
+        return nullptr;
+    }
+}
+
+GlobalVariable* SourceFile::getGlobalVariable(int i) {
+    if (i < globalVariables.size()) {
+        return globalVariables[i];
+    } else {
+        return nullptr;
     }
 }
 
