@@ -37,3 +37,13 @@ unsigned long long Variable::getGlobalName() const {
 void Variable::setGlobalName(unsigned long long value) {
     globalName = value;
 }
+
+bool Variable::getIsConstant() const
+{
+    return isConstant;
+}
+
+void Variable::setIsConstant(bool value)
+{
+    isConstant = value;
+}

@@ -28,16 +28,19 @@ namespace hdc {
             void addClass(Class* klass);
             void addDef(Def* def);
             void addGlobalVariable(GlobalVariable* var);
+            void addGlobalConstant(GlobalVariable* var);
 
             int n_defs();
             int n_imports();
             int n_classes();
             int n_global_variables();
+            int n_global_constants();
 
             Class* getClass(int i);
             Def* getDef(int i);
             Import* getImport(int i);
             GlobalVariable* getGlobalVariable(int i);
+            GlobalVariable* getGlobalConstant(int i);
 
         /* Getters */
         public:
@@ -58,6 +61,7 @@ namespace hdc {
             std::vector<Import*> imports;
             std::vector<Def*> defs;
             std::vector<GlobalVariable*> globalVariables;
+            std::vector<GlobalVariable*> globalConstants;
             SymbolTable* symbolTable;
     };
 }

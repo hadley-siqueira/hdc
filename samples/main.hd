@@ -5,10 +5,10 @@ import gui.*
 var x = 23
 var y : int = 23
 var z : int
-#  a b bd c
-# const w = 23
-# const msg = 'a message'
-# const m2 : char* = 'a message'
+
+const w = 23
+const msg = 'a message'
+const m2 : char* = 'a message'
 
 def main : int
     return 0

@@ -44,6 +44,15 @@ void PrettyPrinter::visit(SourceFile* file) {
 
     output << "\n";
 
+    if (file->n_global_constants() > 0) {
+        for (int i = 0; i < file->n_global_constants(); ++i) {
+            file->getGlobalConstant(i)->accept(this);
+            output << "\n";
+        }
+
+        output << '\n';
+    }
+
     for (int i = 0; i < file->n_global_variables(); ++i) {
         file->getGlobalVariable(i)->accept(this);
         output << "\n";
@@ -127,7 +136,12 @@ void PrettyPrinter::visit(GlobalVariable* variable) {
     Type* type;
     Expression* expression;
 
-    output << "var ";
+    if (variable->getIsConstant()) {
+        output << "const ";
+    } else {
+        output << "var ";
+    }
+
     output << variable->getName();
 
     type = variable->getType();

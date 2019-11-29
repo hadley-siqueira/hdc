@@ -25,11 +25,15 @@ namespace hdc {
             unsigned long long getGlobalName() const;
             void setGlobalName(unsigned long long value);
 
+            bool getIsConstant() const;
+            void setIsConstant(bool value);
+
         protected:
             Token token;
             Type* type;
             int offset;
             int localName;
+            bool isConstant;
             unsigned long long globalName;
     };
 }

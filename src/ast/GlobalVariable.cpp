@@ -5,30 +5,35 @@ using namespace hdc;
 hdc::GlobalVariable::GlobalVariable() {
     this->type = nullptr;
     this->expression = nullptr;
+    this->isConstant = false;
 }
 
 hdc::GlobalVariable::GlobalVariable(hdc::Token& token) {
     this->token = token;
     this->type = nullptr;
     this->expression = nullptr;
+    this->isConstant = false;
 }
 
 hdc::GlobalVariable::GlobalVariable(hdc::Token& token, hdc::Type* type) {
     this->token = token;
     this->type = type;
     this->expression = nullptr;
+    this->isConstant = false;
 }
 
 hdc::GlobalVariable::GlobalVariable(hdc::Token& token, hdc::Type* type, hdc::Expression* expression) {
     this->token = token;
     this->type = type;
     this->expression = expression;
+    this->isConstant = false;
 }
 
 hdc::GlobalVariable::GlobalVariable(hdc::Token& token, hdc::Expression* expression) {
     this->token = token;
     this->type = nullptr;
     this->expression = expression;
+    this->isConstant = false;
 }
 
 GlobalVariable::~GlobalVariable() {

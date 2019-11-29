@@ -45,6 +45,11 @@ void SourceFile::addGlobalVariable(GlobalVariable* var) {
     var->setSourceFile(this);
 }
 
+void SourceFile::addGlobalConstant(GlobalVariable* var) {
+    globalConstants.push_back(var);
+    var->setSourceFile(this);
+}
+
 
 int SourceFile::n_defs() {
     return defs.size();
@@ -61,6 +66,10 @@ int SourceFile::n_classes() {
 
 int SourceFile::n_global_variables() {
     return globalVariables.size();
+}
+
+int SourceFile::n_global_constants() {
+    return globalConstants.size();
 }
 
 std::string SourceFile::getPath() {
@@ -95,6 +104,14 @@ Import* SourceFile::getImport(int i) {
 GlobalVariable* SourceFile::getGlobalVariable(int i) {
     if (i < globalVariables.size()) {
         return globalVariables[i];
+    } else {
+        return nullptr;
+    }
+}
+
+GlobalVariable*SourceFile::getGlobalConstant(int i) {
+    if (i < globalConstants.size()) {
+        return globalConstants[i];
     } else {
         return nullptr;
     }
