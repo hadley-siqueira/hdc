@@ -612,7 +612,6 @@ Type* Parser::parse_named_type() {
     return new NamedType(name);
 }
 
-
 CompoundStatement* Parser::parse_statements() {
     CompoundStatement* statements = new CompoundStatement();
 
