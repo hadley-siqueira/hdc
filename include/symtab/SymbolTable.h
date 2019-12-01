@@ -31,6 +31,7 @@ namespace hdc {
             Symbol* addParameter(Parameter* parameter);
             Symbol* addMethod(Def* def);
             Symbol* addClassVariable(ClassVariable* var);
+            Symbol* add(GlobalVariable* var);
 
         /* Predicates */
         public:

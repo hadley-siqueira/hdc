@@ -28,6 +28,16 @@ Symbol::Symbol(ClassVariable* var) {
     descriptor = var;
 }
 
+Symbol::Symbol(GlobalVariable* var) {
+    if (var->getIsConstant()) {
+        kind = SYMBOL_GLOBAL_CONSTANT;
+    } else {
+        kind = SYMBOL_GLOBAL_VARIABLE;
+    }
+
+    descriptor = var;
+}
+
 void* Symbol::getDescriptor() const {
     return descriptor;
 }

@@ -158,7 +158,6 @@ void PrettyPrinter::visit(GlobalVariable* variable) {
     }
 }
 
-
 void PrettyPrinter::visit(Type* type) {
     output << "UNKNOWN TYPE";
 }

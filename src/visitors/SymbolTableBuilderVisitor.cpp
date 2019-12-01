@@ -31,6 +31,8 @@ void SymbolTableBuilderVisitor::visit(SourceFile* file) {
     file->setSymbolTable(symbolTable);
     currentSourceFile = file;
 
+    buildInitialSymbolTable(file);
+
     // add functions to the symbolTable
     for (int i = 0; i < file->n_defs(); ++i) {
         symbolTable->addDef(file->getDef(i));
@@ -447,6 +449,58 @@ void SymbolTableBuilderVisitor::visit(IdentifierExpression* id) {
             std::cout << "error: '" << id->getName() << "' not defined in this scope\n";
         } else {
             id->setSymbol(symbol);
+        }
+    }
+}
+
+void SymbolTableBuilderVisitor::buildInitialSymbolTable(SourceFile* sourceFile) {
+    Symbol* symbol;
+
+    for (int i = 0; i < sourceFile->n_defs(); ++i) {
+        std::string name = sourceFile->getDef(i)->getName();
+        symbol = symbolTable->has(name);
+
+        if (symbol != nullptr) {
+            std::cout << "error: '" << name << "' already declared";
+            exit(0);
+        } else {
+            symbolTable->addDef(sourceFile->getDef(i));
+        }
+    }
+
+    for (int i = 0; i < sourceFile->n_classes(); ++i) {
+        std::string name = sourceFile->getClass(i)->getName();
+        symbol = symbolTable->has(name);
+
+        if (symbol != nullptr) {
+            std::cout << "error: '" << name << "' already declared";
+            exit(0);
+        } else {
+            symbolTable->addClass(sourceFile->getClass(i));
+        }
+    }
+
+    for (int i = 0; i < sourceFile->n_global_variables(); ++i) {
+        std::string name = sourceFile->getGlobalVariable(i)->getName();
+        symbol = symbolTable->has(name);
+
+        if (symbol != nullptr) {
+            std::cout << "error: '" << name << "' already declared";
+            exit(0);
+        } else {
+            symbolTable->add(sourceFile->getGlobalVariable(i));
+        }
+    }
+
+    for (int i = 0; i < sourceFile->n_global_constants(); ++i) {
+        std::string name = sourceFile->getGlobalVariable(i)->getName();
+        symbol = symbolTable->has(name);
+
+        if (symbol != nullptr) {
+            std::cout << "error: '" << name << "' already declared";
+            exit(0);
+        } else {
+            symbolTable->add(sourceFile->getGlobalVariable(i));
         }
     }
 }

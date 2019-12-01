@@ -11,7 +11,9 @@ namespace hdc {
         SYMBOL_METHOD,
         SYMBOL_PARAMETER,
         SYMBOL_LOCAL_VARIABLE,
-        SYMBOL_CLASS_VARIABLE
+        SYMBOL_CLASS_VARIABLE,
+        SYMBOL_GLOBAL_VARIABLE,
+        SYMBOL_GLOBAL_CONSTANT
     } SymbolKind;
 
     class Symbol {
@@ -22,6 +24,7 @@ namespace hdc {
             Symbol(LocalVariable* var);
             Symbol(Parameter* parameter);
             Symbol(class ClassVariable* var);
+            Symbol(class GlobalVariable* var);
 
             SymbolKind getKind() const;
             void setKind(const SymbolKind& value);

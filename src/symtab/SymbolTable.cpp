@@ -58,6 +58,12 @@ Symbol* SymbolTable::addClassVariable(ClassVariable* var) {
     return symbol;
 }
 
+Symbol*SymbolTable::add(GlobalVariable* var) {
+    Symbol* symbol = new Symbol(var);
+    symbols[var->getName()] = symbol;
+    return symbol;
+}
+
 Symbol* SymbolTable::has(std::string name) {
     if (symbols.count(name) > 0) {
         return symbols[name];

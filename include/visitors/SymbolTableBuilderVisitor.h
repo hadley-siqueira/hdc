@@ -143,6 +143,9 @@ namespace hdc {
             void visit(IdentifierExpression* id);
 
         private:
+            void buildInitialSymbolTable(SourceFile* sourceFile);
+
+        private:
             // pointer to the current symboltable
             SymbolTable* symbolTable;
             Class* currentClass;
