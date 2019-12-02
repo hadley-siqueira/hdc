@@ -9,6 +9,8 @@ namespace hdc {
     class SourceFile;
     class Def;
     class Symbol;
+    class Parameter;
+    class ClassVariable;
 
     class SymbolTable {
         /* Constructors */
@@ -54,9 +56,7 @@ namespace hdc {
 
             // pointer to search definitions on SourceFile
             SourceFile* sourceFile;
-
             std::map<std::string, Symbol*> symbols;
-
     };
 }
 

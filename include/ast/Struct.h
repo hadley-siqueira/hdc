@@ -1,12 +1,12 @@
-#ifndef CLASS_H
-#define CLASS_H
+#ifndef HDC_STRUCT_H
+#define HDC_STRUCT_H
 
 #include <vector>
 
 #include "ASTNode.h"
 #include "ast/SourceFile.h"
 #include "ast/IdentifierExpression.h"
-#include "ast/ClassVariable.h"
+#include "ast/StructField.h"
 #include "symtab/SymbolTable.h"
 
 namespace hdc {
@@ -31,20 +31,17 @@ namespace hdc {
         public:
             std::string getName();
             IdentifierExpression* getParent();
-            Def* getMethod(int i);
-            ClassVariable* getVariable(int i);
+            StructField* getField(int i);
             int getLine();
             int getColumn();
 
         /* Predicates */
         public:
             bool hasParent();
-            int n_methods();
-            int n_variables();
+            int n_fields();
 
         public:
-            void addMethod(Def* def);
-            void addVariable(ClassVariable* variable);
+            void addField(StructField* field);
 
         /* Visitors */
         public:
@@ -57,8 +54,7 @@ namespace hdc {
             Token name;
             IdentifierExpression* parent;
             SourceFile* file;
-            std::vector<Def*> methods;
-            std::vector<ClassVariable*> variables;
+            std::vector<StructField*> fields;
             SymbolTable* symbolTable;
 
     };

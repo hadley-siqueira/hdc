@@ -70,6 +70,10 @@ void SymbolTableBuilderVisitor::visit(Class* klass) {
     stack->pop();
 }
 
+void SymbolTableBuilderVisitor::visit(Struct* s) {
+
+}
+
 void SymbolTableBuilderVisitor::visit(Def* def) {
     stack->push(new SymbolTable(symbolTable));
     currentDef = def;

@@ -1,18 +1,17 @@
-#ifndef HDC_PARAMETER_H
-#define HDC_PARAMETER_H
+#ifndef HDC_STRUCT_FIELD_H
+#define HDC_STRUCT_FIELD_H
 
 #include "token/Token.h"
 #include "ast/Variable.h"
 #include "ast/Type.h"
 
-
 namespace hdc {
-    class Parameter : public Variable {
+    class StructField : public Variable {
         public:
-            Parameter();
-            Parameter(Token& token, Type* type);
+            StructField();
+            StructField(Token& token, Type* type);
 
-            ~Parameter();
+            ~StructField();
 
         /* Visitors */
         public:

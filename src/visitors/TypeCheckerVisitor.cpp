@@ -31,6 +31,10 @@ void TypeCheckerVisitor::visit(Class* klass) {
     symbolTableStack->pop();
 }
 
+void TypeCheckerVisitor::visit(Struct* s) {
+
+}
+
 void TypeCheckerVisitor::visit(Def* def) {
     symbolTableStack->push(def->getSymbolTable());
     def->getStatements()->accept(this);

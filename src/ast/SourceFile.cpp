@@ -35,6 +35,10 @@ void SourceFile::addClass(Class* klass) {
     classes.push_back(klass);
 }
 
+void SourceFile::addStruct(Struct* s) {
+    structures.push_back(s);
+}
+
 void SourceFile::addDef(Def* def) {
     defs.push_back(def);
     def->setFile(this);
@@ -64,6 +68,10 @@ int SourceFile::n_classes() {
     return classes.size();
 }
 
+int SourceFile::n_structures() {
+    return structures.size();
+}
+
 int SourceFile::n_global_variables() {
     return globalVariables.size();
 }
@@ -79,6 +87,14 @@ std::string SourceFile::getPath() {
 Class* SourceFile::getClass(int i) {
     if (i < classes.size()) {
         return classes[i];
+    }
+
+    return nullptr;
+}
+
+Struct*SourceFile::getStruct(int i) {
+    if (i < structures.size()) {
+        return structures[i];
     }
 
     return nullptr;

@@ -8,6 +8,7 @@
 #include "ast/Import.h"
 #include "ast/Def.h"
 #include "ast/Class.h"
+#include "ast/Struct.h"
 #include "ast/GlobalVariable.h"
 
 #include "visitors/Visitor.h"
@@ -15,6 +16,7 @@
 
 namespace hdc {
     class Class;
+    class Struct;
     class Def;
 
     class SourceFile : public ASTNode {
@@ -26,6 +28,7 @@ namespace hdc {
 
             void addImport(Import* import);
             void addClass(Class* klass);
+            void addStruct(Struct* s);
             void addDef(Def* def);
             void addGlobalVariable(GlobalVariable* var);
             void addGlobalConstant(GlobalVariable* var);
@@ -33,10 +36,12 @@ namespace hdc {
             int n_defs();
             int n_imports();
             int n_classes();
+            int n_structures();
             int n_global_variables();
             int n_global_constants();
 
             Class* getClass(int i);
+            Struct* getStruct(int i);
             Def* getDef(int i);
             Import* getImport(int i);
             GlobalVariable* getGlobalVariable(int i);
@@ -58,6 +63,7 @@ namespace hdc {
         private:
             std::string path;
             std::vector<Class*> classes;
+            std::vector<Struct*> structures;
             std::vector<Import*> imports;
             std::vector<Def*> defs;
             std::vector<GlobalVariable*> globalVariables;

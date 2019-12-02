@@ -60,6 +60,11 @@ void PrettyPrinter::visit(SourceFile* file) {
 
     output << "\n";
 
+    for (int i = 0; i < file->n_structures(); ++i) {
+        file->getStruct(i)->accept(this);
+        output << "\n\n";
+    }
+
     for (int i = 0; i < file->n_defs(); ++i) {
         file->getDef(i)->accept(this);
         output << "\n\n";
@@ -91,6 +96,34 @@ void PrettyPrinter::visit(Class* klass) {
     for (int i = 0; i < klass->n_methods(); ++i) {
         klass->getMethod(i)->accept(this);
         output << '\n';
+    }
+
+    dedent();
+}
+
+void PrettyPrinter::visit(Struct* s) {
+    output << "struct " << s->getName();
+
+    if (s->hasParent()) {
+        output << "(";
+        s->getParent()->accept(this);
+        output << ")";
+    }
+
+    output << ":\n";
+    indent();
+
+    if (s->n_fields() > 0) {
+        for (int i = 0; i < s->n_fields(); ++i) {
+            print_indentation();
+            output << s->getField(i)->getName();
+            output << " : ";
+            s->getField(i)->getType()->accept(this);
+            output << "\n";
+        }
+    } else {
+        print_indentation();
+        output << "pass\n";
     }
 
     dedent();

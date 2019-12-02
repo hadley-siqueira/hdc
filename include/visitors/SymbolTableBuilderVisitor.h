@@ -26,6 +26,7 @@ namespace hdc {
             void visit(Import* import);
 
             void visit(Class* klass);
+            void visit(Struct* s);
             void visit(Def* def);
 
             /* Variables */

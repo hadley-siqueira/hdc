@@ -695,6 +695,41 @@ Class* Parser::parse_class() {
     return klass;
 }
 
+Struct*Parser::parse_struct() {
+    Token name;
+    Type* type;
+    Struct* s = new Struct();
+
+    expect(TK_STRUCT);
+    expect(TK_ID);
+    s->setName(*matched);
+
+    if (match(TK_LEFT_PARENTHESIS)) {
+        s->setParent(parse_identifier_expression());
+        expect(TK_RIGHT_PARENTHESIS);
+    }
+
+    expect(TK_COLON);
+    expect(TK_NEWLINE);
+    expect(TK_BEGIN);
+
+    if (match(TK_PASS)) {
+
+    } else {
+        while (match(TK_ID)) {
+            name = *matched;
+            expect(TK_COLON);
+            type = parse_type();
+            expect(TK_NEWLINE);
+            s->addField(new StructField(name, type));
+        }
+    }
+
+    expect(TK_END);
+
+    return s;
+}
+
 ClassVariable* Parser::parse_class_variable() {
     Token token;
     Type* type;
@@ -775,6 +810,8 @@ SourceFile* Parser::read(std::string path) {
             file->addGlobalVariable(parse_global_variable());
         } else if (lookahead(TK_CONSTANT)) {
             file->addGlobalConstant(parse_global_constant());
+        } else if (lookahead(TK_STRUCT)) {
+            file->addStruct(parse_struct());
         } else {
             break;
         }

@@ -11,6 +11,7 @@ namespace hdc {
             virtual void visit(class Import* import)=0;
 
             virtual void visit(class Class* klass)=0;
+            virtual void visit(class Struct* s)=0;
             virtual void visit(class Def* def)=0;
 
             /* Variables */

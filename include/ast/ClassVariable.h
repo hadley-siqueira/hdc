@@ -1,5 +1,5 @@
-#ifndef HDC_CLASSVARIABLE_H
-#define HDC_CLASSVARIABLE_H
+#ifndef HDC_CLASS_VARIABLE_H
+#define HDC_CLASS_VARIABLE_H
 
 #include "ast/Variable.h"
 

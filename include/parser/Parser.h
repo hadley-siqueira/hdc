@@ -22,6 +22,7 @@ namespace hdc {
             Import* parse_import();
             Def* parse_def();
             Class* parse_class();
+            Struct* parse_struct();
             ClassVariable* parse_class_variable();
             GlobalVariable* parse_global_variable();
             GlobalVariable* parse_global_constant();

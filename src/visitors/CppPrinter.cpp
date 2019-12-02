@@ -60,6 +60,10 @@ void hdc::CppPrinter::visit(Class* klass) {
     output << "};\n\n";
 }
 
+void CppPrinter::visit(Struct* s) {
+
+}
+
 void CppPrinter::visit(Def* def) {
     int i;
 
