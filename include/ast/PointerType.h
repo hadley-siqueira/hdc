@@ -23,6 +23,7 @@ namespace hdc {
 
         public:
             Type* clone();
+            bool equals(Type* other);
 
         public:
             virtual void accept(Visitor* visitor);

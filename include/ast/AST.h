@@ -5,6 +5,7 @@
 #include "ast/SourceFile.h"
 #include "ast/Def.h"
 #include "ast/Class.h"
+#include "ast/Struct.h"
 
 /* Variables */
 #include "ast/Variable.h"

@@ -6,26 +6,36 @@ using namespace hdc;
 Symbol::Symbol(Class* klass) {
     kind = SYMBOL_CLASS;
     descriptor = klass;
+    line = klass->getLine();
+    column = klass->getColumn();
 }
 
 hdc::Symbol::Symbol(hdc::Def* def) {
     kind = SYMBOL_DEF;
     descriptor = def;
+    line = def->getLine();
+    column = def->getColumn();
 }
 
 hdc::Symbol::Symbol(hdc::LocalVariable* var) {
     kind = SYMBOL_LOCAL_VARIABLE;
     descriptor = var;
+    line = var->getLine();
+    column = var->getColumn();
 }
 
 Symbol::Symbol(Parameter* parameter) {
     kind = SYMBOL_PARAMETER;
     descriptor = parameter;
+    line = parameter->getLine();
+    column = parameter->getColumn();
 }
 
 Symbol::Symbol(ClassVariable* var) {
     kind = SYMBOL_CLASS_VARIABLE;
     descriptor = var;
+    line = var->getLine();
+    column = var->getColumn();
 }
 
 Symbol::Symbol(GlobalVariable* var) {
@@ -36,6 +46,8 @@ Symbol::Symbol(GlobalVariable* var) {
     }
 
     descriptor = var;
+    line = var->getLine();
+    column = var->getColumn();
 }
 
 void* Symbol::getDescriptor() const {

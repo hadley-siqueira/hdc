@@ -47,3 +47,11 @@ void Variable::setIsConstant(bool value)
 {
     isConstant = value;
 }
+
+int Variable::getLine() {
+    return token.getLine();
+}
+
+int Variable::getColumn() {
+    return token.getColumn();
+}

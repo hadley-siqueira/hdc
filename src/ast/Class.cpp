@@ -56,6 +56,14 @@ ClassVariable*Class::getVariable(int i) {
     return nullptr;
 }
 
+int Class::getLine() {
+    return name.getLine();
+}
+
+int Class::getColumn() {
+    return name.getColumn();
+}
+
 /* Predicates */
 bool Class::hasParent() {
     return parent != NULL;

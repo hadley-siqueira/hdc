@@ -113,6 +113,7 @@ set(AST_SRC
     src/ast/NamedType.cpp
     src/ast/AtExpression.cpp
     src/ast/GlobalVariable.cpp
+    src/ast/Struct.cpp
 )
 
 set(VISITORS_SRC src/visitors/PrettyPrinter.cpp src/visitors/SymbolTableBuilderVisitor.cpp src/visitors/TypeCheckerVisitor.cpp src/visitors/CppPrinter.cpp)

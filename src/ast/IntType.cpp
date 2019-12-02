@@ -15,7 +15,6 @@ Type *IntType::clone() {
     return new IntType(token);
 }
 
-
 void IntType::accept(Visitor* visitor) {
     visitor->visit(this);
 }

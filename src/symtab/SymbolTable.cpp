@@ -22,37 +22,31 @@ bool hdc::SymbolTable::hasParent() {
     return parent != nullptr;
 }
 
-Symbol* SymbolTable::addClass(Class* klass) {
+Symbol* SymbolTable::add(Class* klass) {
     Symbol* symbol = new Symbol(klass);
     symbols[klass->getName()] = symbol;
     return symbol;
 }
 
-Symbol* SymbolTable::addDef(Def* def) {
+Symbol* SymbolTable::add(Def* def) {
     Symbol* symbol = new Symbol(def);
     symbols[def->getName()] = symbol;
     return symbol;
 }
 
-Symbol* SymbolTable::addLocalVariable(LocalVariable* var) {
+Symbol* SymbolTable::add(LocalVariable* var) {
     Symbol* symbol = new Symbol(var);
     symbols[var->getName()] = symbol;
     return symbol;
 }
 
-Symbol* SymbolTable::addParameter(Parameter* parameter) {
+Symbol* SymbolTable::add(Parameter* parameter) {
     Symbol* symbol = new Symbol(parameter);
     symbols[parameter->getName()] = symbol;
     return symbol;
 }
 
-Symbol* SymbolTable::addMethod(Def* def) {
-    Symbol* symbol = new Symbol(def);
-    symbols[def->getName()] = symbol;
-    return symbol;
-}
-
-Symbol* SymbolTable::addClassVariable(ClassVariable* var) {
+Symbol* SymbolTable::add(ClassVariable* var) {
     Symbol* symbol = new Symbol(var);
     symbols[var->getName()] = symbol;
     return symbol;

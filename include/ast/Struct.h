@@ -5,24 +5,22 @@
 
 #include "ASTNode.h"
 #include "ast/SourceFile.h"
-#include "ast/Def.h"
 #include "ast/IdentifierExpression.h"
 #include "ast/ClassVariable.h"
 #include "symtab/SymbolTable.h"
 
 namespace hdc {
     class SourceFile;
-    class Def;
     class SymbolTable;
 
-    class Class : public ASTNode {
+    class Struct : public ASTNode {
         /* Constructors */
         public:
-            Class();
+            Struct();
 
         /* Destructors */
         public:
-            ~Class();
+            ~Struct();
 
         /* Setters */
         public:

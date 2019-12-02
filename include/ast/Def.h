@@ -42,6 +42,8 @@ namespace hdc {
             LocalVariable* getLocalVariable(int i);
             Type* getReturnType();
             CompoundStatement* getStatements();
+            int getLine();
+            int getColumn();
 
             void addParameter(hdc::Token& name, Type* type);
             int n_parameters();

@@ -43,6 +43,15 @@ Type*PointerType::clone() {
     return new PointerType(subtype->clone(), token);
 }
 
+bool PointerType::equals(Type* other) {
+    if (other->getKind() == AST_POINTER_TYPE) {
+        PointerType* op = (PointerType*) other;
+        return subtype->equals(op->getSubtype());
+    }
+
+    return false;
+}
+
 
 void PointerType::accept(Visitor* visitor) {
     visitor->visit(this);

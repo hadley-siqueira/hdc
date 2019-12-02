@@ -74,7 +74,7 @@ set cpo&vim
 syn keyword HDStatement	False, None, True, true, null, false
 syn keyword HDStatement	as assert break continue del exec global
 syn keyword HDStatement	lambda nonlocal pass print return with yield new delete
-syn keyword HDStatement	class def function var const enum union record nextgroup=HDFunction skipwhite
+syn keyword HDStatement	class def function var const enum union struct nextgroup=HDFunction skipwhite
 syn keyword HDConditional	elif else if
 syn keyword HDRepeat	for while case others
 syn keyword HDOperator	and in is not or
@@ -91,7 +91,7 @@ syn match   HDDecorator	"$" display nextgroup=HDFunction skipwhite
 " doctests.
 " A dot must be allowed because of @MyClass.myfunc decorators.
 syn match   HDFunction
-      \ "\%(\%(enum\s\|union\s\|function\s\|record\s\|@\)\s*\)\@<=\h\%(\w\|\.\)*" contained
+      \ "\%(\%(enum\s\|union\s\|function\s\|struct\s\|@\)\s*\)\@<=\h\%(\w\|\.\)*" contained
 
 syn match   HDComment	"#.*$" contains=HDTodo,@Spell
 syn keyword HDTodo		FIXME NOTE NOTES TODO contained

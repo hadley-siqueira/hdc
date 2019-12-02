@@ -33,6 +33,7 @@ namespace hdc {
         AST_UINT32_TYPE,
         AST_UINT64_TYPE,
         AST_POINTER_TYPE,
+        AST_NAMED_TYPE,
 
         /* operators */
         AST_PLUS,

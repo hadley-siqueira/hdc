@@ -82,6 +82,14 @@ CompoundStatement* Def::getStatements() {
     return statements;
 }
 
+int Def::getLine() {
+    return name.getLine();
+}
+
+int Def::getColumn() {
+    return name.getColumn();
+}
+
 
 #include <iostream>
 

@@ -33,16 +33,6 @@ void SymbolTableBuilderVisitor::visit(SourceFile* file) {
 
     buildInitialSymbolTable(file);
 
-    // add functions to the symbolTable
-    for (int i = 0; i < file->n_defs(); ++i) {
-        symbolTable->addDef(file->getDef(i));
-    }
-
-    // add classes
-    for (int i = 0; i < file->n_classes(); ++i) {
-        symbolTable->addClass(file->getClass(i));
-    }
-
     // add global variables
     // add constants
 
@@ -66,11 +56,11 @@ void SymbolTableBuilderVisitor::visit(Class* klass) {
     klass->setSymbolTable(symbolTable);
 
     for (int i = 0; i < klass->n_methods(); ++i) {
-        symbolTable->addMethod(klass->getMethod(i));
+        symbolTable->add(klass->getMethod(i));
     }
 
     for (int i = 0; i < klass->n_variables(); ++i) {
-        symbolTable->addClassVariable(klass->getVariable(i));
+        symbolTable->add(klass->getVariable(i));
     }
 
     for (int i = 0; i < klass->n_methods(); ++i) {
@@ -87,7 +77,7 @@ void SymbolTableBuilderVisitor::visit(Def* def) {
     def->setSymbolTable(symbolTable);
 
     for (int i = 0; i < def->n_parameters(); ++i) {
-        symbolTable->addParameter(def->getParameter(i));
+        symbolTable->add(def->getParameter(i));
     }
 
     def->getStatements()->accept(this);
@@ -436,7 +426,7 @@ void SymbolTableBuilderVisitor::visit(IdentifierExpression* id) {
 
         if (symbol == nullptr) {
             LocalVariable* var = new LocalVariable(id->getNameAsToken());
-            symbol = symbolTable->addLocalVariable(var);
+            symbol = symbolTable->add(var);
             currentDef->addLocalVariable(var);
             std::cout << "Adding variable: " << id->getName() << std::endl;
         }
@@ -461,10 +451,10 @@ void SymbolTableBuilderVisitor::buildInitialSymbolTable(SourceFile* sourceFile) 
         symbol = symbolTable->has(name);
 
         if (symbol != nullptr) {
-            std::cout << "error: '" << name << "' already declared";
+            std::cout << "error def: '" << name << "' already declared. First occurence on line " << symbol->getLine();
             exit(0);
         } else {
-            symbolTable->addDef(sourceFile->getDef(i));
+            symbolTable->add(sourceFile->getDef(i));
         }
     }
 
@@ -473,10 +463,10 @@ void SymbolTableBuilderVisitor::buildInitialSymbolTable(SourceFile* sourceFile) 
         symbol = symbolTable->has(name);
 
         if (symbol != nullptr) {
-            std::cout << "error: '" << name << "' already declared";
+            std::cout << "error class: '" << name << "' already declared. First occurence on line " << symbol->getLine();
             exit(0);
         } else {
-            symbolTable->addClass(sourceFile->getClass(i));
+            symbolTable->add(sourceFile->getClass(i));
         }
     }
 
@@ -485,7 +475,7 @@ void SymbolTableBuilderVisitor::buildInitialSymbolTable(SourceFile* sourceFile) 
         symbol = symbolTable->has(name);
 
         if (symbol != nullptr) {
-            std::cout << "error: '" << name << "' already declared";
+            std::cout << "error gvar: '" << name << "' already declared. First occurence on line " << symbol->getLine();
             exit(0);
         } else {
             symbolTable->add(sourceFile->getGlobalVariable(i));
@@ -493,11 +483,11 @@ void SymbolTableBuilderVisitor::buildInitialSymbolTable(SourceFile* sourceFile) 
     }
 
     for (int i = 0; i < sourceFile->n_global_constants(); ++i) {
-        std::string name = sourceFile->getGlobalVariable(i)->getName();
+        std::string name = sourceFile->getGlobalConstant(i)->getName();
         symbol = symbolTable->has(name);
 
         if (symbol != nullptr) {
-            std::cout << "error: '" << name << "' already declared";
+            std::cout << "error gconst: '" << name << "' already declared. First occurence on line " << symbol->getLine();
             exit(0);
         } else {
             symbolTable->add(sourceFile->getGlobalVariable(i));

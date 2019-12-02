@@ -10,9 +10,10 @@ namespace hdc {
 
         public:
             virtual Type* clone()=0;
+            virtual bool equals(Type* other);
 
         public:
-            virtual void accept(Visitor* visitor);
+            virtual void accept(Visitor* visitor)=0;
     };
 }
 

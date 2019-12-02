@@ -28,6 +28,9 @@ namespace hdc {
             bool getIsConstant() const;
             void setIsConstant(bool value);
 
+            int getLine();
+            int getColumn();
+
         protected:
             Token token;
             Type* type;
