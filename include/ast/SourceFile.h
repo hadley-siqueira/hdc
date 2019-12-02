@@ -31,7 +31,7 @@ namespace hdc {
             void addStruct(Struct* s);
             void addDef(Def* def);
             void addGlobalVariable(GlobalVariable* var);
-            void addGlobalConstant(GlobalVariable* var);
+            void addGlobalConstant(GlobalConstant* var);
 
             int n_defs();
             int n_imports();
@@ -45,7 +45,7 @@ namespace hdc {
             Def* getDef(int i);
             Import* getImport(int i);
             GlobalVariable* getGlobalVariable(int i);
-            GlobalVariable* getGlobalConstant(int i);
+            GlobalConstant* getGlobalConstant(int i);
 
         /* Getters */
         public:
@@ -67,7 +67,7 @@ namespace hdc {
             std::vector<Import*> imports;
             std::vector<Def*> defs;
             std::vector<GlobalVariable*> globalVariables;
-            std::vector<GlobalVariable*> globalConstants;
+            std::vector<GlobalConstant*> globalConstants;
             SymbolTable* symbolTable;
     };
 }

@@ -768,11 +768,11 @@ GlobalVariable* Parser::parse_global_variable() {
     return new GlobalVariable(name, type, expression);
 }
 
-GlobalVariable* Parser::parse_global_constant() {
+GlobalConstant* Parser::parse_global_constant() {
     Token name;
     Type* type = nullptr;
     Expression* expression = nullptr;
-    GlobalVariable* var;
+    GlobalConstant* cst;
 
     expect(TK_CONSTANT);
     expect(TK_ID);
@@ -786,9 +786,9 @@ GlobalVariable* Parser::parse_global_constant() {
     expression = parse_expression();
     expect(TK_NEWLINE);
 
-    var = new GlobalVariable(name, type, expression);
-    var->setIsConstant(true);
-    return var;
+    cst = new GlobalConstant(name, type, expression);
+    cst->setIsConstant(true);
+    return cst;
 }
 
 

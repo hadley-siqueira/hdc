@@ -115,6 +115,8 @@ set(AST_SRC
     src/ast/GlobalVariable.cpp
     src/ast/Struct.cpp
     src/ast/StructField.cpp
+    src/ast/Constant.cpp
+    src/ast/GlobalConstant.cpp
 )
 
 set(VISITORS_SRC src/visitors/PrettyPrinter.cpp src/visitors/SymbolTableBuilderVisitor.cpp src/visitors/TypeCheckerVisitor.cpp src/visitors/CppPrinter.cpp)

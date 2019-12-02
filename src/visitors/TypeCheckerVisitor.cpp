@@ -50,6 +50,14 @@ void TypeCheckerVisitor::visit(GlobalVariable* variable) {
 
 }
 
+void TypeCheckerVisitor::visit(Constant* c) {
+
+}
+
+void TypeCheckerVisitor::visit(GlobalConstant* c) {
+
+}
+
 /* Types */
 void TypeCheckerVisitor::visit(Type* type) {}
 void TypeCheckerVisitor::visit(IntType* type) {}

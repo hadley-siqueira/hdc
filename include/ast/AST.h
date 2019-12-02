@@ -13,6 +13,8 @@
 #include "ast/LocalVariable.h"
 #include "ast/ClassVariable.h"
 #include "ast/GlobalVariable.h"
+#include "ast/Constant.h"
+#include "ast/GlobalConstant.h"
 
 /* Statements */
 #include "ast/Statement.h"

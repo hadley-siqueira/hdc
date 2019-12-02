@@ -191,6 +191,22 @@ void PrettyPrinter::visit(GlobalVariable* variable) {
     }
 }
 
+void PrettyPrinter::visit(Constant* c) {
+
+}
+
+void PrettyPrinter::visit(GlobalConstant* c) {
+    output << "const " << c->getName();
+
+    if (c->getType() != nullptr) {
+        output << " : ";
+        c->getType()->accept(this);
+    }
+
+    output << " = ";
+    c->getExpression()->accept(this);
+}
+
 void PrettyPrinter::visit(Type* type) {
     output << "UNKNOWN TYPE";
 }

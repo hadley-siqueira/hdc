@@ -115,6 +115,14 @@ void CppPrinter::visit(GlobalVariable* variable) {
 
 }
 
+void CppPrinter::visit(Constant* c) {
+
+}
+
+void CppPrinter::visit(GlobalConstant* c) {
+
+}
+
 /* Types */
 void CppPrinter::visit(Type* type) {}
 

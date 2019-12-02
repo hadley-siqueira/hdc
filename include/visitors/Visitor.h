@@ -20,6 +20,10 @@ namespace hdc {
             virtual void visit(class LocalVariable* variable)=0;
             virtual void visit(class GlobalVariable* variable)=0;
 
+            /* Constants */
+            virtual void visit(class Constant* c)=0;
+            virtual void visit(class GlobalConstant* c)=0;
+
             /* Types */
             virtual void visit(class Type* type)=0;
             virtual void visit(class IntType* type)=0;

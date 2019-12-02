@@ -102,6 +102,14 @@ void SymbolTableBuilderVisitor::visit(GlobalVariable* variable) {
 
 }
 
+void SymbolTableBuilderVisitor::visit(Constant* c) {
+
+}
+
+void SymbolTableBuilderVisitor::visit(GlobalConstant* c) {
+
+}
+
 void SymbolTableBuilderVisitor::visit(Type* type) {}
 void SymbolTableBuilderVisitor::visit(IntType* type) {}
 void SymbolTableBuilderVisitor::visit(UIntType* type) {}

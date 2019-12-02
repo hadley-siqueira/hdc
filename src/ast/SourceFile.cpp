@@ -49,7 +49,7 @@ void SourceFile::addGlobalVariable(GlobalVariable* var) {
     var->setSourceFile(this);
 }
 
-void SourceFile::addGlobalConstant(GlobalVariable* var) {
+void SourceFile::addGlobalConstant(GlobalConstant* var) {
     globalConstants.push_back(var);
     var->setSourceFile(this);
 }
@@ -125,7 +125,7 @@ GlobalVariable* SourceFile::getGlobalVariable(int i) {
     }
 }
 
-GlobalVariable*SourceFile::getGlobalConstant(int i) {
+GlobalConstant* SourceFile::getGlobalConstant(int i) {
     if (i < globalConstants.size()) {
         return globalConstants[i];
     } else {
