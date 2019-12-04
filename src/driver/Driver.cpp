@@ -50,6 +50,12 @@ void Driver::setFlags(int argc, char* argv[]) {
 }
 
 void Driver::parseProgram() {
+    Lex p;
+    std::vector<Token> v = p.getTokens(mainFilePath);
+    for (int i = 0; i < v.size(); ++i) {
+        std::cout << v[i].toStr() << std::endl;
+    }
+
     parseImports(parseFile(mainFilePath));
 }
 

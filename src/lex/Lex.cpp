@@ -302,6 +302,8 @@ void Lex::getIndentation() {
 
     newline = false;
 
+    if (blockStack.size() > 0) return;
+
     if (n_spaces > indentationStack.top()) {
         indentationStack.push(n_spaces);
         createToken(TK_BEGIN);
@@ -496,6 +498,7 @@ void Lex::createToken(TokenKind kind) {
 
     token.setKind(kind);
     tokens.push_back(token);
+    std::cout << token.toStr() << ": " << newline << ", " << blockStack.size() << std::endl;
 }
 
 
@@ -526,6 +529,20 @@ void Lex::getOperator() {
         endLexem();
         advance();
         createToken(kind);
+
+        switch (kind) {
+        case TK_LEFT_CURLY_BRACKET:
+        case TK_LEFT_PARENTHESIS:
+        case TK_LEFT_SQUARE_BRACKET:
+            blockStack.push(kind);
+            break;
+
+        case TK_RIGHT_CURLY_BRACKET:
+        case TK_RIGHT_PARENTHESIS:
+        case TK_RIGHT_SQUARE_BRACKET:
+            blockStack.pop();
+            break;
+        }
     } else {
         std::cout << "invalid operator\n";
     }
@@ -534,7 +551,7 @@ void Lex::getOperator() {
 
 void Lex::getNextToken() {
     if (lookahead('\n')) {
-        if (!newline) {
+        if (!newline && blockStack.size() == 0) {
             createToken(TK_NEWLINE);
         }
 

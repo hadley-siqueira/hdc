@@ -30,6 +30,7 @@ namespace hdc {
             std::vector<Expression*> parse_argument_list();
             IdentifierExpression* parse_identifier_expression();
 
+            Expression* parse_list_expression();
             Expression* parse_primary_expression();
             Expression* parse_postfix_expression();
             Expression* parse_unary_expression();

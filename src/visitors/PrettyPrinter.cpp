@@ -724,6 +724,23 @@ void PrettyPrinter::visit(LiteralBoolExpression* expression) {
     output << expression->get_token().getLexem();
 }
 
+void PrettyPrinter::visit(ListExpression* list) {
+    output << "[";
+
+    if (list->n_expressions() > 0) {
+        int i;
+
+        for (i = 0; i < list->n_expressions() - 1; ++i) {
+            list->getExpression(i)->accept(this);
+            output << ", ";
+        }
+
+        list->getExpression(i)->accept(this);
+    }
+
+    output << "]";
+}
+
 void PrettyPrinter::visit(IdentifierExpression* id) {
     if (id->hasAlias()) {
         output << id->getAlias();

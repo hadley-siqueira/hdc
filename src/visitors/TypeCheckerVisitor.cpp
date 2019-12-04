@@ -617,6 +617,10 @@ void TypeCheckerVisitor::visit(LiteralBoolExpression* expression) {
     lastType = expression->getType();
 }
 
+void TypeCheckerVisitor::visit(ListExpression* list) {
+
+}
+
 void TypeCheckerVisitor::visit(IdentifierExpression* id) {
     Symbol* symbol;
 

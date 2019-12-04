@@ -22,8 +22,6 @@ namespace hdc {
         public:
             virtual void accept(Visitor* visitor);
 
-
-
         private:
             Type* type;
     };

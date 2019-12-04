@@ -795,6 +795,10 @@ void CppPrinter::visit(LiteralBoolExpression* expression) {
     output << expression->get_token().getLexem();
 }
 
+void CppPrinter::visit(ListExpression* list) {
+
+}
+
 void CppPrinter::visit(IdentifierExpression* id) {
     isExpression = true;
     output << id->getName();

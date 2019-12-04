@@ -430,6 +430,10 @@ void SymbolTableBuilderVisitor::visit(LiteralBoolExpression* expression) {
 
 }
 
+void SymbolTableBuilderVisitor::visit(ListExpression* list) {
+
+}
+
 void SymbolTableBuilderVisitor::visit(IdentifierExpression* id) {
     Symbol* symbol;
 

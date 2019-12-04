@@ -59,6 +59,7 @@ namespace hdc {
             int lexemEnd;
             bool hasLexem;
             bool newline;
+            std::stack<TokenKind> blockStack;
             std::string buffer;
             std::vector<Token> tokens;
             std::stack<int> indentationStack;

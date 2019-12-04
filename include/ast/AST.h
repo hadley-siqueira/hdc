@@ -28,6 +28,7 @@
 /* Expressions */
 #include "ast/Expression.h"
 #include "ast/IdentifierExpression.h"
+#include "ast/ListExpression.h"
 
 #include "ast/UnaryOperator.h"
 #include "ast/LogicalNotExpression.h"
