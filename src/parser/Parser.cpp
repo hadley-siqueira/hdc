@@ -167,6 +167,25 @@ IdentifierExpression* Parser::parse_identifier_expression() {
     return id;
 }
 
+Expression* Parser::parse_array_expression() {
+    ArrayExpression* array;
+
+    array = new ArrayExpression();
+
+    expect(TK_LEFT_CURLY_BRACKET);
+
+    if (!lookahead(TK_RIGHT_CURLY_BRACKET)) {
+        array->addExpression(parse_expression());
+
+        while (match(TK_COMMA)) {
+            array->addExpression(parse_expression());
+        }
+    }
+
+    expect(TK_RIGHT_CURLY_BRACKET);
+    return array;
+}
+
 Expression* Parser::parse_list_expression() {
     ListExpression* list;
 
@@ -220,6 +239,8 @@ Expression* Parser::parse_primary_expression() {
         expression = new LiteralBoolExpression(*matched);
     } else if (lookahead(TK_LEFT_SQUARE_BRACKET)) {
         expression = parse_list_expression();
+    } else if (lookahead(TK_LEFT_CURLY_BRACKET)) {
+        expression = parse_array_expression();
     } else {
         expression = parse_identifier_expression();
     }

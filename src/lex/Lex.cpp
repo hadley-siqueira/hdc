@@ -498,7 +498,6 @@ void Lex::createToken(TokenKind kind) {
 
     token.setKind(kind);
     tokens.push_back(token);
-    std::cout << token.toStr() << ": " << newline << ", " << blockStack.size() << std::endl;
 }
 
 

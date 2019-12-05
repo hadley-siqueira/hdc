@@ -16,6 +16,7 @@ set(AST_SRC
     src/ast/Class.cpp
     src/ast/Parameter.cpp
     src/ast/ListExpression.cpp
+    src/ast/ArrayExpression.cpp
     src/ast/AddressOfExpression.cpp
     src/ast/BitwiseXorAssignmentExpression.cpp
     src/ast/GreaterThanOrEqualExpression.cpp

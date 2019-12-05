@@ -434,6 +434,10 @@ void SymbolTableBuilderVisitor::visit(ListExpression* list) {
 
 }
 
+void SymbolTableBuilderVisitor::visit(ArrayExpression* array) {
+
+}
+
 void SymbolTableBuilderVisitor::visit(IdentifierExpression* id) {
     Symbol* symbol;
 

@@ -621,6 +621,10 @@ void TypeCheckerVisitor::visit(ListExpression* list) {
 
 }
 
+void TypeCheckerVisitor::visit(ArrayExpression* array) {
+
+}
+
 void TypeCheckerVisitor::visit(IdentifierExpression* id) {
     Symbol* symbol;
 

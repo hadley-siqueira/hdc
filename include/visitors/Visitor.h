@@ -130,6 +130,7 @@ namespace hdc {
             virtual void visit(class LiteralSymbolExpression* expression)=0;
             virtual void visit(class LiteralBoolExpression* expression)=0;
             virtual void visit(class ListExpression* list)=0;
+            virtual void visit(class ArrayExpression* array)=0;
 
             virtual void visit(class IdentifierExpression* id)=0;
     };

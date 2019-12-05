@@ -741,6 +741,23 @@ void PrettyPrinter::visit(ListExpression* list) {
     output << "]";
 }
 
+void PrettyPrinter::visit(ArrayExpression* array) {
+    output << "{";
+
+    if (array->n_expressions() > 0) {
+        int i;
+
+        for (i = 0; i < array->n_expressions() - 1; ++i) {
+            array->getExpression(i)->accept(this);
+            output << ", ";
+        }
+
+        array->getExpression(i)->accept(this);
+    }
+
+    output << "}";
+}
+
 void PrettyPrinter::visit(IdentifierExpression* id) {
     if (id->hasAlias()) {
         output << id->getAlias();

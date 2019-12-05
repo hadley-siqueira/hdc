@@ -799,6 +799,10 @@ void CppPrinter::visit(ListExpression* list) {
 
 }
 
+void CppPrinter::visit(ArrayExpression* array) {
+
+}
+
 void CppPrinter::visit(IdentifierExpression* id) {
     isExpression = true;
     output << id->getName();
