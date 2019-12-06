@@ -336,6 +336,46 @@ void PrettyPrinter::visit(WhileStatement* statement) {
     dedent();
 }
 
+void PrettyPrinter::visit(ForStatement* statement) {
+    output << "for ";
+
+    if (statement->getE1()) {
+        statement->getE1()->accept(this);
+    }
+
+    output << ";";
+
+    if (statement->getE2()) {
+        output << " ";
+        statement->getE2()->accept(this);
+    }
+
+    output << ";";
+
+    if (statement->getE3()) {
+        output << " ";
+        statement->getE3()->accept(this);
+    }
+
+    output << ":\n";
+
+    indent();
+    statement->getStatements()->accept(this);
+    dedent();
+}
+
+void PrettyPrinter::visit(ForEachStatement* statement) {
+    output << "for ";
+
+    statement->getE1()->accept(this);
+    output << " in ";
+    statement->getE2()->accept(this);
+    output << ":\n";
+    indent();
+    statement->getStatements()->accept(this);
+    dedent();
+}
+
 void PrettyPrinter::visit(IfStatement* statement) {
     output << "if ";
     statement->getExpression()->accept(this);

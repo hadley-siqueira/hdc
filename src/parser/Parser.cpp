@@ -572,6 +572,44 @@ WhileStatement* Parser::parse_while_statement() {
     return new WhileStatement(expression, statements);
 }
 
+Statement* Parser::parse_for_statement() {
+    Statement* for_stmt = nullptr;
+    Expression* e1;
+    Expression* e2;
+    Expression* e3;
+    CompoundStatement* statements;
+
+    expect(TK_FOR);
+    e1 = parse_expression();
+
+    if (match(TK_IN)) {
+        e2 = parse_expression();
+
+        expect(TK_COLON);
+        expect(TK_NEWLINE);
+        expect(TK_BEGIN);
+        statements = parse_statements();
+        expect(TK_END);
+
+        for_stmt = new ForEachStatement(e1, e2, statements);
+    } else {
+        expect(TK_SEMICOLON);
+        e2 = parse_expression();
+        expect(TK_SEMICOLON);
+        e3 = parse_expression();
+
+        expect(TK_COLON);
+        expect(TK_NEWLINE);
+        expect(TK_BEGIN);
+        statements = parse_statements();
+        expect(TK_END);
+
+        for_stmt = new ForStatement(e1, e2, e3, statements);
+    }
+
+    return for_stmt;
+}
+
 IfStatement* Parser::parse_if_statement() {
     Expression* expression;
     CompoundStatement* statements;
@@ -632,7 +670,9 @@ ElseStatement* Parser::parse_else_statement() {
 Statement* Parser::parse_statement() {
     Statement* statement;
 
-    if (lookahead(TK_WHILE)) {
+    if (lookahead(TK_FOR)) {
+        statement = parse_for_statement();
+    } else if (lookahead(TK_WHILE)) {
         statement = parse_while_statement();
     } else if (lookahead(TK_IF)) {
         statement = parse_if_statement();

@@ -20,6 +20,8 @@
 #include "ast/Statement.h"
 #include "ast/CompoundStatement.h"
 #include "ast/WhileStatement.h"
+#include "ast/ForEachStatement.h"
+#include "ast/ForStatement.h"
 #include "ast/IfStatement.h"
 #include "ast/ElifStatement.h"
 #include "ast/ElseStatement.h"

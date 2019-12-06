@@ -167,4 +167,11 @@ def main : int
 
     println({1, 2, 3})
     println([1, 2, 3] + [4, 5])
+
+    for i in range(0, 10):
+        println('Hello, world!')
+
+    for i = 0; i < 10; ++i:
+        println(i)
+
     return 0

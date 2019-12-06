@@ -1,5 +1,5 @@
-#ifndef COMPOUND_STATEMENT_H
-#define COMPOUND_STATEMENT_H
+#ifndef HDC_COMPOUND_STATEMENT_H
+#define HDC_COMPOUND_STATEMENT_H
 
 #include <vector>
 

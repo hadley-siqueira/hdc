@@ -64,6 +64,8 @@ namespace hdc {
             void visit(Statement* statement);
             void visit(CompoundStatement* statement);
             void visit(WhileStatement* statement);
+            void visit(ForStatement* statement);
+            void visit(ForEachStatement* statement);
             void visit(IfStatement* statement);
             void visit(ElifStatement* statement);
             void visit(ElseStatement* statement);

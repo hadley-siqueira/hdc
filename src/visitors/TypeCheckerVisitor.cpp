@@ -97,6 +97,15 @@ void TypeCheckerVisitor::visit(CompoundStatement* statement) {
 }
 
 void TypeCheckerVisitor::visit(WhileStatement* statement) {}
+
+void TypeCheckerVisitor::visit(ForStatement* statement) {
+
+}
+
+void TypeCheckerVisitor::visit(ForEachStatement* statement) {
+
+}
+
 void TypeCheckerVisitor::visit(IfStatement* statement) {}
 void TypeCheckerVisitor::visit(ElifStatement* statement) {}
 void TypeCheckerVisitor::visit(ElseStatement* statement) {}

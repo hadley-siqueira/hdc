@@ -147,6 +147,15 @@ void SymbolTableBuilderVisitor::visit(CompoundStatement* statement) {
 }
 
 void SymbolTableBuilderVisitor::visit(WhileStatement* statement) {}
+
+void SymbolTableBuilderVisitor::visit(ForStatement* statement) {
+
+}
+
+void SymbolTableBuilderVisitor::visit(ForEachStatement* statement) {
+
+}
+
 void SymbolTableBuilderVisitor::visit(Expression* expression) {}
 
 void SymbolTableBuilderVisitor::visit(LogicalNotExpression* expression) {

@@ -53,6 +53,7 @@ namespace hdc {
 
             ReturnStatement* parse_return_statement();
             WhileStatement* parse_while_statement();
+            Statement* parse_for_statement();
             IfStatement* parse_if_statement();
             ElifStatement* parse_elif_statement();
             ElseStatement* parse_else_statement();

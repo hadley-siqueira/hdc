@@ -250,6 +250,14 @@ void CppPrinter::visit(WhileStatement* statement) {
     isExpression = false;
 }
 
+void CppPrinter::visit(ForStatement* statement) {
+
+}
+
+void CppPrinter::visit(ForEachStatement* statement) {
+
+}
+
 void CppPrinter::visit(IfStatement* statement) {
     output << "if (";
     statement->getExpression()->accept(this);
