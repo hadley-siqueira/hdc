@@ -4,7 +4,7 @@ using namespace hdc;
 
 /* Constructors */
 UnaryOperator::UnaryOperator() {
-    expression = NULL;
+    expression = nullptr;
 }
 
 UnaryOperator::UnaryOperator(Expression* expression) {
@@ -24,7 +24,7 @@ UnaryOperator::~UnaryOperator() {
 
 /* Setters */
 void UnaryOperator::setExpression(Expression* expression) {
-    if (this->expression != NULL) {
+    if (this->expression != nullptr) {
         delete this->expression;
     }
 

@@ -7,7 +7,6 @@
 #include <vector>
 #include <string>
 
-
 #include "driver/Driver.h"
 #include "parser/Parser.h"
 #include "logger/Logger.h"
@@ -44,8 +43,7 @@ void Driver::setFlags(int argc, char* argv[]) {
     logger.logParser(true);
     logger.logLex(true);
 
-    //mainFilePath = std::string(argv[1]);
-    mainFilePath = "/home/hadley/Projetos/hdc/samples/main.hd";
+    mainFilePath = std::string(argv[1]);
     setRootPathFromMainFile();
 }
 

@@ -3,8 +3,8 @@
 using namespace hdc;
 
 WhileStatement::WhileStatement() {
-    expression = NULL;
-    statements = NULL;
+    expression = nullptr;
+    statements = nullptr;
 }
 
 
@@ -15,11 +15,11 @@ WhileStatement::WhileStatement(Expression* expression, CompoundStatement* statem
 
 
 WhileStatement::~WhileStatement() {
-    if (expression != NULL) {
+    if (expression != nullptr) {
         delete expression;
     }
 
-    if (statements != NULL) {
+    if (statements != nullptr) {
         delete statements;
     }
 }
