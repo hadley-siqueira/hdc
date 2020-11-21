@@ -12,12 +12,20 @@ std::string TAC::to_str() {
         ss << label << ":";
         break;
 
+    case TAC_ADD:
+        ss << "    %" << dst << " = %" << src1 << " + %" << src2;
+        break;
+
     case TAC_IFZ:
-        ss << "    if !" << src1 << " goto " << label;
+        ss << "    if !%" << src1 << " goto " << label;
         break;
 
     case TAC_GOTO:
         ss << "    goto " << label;
+        break;
+
+    case TAC_CONST_I32:
+        ss << "    %" << dst << " = " << label;
         break;
 
     default:

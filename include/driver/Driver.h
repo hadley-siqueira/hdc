@@ -24,6 +24,7 @@ namespace hdc {
 
         private:
             void buildSymbolTables();
+            void generateTAC();
             void prettyPrintAllFiles();
 
             SourceFile* parseFile(std::string path);

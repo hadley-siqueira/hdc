@@ -14,6 +14,7 @@
 #include "visitors/TypeCheckerVisitor.h"
 #include "visitors/CppPrinter.h"
 #include "visitors/PrettyPrinter.h"
+#include "visitors/TACVisitor.h"
 
 using namespace hdc;
 
@@ -35,6 +36,7 @@ Driver::~Driver() {
 void Driver::run() {
     parseProgram();
     buildSymbolTables();
+    generateTAC();
     prettyPrintAllFiles();
 }
 
@@ -74,6 +76,15 @@ void Driver::buildSymbolTables() {
     for (it = sourceFiles.begin(); it != sourceFiles.end(); ++it) {
         SymbolTableBuilderVisitor builder;
 
+        it->second->accept(&builder);
+    }
+}
+
+void Driver::generateTAC() {
+    std::map<std::string, SourceFile*>::iterator it;
+
+    for (it = sourceFiles.begin(); it != sourceFiles.end(); ++it) {
+        TACVisitor builder;
         it->second->accept(&builder);
     }
 }

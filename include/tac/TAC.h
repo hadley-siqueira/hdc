@@ -4,8 +4,15 @@
 namespace hdc {
     enum TACKind {
         TAC_LABEL,
+
+        /* binary */
+        TAC_ADD,
+
+        /* conditional jumps */
         TAC_IFZ,
         TAC_GOTO,
+
+        /* literals */
         TAC_CONST_I32
     };
 

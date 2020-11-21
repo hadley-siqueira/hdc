@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include "token/Token.h"
 #include "ast/AST.h"
 #include "visitors/TACVisitor.h"
@@ -21,7 +23,19 @@ int TACVisitor::newTemporary() {
 std::string TACVisitor::newLabel() {
     std::string s = "L";
     s = s + std::to_string(labelCounter);
+    labelCounter += 1;
     return s;
+}
+
+void TACVisitor::emit(TACKind kind, int dst, int src1, int src2) {
+    TAC tac;
+
+    tac.kind = kind;
+    tac.dst = dst;
+    tac.src1 = src1;
+    tac.src2 = src2;
+
+    tacs.push_back(tac);
 }
 
 void TACVisitor::emit(TACKind kind, int tmp, std::string label) {
@@ -58,6 +72,11 @@ void TACVisitor::visit(SourceFile* file) {
         file->getClass(i)->accept(this);
         output << "\n\n";
     }*/
+
+    // for debug purposes
+    for (int i = 0; i < tacs.size(); ++i) {
+        std::cout << tacs[i].to_str() << '\n';
+    }
 }
 
 void TACVisitor::visit(Import* import) {
@@ -206,7 +225,13 @@ void TACVisitor::visit(Statement* statement) {
 }
 
 void TACVisitor::visit(CompoundStatement* statement) {
+    if (statement->n_statements() > 0) {
+        int i;
 
+        for (i = 0; i < statement->n_statements(); ++i) {
+            statement->getStatement(i)->accept(this);
+        }
+    }
 }
 
 void TACVisitor::visit(WhileStatement* statement) {
@@ -368,7 +393,21 @@ void TACVisitor::visit(ModuloExpression* expression) {
 }
 
 
-void TACVisitor::visit(PlusExpression* expression){ }
+void TACVisitor::visit(PlusExpression* expression) {
+    int src1;
+    int src2;
+    int dst;
+
+    expression->getLeft()->accept(this);
+    src1 = lastTemporary;
+
+    expression->getRight()->accept(this);
+    src2 = lastTemporary;
+
+    dst = newTemporary();
+    emit(TAC_ADD, dst, src1, src2);
+}
+
 void TACVisitor::visit(MinusExpression* expression){ }
 
 void TACVisitor::visit(LessThanExpression* expression){ }
@@ -378,7 +417,18 @@ void TACVisitor::visit(GreaterThanOrEqualExpression* expression){ }
 void TACVisitor::visit(EqualExpression* expression){ }
 void TACVisitor::visit(NotEqualExpression* expression){ }
 
-void TACVisitor::visit(AssignmentExpression* expression){ }
+void TACVisitor::visit(AssignmentExpression* expression) {
+    int tmp1;
+    int tmp2;
+    int dst;
+
+    expression->getRight()->accept(this);
+    tmp1 = lastTemporary;
+
+    expression->getLeft()->accept(this);
+    tmp2 = lastTemporary;
+}
+
 void TACVisitor::visit(BitwiseAndAssignmentExpression* expression){ }
 void TACVisitor::visit(BitwiseXorAssignmentExpression* expression){ }
 void TACVisitor::visit(BitwiseOrAssignmentExpression* expression){ }
@@ -397,13 +447,9 @@ void TACVisitor::visit(SpecialAssignmentExpression* expression){ }
 /* Literals */
 void TACVisitor::visit(LiteralIntegerExpression* expression) {
     Token token;
-    TAC tac;
 
     token = expression->get_token();
-
-    tac.kind = TAC_CONST_I32;
-    tac.dst = newTemporary();
-    tac.label = token.getLexem();
+    emit(TAC_CONST_I32, newTemporary(), token.getLexem());
 }
 
 void TACVisitor::visit(LiteralStringExpression* expression){ }

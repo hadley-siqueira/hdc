@@ -1,31 +1,7 @@
-def soma : int
+def main : void
     @a : int
-    @b : int
 
-    return a + b
+    i = 0 + 1 + 3 + 7
 
-
-def main : int
-    a = 0
-    c = 1
-    b = &a
-    d = a + c
-    e = *b
-    f = b
-    g = &f
-
-    if a == 0:
-        println(a)
-
-    println("Numbers from \"0 to 99\"")
-    i = 0
-    while i < 100:
-        println(i)
-        i = i + 1
-
-    s = 'Hello'
-    s = 'Hello, world'
-    t = "Hello, world again"
-    t = "Hello, world again\n\n"
-    println(t)
-    return 0
+    while 1 + 2:
+        i = 0 + 1 + 2
