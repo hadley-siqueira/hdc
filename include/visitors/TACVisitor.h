@@ -17,6 +17,8 @@ namespace hdc {
         public:
             TACVisitor();
 
+            std::vector<TAC>& getTACs();
+
         private:
             int newTemporary();
             std::string newLabel();
@@ -24,6 +26,7 @@ namespace hdc {
             void emit(TACKind kind, int dst, int src1, int src2);
             void emit(TACKind kind, int tmp, std::string label);
             void emit(TACKind kind, std::string label);
+            void emit(TACKind kind);
 
         public:
             void visit(SourceFile* file);

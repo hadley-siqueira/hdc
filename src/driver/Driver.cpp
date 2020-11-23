@@ -15,6 +15,7 @@
 #include "visitors/CppPrinter.h"
 #include "visitors/PrettyPrinter.h"
 #include "visitors/TACVisitor.h"
+#include "gen/x86_64/gen_x86_64.h"
 
 using namespace hdc;
 
@@ -37,7 +38,8 @@ void Driver::run() {
     parseProgram();
     buildSymbolTables();
     generateTAC();
-    prettyPrintAllFiles();
+    //prettyPrintAllFiles();
+    generate_x86_64();
 }
 
 void Driver::setFlags(int argc, char* argv[]) {
@@ -86,7 +88,14 @@ void Driver::generateTAC() {
     for (it = sourceFiles.begin(); it != sourceFiles.end(); ++it) {
         TACVisitor builder;
         it->second->accept(&builder);
+        tacs = builder.getTACs();
     }
+}
+
+void Driver::generate_x86_64() {
+    Generator_x86_64 gen;
+
+    gen.generate(tacs);
 }
 
 void Driver::prettyPrintAllFiles() {

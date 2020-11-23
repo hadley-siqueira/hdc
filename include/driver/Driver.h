@@ -3,8 +3,11 @@
 
 #include <map>
 #include <string>
+#include <vector>
+
 #include "ast/SourceFile.h"
 #include "logger/Logger.h"
+#include "tac/TAC.h"
 
 namespace hdc {
     class Driver {
@@ -25,6 +28,7 @@ namespace hdc {
         private:
             void buildSymbolTables();
             void generateTAC();
+            void generate_x86_64();
             void prettyPrintAllFiles();
 
             SourceFile* parseFile(std::string path);
@@ -46,6 +50,8 @@ namespace hdc {
             std::string mainFilePath;
             std::string rootPath;
             char pathDelimiter;
+
+            std::vector<TAC> tacs;
     };
 }
 

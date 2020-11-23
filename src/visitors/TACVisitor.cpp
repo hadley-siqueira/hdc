@@ -13,6 +13,10 @@ TACVisitor::TACVisitor() {
     lastTemporary = 0;
 }
 
+std::vector<TAC> &TACVisitor::getTACs() {
+    return tacs;
+}
+
 int TACVisitor::newTemporary() {
     lastTemporary = tempCounter;
     tempCounter += 1;
@@ -61,6 +65,12 @@ void TACVisitor::emit(TACKind kind, std::string label) {
     tac.label = label;
 
     tacs.push_back(tac);
+}
+
+void TACVisitor::emit(TACKind kind) {
+    TAC tac;
+
+    tac.kind = kind;
 }
 
 void TACVisitor::visit(SourceFile* file) {
@@ -230,6 +240,7 @@ void TACVisitor::visit(CompoundStatement* statement) {
 
         for (i = 0; i < statement->n_statements(); ++i) {
             statement->getStatement(i)->accept(this);
+            emit(TAC_END_EXPR, "");
         }
     }
 }
@@ -243,6 +254,7 @@ void TACVisitor::visit(WhileStatement* statement) {
 
     emit(TAC_LABEL, labelBefore);
     statement->getExpression()->accept(this);
+    emit(TAC_END_EXPR, "");
 
     emit(TAC_IFZ, lastTemporary, labelAfter);
     statement->getStatements()->accept(this);
@@ -312,7 +324,7 @@ void TACVisitor::visit(AtExpression* expression) {
 }
 
 void TACVisitor::visit(ParenthesisExpression* expression) {
-
+    expression->getExpression()->accept(this);
 }
 
 void TACVisitor::visit(DereferenceExpression* expression) {
@@ -351,7 +363,18 @@ void TACVisitor::visit(IndexExpression* expression) {
 
 
 void TACVisitor::visit(ShiftLeftLogicalExpression* expression) {
+    int src1;
+    int src2;
+    int dst;
 
+    expression->getLeft()->accept(this);
+    src1 = lastTemporary;
+
+    expression->getRight()->accept(this);
+    src2 = lastTemporary;
+
+    dst = newTemporary();
+    emit(TAC_SLL, dst, src1, src2);
 }
 
 void TACVisitor::visit(ShiftRightLogicalExpression* expression) {
@@ -408,7 +431,20 @@ void TACVisitor::visit(PlusExpression* expression) {
     emit(TAC_ADD, dst, src1, src2);
 }
 
-void TACVisitor::visit(MinusExpression* expression){ }
+void TACVisitor::visit(MinusExpression* expression) {
+    int src1;
+    int src2;
+    int dst;
+
+    expression->getLeft()->accept(this);
+    src1 = lastTemporary;
+
+    expression->getRight()->accept(this);
+    src2 = lastTemporary;
+
+    dst = newTemporary();
+    emit(TAC_SUB, dst, src1, src2);
+}
 
 void TACVisitor::visit(LessThanExpression* expression){ }
 void TACVisitor::visit(GreaterThanExpression* expression){ }

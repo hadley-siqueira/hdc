@@ -4,6 +4,12 @@
 
 using namespace hdc;
 
+TAC::TAC() {
+    src1 = -1;
+    src2 = -1;
+    dst = -1;
+}
+
 std::string TAC::to_str() {
     std::stringstream ss;
 
@@ -12,8 +18,19 @@ std::string TAC::to_str() {
         ss << label << ":";
         break;
 
+    case TAC_END_EXPR:
+        break;
+
+    case TAC_SLL:
+        ss << "    %" << dst << " = %" << src1 << " << %" << src2;
+        break;
+
     case TAC_ADD:
         ss << "    %" << dst << " = %" << src1 << " + %" << src2;
+        break;
+
+    case TAC_SUB:
+        ss << "    %" << dst << " = %" << src1 << " - %" << src2;
         break;
 
     case TAC_IFZ:

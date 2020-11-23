@@ -5,8 +5,13 @@ namespace hdc {
     enum TACKind {
         TAC_LABEL,
 
+        TAC_END_EXPR, // this TAC is used to stack code generation. It resets the stack expression eval when the expr ends
+
         /* binary */
+        TAC_SLL,
+
         TAC_ADD,
+        TAC_SUB,
 
         /* conditional jumps */
         TAC_IFZ,
@@ -17,16 +22,19 @@ namespace hdc {
     };
 
     class TAC {
-        public:
-            std::string to_str();
+    public:
+        TAC();
 
-        public:
-            int kind;
-            int opcode;
-            int src1;
-            int src2;
-            int dst;
-            std::string label;
+    public:
+        std::string to_str();
+
+    public:
+        int kind;
+        int opcode;
+        int src1;
+        int src2;
+        int dst;
+        std::string label;
     };
 }
 
