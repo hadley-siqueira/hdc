@@ -8,6 +8,8 @@ using namespace hdc;
 Generator_x86_64::Generator_x86_64() {
     regCounter = -1;
 
+    regs_s.push_back("%esi");
+    regs_s.push_back("%edi");
     regs_s.push_back("%r8d");
     regs_s.push_back("%r9d");
     regs_s.push_back("%r10d");
@@ -16,10 +18,9 @@ Generator_x86_64::Generator_x86_64() {
     regs_s.push_back("%r13d");
     regs_s.push_back("%r14d");
     regs_s.push_back("%r15d");
-    regs_s.push_back("%eax");
-    regs_s.push_back("%ebx");
-    regs_s.push_back("%ecx");
-    regs_s.push_back("%edx");
+
+    //regs_s.push_back("%ecx");
+    //regs_s.push_back("%edx"); // ecx eax edx
 }
 
 void hdc::Generator_x86_64::generate(std::vector<TAC> &tacs) {
@@ -46,7 +47,23 @@ void hdc::Generator_x86_64::emit(TAC& tac) {
         break;
 
     case TAC_SLL:
-        emitInstruction("sall");
+        output << "    movl " << regs_s[regCounter] <<", %ecx\n";
+        output << "    sall %cl, " << regs_s[regCounter - 1];
+        --regCounter;
+        break;
+
+    case TAC_BITWISE_AND:
+        emitInstruction("andl");
+        --regCounter;
+        break;
+
+    case TAC_BITWISE_XOR:
+        emitInstruction("xorl");
+        --regCounter;
+        break;
+
+    case TAC_BITWISE_OR:
+        emitInstruction("orl");
         --regCounter;
         break;
 
@@ -61,9 +78,8 @@ void hdc::Generator_x86_64::emit(TAC& tac) {
         break;
 
     case TAC_IFZ:
-        output << "    popq %rax\n";
-        output << "    cmpq $0, %rax\n";
-        output << "    je ." << tac.label;
+        output << "    cmpl $0, " << regs_s[regCounter];
+        output << "\n    je ." << tac.label;
         break;
 
     case TAC_GOTO:

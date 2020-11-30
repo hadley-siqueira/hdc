@@ -3,6 +3,7 @@
 
 #include <vector>
 
+#include "symtab/SymbolTable.h"
 #include "visitors/Visitor.h"
 #include "tac/TAC.h"
 
@@ -12,7 +13,10 @@ namespace hdc {
             int lastTemporary;
             int tempCounter;
             int labelCounter;
+            bool checkingAssignment;
+            bool checkingCall;
             std::vector<TAC> tacs;
+            SymbolTable* currentSymtab;
 
         public:
             TACVisitor();
@@ -25,6 +29,7 @@ namespace hdc {
 
             void emit(TACKind kind, int dst, int src1, int src2);
             void emit(TACKind kind, int tmp, std::string label);
+            void emit(TACKind kind, int dst);
             void emit(TACKind kind, std::string label);
             void emit(TACKind kind);
 

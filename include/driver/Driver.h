@@ -24,6 +24,7 @@ namespace hdc {
             void setFlags(int argc, char* argv[]);
             void parseProgram();
             void showLogs();
+            void foobar();
 
         private:
             void buildSymbolTables();

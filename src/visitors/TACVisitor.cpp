@@ -11,6 +11,9 @@ TACVisitor::TACVisitor() {
     tempCounter = 0;
     labelCounter = 0;
     lastTemporary = 0;
+    checkingAssignment = false;
+    checkingCall = false;
+    currentSymtab = nullptr;
 }
 
 std::vector<TAC> &TACVisitor::getTACs() {
@@ -49,11 +52,20 @@ void TACVisitor::emit(TACKind kind, int tmp, std::string label) {
 
     // we set src1 = src2 = dst = tmp because sometimes this emit will call a copy instruction or similar
     // and other times it is gonna be called as a conditional jump
-    tac.src1 = tmp;
-    tac.src2 = tmp;
-    tac.dst = tmp;
 
+    if (kind == TAC_IFZ)
+        tac.src1 = tmp;
+    tac.dst = tmp;
     tac.label = label;
+
+    tacs.push_back(tac);
+}
+
+void TACVisitor::emit(TACKind kind, int dst) {
+    TAC tac;
+
+    tac.kind = kind;
+    tac.dst = dst;
 
     tacs.push_back(tac);
 }
@@ -82,11 +94,6 @@ void TACVisitor::visit(SourceFile* file) {
         file->getClass(i)->accept(this);
         output << "\n\n";
     }*/
-
-    // for debug purposes
-    for (int i = 0; i < tacs.size(); ++i) {
-        std::cout << tacs[i].to_str() << '\n';
-    }
 }
 
 void TACVisitor::visit(Import* import) {
@@ -102,6 +109,9 @@ void TACVisitor::visit(Struct* s) {
 }
 
 void TACVisitor::visit(Def* def) {
+    currentSymtab = def->getSymbolTable();
+
+    emit(TAC_LABEL, def->getName());
     def->getStatements()->accept(this);
 }
 
@@ -254,9 +264,9 @@ void TACVisitor::visit(WhileStatement* statement) {
 
     emit(TAC_LABEL, labelBefore);
     statement->getExpression()->accept(this);
+    emit(TAC_IFZ, lastTemporary, labelAfter);
     emit(TAC_END_EXPR, "");
 
-    emit(TAC_IFZ, lastTemporary, labelAfter);
     statement->getStatements()->accept(this);
 
     emit(TAC_GOTO, labelBefore);
@@ -284,7 +294,12 @@ void TACVisitor::visit(ElseStatement* statement) {
 }
 
 void TACVisitor::visit(ReturnStatement* statement) {
+    if (statement->getExpression() != nullptr) {
+        statement->getExpression()->accept(this);
+        emit(TAC_RETURN_VALUE, lastTemporary, lastTemporary, lastTemporary);
+    }
 
+    emit(TAC_RETURN);
 }
 
 
@@ -346,7 +361,16 @@ void TACVisitor::visit(SizeOfExpression* expression) {
 
 /* Binary Expresisons */
 void TACVisitor::visit(CallExpression* expression) {
+    int tmp;
 
+    for (int i = expression->n_arguments() - 1; i >= 0; --i) {
+        expression->getArgument(i)->accept(this);
+        emit(TAC_PUSH_PARAM, lastTemporary);
+    }
+
+    checkingCall = true;
+    expression->getExpression()->accept(this);
+    checkingCall = false;
 }
 
 void TACVisitor::visit(DotExpression* expression) {
@@ -387,15 +411,48 @@ void TACVisitor::visit(ShiftRightArithmeticExpression* expression) {
 
 
 void TACVisitor::visit(BitwiseAndExpression* expression) {
+    int src1;
+    int src2;
+    int dst;
 
+    expression->getLeft()->accept(this);
+    src1 = lastTemporary;
+
+    expression->getRight()->accept(this);
+    src2 = lastTemporary;
+
+    dst = newTemporary();
+    emit(TAC_BITWISE_AND, dst, src1, src2);
 }
 
 void TACVisitor::visit(BitwiseXorExpression* expression) {
+    int src1;
+    int src2;
+    int dst;
 
+    expression->getLeft()->accept(this);
+    src1 = lastTemporary;
+
+    expression->getRight()->accept(this);
+    src2 = lastTemporary;
+
+    dst = newTemporary();
+    emit(TAC_BITWISE_XOR, dst, src1, src2);
 }
 
 void TACVisitor::visit(BitwiseOrExpression* expression) {
+    int src1;
+    int src2;
+    int dst;
 
+    expression->getLeft()->accept(this);
+    src1 = lastTemporary;
+
+    expression->getRight()->accept(this);
+    src2 = lastTemporary;
+
+    dst = newTemporary();
+    emit(TAC_BITWISE_OR, dst, src1, src2);
 }
 
 
@@ -414,7 +471,6 @@ void TACVisitor::visit(IntegerDivisionExpression* expression) {
 void TACVisitor::visit(ModuloExpression* expression) {
 
 }
-
 
 void TACVisitor::visit(PlusExpression* expression) {
     int src1;
@@ -454,15 +510,24 @@ void TACVisitor::visit(EqualExpression* expression){ }
 void TACVisitor::visit(NotEqualExpression* expression){ }
 
 void TACVisitor::visit(AssignmentExpression* expression) {
-    int tmp1;
-    int tmp2;
-    int dst;
+    int tmp1 = -1;
+    int tmp2 = -1;
+    int dst = -1;
+    bool oldCheckingAssignment;
 
+    oldCheckingAssignment = checkingAssignment;
+
+    checkingAssignment = false;
     expression->getRight()->accept(this);
     tmp1 = lastTemporary;
 
+    checkingAssignment = true;
     expression->getLeft()->accept(this);
-    tmp2 = lastTemporary;
+    dst = lastTemporary;
+    tmp2 = dst;
+
+    emit(TAC_SW, dst, tmp1, tmp2);
+    checkingAssignment = oldCheckingAssignment;
 }
 
 void TACVisitor::visit(BitwiseAndAssignmentExpression* expression){ }
@@ -498,5 +563,19 @@ void TACVisitor::visit(ListExpression* list){ }
 void TACVisitor::visit(ArrayExpression* array){ }
 
 void TACVisitor::visit(IdentifierExpression* id) {
+    int tmp;
 
+    if (checkingAssignment) {
+        emit(TAC_GET_VAR, newTemporary(), id->getName());
+    } else {
+        if (checkingCall) {
+            //currentSymtab->has(id->getName());
+            emit(TAC_LCALL, newTemporary(), id->getName());
+        } else {
+            emit(TAC_GET_VAR, newTemporary(), id->getName());
+            tmp = lastTemporary;
+
+            emit(TAC_LW, newTemporary(), tmp, tmp);
+        }
+    }
 }

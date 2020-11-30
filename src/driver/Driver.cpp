@@ -17,6 +17,8 @@
 #include "visitors/TACVisitor.h"
 #include "gen/x86_64/gen_x86_64.h"
 
+#include "util/Graph.h"
+
 using namespace hdc;
 
 Driver::Driver() {
@@ -39,7 +41,7 @@ void Driver::run() {
     buildSymbolTables();
     generateTAC();
     //prettyPrintAllFiles();
-    generate_x86_64();
+    //generate_x86_64();
 }
 
 void Driver::setFlags(int argc, char* argv[]) {
@@ -63,6 +65,59 @@ void Driver::parseProgram() {
 
 void Driver::showLogs() {
     logger.printLogs();
+}
+
+void Driver::foobar() {
+    std::set<int> bf;
+
+    for (int i = tacs.size() - 1; i >= 0; --i) {
+        tacs[i].after = bf;
+
+        if (tacs[i].dst != -1) {
+            bf.erase(tacs[i].dst);
+        }
+
+        if (tacs[i].src1 != -1) {
+            bf.insert(tacs[i].src1);
+        }
+
+        if (tacs[i].src2 != -1) {
+            bf.insert(tacs[i].src2);
+        }
+
+        tacs[i].before = bf;
+    }
+
+    // build graph
+    Graph<int> g;
+    std::set<int>::iterator j, k;
+
+    for (int i = 0; i < tacs.size(); ++i) {
+        for (j = tacs[i].before.begin(); j != tacs[i].before.end(); ++j) {
+            g.insertNode(*j);
+            k = j;
+            ++k;
+
+            for ( ; k != tacs[i].before.end(); ++k) {
+                g.makeEdge(*j, *k);
+            }
+        }
+    }
+
+    for (int i = 0; i < tacs.size(); ++i) {
+        for (j = tacs[i].after.begin(); j != tacs[i].after.end(); ++j) {
+            g.insertNode(*j);
+            k = j;
+            ++k;
+
+            for ( ; k != tacs[i].after.end(); ++k) {
+                g.makeEdge(*j, *k);
+            }
+        }
+    }
+
+    g.coloring(8);
+    std::cout << g.to_dot();
 }
 
 void Driver::buildSymbolTables() {
@@ -89,7 +144,47 @@ void Driver::generateTAC() {
         TACVisitor builder;
         it->second->accept(&builder);
         tacs = builder.getTACs();
+        foobar();
+
+
+        // for debug purposes
+        for (int i = 0; i < tacs.size(); ++i) {
+            std::cout << tacs[i].to_str(true) << '\n';
+        }
     }
+/*
+    Graph<int> g;
+
+    g.insertNode('a');
+    g.insertNode('b');
+    g.insertNode('c');
+    g.insertNode('d');
+    g.insertNode('e');
+    g.insertNode('f');
+    g.insertNode('g');
+
+    g.makeEdge('a', 'b');
+    g.makeEdge('a', 'd');
+    g.makeEdge('a', 'f');
+    g.makeEdge('a', 'g');
+
+    g.makeEdge('b', 'c');
+    g.makeEdge('b', 'd');
+    g.makeEdge('b', 'e');
+
+    g.makeEdge('c', 'd');
+    g.makeEdge('c', 'e');
+
+    g.makeEdge('d', 'g');
+    g.makeEdge('d', 'f');
+
+    g.makeEdge('e', 'g');
+    g.makeEdge('e', 'f');
+
+    g.makeEdge('f', 'g');
+
+    g.coloring(4);
+    std::cout << g.to_dot();*/
 }
 
 void Driver::generate_x86_64() {

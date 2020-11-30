@@ -7,6 +7,7 @@
 #include "tac/TAC.h"
 
 namespace hdc {
+    // this class generates x86-64 code as a stack machine
     class Generator_x86_64 {
     public:
         Generator_x86_64();
