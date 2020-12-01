@@ -16,6 +16,7 @@ void IRPrettyPrinter::visit(IRAdd *ir) {
 
     output << ", %";
     ir->getSource2()->accept(this);
+    output << "\n";
 }
 
 void IRPrettyPrinter::visit(IRTemporary *ir) {

@@ -129,13 +129,16 @@ void Driver::foobar() {
 void Driver::barbaz() {
     IRPrettyPrinter pp;
 
+    IRTemporary dst2(3);
     IRTemporary dst(2);
     IRTemporary src1(1);
     IRTemporary src2(0);
 
     IRAdd ir(&dst, &src1, &src2);
+    IRAdd i2(&dst2, &dst, &src1);
 
     pp.visit(&ir);
+    pp.visit(&i2);
     std::cout << "saida: \n" << pp.getOutput() << '\n';
 }
 
