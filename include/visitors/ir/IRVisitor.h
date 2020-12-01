@@ -4,7 +4,14 @@
 namespace hdc {
     class IRVisitor {
     public:
-        virtual void visit(class IRAdd* ir)=0;
+        // instructions
+        public:
+            virtual void visit(class IRAdd* ir)=0;
+
+        // values
+        public:
+            virtual void visit(class IRTemporary* ir)=0;
+
     };
 }
 

@@ -7,6 +7,8 @@
 
 namespace hdc {
     class IRPrettyPrinter : public IRVisitor {
+    public:
+        std::string getOutput();
 
     // instructions
     public:

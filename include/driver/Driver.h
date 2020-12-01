@@ -25,6 +25,7 @@ namespace hdc {
             void parseProgram();
             void showLogs();
             void foobar();
+            void barbaz();
 
         private:
             void buildSymbolTables();

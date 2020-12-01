@@ -14,6 +14,9 @@ namespace hdc {
         IRValue* getSource1();
         IRValue* getSource2();
 
+    public:
+        void accept(IRVisitor* visitor);
+
     private:
         IRValue* dst;
         IRValue* src1;

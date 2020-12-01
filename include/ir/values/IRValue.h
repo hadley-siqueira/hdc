@@ -1,9 +1,12 @@
 #ifndef HDC_IR_VALUE_H
 #define HDC_IR_VALUE_H
 
-namespace hdc {
-    class IRValue {
+#include "ir/IR.h"
 
+namespace hdc {
+    class IRValue : public IR {
+    public:
+        virtual void accept(IRVisitor* visitor)=0;
     };
 }
 

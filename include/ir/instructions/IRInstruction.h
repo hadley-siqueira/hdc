@@ -5,6 +5,8 @@
 
 namespace hdc {
     class IRInstruction : public IR {
+    public:
+        virtual void accept(IRVisitor* visitor)=0;
 
     };
 }

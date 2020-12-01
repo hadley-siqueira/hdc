@@ -10,11 +10,16 @@
 #include "driver/Driver.h"
 #include "parser/Parser.h"
 #include "logger/Logger.h"
+
 #include "visitors/SymbolTableBuilderVisitor.h"
 #include "visitors/TypeCheckerVisitor.h"
 #include "visitors/CppPrinter.h"
 #include "visitors/PrettyPrinter.h"
 #include "visitors/TACBuilderVisitor.h"
+
+#include "ir/ir.h"
+#include "visitors/ir/IRPrettyPrinter.h"
+
 #include "gen/x86_64/gen_x86_64.h"
 
 #include "util/Graph.h"
@@ -40,6 +45,7 @@ void Driver::run() {
     parseProgram();
     buildSymbolTables();
     generateTAC();
+    barbaz();
     //prettyPrintAllFiles();
     //generate_x86_64();
 }
@@ -118,6 +124,19 @@ void Driver::foobar() {
 
     g.coloring(8);
     std::cout << g.to_dot();
+}
+
+void Driver::barbaz() {
+    IRPrettyPrinter pp;
+
+    IRTemporary dst(2);
+    IRTemporary src1(1);
+    IRTemporary src2(0);
+
+    IRAdd ir(&dst, &src1, &src2);
+
+    pp.visit(&ir);
+    std::cout << "saida: \n" << pp.getOutput() << '\n';
 }
 
 void Driver::buildSymbolTables() {

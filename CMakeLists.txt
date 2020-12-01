@@ -126,6 +126,7 @@ set(AST_SRC
 
 set(IR_SRC
     src/ir/instructions/IRAdd.cpp
+    src/ir/values/IRTemporary.cpp
 )
 
 set(TAC_SRC
@@ -148,6 +149,20 @@ set(VISITORS_SRC
 set(SYMTAB_SRC src/symtab/Symbol.cpp src/symtab/SymbolTable.cpp src/symtab/SymbolTableStack.cpp)
 set(LOGGER_SRC src/logger/Log.cpp src/logger/Logger.cpp)
 set(DRIVER_SRC src/driver/Driver.cpp)
-set(SOURCES ${TOKEN_SRC} ${LEX_SRC} ${PARSER_SRC} ${AST_SRC} ${TAC_SRC} ${IR_SRC} ${GEN_SRC} ${SYMTAB_SRC} ${VISITORS_SRC} ${LOGGER_SRC} ${DRIVER_SRC} src/main.cpp)
+
+set(SOURCES
+    ${TOKEN_SRC}
+    ${LEX_SRC}
+    ${PARSER_SRC}
+    ${AST_SRC}
+    ${TAC_SRC}
+    ${IR_SRC}
+    ${GEN_SRC}
+    ${SYMTAB_SRC}
+    ${VISITORS_SRC}
+    ${LOGGER_SRC}
+    ${DRIVER_SRC}
+    src/main.cpp
+)
 
 add_executable(${PROJECT_NAME} ${SOURCES})

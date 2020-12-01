@@ -3,12 +3,21 @@
 
 using namespace hdc;
 
+std::string IRPrettyPrinter::getOutput() {
+    return output.str();
+}
 
 void IRPrettyPrinter::visit(IRAdd *ir) {
     output << "    add %";
-    output << ir->getDestination();
+    ir->getDestination()->accept(this);
+
+    output << ", %";
+    ir->getSource1()->accept(this);
+
+    output << ", %";
+    ir->getSource2()->accept(this);
 }
 
 void IRPrettyPrinter::visit(IRTemporary *ir) {
-    output << ir->getTemporaryValue();
+    output << ir->getValue();
 }

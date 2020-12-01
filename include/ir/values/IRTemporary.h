@@ -6,10 +6,16 @@
 namespace hdc {
     class IRTemporary : public IRValue {
     public:
-        unsigned int getTemporaryValue();
+        IRTemporary(unsigned int value);
+
+    public:
+        unsigned int getValue();
+
+    public:
+        void accept(IRVisitor *visitor);
 
     private:
-        unsigned int tmp;
+        unsigned int value;
     };
 }
 
