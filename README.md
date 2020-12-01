@@ -1,6 +1,6 @@
 # hdc
 
-## Instalation
+## Install from source
 
 1. Clone the repository
 2. Enter the directory
