@@ -8,6 +8,7 @@ set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -std=c++11 -g")
 set(TOKEN_SRC src/token/Token.cpp)
 set(LEX_SRC src/lex/Lex.cpp)
 set(PARSER_SRC src/parser/Parser.cpp)
+
 set(AST_SRC
     src/ast/ASTNode.cpp
     src/ast/SourceFile.cpp
@@ -123,12 +124,30 @@ set(AST_SRC
     src/ast/GlobalConstant.cpp
 )
 
-set(TAC_SRC src/tac/TAC.cpp)
+set(IR_SRC
+    src/ir/instructions/IRAdd.cpp
+)
+
+set(TAC_SRC
+    src/tac/TAC.cpp
+    src/tac/TACAdd.cpp
+)
+
 set(GEN_SRC src/gen/x86_64/gen_x86_64.cpp)
-set(VISITORS_SRC src/visitors/PrettyPrinter.cpp src/visitors/SymbolTableBuilderVisitor.cpp src/visitors/TypeCheckerVisitor.cpp src/visitors/CppPrinter.cpp src/visitors/TACVisitor.cpp)
+
+set(VISITORS_SRC
+    src/visitors/PrettyPrinter.cpp
+    src/visitors/SymbolTableBuilderVisitor.cpp
+    src/visitors/TypeCheckerVisitor.cpp
+    src/visitors/CppPrinter.cpp
+    src/visitors/TACBuilderVisitor.cpp
+    src/visitors/TACPrettyPrinter.cpp
+    src/visitors/ir/IRPrettyPrinter.cpp
+)
+
 set(SYMTAB_SRC src/symtab/Symbol.cpp src/symtab/SymbolTable.cpp src/symtab/SymbolTableStack.cpp)
 set(LOGGER_SRC src/logger/Log.cpp src/logger/Logger.cpp)
 set(DRIVER_SRC src/driver/Driver.cpp)
-set(SOURCES ${TOKEN_SRC} ${LEX_SRC} ${PARSER_SRC} ${AST_SRC} ${TAC_SRC} ${GEN_SRC} ${SYMTAB_SRC} ${VISITORS_SRC} ${LOGGER_SRC} ${DRIVER_SRC} src/main.cpp)
+set(SOURCES ${TOKEN_SRC} ${LEX_SRC} ${PARSER_SRC} ${AST_SRC} ${TAC_SRC} ${IR_SRC} ${GEN_SRC} ${SYMTAB_SRC} ${VISITORS_SRC} ${LOGGER_SRC} ${DRIVER_SRC} src/main.cpp)
 
 add_executable(${PROJECT_NAME} ${SOURCES})

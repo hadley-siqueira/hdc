@@ -1,6 +1,7 @@
 #ifndef HDC_TAC_H
 #define HDC_TAC_H
 
+#include <string>
 #include <set>
 
 namespace hdc {
@@ -43,7 +44,7 @@ namespace hdc {
         TAC();
 
     public:
-        std::string to_str(bool printSets=false);
+        std::string to_str_old(bool printSets=false);
         bool usesTemporary(int t);
         bool generateTemporary(int t);
 

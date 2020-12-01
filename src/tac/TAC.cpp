@@ -10,7 +10,7 @@ TAC::TAC() {
     dst = -1;
 }
 
-std::string TAC::to_str(bool printSets) {
+std::string TAC::to_str_old(bool printSets) {
     std::stringstream ss;
 
     switch (kind) {

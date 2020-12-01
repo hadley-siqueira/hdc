@@ -14,7 +14,7 @@
 #include "visitors/TypeCheckerVisitor.h"
 #include "visitors/CppPrinter.h"
 #include "visitors/PrettyPrinter.h"
-#include "visitors/TACVisitor.h"
+#include "visitors/TACBuilderVisitor.h"
 #include "gen/x86_64/gen_x86_64.h"
 
 #include "util/Graph.h"
@@ -141,7 +141,7 @@ void Driver::generateTAC() {
     std::map<std::string, SourceFile*>::iterator it;
 
     for (it = sourceFiles.begin(); it != sourceFiles.end(); ++it) {
-        TACVisitor builder;
+        TACBuilderVisitor builder;
         it->second->accept(&builder);
         tacs = builder.getTACs();
         foobar();
@@ -149,7 +149,7 @@ void Driver::generateTAC() {
 
         // for debug purposes
         for (int i = 0; i < tacs.size(); ++i) {
-            std::cout << tacs[i].to_str(true) << '\n';
+            std::cout << tacs[i].to_str_old(true) << '\n';
         }
     }
 /*
