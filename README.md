@@ -32,8 +32,12 @@ make
 ## The language
 
 The programming language is named Haard. The name is a play of the 
-words 'hard', my name 'Hadley'. It also seems that Haard means fireplace or
-something like that in Dutch (that's why the logo is a flame).
+word 'hard' because one of the goals of the language is to be able to do
+system development (hard -> hardware -> operating system). Also, I wanted 
+to try to do some fun by saying that 'haard is not hard :)'.
+It also seems that Haard means fireplace or something like that in Dutch 
+(that's why the logo is a flame). To finish, my name is Hadley and I work with
+hardware (FPGAs)... Oh, well. I am not good with names. 
 
 Haard is a compiled language and it will try to provide the following:
 
