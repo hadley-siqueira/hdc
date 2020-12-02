@@ -1,6 +1,6 @@
 # The Haard Compiler
 
-<img src="https://i.postimg.cc/ry0chpP4/haard-logo-color.png" width="100">
+<img src="https://github.com/hadley-siqueira/hdc/blob/master/img/haard-logo.png" width="500">
 
 Haard is a programming language with syntax inspired 
 mainly from Python, but the semantics are more similar to C++. 
