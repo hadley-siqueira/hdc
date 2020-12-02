@@ -246,6 +246,16 @@ class Player:
     x    : int
     y    : int
 
+    # constructor
+    def init : void
+        @life : int
+        @x    : int
+        @y    : int
+
+        @life = life
+        @x = x
+        @y = y
+
     def isAlive : bool
         return @life > 0 # I am still deciding if the @ will be mandatory
 
