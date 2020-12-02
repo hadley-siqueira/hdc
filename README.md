@@ -84,15 +84,26 @@ def main : void
 
 A function to add two numbers. Note that parameters are declared one per line. The syntax here
 was inspired by VHDL where it is common to declare one input/output per line. The @ precedes the
-parameter's name and then there is the type of the parameter. Comments uses #
+parameter's name and then there is the type of the parameter. Comments uses # and function calls
+syntax is similar to other languages
 
 ```python
 # a function that returns an int
+import std.io
+
 def sum : int 
     @a : int
     @b : int
 
     return a + b
+
+
+def main : int
+    a = 2
+    b = 5
+
+    println('The sum is ' + sum(a, b))
+    return 0
 ```
 
 ### Control flow
@@ -102,7 +113,7 @@ A sample program that shows some control flow
 ```python
 import std.io
 
-def foo : void
+def main : void
     i = 0
 
     while i < 10:
@@ -119,5 +130,40 @@ def foo : void
         if i > 5:
             println('i is greater than 5')
         else:
-            println('i <= 5')
+            if i == 0:
+                println('i = 0')
+            elif i == 1:
+                println('i = 1')
+            else:
+                println('i <= 5')
+```
+
+### Pointers
+
+As I said, Haard has semantics similar to C and C++ and it also has pointers.
+
+```python
+import std.io
+
+def main : int
+    @args : String[]
+
+    println('Running program ' + args[0] + '...\n')
+    size = int(input('Enter the size: '))
+
+    v = new int[size]
+
+    for i in 0 .. size:
+        v[i] = int(input('Enter a number: '))
+
+    print('v = {')
+
+    for i in 0 .. size - 1:
+        println('' + v[i] + ', ')
+
+    # its just a demo. Don't blame me for invalid memory access
+    println('' + v[size - 1] + '}')
+
+    delete v
+    *(v + 2) = *v # uh oh, maybe a segfault here
 ```
