@@ -143,6 +143,7 @@ set(VISITORS_SRC
     src/visitors/CppPrinter.cpp
     src/visitors/TACBuilderVisitor.cpp
     src/visitors/TACPrettyPrinter.cpp
+    src/visitors/ast/IRBuilderVisitor.cpp
     src/visitors/ir/IRPrettyPrinter.cpp
 )
 

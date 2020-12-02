@@ -2,9 +2,16 @@
 #define HDC_IRBUILDERVISITOR_H
 
 #include "visitors/Visitor.h"
+#include "ir/ir.h"
 
 namespace hdc {
     class IRBuilderVisitor : public Visitor {
+    public:
+        IRBuilderVisitor();
+
+    private:
+        IRTemporary* newTemporary();
+
     public:
         void visit(SourceFile* file);
         void visit(Import* import);
@@ -134,6 +141,10 @@ namespace hdc {
         void visit(ArrayExpression* array);
 
         void visit(IdentifierExpression* id);
+
+    private:
+        IRTemporary* lastTemporary;
+        int temporaryCounter;
     };
 }
 
