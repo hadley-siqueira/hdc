@@ -168,6 +168,72 @@ def main : int
     *(v + 2) = *v # uh oh, maybe a segfault here
 ```
 
+Function with pointer parameters:
+
+```python
+# a simple struct
+struct Pixel:
+    r : u8 # u8 is equivalent to uint8_t
+    g : u8
+    b : u8
+
+def negative : void
+    @pixel : Pixel*
+
+    pixel->r = 255 - pixel->r 
+    pixel->g = 255 - pixel->g
+    pixel->b = 255 - pixel->b
+
+def strlen : uint
+    @s : char*
+
+    counter = 0
+
+    while *s != '\0':
+        ++s
+        ++counter
+
+    return counter
+
+# template here
+def swap<T> : void
+    @p1 : T*
+    @p2 : T*
+
+    tmp = *p1
+    *p1 = *p2
+    *p2 = tmp
+
+def createMatrix : int**
+    @n : int
+    @m : int
+
+    v = new int*[n]
+
+    for i in 0 .. n:
+        v[i] = new int[m]
+
+    return v
+
+def main : void
+    p = 'hello'
+    strlen(p)
+
+    a = 2
+    b = 3
+    swap<int>(&a, &b)
+
+    matrix = createMatrix(10, 20)
+
+    pixel = Pixel()
+
+    pixel.r = 0
+    pixel.g = 0
+    pixel.b = 0
+
+    negative(&pixel)
+```
+
 ### Classes
 
 A simple Player class
