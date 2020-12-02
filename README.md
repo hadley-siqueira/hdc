@@ -35,7 +35,7 @@ Below are some examples of the language
 
 ### A simple 'Hello, world'
 
-```
+```python
 import std.io
 
 def main : void
@@ -48,7 +48,7 @@ A function to add two numbers. Note that parameters are declared one per line. T
 was inspired by VHDL where it is common to declare one input/output per line. The @ precedes the
 parameter's name and then there is the type of the parameter. Comments uses #
 
-```
+```python
 # a function that returns an int
 def sum : int 
     @a : int
@@ -61,7 +61,7 @@ def sum : int
 
 A sample program that shows some control flow
 
-```
+```python
 import std.io
 
 def foo : void
