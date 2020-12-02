@@ -29,3 +29,57 @@ cmake ..
 make
 ```
 
+## The language
+
+Below are some examples of the language
+
+### A simple 'Hello, world'
+
+```
+import std.io
+
+def main : void
+    println('hello, world!')
+```
+
+### A simple sum function
+
+A function to add two numbers. Note that parameters are declared one per line. The syntax here
+was inspired by VHDL where it is common to declare one input/output per line. The @ precedes the
+parameter's name and then there is the type of the parameter. Comments uses #
+
+```
+# a function that returns an int
+def sum : int 
+    @a : int
+    @b : int
+
+    return a + b
+```
+
+### Control flow
+
+A sample program that shows some control flow
+
+```
+import std.io
+
+def foo : void
+    i = 0
+
+    while i < 10:
+        println(i)
+        ++i
+
+    for i = 0; i < 10: ++i:
+        println(i)
+
+    for i in 0 .. 10:
+        println(i)
+
+    for i in range(0, 10):
+        if i > 5:
+            println('i is greater than 5')
+        else:
+            println('i <= 5')
+```
