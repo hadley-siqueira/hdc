@@ -167,3 +167,25 @@ def main : int
     delete v
     *(v + 2) = *v # uh oh, maybe a segfault here
 ```
+
+### Classes
+
+A simple Player class
+
+```python
+import game.field.position
+
+class Player:
+    life : int # class variables
+    x    : int
+    y    : int
+
+    def isAlive : bool
+        return @life > 0 # I am still deciding if the @ will be mandatory
+
+    def is_alive : bool
+        return this.life > 0 # Still deciding if the this will be mandatory
+
+    def getPosition : Position
+        return Position(@x, @y)
+```
