@@ -120,7 +120,7 @@ def main : void
         println(i)
         ++i
 
-    for i = 0; i < 10: ++i:
+    for i = 0; i < 10; ++i:
         println(i)
 
     for i in 0 .. 10:

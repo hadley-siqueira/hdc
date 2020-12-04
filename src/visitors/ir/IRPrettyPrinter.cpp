@@ -7,6 +7,14 @@ std::string IRPrettyPrinter::getOutput() {
     return output.str();
 }
 
+void IRPrettyPrinter::visit(IRSourceFile *ir) {
+
+}
+
+void IRPrettyPrinter::visit(IRFunction *ir) {
+
+}
+
 void IRPrettyPrinter::visit(IRAdd *ir) {
     output << "    add %";
     ir->getDestination()->accept(this);
@@ -20,5 +28,9 @@ void IRPrettyPrinter::visit(IRAdd *ir) {
 }
 
 void IRPrettyPrinter::visit(IRTemporary *ir) {
+    output << ir->getValue();
+}
+
+void IRPrettyPrinter::visit(IRLabel *ir) {
     output << ir->getValue();
 }

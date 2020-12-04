@@ -11,6 +11,7 @@ namespace hdc {
 
     private:
         IRTemporary* newTemporary();
+        IRLabel* newLabel();
 
     public:
         void visit(SourceFile* file);
@@ -143,8 +144,11 @@ namespace hdc {
         void visit(IdentifierExpression* id);
 
     private:
-        IRTemporary* lastTemporary;
         int temporaryCounter;
+        int labelCounter;
+        IRTemporary* lastTemporary;
+        IRFunction* currentFunction;
+        IRSourceFile* currentSourceFile;
     };
 }
 

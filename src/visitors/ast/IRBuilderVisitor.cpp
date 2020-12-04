@@ -15,12 +15,37 @@ IRTemporary *IRBuilderVisitor::newTemporary() {
     return lastTemporary;
 }
 
-void IRBuilderVisitor::visit(SourceFile* file) { }
+IRLabel* IRBuilderVisitor::newLabel() {
+    std::string s = "L";
+    s = s + std::to_string(labelCounter);
+    labelCounter += 1;
+    return new IRLabel(s);
+}
+
+void IRBuilderVisitor::visit(SourceFile* file) {
+    IRSourceFile* ir;
+
+    ir = new IRSourceFile(file);
+    currentSourceFile = ir;
+
+    for (int i = 0; i <file->n_defs(); ++i) {
+        file->getDef(i)->accept(this);
+    }
+}
+
 void IRBuilderVisitor::visit(Import* import) { }
 
 void IRBuilderVisitor::visit(Class* klass) { }
 void IRBuilderVisitor::visit(Struct* s) { }
-void IRBuilderVisitor::visit(Def* def) { }
+
+void IRBuilderVisitor::visit(Def* def) {
+    IRFunction* ir;
+
+    ir = new IRFunction(def);
+    currentFunction = ir;
+
+    def->getStatements()->accept(this);
+}
 
 /* Variables */
 void IRBuilderVisitor::visit(Parameter* parameter) { }
@@ -60,8 +85,27 @@ void IRBuilderVisitor::visit(NamedType* type) { }
 
 /* Statements */
 void IRBuilderVisitor::visit(Statement* statement) { }
-void IRBuilderVisitor::visit(CompoundStatement* statement) { }
-void IRBuilderVisitor::visit(WhileStatement* statement) { }
+
+void IRBuilderVisitor::visit(CompoundStatement* statement) {
+    if (statement->n_statements() > 0) {
+        for (int i = 0; i < statement->n_statements(); ++i) {
+            statement->getStatement(i)->accept(this);
+        }
+    }
+}
+
+void IRBuilderVisitor::visit(WhileStatement* statement) {
+    IRLabel* labelBefore;
+    IRLabel* labelAfter;
+
+    labelBefore = newLabel();
+    labelAfter = newLabel();
+
+    currentFunction->add(labelBefore);
+    statement->getExpression()->accept(this);
+    //currentFunction->addIR(new IRIFz(lastTemporary))
+}
+
 void IRBuilderVisitor::visit(ForStatement* statement) { }
 void IRBuilderVisitor::visit(ForEachStatement* statement) { }
 void IRBuilderVisitor::visit(IfStatement* statement) { }

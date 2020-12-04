@@ -10,6 +10,10 @@ namespace hdc {
     public:
         std::string getOutput();
 
+    public:
+        void visit(class IRSourceFile* ir);
+        void visit(class IRFunction* ir);
+
     // instructions
     public:
         void visit(IRAdd* ir);
@@ -17,6 +21,7 @@ namespace hdc {
     // values
     public:
         void visit(IRTemporary* ir);
+        void visit(IRLabel* ir);
 
     private:
         std::stringstream output;
