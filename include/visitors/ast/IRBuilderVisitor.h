@@ -9,9 +9,13 @@ namespace hdc {
     public:
         IRBuilderVisitor();
 
+    public:
+        IRProgram* getIRProgram();
+
     private:
         IRTemporary* newTemporary();
         IRLabel* newLabel();
+        IRProgram* irProgram;
 
     public:
         void visit(SourceFile* file);

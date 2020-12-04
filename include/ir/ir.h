@@ -3,11 +3,13 @@
 
 #include "ir/IR.h"
 
+#include "ir/IRProgram.h"
 #include "ir/IRSourceFile.h"
 #include "ir/IRFunction.h"
 
 // instructions
 #include "ir/instructions/IRInstruction.h"
+#include "ir/instructions/IRLabelDef.h"
 #include "ir/instructions/IRAdd.h"
 
 // values

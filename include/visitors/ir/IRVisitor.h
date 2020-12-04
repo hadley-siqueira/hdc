@@ -4,11 +4,13 @@
 namespace hdc {
     class IRVisitor {
     public:
+        virtual void visit(class IRProgram* ir)=0;
         virtual void visit(class IRSourceFile* ir)=0;
         virtual void visit(class IRFunction* ir)=0;
 
     // instructions
     public:
+        virtual void visit(class IRLabelDef* ir)=0;
         virtual void visit(class IRAdd* ir)=0;
 
     // values

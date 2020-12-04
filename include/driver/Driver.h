@@ -25,11 +25,11 @@ namespace hdc {
             void parseProgram();
             void showLogs();
             void foobar();
-            void barbaz();
 
         private:
             void buildSymbolTables();
             void generateTAC();
+            void generateIR();
             void generate_x86_64();
             void prettyPrintAllFiles();
 

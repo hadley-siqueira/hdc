@@ -11,11 +11,13 @@ namespace hdc {
         std::string getOutput();
 
     public:
+        void visit(class IRProgram* ir);
         void visit(class IRSourceFile* ir);
         void visit(class IRFunction* ir);
 
     // instructions
     public:
+        void visit(IRLabelDef* ir);
         void visit(IRAdd* ir);
 
     // values

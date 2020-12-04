@@ -8,6 +8,10 @@ IRAdd::IRAdd(IRValue *dst, IRValue *src1, IRValue *src2) {
     this->src2 = src2;
 }
 
+IRAdd::~IRAdd() {
+    delete dst;
+}
+
 void IRAdd::accept(IRVisitor *visitor) {
     visitor->visit(this);
 }

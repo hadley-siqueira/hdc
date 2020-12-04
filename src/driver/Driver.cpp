@@ -19,6 +19,7 @@
 
 #include "ir/ir.h"
 #include "visitors/ir/IRPrettyPrinter.h"
+#include "visitors/ast/IRBuilderVisitor.h"
 
 #include "gen/x86_64/gen_x86_64.h"
 
@@ -44,8 +45,8 @@ Driver::~Driver() {
 void Driver::run() {
     parseProgram();
     buildSymbolTables();
-    generateTAC();
-    barbaz();
+    //generateTAC();
+    generateIR();
     //prettyPrintAllFiles();
     //generate_x86_64();
 }
@@ -126,22 +127,6 @@ void Driver::foobar() {
     std::cout << g.to_dot();
 }
 
-void Driver::barbaz() {
-    IRPrettyPrinter pp;
-
-    IRTemporary dst2(3);
-    IRTemporary dst(2);
-    IRTemporary src1(1);
-    IRTemporary src2(0);
-
-    IRAdd ir(&dst, &src1, &src2);
-    IRAdd i2(&dst2, &dst, &src1);
-
-    pp.visit(&ir);
-    pp.visit(&i2);
-    std::cout << "saida: \n" << pp.getOutput() << '\n';
-}
-
 void Driver::buildSymbolTables() {
     std::map<std::string, SourceFile*>::iterator it;
 
@@ -207,6 +192,26 @@ void Driver::generateTAC() {
 
     g.coloring(4);
     std::cout << g.to_dot();*/
+}
+
+void Driver::generateIR() {
+    IRBuilderVisitor builder;
+    IRProgram* program;
+    std::map<std::string, SourceFile*>::iterator it;
+
+    std::cout << "\nGenerating Intermediate Representation...\n\n";
+
+    for (it = sourceFiles.begin(); it != sourceFiles.end(); ++it) {
+        it->second->accept(&builder);
+    }
+
+    IRPrettyPrinter pp;
+    program = builder.getIRProgram();
+
+    program->accept(&pp);
+
+    std::cout << pp.getOutput();
+    delete program;
 }
 
 void Driver::generate_x86_64() {

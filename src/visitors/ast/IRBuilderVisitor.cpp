@@ -6,6 +6,11 @@ using namespace hdc;
 IRBuilderVisitor::IRBuilderVisitor() {
     temporaryCounter = 0;
     lastTemporary = nullptr;
+    irProgram = new IRProgram();
+}
+
+IRProgram *IRBuilderVisitor::getIRProgram() {
+    return irProgram;
 }
 
 IRTemporary *IRBuilderVisitor::newTemporary() {
@@ -27,6 +32,7 @@ void IRBuilderVisitor::visit(SourceFile* file) {
 
     ir = new IRSourceFile(file);
     currentSourceFile = ir;
+    irProgram->addIRSourceFile(ir);
 
     for (int i = 0; i <file->n_defs(); ++i) {
         file->getDef(i)->accept(this);
@@ -43,6 +49,7 @@ void IRBuilderVisitor::visit(Def* def) {
 
     ir = new IRFunction(def);
     currentFunction = ir;
+    currentSourceFile->addFunction(ir);
 
     def->getStatements()->accept(this);
 }
@@ -101,9 +108,14 @@ void IRBuilderVisitor::visit(WhileStatement* statement) {
     labelBefore = newLabel();
     labelAfter = newLabel();
 
-    currentFunction->add(labelBefore);
+    currentFunction->add(new IRLabelDef(labelBefore));
     statement->getExpression()->accept(this);
     //currentFunction->addIR(new IRIFz(lastTemporary))
+
+    statement->getStatements()->accept(this);
+
+    // emit goto labelBefore
+    currentFunction->add(new IRLabelDef(labelAfter));
 }
 
 void IRBuilderVisitor::visit(ForStatement* statement) { }
@@ -163,17 +175,7 @@ void IRBuilderVisitor::visit(PlusExpression* expression) {
 
     dst = newTemporary();
     ir = new IRAdd(dst, src1, src2);
-    /*int src2;
-    int dst;
-
-    expression->getLeft()->accept(this);
-    src1 = lastTemporary;
-
-    expression->getRight()->accept(this);
-    src2 = lastTemporary;
-
-    dst = newTemporary();
-    emit(TAC_ADD, dst, src1, src2);*/
+    currentFunction->add(ir);
 }
 
 void IRBuilderVisitor::visit(MinusExpression* expression) { }

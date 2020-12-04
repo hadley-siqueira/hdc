@@ -125,8 +125,10 @@ set(AST_SRC
 )
 
 set(IR_SRC
+    src/ir/IRProgram.cpp
     src/ir/IRSourceFile.cpp
     src/ir/IRFunction.cpp
+    src/ir/instructions/IRLabelDef.cpp
     src/ir/instructions/IRBinaryInstruction.cpp
     src/ir/instructions/IRAdd.cpp
     src/ir/values/IRTemporary.cpp

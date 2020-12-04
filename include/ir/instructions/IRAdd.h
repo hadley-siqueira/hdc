@@ -7,6 +7,7 @@ namespace hdc {
     class IRAdd : public IRBinaryInstruction {
     public:
         IRAdd(IRValue* dst, IRValue* src1, IRValue* src2);
+        ~IRAdd();
 
     public:
         void accept(IRVisitor* visitor);
