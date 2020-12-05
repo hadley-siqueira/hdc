@@ -22,6 +22,7 @@ namespace hdc {
         void visit(IRLoadConstant* ir);
 
         void visit(IRAdd* ir);
+        void visit(IRMinus* ir);
 
     // values
     public:

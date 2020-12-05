@@ -133,6 +133,7 @@ set(IR_SRC
     src/ir/instructions/IRLoadConstant.cpp
     src/ir/instructions/IRBinaryInstruction.cpp
     src/ir/instructions/IRAdd.cpp
+    src/ir/instructions/IRMinus.cpp
     src/ir/values/IRTemporary.cpp
     src/ir/values/IRLabel.cpp
     src/ir/values/IRConstant.cpp

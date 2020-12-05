@@ -54,6 +54,18 @@ void IRPrettyPrinter::visit(IRAdd *ir) {
     output << "\n";
 }
 
+void IRPrettyPrinter::visit(IRMinus *ir) {
+    output << "    sub %";
+    ir->getDestination()->accept(this);
+
+    output << ", %";
+    ir->getSource1()->accept(this);
+
+    output << ", %";
+    ir->getSource2()->accept(this);
+    output << "\n";
+}
+
 void IRPrettyPrinter::visit(IRTemporary *ir) {
     output << ir->getValue();
 }

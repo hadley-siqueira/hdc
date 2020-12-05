@@ -8,6 +8,7 @@ using namespace hdc;
 
 IRBuilderVisitor::IRBuilderVisitor() {
     temporaryCounter = 0;
+    labelCounter = 0;
     lastTemporary = nullptr;
     irProgram = new IRProgram();
 }
@@ -139,7 +140,11 @@ void IRBuilderVisitor::visit(UnaryMinusExpression* expression) { }
 void IRBuilderVisitor::visit(UnaryPlusExpression* expression) { }
 void IRBuilderVisitor::visit(DolarExpression* expression) { }
 void IRBuilderVisitor::visit(AtExpression* expression) { }
-void IRBuilderVisitor::visit(ParenthesisExpression* expression) { }
+
+void IRBuilderVisitor::visit(ParenthesisExpression* expression) {
+    expression->getExpression()->accept(this);
+}
+
 void IRBuilderVisitor::visit(DereferenceExpression* expression) { }
 void IRBuilderVisitor::visit(PreIncrementExpression* expression) { }
 void IRBuilderVisitor::visit(PreDecrementExpression* expression) { }
@@ -181,7 +186,22 @@ void IRBuilderVisitor::visit(PlusExpression* expression) {
     currentFunction->add(ir);
 }
 
-void IRBuilderVisitor::visit(MinusExpression* expression) { }
+void IRBuilderVisitor::visit(MinusExpression* expression) {
+    IRTemporary* dst;
+    IRTemporary* src1;
+    IRTemporary* src2;
+    IRMinus* ir;
+
+    expression->getLeft()->accept(this);
+    src1 = lastTemporary;
+
+    expression->getRight()->accept(this);
+    src2 = lastTemporary;
+
+    dst = newTemporary();
+    ir = new IRMinus(dst, src1, src2);
+    currentFunction->add(ir);
+}
 
 void IRBuilderVisitor::visit(LessThanExpression* expression) { }
 void IRBuilderVisitor::visit(GreaterThanExpression* expression) { }

@@ -13,6 +13,7 @@
 
 #include "ir/instructions/IRBinaryInstruction.h"
 #include "ir/instructions/IRAdd.h"
+#include "ir/instructions/IRMinus.h"
 
 // values
 #include "ir/values/IRValue.h"
