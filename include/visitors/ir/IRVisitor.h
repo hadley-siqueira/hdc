@@ -11,12 +11,16 @@ namespace hdc {
     // instructions
     public:
         virtual void visit(class IRLabelDef* ir)=0;
+
+        virtual void visit(class IRLoadConstant* ir)=0;
+
         virtual void visit(class IRAdd* ir)=0;
 
     // values
     public:
         virtual void visit(class IRTemporary* ir)=0;
         virtual void visit(class IRLabel* ir)=0;
+        virtual void visit(class IRConstant* ir)=0;
 
     };
 }

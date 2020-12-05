@@ -129,10 +129,13 @@ set(IR_SRC
     src/ir/IRSourceFile.cpp
     src/ir/IRFunction.cpp
     src/ir/instructions/IRLabelDef.cpp
+    src/ir/instructions/IRUnaryInstruction.cpp
+    src/ir/instructions/IRLoadConstant.cpp
     src/ir/instructions/IRBinaryInstruction.cpp
     src/ir/instructions/IRAdd.cpp
     src/ir/values/IRTemporary.cpp
     src/ir/values/IRLabel.cpp
+    src/ir/values/IRConstant.cpp
 )
 
 set(TAC_SRC

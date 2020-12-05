@@ -1,6 +1,3 @@
-//#ifndef HDC_H_IR_H
-//#define HDC_H_IR_H
-
 #include "ir/IR.h"
 
 #include "ir/IRProgram.h"
@@ -10,11 +7,15 @@
 // instructions
 #include "ir/instructions/IRInstruction.h"
 #include "ir/instructions/IRLabelDef.h"
+
+#include "ir/instructions/IRUnaryInstruction.h"
+#include "ir/instructions/IRLoadConstant.h"
+
+#include "ir/instructions/IRBinaryInstruction.h"
 #include "ir/instructions/IRAdd.h"
 
 // values
 #include "ir/values/IRValue.h"
 #include "ir/values/IRTemporary.h"
 #include "ir/values/IRLabel.h"
-
-//#endif // IR_H
+#include "ir/values/IRConstant.h"

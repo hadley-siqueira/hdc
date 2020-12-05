@@ -18,12 +18,16 @@ namespace hdc {
     // instructions
     public:
         void visit(IRLabelDef* ir);
+
+        void visit(IRLoadConstant* ir);
+
         void visit(IRAdd* ir);
 
     // values
     public:
         void visit(IRTemporary* ir);
         void visit(IRLabel* ir);
+        void visit(IRConstant* ir);
 
     private:
         std::stringstream output;

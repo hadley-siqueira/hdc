@@ -1,5 +1,8 @@
+#include <iostream>
+
 #include "visitors/ast/IRBuilderVisitor.h"
 #include "ast/AST.h"
+#include "ir/values/IRConstant.h"
 
 using namespace hdc;
 
@@ -187,7 +190,11 @@ void IRBuilderVisitor::visit(GreaterThanOrEqualExpression* expression) { }
 void IRBuilderVisitor::visit(EqualExpression* expression) { }
 void IRBuilderVisitor::visit(NotEqualExpression* expression) { }
 
-void IRBuilderVisitor::visit(AssignmentExpression* expression) { }
+void IRBuilderVisitor::visit(AssignmentExpression* expression) {
+    expression->getRight()->accept(this);
+    expression->getLeft()->accept(this);
+}
+
 void IRBuilderVisitor::visit(BitwiseAndAssignmentExpression* expression) { }
 void IRBuilderVisitor::visit(BitwiseXorAssignmentExpression* expression) { }
 void IRBuilderVisitor::visit(BitwiseOrAssignmentExpression* expression) { }
@@ -204,7 +211,17 @@ void IRBuilderVisitor::visit(SrlAssignmentExpression* expression) { }
 void IRBuilderVisitor::visit(SpecialAssignmentExpression* expression) { }
 
 /* Literals */
-void IRBuilderVisitor::visit(LiteralIntegerExpression* expression) { }
+void IRBuilderVisitor::visit(LiteralIntegerExpression* expression) {
+    Token token;
+    IRValue* dst;
+    IRValue* src;
+
+    token = expression->get_token();
+    dst = newTemporary();
+    src = new IRConstant(token.getLexem());
+    currentFunction->add(new IRLoadConstant(dst, src));
+}
+
 void IRBuilderVisitor::visit(LiteralStringExpression* expression) { }
 void IRBuilderVisitor::visit(LiteralCharExpression* expression) { }
 void IRBuilderVisitor::visit(LiteralFloatExpression* expression) { }

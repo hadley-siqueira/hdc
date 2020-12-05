@@ -24,10 +24,22 @@ void IRPrettyPrinter::visit(IRSourceFile *ir) {
 
 void IRPrettyPrinter::visit(IRFunction *ir) {
     ir->getLabelName()->accept(this);
+
+    for (int i = 0; i < ir->n_instructions(); ++i) {
+        ir->getInstruction(i)->accept(this);
+    }
 }
 
 void IRPrettyPrinter::visit(IRLabelDef *ir) {
     output << ir->getLabel()->getValue() << ":\n";
+}
+
+void IRPrettyPrinter::visit(IRLoadConstant *ir) {
+    output << "    li %";
+    ir->getDestination()->accept(this);
+    output << ", ";
+    ir->getSource()->accept(this);
+    output << '\n';
 }
 
 void IRPrettyPrinter::visit(IRAdd *ir) {
@@ -47,5 +59,9 @@ void IRPrettyPrinter::visit(IRTemporary *ir) {
 }
 
 void IRPrettyPrinter::visit(IRLabel *ir) {
+    output << ir->getValue();
+}
+
+void IRPrettyPrinter::visit(IRConstant *ir) {
     output << ir->getValue();
 }
