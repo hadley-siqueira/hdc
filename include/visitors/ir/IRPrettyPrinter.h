@@ -18,6 +18,8 @@ namespace hdc {
     // instructions
     public:
         void visit(IRLabelDef* ir);
+        void visit(IRGoto* ir);
+        void visit(IRIFz* ir);
 
         void visit(IRLoadConstant* ir);
 

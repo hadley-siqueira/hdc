@@ -34,6 +34,21 @@ void IRPrettyPrinter::visit(IRLabelDef *ir) {
     output << ir->getLabel()->getValue() << ":\n";
 }
 
+void IRPrettyPrinter::visit(IRGoto *ir) {
+    output << "    goto ";
+    ir->getLabel()->accept(this);
+    output << '\n';
+}
+
+void IRPrettyPrinter::visit(IRIFz *ir) {
+    output << "    if !%";
+    ir->getSource()->accept(this);
+
+    output << " goto ";
+    ir->getLabel()->accept(this);
+    output << '\n';
+}
+
 void IRPrettyPrinter::visit(IRLoadConstant *ir) {
     output << "    li %";
     ir->getDestination()->accept(this);

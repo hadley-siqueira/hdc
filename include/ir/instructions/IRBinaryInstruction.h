@@ -11,6 +11,10 @@ namespace hdc {
         IRValue* getSource1();
         IRValue* getSource2();
 
+        void setDestination(IRValue* dst);
+        void setSource1(IRValue* src);
+        void setSource2(IRValue* src);
+
     public:
         virtual void accept(IRVisitor* visitor)=0;
 

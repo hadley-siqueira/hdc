@@ -2,12 +2,12 @@
 
 using namespace hdc;
 
-IRConstant::IRConstant(std::string value) {
-    this->value = value;
+IRConstant::IRConstant(Token token) {
+    this->token = token;
 }
 
 std::string IRConstant::getValue() {
-    return value;
+    return token.getLexem();
 }
 
 void IRConstant::accept(IRVisitor *visitor) {

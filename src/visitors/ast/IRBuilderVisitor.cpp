@@ -114,11 +114,10 @@ void IRBuilderVisitor::visit(WhileStatement* statement) {
 
     currentFunction->add(new IRLabelDef(labelBefore));
     statement->getExpression()->accept(this);
-    //currentFunction->addIR(new IRIFz(lastTemporary))
+    currentFunction->add(new IRIFz(lastTemporary, labelAfter));
 
     statement->getStatements()->accept(this);
-
-    // emit goto labelBefore
+    currentFunction->add(new IRGoto(labelBefore));
     currentFunction->add(new IRLabelDef(labelAfter));
 }
 
@@ -238,7 +237,7 @@ void IRBuilderVisitor::visit(LiteralIntegerExpression* expression) {
 
     token = expression->get_token();
     dst = newTemporary();
-    src = new IRConstant(token.getLexem());
+    src = new IRConstant(token);
     currentFunction->add(new IRLoadConstant(dst, src));
 }
 
@@ -251,4 +250,6 @@ void IRBuilderVisitor::visit(LiteralBoolExpression* expression) { }
 void IRBuilderVisitor::visit(ListExpression* list) { }
 void IRBuilderVisitor::visit(ArrayExpression* array) { }
 
-void IRBuilderVisitor::visit(IdentifierExpression* id) { }
+void IRBuilderVisitor::visit(IdentifierExpression* id) {
+
+}

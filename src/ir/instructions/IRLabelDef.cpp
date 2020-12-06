@@ -5,6 +5,7 @@ using namespace hdc;
 
 IRLabelDef::IRLabelDef(IRLabel *label) {
     this->label = label;
+    label->setCreatedBy(this);
 }
 
 IRLabelDef::~IRLabelDef() {

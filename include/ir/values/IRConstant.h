@@ -4,11 +4,12 @@
 #include <string>
 
 #include "IRValue.h"
+#include "token/Token.h"
 
 namespace hdc {
     class IRConstant : public IRValue {
     public:
-        IRConstant(std::string value);
+        IRConstant(Token token);
 
     public:
         std::string getValue();
@@ -17,7 +18,7 @@ namespace hdc {
         void accept(IRVisitor *visitor);
 
     private:
-        std::string value;
+        Token token;
     };
 }
 

@@ -7,6 +7,8 @@
 // instructions
 #include "ir/instructions/IRInstruction.h"
 #include "ir/instructions/IRLabelDef.h"
+#include "ir/instructions/IRGoto.h"
+#include "ir/instructions/IRIFz.h"
 
 #include "ir/instructions/IRUnaryInstruction.h"
 #include "ir/instructions/IRLoadConstant.h"
