@@ -20,8 +20,10 @@ namespace hdc {
         void visit(IRLabelDef* ir);
         void visit(IRGoto* ir);
         void visit(IRIFz* ir);
+        void visit(IRLocalVar* ir);
 
         void visit(IRLoadConstant* ir);
+        void visit(IRStore* ir);
 
         void visit(IRAdd* ir);
         void visit(IRMinus* ir);

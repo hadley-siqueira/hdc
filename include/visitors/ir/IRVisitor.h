@@ -13,8 +13,10 @@ namespace hdc {
         virtual void visit(class IRLabelDef* ir)=0;
         virtual void visit(class IRGoto* ir)=0;
         virtual void visit(class IRIFz* ir)=0;
+        virtual void visit(class IRLocalVar* ir)=0;
 
         virtual void visit(class IRLoadConstant* ir)=0;
+        virtual void visit(class IRStore* ir)=0;
 
         virtual void visit(class IRAdd* ir)=0;
         virtual void visit(class IRMinus* ir)=0;

@@ -49,11 +49,33 @@ void IRPrettyPrinter::visit(IRIFz *ir) {
     output << '\n';
 }
 
+void IRPrettyPrinter::visit(IRLocalVar *ir) {
+    output << "    add %";
+    ir->getDestination()->accept(this);
+    output << ", %fp, ";
+    output << ir->getOffset();
+    output << '\n';
+}
+
 void IRPrettyPrinter::visit(IRLoadConstant *ir) {
     output << "    li %";
     ir->getDestination()->accept(this);
     output << ", ";
     ir->getSource()->accept(this);
+    output << '\n';
+}
+
+void IRPrettyPrinter::visit(IRStore *ir) {
+    output << "    sw %";
+    ir->getDestination()->accept(this);
+    output << ", %";
+    ir->getSource()->accept(this);
+
+    if (ir->getOffset() != nullptr) {
+        output << ", ";
+        ir->getOffset()->accept(this);
+    }
+
     output << '\n';
 }
 

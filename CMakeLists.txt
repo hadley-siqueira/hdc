@@ -131,8 +131,10 @@ set(IR_SRC
     src/ir/instructions/IRLabelDef.cpp
     src/ir/instructions/IRGoto.cpp
     src/ir/instructions/IRIFz.cpp
+    src/ir/instructions/IRLocalVar.cpp
     src/ir/instructions/IRUnaryInstruction.cpp
     src/ir/instructions/IRLoadConstant.cpp
+    src/ir/instructions/IRStore.cpp
     src/ir/instructions/IRBinaryInstruction.cpp
     src/ir/instructions/IRAdd.cpp
     src/ir/instructions/IRMinus.cpp

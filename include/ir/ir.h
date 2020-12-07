@@ -9,9 +9,11 @@
 #include "ir/instructions/IRLabelDef.h"
 #include "ir/instructions/IRGoto.h"
 #include "ir/instructions/IRIFz.h"
+#include "ir/instructions/IRLocalVar.h"
 
 #include "ir/instructions/IRUnaryInstruction.h"
 #include "ir/instructions/IRLoadConstant.h"
+#include "ir/instructions/IRStore.h"
 
 #include "ir/instructions/IRBinaryInstruction.h"
 #include "ir/instructions/IRAdd.h"

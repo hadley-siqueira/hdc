@@ -3,8 +3,8 @@
 using namespace hdc;
 
 IRLoadConstant::IRLoadConstant(IRValue *dst, IRValue *src) {
-    this->dst = dst;
-    this->src = src;
+    setDestination(dst);
+    setSource(src);
 }
 
 void IRLoadConstant::accept(IRVisitor *visitor) {

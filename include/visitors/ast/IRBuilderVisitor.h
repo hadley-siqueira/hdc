@@ -153,6 +153,8 @@ namespace hdc {
         IRTemporary* lastTemporary;
         IRFunction* currentFunction;
         IRSourceFile* currentSourceFile;
+
+        bool checkingAssignment;
     };
 }
 

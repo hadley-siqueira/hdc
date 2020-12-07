@@ -1,5 +1,7 @@
 #include <iostream>
 
+#include "ast/Variable.h"
+
 #include "visitors/ast/IRBuilderVisitor.h"
 #include "ast/AST.h"
 #include "ir/values/IRConstant.h"
@@ -11,6 +13,8 @@ IRBuilderVisitor::IRBuilderVisitor() {
     labelCounter = 0;
     lastTemporary = nullptr;
     irProgram = new IRProgram();
+
+    checkingAssignment = false;
 }
 
 IRProgram *IRBuilderVisitor::getIRProgram() {
@@ -210,8 +214,22 @@ void IRBuilderVisitor::visit(EqualExpression* expression) { }
 void IRBuilderVisitor::visit(NotEqualExpression* expression) { }
 
 void IRBuilderVisitor::visit(AssignmentExpression* expression) {
+    IRValue* dst;
+    IRValue* src;
+    bool oldCheckingAssignment;
+
+    oldCheckingAssignment = checkingAssignment;
+
+    checkingAssignment = false;
     expression->getRight()->accept(this);
+    src = lastTemporary;
+
+    checkingAssignment = true;
     expression->getLeft()->accept(this);
+    dst = lastTemporary;
+
+    currentFunction->add(new IRStore(dst, src));
+    checkingAssignment = oldCheckingAssignment;
 }
 
 void IRBuilderVisitor::visit(BitwiseAndAssignmentExpression* expression) { }
@@ -251,5 +269,23 @@ void IRBuilderVisitor::visit(ListExpression* list) { }
 void IRBuilderVisitor::visit(ArrayExpression* array) { }
 
 void IRBuilderVisitor::visit(IdentifierExpression* id) {
+    IRInstruction* inst;
+    IRValue* dst;
+    int kind;
+
+    if (checkingAssignment) {
+        kind = id->getSymbol()->getKind();
+
+        switch (kind) {
+        case SYMBOL_LOCAL_VARIABLE:
+            Variable* var = (Variable*) id->getSymbol()->getDescriptor();
+            dst = newTemporary();
+            inst = new IRLocalVar(dst, var->getOffset());
+            currentFunction->add(inst);
+            break;
+        }
+
+        //inst = new IRLocalVar()
+    }
 
 }

@@ -10,6 +10,9 @@ namespace hdc {
         IRValue* getDestination();
         IRValue* getSource();
 
+        void setDestination(IRValue* dst);
+        void setSource(IRValue* src);
+
     public:
         virtual void accept(IRVisitor* visitor)=0;
 
