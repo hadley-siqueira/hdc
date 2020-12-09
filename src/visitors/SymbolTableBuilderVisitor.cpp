@@ -9,11 +9,10 @@ SymbolTableBuilderVisitor::SymbolTableBuilderVisitor() {
     symbolTable = nullptr;
     currentClass = nullptr;
     checkingAssignment = false;
-    stack = new SymbolTableStack(&symbolTable);
 }
 
 SymbolTableBuilderVisitor::~SymbolTableBuilderVisitor() {
-    delete stack;
+
 }
 
 bool SymbolTableBuilderVisitor::getFirstPass() const {
@@ -27,8 +26,7 @@ void SymbolTableBuilderVisitor::setFirstPass(bool value) {
 void SymbolTableBuilderVisitor::visit(SourceFile* file) {
     std::cout << "Building SymbolTable for file '" << file->getPath() << "'\n";
 
-    stack->push(new SymbolTable());
-    file->setSymbolTable(symbolTable);
+    file->setSymbolTable(pushSymbolTable());
     currentSourceFile = file;
 
     buildInitialSymbolTable(file);
@@ -44,7 +42,7 @@ void SymbolTableBuilderVisitor::visit(SourceFile* file) {
         file->getClass(i)->accept(this);
     }
 
-    stack->pop();
+    popSymbolTable();
 }
 
 void SymbolTableBuilderVisitor::visit(Import* import) {
@@ -52,8 +50,7 @@ void SymbolTableBuilderVisitor::visit(Import* import) {
 }
 
 void SymbolTableBuilderVisitor::visit(Class* klass) {
-    stack->push(new SymbolTable(symbolTable));
-    klass->setSymbolTable(symbolTable);
+    klass->setSymbolTable(pushSymbolTable());
 
     for (int i = 0; i < klass->n_methods(); ++i) {
         symbolTable->add(klass->getMethod(i));
@@ -67,7 +64,7 @@ void SymbolTableBuilderVisitor::visit(Class* klass) {
         klass->getMethod(i)->accept(this);
     }
 
-    stack->pop();
+    popSymbolTable();
 }
 
 void SymbolTableBuilderVisitor::visit(Struct* s) {
@@ -75,17 +72,16 @@ void SymbolTableBuilderVisitor::visit(Struct* s) {
 }
 
 void SymbolTableBuilderVisitor::visit(Def* def) {
-    stack->push(new SymbolTable(symbolTable));
     currentDef = def;
 
-    def->setSymbolTable(symbolTable);
+    def->setSymbolTable(pushSymbolTable());
 
     for (int i = 0; i < def->n_parameters(); ++i) {
         symbolTable->add(def->getParameter(i));
     }
 
     def->getStatements()->accept(this);
-    stack->pop();
+    popSymbolTable();
 }
 
 void SymbolTableBuilderVisitor::visit(Parameter* parameter) {}
@@ -146,7 +142,12 @@ void SymbolTableBuilderVisitor::visit(CompoundStatement* statement) {
     }
 }
 
-void SymbolTableBuilderVisitor::visit(WhileStatement* statement) {}
+void SymbolTableBuilderVisitor::visit(WhileStatement* statement) {
+    statement->setSymbolTable(pushSymbolTable());
+    statement->getExpression()->accept(this);
+    statement->getStatements()->accept(this);
+    popSymbolTable();
+}
 
 void SymbolTableBuilderVisitor::visit(ForStatement* statement) {
 
@@ -467,6 +468,7 @@ void SymbolTableBuilderVisitor::visit(IdentifierExpression* id) {
         if (symbol == nullptr) {
             std::cout << "error: '" << id->getName() << "' not defined in this scope\n";
         } else {
+            std::cout << "Setting '" << id->getName() << "'\n";
             id->setSymbol(symbol);
         }
     }
@@ -504,7 +506,7 @@ void SymbolTableBuilderVisitor::buildInitialSymbolTable(SourceFile* sourceFile) 
         symbol = symbolTable->has(name);
 
         if (symbol != nullptr) {
-            std::cout << "error gvar: '" << name << "' already declared. First occurence on line " << symbol->getLine();
+            std::cout << "error global variable: '" << name << "' already declared. First occurence on line " << symbol->getLine();
             exit(0);
         } else {
             symbolTable->add(sourceFile->getGlobalVariable(i));
@@ -521,6 +523,25 @@ void SymbolTableBuilderVisitor::buildInitialSymbolTable(SourceFile* sourceFile) 
         } else {
             symbolTable->add(sourceFile->getGlobalVariable(i));
         }
+    }
+}
+
+SymbolTable *SymbolTableBuilderVisitor::pushSymbolTable() {
+    SymbolTable* old;
+
+    old = symbolTable;
+    symbolTableStack.push(symbolTable);
+    symbolTable = new SymbolTable(old);
+
+    return symbolTable;
+}
+
+void SymbolTableBuilderVisitor::popSymbolTable() {
+    symbolTable = nullptr;
+
+    if (symbolTableStack.size() > 0) {
+        symbolTable = symbolTableStack.top();
+        symbolTableStack.pop();
     }
 }
 

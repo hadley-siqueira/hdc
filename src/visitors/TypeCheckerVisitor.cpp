@@ -6,12 +6,11 @@ using namespace hdc;
 
 TypeCheckerVisitor::TypeCheckerVisitor() {
     this->symbolTable = nullptr;
-    this->symbolTableStack = new SymbolTableStack(&this->symbolTable);
     this->lastType = nullptr;
 }
 
 TypeCheckerVisitor::~TypeCheckerVisitor() {
-    delete symbolTableStack;
+
 }
 
 void TypeCheckerVisitor::visit(SourceFile* file) {
@@ -22,13 +21,13 @@ void TypeCheckerVisitor::visit(SourceFile* file) {
 void TypeCheckerVisitor::visit(Import* import) {}
 
 void TypeCheckerVisitor::visit(Class* klass) {
-    symbolTableStack->push(klass->getSymbolTable());
+    pushSymbolTable(klass->getSymbolTable());
 
     for (int i = 0; i < klass->n_methods(); ++i) {
         klass->getMethod(i)->accept(this);
     }
 
-    symbolTableStack->pop();
+    popSymbolTable();
 }
 
 void TypeCheckerVisitor::visit(Struct* s) {
@@ -36,9 +35,9 @@ void TypeCheckerVisitor::visit(Struct* s) {
 }
 
 void TypeCheckerVisitor::visit(Def* def) {
-    symbolTableStack->push(def->getSymbolTable());
+    pushSymbolTable(def->getSymbolTable());
     def->getStatements()->accept(this);
-    symbolTableStack->pop();
+    popSymbolTable();
 }
 
 /* Variables */
@@ -694,4 +693,23 @@ Type*TypeCheckerVisitor::typeCoercion(Type* left, Type* right) {
     }
 
     return type;
+}
+
+SymbolTable *TypeCheckerVisitor::pushSymbolTable(SymbolTable* st) {
+    SymbolTable* old;
+
+    old = symbolTable;
+    symbolTableStack.push(symbolTable);
+    symbolTable = st;
+
+    return symbolTable;
+}
+
+void TypeCheckerVisitor::popSymbolTable() {
+    symbolTable = nullptr;
+
+    if (symbolTableStack.size() > 0) {
+        symbolTable = symbolTableStack.top();
+        symbolTableStack.pop();
+    }
 }

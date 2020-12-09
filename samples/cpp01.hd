@@ -1,0 +1,17 @@
+def sum : int
+    @a : int
+    @b : int
+
+    return a + b
+
+def main : int
+    i = 0
+    k = 2.3
+    i = i + 1
+
+    while i < 10:
+        println('Hello, world!')
+        i = i + 1
+        j = i
+
+    j = 10

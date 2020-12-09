@@ -162,7 +162,7 @@ set(VISITORS_SRC
     src/visitors/ir/IRPrettyPrinter.cpp
 )
 
-set(SYMTAB_SRC src/symtab/Symbol.cpp src/symtab/SymbolTable.cpp src/symtab/SymbolTableStack.cpp)
+set(SYMTAB_SRC src/symtab/Symbol.cpp src/symtab/SymbolTable.cpp)
 set(LOGGER_SRC src/logger/Log.cpp src/logger/Logger.cpp)
 set(DRIVER_SRC src/driver/Driver.cpp)
 

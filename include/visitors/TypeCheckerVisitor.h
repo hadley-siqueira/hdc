@@ -1,10 +1,11 @@
 #ifndef HDC_TYPE_CHECKER_VISITOR_H
 #define HDC_TYPE_CHECKER_VISITOR_H
 
+#include <stack>
+
 #include "visitors/Visitor.h"
 #include "ast/AST.h"
 #include "symtab/SymbolTable.h"
-#include "symtab/SymbolTableStack.h"
 
 namespace hdc {
     class TypeCheckerVisitor : public Visitor {
@@ -152,10 +153,14 @@ namespace hdc {
             void checkClasses(SourceFile* file);
             Type* typeCoercion(Type* left, Type* right);
 
+            SymbolTable* pushSymbolTable(SymbolTable *st);
+            void popSymbolTable();
+
         private:
-            SymbolTableStack* symbolTableStack;
             SymbolTable* symbolTable;
             Type* lastType;
+
+            std::stack<SymbolTable*> symbolTableStack;
     };
 }
 

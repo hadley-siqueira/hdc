@@ -4,6 +4,7 @@
 #include "ast/Statement.h"
 #include "ast/CompoundStatement.h"
 #include "ast/Expression.h"
+#include "symtab/SymbolTable.h"
 
 namespace hdc {
     class WhileStatement : public Statement {
@@ -22,9 +23,13 @@ namespace hdc {
         public:
             virtual void accept(Visitor* visitor);
 
-        private:
+            SymbolTable *getSymbolTable() const;
+            void setSymbolTable(SymbolTable *value);
+
+    private:
             Expression* expression;
             CompoundStatement* statements;
+            SymbolTable* symbolTable;
     };
 }
 

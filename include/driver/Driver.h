@@ -31,6 +31,7 @@ namespace hdc {
             void generateTAC();
             void generateIR();
             void generate_x86_64();
+            void generateCpp();
             void prettyPrintAllFiles();
 
             SourceFile* parseFile(std::string path);
@@ -54,6 +55,9 @@ namespace hdc {
             char pathDelimiter;
 
             std::vector<TAC> tacs;
+
+            // flags
+            bool emitCppFlag;
     };
 }
 

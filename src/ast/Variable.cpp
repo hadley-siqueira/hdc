@@ -22,6 +22,10 @@ std::string hdc::Variable::getName() {
     return token.getLexem();
 }
 
+std::string Variable::getUniqueName() {
+    return std::string("");
+}
+
 int Variable::getLocalName() const {
     return localName;
 }
@@ -38,13 +42,11 @@ void Variable::setGlobalName(unsigned long long value) {
     globalName = value;
 }
 
-bool Variable::getIsConstant() const
-{
+bool Variable::getIsConstant() const {
     return isConstant;
 }
 
-void Variable::setIsConstant(bool value)
-{
+void Variable::setIsConstant(bool value) {
     isConstant = value;
 }
 

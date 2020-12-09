@@ -37,3 +37,11 @@ CompoundStatement* WhileStatement::getStatements() {
 void WhileStatement::accept(Visitor* visitor) {
     visitor->visit(this);
 }
+
+SymbolTable *WhileStatement::getSymbolTable() const {
+    return symbolTable;
+}
+
+void WhileStatement::setSymbolTable(SymbolTable *value) {
+    symbolTable = value;
+}

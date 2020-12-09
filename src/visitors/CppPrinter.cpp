@@ -108,7 +108,8 @@ void CppPrinter::visit(LocalVariable* variable) {
         output << "int";
     }
 
-    output << " " << variable->getName() << ";\n";
+    output << " lv" << variable->getLocalName() << "_";
+    output << variable->getName() << ";\n";
 }
 
 void CppPrinter::visit(GlobalVariable* variable) {
@@ -813,7 +814,23 @@ void CppPrinter::visit(ArrayExpression* array) {
 
 void CppPrinter::visit(IdentifierExpression* id) {
     isExpression = true;
-    output << id->getName();
+
+    if (id->getName().compare("println") == 0) {
+        output << "println";
+        return;
+    }
+
+    Symbol* s = id->getSymbol();
+
+    if (s != nullptr) {
+        switch (s->getKind()) {
+        case SYMBOL_LOCAL_VARIABLE:
+            Variable* v = (Variable*) s->getDescriptor();
+            output << "lv" << v->getLocalName() << "_";
+            output << v->getName();
+            break;
+        }
+    }
 }
 
 void CppPrinter::print_indentation() {
@@ -892,7 +909,7 @@ void CppPrinter::generateDefParameters(Def* def) {
     }
 }
 
-void CppPrinter::generateDefLocalVariables(Def* def){
+void CppPrinter::generateDefLocalVariables(Def* def) {
     for (int i = 0; i < def->n_local_variables(); ++i) {
         def->getLocalVariable(i)->accept(this);
     }

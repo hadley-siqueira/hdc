@@ -1,10 +1,11 @@
 #ifndef HDC_SYMBOLTABLE_BUILDER_VISITOR_H
 #define HDC_SYMBOLTABLE_BUILDER_VISITOR_H
 
+#include <stack>
+
 #include "visitors/Visitor.h"
 #include "ast/AST.h"
 #include "symtab/SymbolTable.h"
-#include "symtab/SymbolTableStack.h"
 
 namespace hdc {
     class SymbolTableBuilderVisitor : public Visitor {
@@ -153,6 +154,8 @@ namespace hdc {
 
         private:
             void buildInitialSymbolTable(SourceFile* sourceFile);
+            SymbolTable* pushSymbolTable();
+            void popSymbolTable();
 
         private:
             // pointer to the current symboltable
@@ -161,8 +164,9 @@ namespace hdc {
             Def* currentDef;
             SourceFile* currentSourceFile;
             bool checkingAssignment;
-            SymbolTableStack* stack;
             bool firstPass;
+
+            std::stack<SymbolTable*> symbolTableStack;
     };
 }
 #endif

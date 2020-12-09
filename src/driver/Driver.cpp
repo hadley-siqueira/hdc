@@ -29,6 +29,7 @@ using namespace hdc;
 
 Driver::Driver() {
     pathDelimiter = '/';
+    emitCppFlag = false;
 }
 
 Driver::~Driver() {
@@ -46,7 +47,13 @@ void Driver::run() {
     parseProgram();
     buildSymbolTables();
     //generateTAC();
-    generateIR();
+
+    if (emitCppFlag) {
+        generateCpp();
+    } else {
+        generateIR();
+    }
+
     //prettyPrintAllFiles();
     //generate_x86_64();
 }
@@ -56,7 +63,14 @@ void Driver::setFlags(int argc, char* argv[]) {
     logger.logParser(true);
     logger.logLex(true);
 
-    mainFilePath = std::string(argv[1]);
+    for (int i = 1; i < argc; ++i) {
+        if (strcmp(argv[i], "-cpp") == 0) {
+            emitCppFlag = true;
+        } else if (strstr(argv[i], ".hd") != nullptr) {
+            mainFilePath = std::string(argv[i]);
+        }
+    }
+
     setRootPathFromMainFile();
 }
 
@@ -129,13 +143,6 @@ void Driver::foobar() {
 
 void Driver::buildSymbolTables() {
     std::map<std::string, SourceFile*>::iterator it;
-
-    for (it = sourceFiles.begin(); it != sourceFiles.end(); ++it) {
-        SymbolTableBuilderVisitor builder;
-
-        builder.setFirstPass(true);
-        it->second->accept(&builder);
-    }
 
     for (it = sourceFiles.begin(); it != sourceFiles.end(); ++it) {
         SymbolTableBuilderVisitor builder;
@@ -218,6 +225,18 @@ void Driver::generate_x86_64() {
     Generator_x86_64 gen;
 
     gen.generate(tacs);
+}
+
+void Driver::generateCpp() {
+    CppPrinter pp;
+    std::map<std::string, SourceFile*>::iterator it;
+
+    for (it = sourceFiles.begin(); it != sourceFiles.end(); ++it) {
+        it->second->accept(&pp);
+    }
+
+    pp.save("/tmp/gen.cpp");
+    pp.print();
 }
 
 void Driver::prettyPrintAllFiles() {
