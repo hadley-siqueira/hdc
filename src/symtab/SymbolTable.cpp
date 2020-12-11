@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include "symtab/SymbolTable.h"
 
 using namespace hdc;
@@ -20,6 +22,23 @@ SymbolTable::~SymbolTable() {
 
 bool hdc::SymbolTable::hasParent() {
     return parent != nullptr;
+}
+
+void SymbolTable::dump() {
+    std::map<std::string, Symbol*>::iterator it;
+
+    std::cout << "{";
+    for (it = symbols.begin(); it != symbols.end(); ++it) {
+        std::cout << it->first << ", ";
+    }
+
+    std::cout << "} -> ";
+
+    if (hasParent()) {
+        parent->dump();
+    } else {
+        std::cout << "\n\n";
+    }
 }
 
 Symbol* SymbolTable::add(Class* klass) {
@@ -71,10 +90,12 @@ Symbol* SymbolTable::has(std::string name) {
 }
 
 Symbol* SymbolTable::hasLocalVariable(std::string& name) {
-    Symbol* symbol = symbols[name];
+    if (symbols.count(name) > 0) {
+        Symbol* symbol = symbols[name];
 
-    if (symbol != nullptr && symbol->getKind() == SYMBOL_LOCAL_VARIABLE) {
-        return symbol;
+        if (symbol != nullptr && symbol->getKind() == SYMBOL_LOCAL_VARIABLE) {
+            return symbol;
+        }
     }
 
     if (hasParent()) {
@@ -85,10 +106,11 @@ Symbol* SymbolTable::hasLocalVariable(std::string& name) {
 }
 
 Symbol*SymbolTable::hasLocalVariableOrParameter(const std::string& name) {
-    Symbol* symbol = symbols[name];
+    Symbol* symbol;
     SymbolKind kind;
 
-    if (symbol != nullptr) {
+    if (symbols.count(name) > 0) {
+        symbol = symbols[name];
         kind = symbol->getKind();
 
         if (kind == SYMBOL_LOCAL_VARIABLE || kind == SYMBOL_PARAMETER) {
@@ -104,10 +126,12 @@ Symbol*SymbolTable::hasLocalVariableOrParameter(const std::string& name) {
 }
 
 Symbol* SymbolTable::hasClassVariable(std::string& name) {
-    Symbol* symbol = symbols[name];
+    if (symbols.count(name) > 0) {
+        Symbol* symbol = symbols[name];
 
-    if (symbol != nullptr && symbol->getKind() == SYMBOL_CLASS_VARIABLE) {
-        return symbol;
+        if (symbol != nullptr && symbol->getKind() == SYMBOL_CLASS_VARIABLE) {
+            return symbol;
+        }
     }
 
     if (hasParent()) {

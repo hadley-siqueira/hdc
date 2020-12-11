@@ -92,7 +92,7 @@ void CppPrinter::visit(Parameter* parameter) {
         output << "int";
     }
 
-    output << " " << parameter->getName();
+    output << " p" << parameter->getLocalName() << "_" << parameter->getName();
 }
 
 void CppPrinter::visit(Variable* variable) {
@@ -813,10 +813,16 @@ void CppPrinter::visit(ArrayExpression* array) {
 }
 
 void CppPrinter::visit(IdentifierExpression* id) {
+    Variable* v;
+    Def* def;
+
     isExpression = true;
 
     if (id->getName().compare("println") == 0) {
         output << "println";
+        return;
+    } else if (id->getName().compare("print") == 0) {
+        output << "print";
         return;
     }
 
@@ -825,10 +831,22 @@ void CppPrinter::visit(IdentifierExpression* id) {
     if (s != nullptr) {
         switch (s->getKind()) {
         case SYMBOL_LOCAL_VARIABLE:
-            Variable* v = (Variable*) s->getDescriptor();
+            v = (Variable*) s->getDescriptor();
             output << "lv" << v->getLocalName() << "_";
             output << v->getName();
             break;
+
+        case SYMBOL_PARAMETER:
+            v = (Variable*) s->getDescriptor();
+            output << "p" << v->getLocalName() << "_";
+            output << v->getName();
+            break;
+
+        case SYMBOL_DEF:
+            def = (Def*) s->getDescriptor();
+            output << def->getName();
+            break;
+
         }
     }
 }

@@ -13,5 +13,6 @@ def main : int
         println('Hello, world!')
         i = i + 1
         j = i
+        j = sum(i, j)
 
     j = 10

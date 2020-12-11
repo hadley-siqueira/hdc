@@ -1,0 +1,12 @@
+def sum : int
+    @a : int
+    @b : int
+
+    return a + b
+
+def main : int
+    i = 2
+    j = 3
+    c = sum(i, j)
+    print('i + j = ')
+    println(c)

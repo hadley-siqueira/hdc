@@ -458,7 +458,6 @@ void SymbolTableBuilderVisitor::visit(IdentifierExpression* id) {
             LocalVariable* var = new LocalVariable(id->getNameAsToken());
             symbol = symbolTable->add(var);
             currentDef->addLocalVariable(var);
-            std::cout << "Adding variable: " << id->getName() << std::endl;
         }
 
         id->setSymbol(symbol);
@@ -468,7 +467,6 @@ void SymbolTableBuilderVisitor::visit(IdentifierExpression* id) {
         if (symbol == nullptr) {
             std::cout << "error: '" << id->getName() << "' not defined in this scope\n";
         } else {
-            std::cout << "Setting '" << id->getName() << "'\n";
             id->setSymbol(symbol);
         }
     }
@@ -593,5 +591,7 @@ void SymbolTableBuilderVisitor::visit(ElseStatement* statement) {
 }
 
 void SymbolTableBuilderVisitor::visit(ReturnStatement* statement) {
-
+    if (statement->getExpression() != nullptr) {
+        statement->getExpression()->accept(this);
+    }
 }

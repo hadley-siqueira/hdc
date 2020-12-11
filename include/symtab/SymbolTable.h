@@ -24,6 +24,7 @@ namespace hdc {
 
         public:
             bool hasParent();
+            void dump();
 
         /* Actions */
         public:
