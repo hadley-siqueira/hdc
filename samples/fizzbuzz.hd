@@ -1,0 +1,23 @@
+def fizzbuzz : int
+    @n : int
+
+    x = 0
+    if n % 3 == 0:
+        x = x + 1
+    if n % 5 == 0:
+        x = x + 2
+    return x
+
+def main : int
+    n = 20
+
+    while n > 0:
+        if fizzbuzz(n) == 0:
+            println(n)
+        elif fizzbuzz(n) == 1:
+            println("Fizz")
+        elif fizzbuzz(n) == 2:
+            println("Buzz")
+        else:
+            println("FizzBuzz")
+        n = n - 1

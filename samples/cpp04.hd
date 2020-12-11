@@ -1,0 +1,10 @@
+def main : int
+    i = 0
+
+    while i < 10:
+        if i < 5:
+            println('menor que 5')
+        else:
+            println('maior que 5')
+
+        i = i + 1
