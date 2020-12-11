@@ -544,15 +544,11 @@ void SymbolTableBuilderVisitor::popSymbolTable() {
 }
 
 void SymbolTableBuilderVisitor::visit(IfStatement* statement) {
-    SymbolTable* oldSymbolTable;
-
-    oldSymbolTable = symbolTable;
-    symbolTable = new SymbolTable(symbolTable);
-    statement->setSymbolTable(symbolTable);
+    statement->setSymbolTable(pushSymbolTable());
     statement->getExpression()->accept(this);
     statement->getStatements()->accept(this);
 
-    symbolTable = oldSymbolTable;
+    popSymbolTable();
 
     if (statement->getElifStatement()) {
         statement->getElifStatement()->accept(this);
@@ -562,15 +558,11 @@ void SymbolTableBuilderVisitor::visit(IfStatement* statement) {
 }
 
 void SymbolTableBuilderVisitor::visit(ElifStatement* statement) {
-    SymbolTable* oldSymbolTable;
-
-    oldSymbolTable = symbolTable;
-    symbolTable = new SymbolTable(symbolTable);
-    statement->setSymbolTable(symbolTable);
+    statement->setSymbolTable(pushSymbolTable());
     statement->getExpression()->accept(this);
     statement->getStatements()->accept(this);
 
-    symbolTable = oldSymbolTable;
+    popSymbolTable();
 
     if (statement->getElifStatement()) {
         statement->getElifStatement()->accept(this);
@@ -580,14 +572,10 @@ void SymbolTableBuilderVisitor::visit(ElifStatement* statement) {
 }
 
 void SymbolTableBuilderVisitor::visit(ElseStatement* statement) {
-    SymbolTable* oldSymbolTable;
-
-    oldSymbolTable = symbolTable;
-    symbolTable = new SymbolTable(symbolTable);
-    statement->setSymbolTable(symbolTable);
+    statement->setSymbolTable(pushSymbolTable());
     statement->getStatements()->accept(this);
 
-    symbolTable = oldSymbolTable;
+    popSymbolTable();
 }
 
 void SymbolTableBuilderVisitor::visit(ReturnStatement* statement) {
