@@ -62,6 +62,8 @@ namespace hdc {
             std::vector<Def*> methods;
             std::vector<ClassVariable*> variables;
             SymbolTable* symbolTable;
+            int classVariableCounter;
+            int methodCounter;
 
     };
 }

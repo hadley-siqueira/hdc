@@ -164,6 +164,7 @@ namespace hdc {
             Def* currentDef;
             SourceFile* currentSourceFile;
             bool checkingAssignment;
+            bool checkingNamedType;
             bool firstPass;
 
             std::stack<SymbolTable*> symbolTableStack;

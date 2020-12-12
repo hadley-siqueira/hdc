@@ -22,7 +22,7 @@ std::string hdc::Variable::getName() {
     return token.getLexem();
 }
 
-std::string Variable::getUniqueName() {
+std::string Variable::getUniqueCppName() {
     return std::string("");
 }
 

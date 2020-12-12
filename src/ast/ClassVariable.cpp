@@ -1,3 +1,5 @@
+#include <sstream>
+
 #include "ast/ClassVariable.h"
 
 using namespace hdc;
@@ -14,6 +16,13 @@ ClassVariable::ClassVariable(Token& token) {
 ClassVariable::ClassVariable(Token& token, Type* type) {
     this->token = token;
     this->type = type;
+}
+
+std::string ClassVariable::getUniqueCppName() {
+    std::stringstream s;
+
+    s << "cv" << localName << '_' << getName();
+    return s.str();
 }
 
 void ClassVariable::accept(Visitor* visitor) {

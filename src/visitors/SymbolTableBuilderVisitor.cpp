@@ -9,6 +9,7 @@ SymbolTableBuilderVisitor::SymbolTableBuilderVisitor() {
     symbolTable = nullptr;
     currentClass = nullptr;
     checkingAssignment = false;
+    checkingNamedType = false;
 }
 
 SymbolTableBuilderVisitor::~SymbolTableBuilderVisitor() {
@@ -53,10 +54,12 @@ void SymbolTableBuilderVisitor::visit(Class* klass) {
     klass->setSymbolTable(pushSymbolTable());
 
     for (int i = 0; i < klass->n_methods(); ++i) {
+        klass->getMethod(i)->getReturnType()->accept(this);
         symbolTable->add(klass->getMethod(i));
     }
 
     for (int i = 0; i < klass->n_variables(); ++i) {
+        klass->getVariable(i)->getType()->accept(this);
         symbolTable->add(klass->getVariable(i));
     }
 
@@ -107,6 +110,7 @@ void SymbolTableBuilderVisitor::visit(GlobalConstant* c) {
 }
 
 void SymbolTableBuilderVisitor::visit(Type* type) {}
+
 void SymbolTableBuilderVisitor::visit(IntType* type) {}
 void SymbolTableBuilderVisitor::visit(UIntType* type) {}
 void SymbolTableBuilderVisitor::visit(ShortType* type) {}
@@ -128,10 +132,15 @@ void SymbolTableBuilderVisitor::visit(UInt8Type* type) {}
 void SymbolTableBuilderVisitor::visit(UInt16Type* type) {}
 void SymbolTableBuilderVisitor::visit(UInt32Type* type) {}
 void SymbolTableBuilderVisitor::visit(UInt64Type* type) {}
-void SymbolTableBuilderVisitor::visit(PointerType* type) {}
+
+void SymbolTableBuilderVisitor::visit(PointerType* type) {
+    type->getSubtype()->accept(this);
+}
 
 void SymbolTableBuilderVisitor::visit(NamedType* type) {
-
+    checkingNamedType = true;
+    type->getName()->accept(this);
+    checkingNamedType = false;
 }
 
 void SymbolTableBuilderVisitor::visit(Statement* statement) {}
@@ -451,7 +460,15 @@ void SymbolTableBuilderVisitor::visit(ArrayExpression* array) {
 void SymbolTableBuilderVisitor::visit(IdentifierExpression* id) {
     Symbol* symbol;
 
-    if (checkingAssignment) {
+    if (checkingNamedType) {
+        symbol = symbolTable->has(id->getName());
+
+        if (symbol != nullptr) {
+            if (symbol->getKind() == SYMBOL_CLASS) {
+                id->setSymbol(symbol);
+            }
+        }
+    } else if (checkingAssignment) {
         symbol = symbolTable->hasLocalVariableOrParameter(id->getName());
 
         if (symbol == nullptr) {

@@ -9,6 +9,7 @@ namespace hdc {
             LocalVariable();
             LocalVariable(Token& token);
 
+            std::string getUniqueCppName();
         /* Visitors */
         public:
             virtual void accept(Visitor* visitor);

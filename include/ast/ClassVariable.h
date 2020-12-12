@@ -10,6 +10,8 @@ namespace hdc {
             ClassVariable(Token& token);
             ClassVariable(Token& token, Type* type);
 
+            std::string getUniqueCppName();
+
         /* Visitors */
         public:
             virtual void accept(Visitor* visitor);

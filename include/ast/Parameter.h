@@ -14,6 +14,8 @@ namespace hdc {
 
             ~Parameter();
 
+            std::string getUniqueCppName();
+
         /* Visitors */
         public:
             virtual void accept(Visitor* visitor);

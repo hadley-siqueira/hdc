@@ -18,7 +18,7 @@ namespace hdc {
             void setOffset(int value);
 
             std::string getName();
-            std::string getUniqueName();
+            virtual std::string getUniqueCppName();
 
             int getLocalName() const;
             void setLocalName(int value);

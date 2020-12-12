@@ -3,11 +3,15 @@ import std.File
 def println : void
     @str : char*
 
-    $'printf("%s\n", str)'
+    $'std::cout << str << "\n"'
 
+#def println : void
+#    @ch : char
+#
+#    $'std::cout << ch << "\n"'
 
-def open : File
-    @path : char*
-    @mode : char*
-
-    pass
+#def open : File
+#    @path : char*
+#    @mode : char*
+#
+#    pass

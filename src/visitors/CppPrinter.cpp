@@ -53,7 +53,7 @@ void hdc::CppPrinter::visit(Class* klass) {
     for (int i = 0; i < klass->n_variables(); ++i) {
         print_indentation();
         klass->getVariable(i)->getType()->accept(this);
-        output << " " << klass->getVariable(i)->getName() << ";\n";
+        output << " " << klass->getVariable(i)->getUniqueCppName() << ";\n";
     }
 
     dedent();
@@ -813,6 +813,7 @@ void CppPrinter::visit(ArrayExpression* array) {
 }
 
 void CppPrinter::visit(IdentifierExpression* id) {
+    Class* klass;
     Variable* v;
     Def* def;
 
@@ -830,16 +831,11 @@ void CppPrinter::visit(IdentifierExpression* id) {
 
     if (s != nullptr) {
         switch (s->getKind()) {
+        case SYMBOL_CLASS_VARIABLE:
         case SYMBOL_LOCAL_VARIABLE:
-            v = (Variable*) s->getDescriptor();
-            output << "lv" << v->getLocalName() << "_";
-            output << v->getName();
-            break;
-
         case SYMBOL_PARAMETER:
             v = (Variable*) s->getDescriptor();
-            output << "p" << v->getLocalName() << "_";
-            output << v->getName();
+            output << v->getUniqueCppName();
             break;
 
         case SYMBOL_DEF:
@@ -847,6 +843,10 @@ void CppPrinter::visit(IdentifierExpression* id) {
             output << def->getName();
             break;
 
+        case SYMBOL_CLASS:
+            klass = (Class*) s->getDescriptor();
+            output << klass->getName();
+            break;
         }
     }
 }
@@ -873,6 +873,15 @@ void CppPrinter::printStart() {
     output << "#include <cstdio>\n";
 
     output << "\nusing namespace std;\n\n";
+
+    output << "typedef uint8_t u8;\n";
+    output << "typedef uint16_t u16;\n";
+    output << "typedef uint32_t u32;\n";
+    output << "typedef uint64_t u64;\n";
+    output << "typedef int8_t i8;\n";
+    output << "typedef int16_t i16;\n";
+    output << "typedef int32_t i32;\n";
+    output << "typedef int64_t i64;\n\n";
 
     output << "void print(char v) { std::cout << v; }\n";
     output << "void print(int v) { std::cout << v; }\n";

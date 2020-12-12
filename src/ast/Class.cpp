@@ -6,6 +6,8 @@ using namespace hdc;
 Class::Class() {
     parent = NULL;
     file = NULL;
+    classVariableCounter = 0;
+    methodCounter = 0;
 }
 
 /* Destructors */
@@ -84,6 +86,7 @@ void Class::addMethod(Def* def) {
 }
 
 void Class::addVariable(ClassVariable* variable) {
+    variable->setLocalName(classVariableCounter++);
     variables.push_back(variable);
 }
 
