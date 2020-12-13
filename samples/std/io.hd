@@ -5,13 +5,13 @@ def println : void
 
     $'std::cout << str << "\n"'
 
-#def println : void
-#    @ch : char
-#
-#    $'std::cout << ch << "\n"'
+def println : void
+    @ch : char
 
-#def open : File
-#    @path : char*
-#    @mode : char*
-#
-#    pass
+    $'std::cout << ch << "\n"'
+
+def open : File
+    @path : char*
+    @mode : char*
+
+    pass

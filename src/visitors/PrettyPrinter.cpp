@@ -31,6 +31,10 @@ void PrettyPrinter::print() {
     std::cout << output.str();
 }
 
+void PrettyPrinter::visit(Program *program) {
+
+}
+
 
 void PrettyPrinter::visit(SourceFile* file) {
     output << "Contents of file '";

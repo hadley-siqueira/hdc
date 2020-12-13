@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 
+#include "ast/Program.h"
 #include "ast/SourceFile.h"
 #include "logger/Logger.h"
 #include "tac/TAC.h"
@@ -48,6 +49,7 @@ namespace hdc {
             std::vector<std::string> getFilesFromDirectory(std::string path, int& err);
 
         private:
+            Program program;
             std::map<std::string, SourceFile*> sourceFiles;
             Logger logger;
             std::string mainFilePath;

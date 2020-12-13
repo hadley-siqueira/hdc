@@ -25,6 +25,10 @@ void SymbolTableBuilderVisitor::setFirstPass(bool value) {
     firstPass = value;
 }
 
+void SymbolTableBuilderVisitor::visit(Program *program) {
+
+}
+
 void SymbolTableBuilderVisitor::visit(SourceFile* file) {
     std::cout << "Building SymbolTable for file '" << file->getPath() << "'\n";
 

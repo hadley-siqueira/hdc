@@ -2,6 +2,7 @@
 #define HDC_AST_H
 
 #include "ast/ASTNode.h"
+#include "ast/Program.h"
 #include "ast/SourceFile.h"
 #include "ast/Def.h"
 #include "ast/Class.h"

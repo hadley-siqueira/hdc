@@ -1,0 +1,5 @@
+import foo.io
+
+def main : int
+    s = 'Hello'
+    myprint(s)

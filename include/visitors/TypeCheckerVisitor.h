@@ -19,6 +19,7 @@ namespace hdc {
 
         /* Visitor interface */
         public:
+            void visit(Program* program);
             void visit(SourceFile* file);
             void visit(Import* import);
 

@@ -13,6 +13,10 @@ TypeCheckerVisitor::~TypeCheckerVisitor() {
 
 }
 
+void TypeCheckerVisitor::visit(Program *program) {
+
+}
+
 void TypeCheckerVisitor::visit(SourceFile* file) {
     checkFunctions(file);
     checkClasses(file);

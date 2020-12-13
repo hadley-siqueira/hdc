@@ -35,6 +35,10 @@ IRLabel* IRBuilderVisitor::newLabel() {
     return new IRLabel(s);
 }
 
+void IRBuilderVisitor::visit(Program *program) {
+
+}
+
 void IRBuilderVisitor::visit(SourceFile* file) {
     IRSourceFile* ir;
 

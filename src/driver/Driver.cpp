@@ -333,6 +333,30 @@ SourceFile* Driver::parseFile(std::string path) {
     return file;
 }
 
+// new
+/*
+SourceFile* Driver::parseFile(std::string path) {
+    Parser parser;
+    SourceFile* file;
+
+    logger.log(LOG_INTERNAL_DRIVER, "parsing file '" + path + "'");
+    file = program.getSourceFile(path);
+
+    if (file != nullptr) {
+        return file;
+    }
+
+    if (!fileExists(path)) {
+        logger.log(LOG_ERROR, "couldn't find file or directory '" + path + "'");
+        return nullptr;
+    }
+
+    file = parser.read(path);
+    program.addSourceFile(file);
+
+    return file;
+}*/
+
 bool Driver::fileExists(std::string path) {
     std::ifstream f(path.c_str());
     return f.good();

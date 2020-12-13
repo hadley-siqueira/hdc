@@ -7,6 +7,7 @@ namespace hdc {
     /* This is one of the base classes to visit ASTNodes */
     class Visitor {
         public:
+            virtual void visit(class Program* program)=0;
             virtual void visit(class SourceFile* file)=0;
             virtual void visit(class Import* import)=0;
 

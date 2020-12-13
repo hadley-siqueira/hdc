@@ -1,0 +1,4 @@
+def myprint : void
+    @s : char*
+
+    $'std::cout << s << std::endl'

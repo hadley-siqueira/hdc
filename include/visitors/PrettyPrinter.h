@@ -24,6 +24,7 @@ namespace hdc {
             void print();
 
         public:
+            void visit(Program* program);
             void visit(SourceFile* file);
             void visit(Import* import);
 

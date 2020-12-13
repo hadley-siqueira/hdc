@@ -85,6 +85,10 @@ void TACBuilderVisitor::emit(TACKind kind) {
     tac.kind = kind;
 }
 
+void TACBuilderVisitor::visit(Program *program) {
+
+}
+
 void TACBuilderVisitor::visit(SourceFile* file) {
     for (int i = 0; i < file->n_defs(); ++i) {
         file->getDef(i)->accept(this);

@@ -11,6 +11,7 @@ set(PARSER_SRC src/parser/Parser.cpp)
 
 set(AST_SRC
     src/ast/ASTNode.cpp
+    src/ast/Program.cpp
     src/ast/SourceFile.cpp
     src/ast/Import.cpp
     src/ast/Def.cpp

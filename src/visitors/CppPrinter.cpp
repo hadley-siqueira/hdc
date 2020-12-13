@@ -22,6 +22,10 @@ void CppPrinter::save(std::string path) {
     file.close();
 }
 
+void CppPrinter::visit(Program *program) {
+
+}
+
 void hdc::CppPrinter::visit(SourceFile* file) {
     generatePrototypes(file);
 
