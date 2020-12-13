@@ -16,6 +16,28 @@ class Image:
         @w = w
         @h = h
         @p = 0
+        @w = sum(w, h)
+
+    def sum : int
+        @a : int
+        @b : int
+
+        return a + b
+
+def sum : int
+    @a : int
+    @b : int
+
+    return a + b
 
 def main : int
+    a = 'a'
+    b = 2.3
+    c = 0xff
+    d = 2
+    e = 3
+    e = sum(d, e)
+    i = Image()
+    i.init(800, 600)
+
     return 0

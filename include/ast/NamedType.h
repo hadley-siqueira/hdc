@@ -15,6 +15,7 @@ namespace hdc {
 
         public:
             Type* clone();
+            int getRank();
 
         public:
             void accept(Visitor* visitor);

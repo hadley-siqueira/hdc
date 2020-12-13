@@ -15,6 +15,10 @@ Type* CharType::clone() {
     return new CharType(token);
 }
 
+int CharType::getRank() {
+    return 3;
+}
+
 
 void CharType::accept(Visitor* visitor) {
     visitor->visit(this);

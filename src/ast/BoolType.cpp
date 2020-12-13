@@ -15,6 +15,10 @@ Type* BoolType::clone() {
     return new BoolType(token);
 }
 
+int BoolType::getRank() {
+    return 1;
+}
+
 
 void BoolType::accept(Visitor* visitor) {
     visitor->visit(this);

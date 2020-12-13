@@ -15,6 +15,10 @@ Type* VoidType::clone() {
     return new VoidType(token);
 }
 
+int VoidType::getRank() {
+    return 0;
+}
+
 
 void VoidType::accept(Visitor* visitor) {
     visitor->visit(this);

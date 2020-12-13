@@ -7,7 +7,7 @@ Expression::Expression() {
 }
 
 Expression::~Expression() {
-
+    delete type;
 }
 
 /* Visitors */

@@ -1,3 +1,5 @@
+#include <sstream>
+
 #include "ast/Def.h"
 
 using namespace hdc;
@@ -58,6 +60,18 @@ std::string Def::getName() {
     return name.getLexem();
 }
 
+std::string Def::getUniqueCppName() {
+    std::stringstream s;
+
+    if (isMethod()) {
+        s << "m" << id << "_" << getName();
+    } else {
+        s << "d" << id << "_" << getName();
+    }
+
+    return s.str();
+}
+
 Parameter* Def::getParameter(int i) {
     if (i < parameters.size()) {
         return parameters[i];
@@ -90,6 +104,14 @@ int Def::getColumn() {
     return name.getColumn();
 }
 
+Class *Def::getClass() {
+    return klass;
+}
+
+bool Def::isMethod() {
+    return klass != nullptr;
+}
+
 
 #include <iostream>
 
@@ -116,6 +138,26 @@ void Def::addLocalVariable(LocalVariable* variable) {
 
 void Def::accept(Visitor* visitor) {
     visitor->visit(this);
+}
+
+int Def::getId() const
+{
+    return id;
+}
+
+void Def::setId(int value)
+{
+    id = value;
+}
+
+int Def::getGlobalId() const
+{
+    return globald;
+}
+
+void Def::setGlobalId(int value)
+{
+    globald = value;
 }
 
 SymbolTable* Def::getSymbolTable() const {

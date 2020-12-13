@@ -24,6 +24,7 @@ namespace hdc {
         public:
             Type* clone();
             bool equals(Type* other);
+            int getRank();
 
         public:
             virtual void accept(Visitor* visitor);

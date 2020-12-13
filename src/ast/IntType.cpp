@@ -15,6 +15,10 @@ Type *IntType::clone() {
     return new IntType(token);
 }
 
+int IntType::getRank() {
+    return 11;
+}
+
 void IntType::accept(Visitor* visitor) {
     visitor->visit(this);
 }

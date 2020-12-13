@@ -15,6 +15,10 @@ Type* ULongType::clone() {
     return new ULongType(token);
 }
 
+int ULongType::getRank() {
+    return 17;
+}
+
 
 void ULongType::accept(Visitor* visitor) {
     visitor->visit(this);

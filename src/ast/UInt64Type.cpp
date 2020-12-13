@@ -15,6 +15,10 @@ Type* UInt64Type::clone() {
     return new UInt64Type(token);
 }
 
+int UInt64Type::getRank() {
+    return 16;
+}
+
 
 void UInt64Type::accept(Visitor* visitor) {
     visitor->visit(this);

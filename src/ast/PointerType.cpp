@@ -52,6 +52,10 @@ bool PointerType::equals(Type* other) {
     return false;
 }
 
+int PointerType::getRank() {
+    return 21;
+}
+
 
 void PointerType::accept(Visitor* visitor) {
     visitor->visit(this);

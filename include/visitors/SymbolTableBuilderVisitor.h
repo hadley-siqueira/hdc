@@ -156,6 +156,7 @@ namespace hdc {
             void buildInitialSymbolTable(SourceFile* sourceFile);
             SymbolTable* pushSymbolTable();
             void popSymbolTable();
+            Type* typeCoercion(Type* t1, Type* t2);
 
         private:
             // pointer to the current symboltable
@@ -168,6 +169,7 @@ namespace hdc {
             bool firstPass;
 
             std::stack<SymbolTable*> symbolTableStack;
+            Type* lastType;
     };
 }
 #endif

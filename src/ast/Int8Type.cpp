@@ -15,6 +15,10 @@ Type* Int8Type::clone() {
     return new Int8Type(token);
 }
 
+int Int8Type::getRank() {
+    return 2;
+}
+
 
 void Int8Type::accept(Visitor* visitor) {
     visitor->visit(this);

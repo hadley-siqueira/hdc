@@ -15,6 +15,10 @@ Type* FloatType::clone() {
     return new FloatType(token);
 }
 
+int FloatType::getRank() {
+    return 18;
+}
+
 
 void FloatType::accept(Visitor* visitor) {
     visitor->visit(this);

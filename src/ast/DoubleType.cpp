@@ -15,6 +15,10 @@ Type* DoubleType::clone() {
     return new DoubleType(token);
 }
 
+int DoubleType::getRank() {
+    return 19;
+}
+
 
 void DoubleType::accept(Visitor* visitor) {
     visitor->visit(this);

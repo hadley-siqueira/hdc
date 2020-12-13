@@ -32,6 +32,7 @@ namespace hdc {
         /* Getters */
         public:
             std::string getName();
+            std::string getUniqueCppName();
             IdentifierExpression* getParent();
             Def* getMethod(int i);
             ClassVariable* getVariable(int i);
@@ -55,7 +56,13 @@ namespace hdc {
             SymbolTable* getSymbolTable() const;
             void setSymbolTable(SymbolTable* value);
 
-        private:
+            int getId() const;
+            void setId(int value);
+
+            int getGlobalId() const;
+            void setGlobalId(int value);
+
+    private:
             Token name;
             IdentifierExpression* parent;
             SourceFile* file;
@@ -64,6 +71,8 @@ namespace hdc {
             SymbolTable* symbolTable;
             int classVariableCounter;
             int methodCounter;
+            int id;
+            int globalId;
 
     };
 }

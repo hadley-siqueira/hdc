@@ -10,6 +10,7 @@ SymbolTableBuilderVisitor::SymbolTableBuilderVisitor() {
     currentClass = nullptr;
     checkingAssignment = false;
     checkingNamedType = false;
+    lastType = nullptr;
 }
 
 SymbolTableBuilderVisitor::~SymbolTableBuilderVisitor() {
@@ -77,6 +78,7 @@ void SymbolTableBuilderVisitor::visit(Struct* s) {
 void SymbolTableBuilderVisitor::visit(Def* def) {
     currentDef = def;
 
+    def->getReturnType()->accept(this);
     def->setSymbolTable(pushSymbolTable());
 
     for (int i = 0; i < def->n_parameters(); ++i) {
@@ -300,8 +302,19 @@ void SymbolTableBuilderVisitor::visit(ModuloExpression* expression) {
 }
 
 void SymbolTableBuilderVisitor::visit(PlusExpression* expression) {
+    Type* left;
+    Type* right;
+    Type* type;
+
     expression->getLeft()->accept(this);
+    left = lastType;
+
     expression->getRight()->accept(this);
+    right = lastType;
+
+    type = typeCoercion(left, right);
+    expression->setType(type);
+    lastType = type;
 }
 
 void SymbolTableBuilderVisitor::visit(MinusExpression* expression) {
@@ -423,30 +436,39 @@ void SymbolTableBuilderVisitor::visit(SpecialAssignmentExpression* expression) {
     expression->getRight()->accept(this);
 }
 
-void SymbolTableBuilderVisitor::visit(LiteralIntegerExpression* expression) {}
+void SymbolTableBuilderVisitor::visit(LiteralIntegerExpression* expression) {
+    expression->setType(new IntType());
+    lastType = expression->getType();
+}
 
 void SymbolTableBuilderVisitor::visit(LiteralStringExpression* expression) {
-
+    expression->setType((new PointerType(new CharType())));
+    lastType = expression->getType();
 }
 
 void SymbolTableBuilderVisitor::visit(LiteralCharExpression* expression) {
-
+    expression->setType(new CharType());
+    lastType = expression->getType();
 }
 
 void SymbolTableBuilderVisitor::visit(LiteralFloatExpression* expression) {
-
+    expression->setType(new FloatType());
+    lastType = expression->getType();
 }
 
 void SymbolTableBuilderVisitor::visit(LiteralDoubleExpression* expression) {
-
+    expression->setType(new DoubleType());
+    lastType = expression->getType();
 }
 
 void SymbolTableBuilderVisitor::visit(LiteralSymbolExpression* expression) {
-
+    expression->setType(new SymbolType());
+    lastType = expression->getType();
 }
 
 void SymbolTableBuilderVisitor::visit(LiteralBoolExpression* expression) {
-
+    expression->setType(new BoolType());
+    lastType = expression->getType();
 }
 
 void SymbolTableBuilderVisitor::visit(ListExpression* list) {
@@ -473,18 +495,38 @@ void SymbolTableBuilderVisitor::visit(IdentifierExpression* id) {
 
         if (symbol == nullptr) {
             LocalVariable* var = new LocalVariable(id->getNameAsToken());
+            var->setType(lastType->clone());
             symbol = symbolTable->add(var);
             currentDef->addLocalVariable(var);
-        }
+            id->setType(lastType->clone());
+            id->setSymbol(symbol);
+        } else {
+            id->setSymbol(symbol);
 
-        id->setSymbol(symbol);
+            // check types here maybe?
+        }
     } else {
         symbol = symbolTable->has(id->getName());
 
         if (symbol == nullptr) {
             std::cout << "error: '" << id->getName() << "' not defined in this scope\n";
         } else {
+            Variable* v;
+
             id->setSymbol(symbol);
+
+            switch (symbol->getKind()) {
+            case SYMBOL_LOCAL_VARIABLE:
+            case SYMBOL_CLASS_VARIABLE:
+            case SYMBOL_PARAMETER:
+                v = (Variable*) symbol->getDescriptor();
+                id->setType(v->getType()->clone());
+                break;
+            default:
+                break;
+            }
+
+            lastType = id->getType();
         }
     }
 }
@@ -558,6 +600,20 @@ void SymbolTableBuilderVisitor::popSymbolTable() {
         symbolTable = symbolTableStack.top();
         symbolTableStack.pop();
     }
+}
+
+Type *SymbolTableBuilderVisitor::typeCoercion(Type *t1, Type *t2) {
+    int r1 = t1->getRank();
+    int r2 = t2->getRank();
+    Type* t;
+
+    if (r1 > r2) {
+        t = t1->clone();
+    } else {
+        t = t2->clone();
+    }
+
+    return t;
 }
 
 void SymbolTableBuilderVisitor::visit(IfStatement* statement) {

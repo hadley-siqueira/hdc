@@ -15,6 +15,10 @@ Type* UShortType::clone() {
     return new UShortType(token);
 }
 
+int UShortType::getRank() {
+    return 9;
+}
+
 
 void UShortType::accept(Visitor* visitor) {
     visitor->visit(this);

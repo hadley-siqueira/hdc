@@ -15,6 +15,10 @@ Type* UInt8Type::clone() {
     return new UInt8Type(token);
 }
 
+int UInt8Type::getRank() {
+    return 4;
+}
+
 
 void UInt8Type::accept(Visitor* visitor) {
     visitor->visit(this);

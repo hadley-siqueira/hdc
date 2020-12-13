@@ -15,6 +15,10 @@ Type* UCharType::clone() {
     return new UCharType(token);
 }
 
+int UCharType::getRank() {
+    return 5;
+}
+
 
 void UCharType::accept(Visitor* visitor) {
     visitor->visit(this);

@@ -15,6 +15,10 @@ Type*Int64Type::clone() {
     return new Int64Type(token);
 }
 
+int Int64Type::getRank() {
+    return 14;
+}
+
 
 void Int64Type::accept(Visitor* visitor) {
     visitor->visit(this);

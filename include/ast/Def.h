@@ -37,6 +37,7 @@ namespace hdc {
         /* Getters */
         public:
             std::string getName();
+            std::string getUniqueCppName();
             SymbolTable* getSymbolTable() const;
             Parameter* getParameter(int i);
             LocalVariable* getLocalVariable(int i);
@@ -44,6 +45,8 @@ namespace hdc {
             CompoundStatement* getStatements();
             int getLine();
             int getColumn();
+            Class* getClass();
+            bool isMethod();
 
             void addParameter(hdc::Token& name, Type* type);
             int n_parameters();
@@ -56,7 +59,13 @@ namespace hdc {
         public:
             virtual void accept(Visitor* visitor);
 
-        private:
+            int getId() const;
+            void setId(int value);
+
+            int getGlobalId() const;
+            void setGlobalId(int value);
+
+    private:
             hdc::Token name;
             hdc::Class* klass;
             hdc::SourceFile* file;
@@ -66,6 +75,8 @@ namespace hdc {
             CompoundStatement* statements;
             SymbolTable* symbolTable;
             int localVarNameCounter;
+            int id;
+            int globald;
     };
 }
 

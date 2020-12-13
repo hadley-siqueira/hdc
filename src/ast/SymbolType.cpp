@@ -15,6 +15,10 @@ Type* SymbolType::clone() {
     return new SymbolType(token);
 }
 
+int SymbolType::getRank() {
+    return 20;
+}
+
 
 void SymbolType::accept(Visitor* visitor) {
     visitor->visit(this);

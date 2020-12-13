@@ -152,6 +152,7 @@ namespace hdc {
             void indent();
             void dedent();
             void printStart();
+            void printEnd();
 
         private:
             void generatePrototypes(SourceFile* file);
@@ -165,6 +166,7 @@ namespace hdc {
             std::stringstream output;
             bool isExpression;
             bool prototypeFlag;
+            Def* mainDef;
     };
 }
 

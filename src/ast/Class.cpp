@@ -1,3 +1,5 @@
+#include <sstream>
+
 #include "ast/Class.h"
 
 using namespace hdc;
@@ -36,6 +38,13 @@ void Class::setParent(IdentifierExpression* parent) {
 /* Getters */
 std::string Class::getName() {
     return name.getLexem();
+}
+
+std::string Class::getUniqueCppName() {
+    std::stringstream s;
+
+    s << "c" << id << '_' << getName();
+    return s.str();
 }
 
 IdentifierExpression* Class::getParent() {
@@ -83,6 +92,8 @@ void Class::addMethod(Def* def) {
     methods.push_back(def);
     def->setClass(this);
     def->setFile(this->file);
+    def->setId(methodCounter++);
+    //def->setGlobalID(0);
 }
 
 void Class::addVariable(ClassVariable* variable) {
@@ -95,12 +106,26 @@ void Class::accept(Visitor* visitor) {
     visitor->visit(this);
 }
 
-SymbolTable* Class::getSymbolTable() const
-{
+SymbolTable* Class::getSymbolTable() const {
     return symbolTable;
 }
 
-void Class::setSymbolTable(SymbolTable* value)
-{
+void Class::setSymbolTable(SymbolTable* value) {
     symbolTable = value;
+}
+
+int Class::getId() const {
+    return id;
+}
+
+void Class::setId(int value) {
+    id = value;
+}
+
+int Class::getGlobalId() const {
+    return globalId;
+}
+
+void Class::setGlobalId(int value) {
+    globalId = value;
 }

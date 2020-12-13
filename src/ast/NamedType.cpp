@@ -18,6 +18,10 @@ Type* NamedType::clone() {
     return new NamedType(new IdentifierExpression(this->name));
 }
 
+int NamedType::getRank() {
+    return 22;
+}
+
 void NamedType::accept(Visitor* visitor) {
     visitor->visit(this);
 }

@@ -32,6 +32,8 @@ void hdc::CppPrinter::visit(SourceFile* file) {
     for (int i = 0; i < file->n_defs(); ++i) {
         file->getDef(i)->accept(this);
     }
+
+    printEnd();
 }
 
 void CppPrinter::visit(Import* import) {
@@ -39,7 +41,7 @@ void CppPrinter::visit(Import* import) {
 }
 
 void hdc::CppPrinter::visit(Class* klass) {
-    output << "class " << klass->getName();
+    output << "class " << klass->getUniqueCppName();
     output << " {\npublic:\n";
 
     indent();
@@ -65,11 +67,9 @@ void CppPrinter::visit(Struct* s) {
 }
 
 void CppPrinter::visit(Def* def) {
-    int i;
-
     print_indentation();
     def->getReturnType()->accept(this);
-    output << " " << def->getName() << "(";
+    output << " " << def->getUniqueCppName() << "(";
 
     generateDefParameters(def);
     output << ") {\n";
@@ -83,6 +83,10 @@ void CppPrinter::visit(Def* def) {
     dedent();
     print_indentation();
     output << "}\n\n";
+
+    if (def->getName().compare("main") == 0 && def->getClass() == nullptr) {
+        mainDef = def;
+    }
 }
 
 void CppPrinter::visit(Parameter* parameter) {
@@ -840,12 +844,12 @@ void CppPrinter::visit(IdentifierExpression* id) {
 
         case SYMBOL_DEF:
             def = (Def*) s->getDescriptor();
-            output << def->getName();
+            output << def->getUniqueCppName();
             break;
 
         case SYMBOL_CLASS:
             klass = (Class*) s->getDescriptor();
-            output << klass->getName();
+            output << klass->getUniqueCppName();
             break;
         }
     }
@@ -897,6 +901,13 @@ void CppPrinter::printStart() {
     output << "\n";
 }
 
+void CppPrinter::printEnd() {
+    output << "int main(int argc, char* argv[]) {\n    ";
+    output << mainDef->getUniqueCppName() << "();\n";
+    output << "    return 0;\n";
+    output << "}";
+}
+
 void CppPrinter::generatePrototypes(SourceFile* file) {
     for (int i = 0; i < file->n_classes(); ++i) {
         generatePrototype(file->getClass(i));
@@ -913,14 +924,14 @@ void CppPrinter::generatePrototypes(SourceFile* file) {
 
 void CppPrinter::generatePrototype(Def* def) {
     def->getReturnType()->accept(this);
-    output << " " << def->getName() << "(";
+    output << " " << def->getUniqueCppName() << "(";
 
     generateDefParameters(def);
     output << ");\n";
 }
 
 void CppPrinter::generatePrototype(Class* klass) {
-    output << "class " << klass->getName() << ";\n";
+    output << "class " << klass->getUniqueCppName() << ";\n";
 }
 
 void CppPrinter::generateDefParameters(Def* def) {
