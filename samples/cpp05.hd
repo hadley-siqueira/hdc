@@ -37,7 +37,10 @@ def main : int
     d = 2
     e = 3
     e = sum(d, e)
+    u = 'a'
+    u = 2.3 + 'a'
+    u = 'a'
     i = Image()
-    i.init(800, 600)
+#    i.init(800, 600)
 
     return 0

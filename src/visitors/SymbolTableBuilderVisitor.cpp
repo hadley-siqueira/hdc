@@ -252,53 +252,163 @@ void SymbolTableBuilderVisitor::visit(IndexExpression* expression) {
 }
 
 void SymbolTableBuilderVisitor::visit(ShiftLeftLogicalExpression* expression) {
+    Type* left;
+    Type* right;
+    Type* type;
+
     expression->getLeft()->accept(this);
+    left = lastType;
+
     expression->getRight()->accept(this);
+    right = lastType;
+
+    type = typeCoercion(left, right);
+    expression->setType(type);
+    lastType = type;
 }
 
 void SymbolTableBuilderVisitor::visit(ShiftRightLogicalExpression* expression) {
+    Type* left;
+    Type* right;
+    Type* type;
+
     expression->getLeft()->accept(this);
+    left = lastType;
+
     expression->getRight()->accept(this);
+    right = lastType;
+
+    type = typeCoercion(left, right);
+    expression->setType(type);
+    lastType = type;
 }
 
 void SymbolTableBuilderVisitor::visit(ShiftRightArithmeticExpression* expression) {
+    Type* left;
+    Type* right;
+    Type* type;
+
     expression->getLeft()->accept(this);
+    left = lastType;
+
     expression->getRight()->accept(this);
+    right = lastType;
+
+    type = typeCoercion(left, right);
+    expression->setType(type);
+    lastType = type;
 }
 
 void SymbolTableBuilderVisitor::visit(BitwiseAndExpression* expression) {
+    Type* left;
+    Type* right;
+    Type* type;
+
     expression->getLeft()->accept(this);
+    left = lastType;
+
     expression->getRight()->accept(this);
+    right = lastType;
+
+    type = typeCoercion(left, right);
+    expression->setType(type);
+    lastType = type;
 }
 
 void SymbolTableBuilderVisitor::visit(BitwiseXorExpression* expression) {
+    Type* left;
+    Type* right;
+    Type* type;
+
     expression->getLeft()->accept(this);
+    left = lastType;
+
     expression->getRight()->accept(this);
+    right = lastType;
+
+    type = typeCoercion(left, right);
+    expression->setType(type);
+    lastType = type;
 }
 
 void SymbolTableBuilderVisitor::visit(BitwiseOrExpression* expression) {
+    Type* left;
+    Type* right;
+    Type* type;
+
     expression->getLeft()->accept(this);
+    left = lastType;
+
     expression->getRight()->accept(this);
+    right = lastType;
+
+    type = typeCoercion(left, right);
+    expression->setType(type);
+    lastType = type;
 }
 
 void SymbolTableBuilderVisitor::visit(TimesExpression* expression) {
+    Type* left;
+    Type* right;
+    Type* type;
+
     expression->getLeft()->accept(this);
+    left = lastType;
+
     expression->getRight()->accept(this);
+    right = lastType;
+
+    type = typeCoercion(left, right);
+    expression->setType(type);
+    lastType = type;
 }
 
 void SymbolTableBuilderVisitor::visit(DivisionExpression* expression) {
+    Type* left;
+    Type* right;
+    Type* type;
+
     expression->getLeft()->accept(this);
+    left = lastType;
+
     expression->getRight()->accept(this);
+    right = lastType;
+
+    type = typeCoercion(left, right);
+    expression->setType(type);
+    lastType = type;
 }
 
 void SymbolTableBuilderVisitor::visit(IntegerDivisionExpression* expression) {
+    Type* left;
+    Type* right;
+    Type* type;
+
     expression->getLeft()->accept(this);
+    left = lastType;
+
     expression->getRight()->accept(this);
+    right = lastType;
+
+    type = typeCoercion(left, right);
+    expression->setType(type);
+    lastType = type;
 }
 
 void SymbolTableBuilderVisitor::visit(ModuloExpression* expression) {
+    Type* left;
+    Type* right;
+    Type* type;
+
     expression->getLeft()->accept(this);
+    left = lastType;
+
     expression->getRight()->accept(this);
+    right = lastType;
+
+    type = typeCoercion(left, right);
+    expression->setType(type);
+    lastType = type;
 }
 
 void SymbolTableBuilderVisitor::visit(PlusExpression* expression) {
@@ -318,38 +428,109 @@ void SymbolTableBuilderVisitor::visit(PlusExpression* expression) {
 }
 
 void SymbolTableBuilderVisitor::visit(MinusExpression* expression) {
+    Type* left;
+    Type* right;
+    Type* type;
+
     expression->getLeft()->accept(this);
+    left = lastType;
+
     expression->getRight()->accept(this);
+    right = lastType;
+
+    type = typeCoercion(left, right);
+    expression->setType(type);
+    lastType = type;
 }
 
 void SymbolTableBuilderVisitor::visit(LessThanExpression* expression) {
+    Type* left;
+    Type* right;
+    Type* type;
+
     expression->getLeft()->accept(this);
+    left = lastType;
+
     expression->getRight()->accept(this);
+    right = lastType;
+
+    expression->setType(new BoolType());
+    lastType = type;
 }
 
 void SymbolTableBuilderVisitor::visit(GreaterThanExpression* expression) {
+    Type* left;
+    Type* right;
+    Type* type;
+
     expression->getLeft()->accept(this);
+    left = lastType;
+
     expression->getRight()->accept(this);
+    right = lastType;
+
+    expression->setType(new BoolType());
+    lastType = type;
 }
 
 void SymbolTableBuilderVisitor::visit(LessThanOrEqualExpression* expression) {
+    Type* left;
+    Type* right;
+    Type* type;
+
     expression->getLeft()->accept(this);
+    left = lastType;
+
     expression->getRight()->accept(this);
+    right = lastType;
+
+    expression->setType(new BoolType());
+    lastType = type;
 }
 
 void SymbolTableBuilderVisitor::visit(EqualExpression* expression) {
+    Type* left;
+    Type* right;
+    Type* type;
+
     expression->getLeft()->accept(this);
+    left = lastType;
+
     expression->getRight()->accept(this);
+    right = lastType;
+
+    expression->setType(new BoolType());
+    lastType = type;
 }
 
 void SymbolTableBuilderVisitor::visit(NotEqualExpression* expression) {
+    Type* left;
+    Type* right;
+    Type* type;
+
     expression->getLeft()->accept(this);
+    left = lastType;
+
     expression->getRight()->accept(this);
+    right = lastType;
+
+    expression->setType(new BoolType());
+    lastType = type;
 }
 
 void SymbolTableBuilderVisitor::visit(GreaterThanOrEqualExpression* expression) {
+    Type* left;
+    Type* right;
+    Type* type;
+
     expression->getLeft()->accept(this);
+    left = lastType;
+
     expression->getRight()->accept(this);
+    right = lastType;
+
+    expression->setType(new BoolType());
+    lastType = type;
 }
 
 void SymbolTableBuilderVisitor::visit(AssignmentExpression* expression) {
@@ -362,6 +543,8 @@ void SymbolTableBuilderVisitor::visit(AssignmentExpression* expression) {
 
     checkingAssignment = true;
     expression->getLeft()->accept(this);
+    expression->setType(lastType->clone());
+    lastType = expression->getType();
 
     checkingAssignment = oldCheckingAssignment;
 }
@@ -512,6 +695,7 @@ void SymbolTableBuilderVisitor::visit(IdentifierExpression* id) {
             std::cout << "error: '" << id->getName() << "' not defined in this scope\n";
         } else {
             Variable* v;
+            Def* d;
 
             id->setSymbol(symbol);
 
@@ -522,6 +706,18 @@ void SymbolTableBuilderVisitor::visit(IdentifierExpression* id) {
                 v = (Variable*) symbol->getDescriptor();
                 id->setType(v->getType()->clone());
                 break;
+
+            case SYMBOL_CLASS:
+                id->setType(new NamedType(new IdentifierExpression(id)));
+                break;
+
+            case SYMBOL_DEF:
+            case SYMBOL_METHOD:
+                d = (Def*) symbol->getDescriptor();
+
+                id->setType(d->getReturnType()->clone());
+                break;
+
             default:
                 break;
             }
