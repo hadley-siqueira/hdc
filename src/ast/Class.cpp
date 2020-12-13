@@ -75,6 +75,20 @@ int Class::getColumn() {
     return name.getColumn();
 }
 
+ClassVariable *Class::getVariable(std::string name) {
+    std::string n;
+
+    for (int i = 0; i < variables.size(); ++i) {
+        n = variables[i]->getName();
+
+        if (name.compare(n) == 0) {
+            return variables[i];
+        }
+    }
+
+    return nullptr;
+}
+
 /* Predicates */
 bool Class::hasParent() {
     return parent != NULL;

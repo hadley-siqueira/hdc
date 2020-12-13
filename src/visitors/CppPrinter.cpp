@@ -38,6 +38,12 @@ void CppPrinter::visit(Program *program) {
 }
 
 void hdc::CppPrinter::visit(SourceFile* file) {
+    if (generatedSourceFiles.count(file) > 0) return;
+
+    for (int i = 0; i < file->n_imports(); ++i) {
+        file->getImport(i)->accept(this);
+    }
+
     for (int i = 0; i < file->n_classes(); ++i) {
         file->getClass(i)->accept(this);
     }
@@ -45,28 +51,35 @@ void hdc::CppPrinter::visit(SourceFile* file) {
     for (int i = 0; i < file->n_defs(); ++i) {
         file->getDef(i)->accept(this);
     }
+
+    generatedSourceFiles.insert(file);
 }
 
 void CppPrinter::visit(Import* import) {
-
+    import->getSourceFile()->accept(this);
 }
 
 void hdc::CppPrinter::visit(Class* klass) {
+    if (generatedClasses.count(klass) > 0) return;
+    generatedClasses.insert(klass);
+
+    checkClassDependencies(klass);
+
     output << "class " << klass->getUniqueCppName();
     output << " {\npublic:\n";
 
     indent();
 
-    for (int i = 0; i < klass->n_methods(); ++i) {
-        klass->getMethod(i)->accept(this);
-    }
-
-    output << '\n';
-
     for (int i = 0; i < klass->n_variables(); ++i) {
         print_indentation();
         klass->getVariable(i)->getType()->accept(this);
         output << " " << klass->getVariable(i)->getUniqueCppName() << ";\n";
+    }
+
+    output << '\n';
+
+    for (int i = 0; i < klass->n_methods(); ++i) {
+        klass->getMethod(i)->accept(this);
     }
 
     dedent();
@@ -239,8 +252,6 @@ void CppPrinter::visit(NamedType* type) {
 void CppPrinter::visit(Statement* statement) {}
 
 void CppPrinter::visit(CompoundStatement* statement) {
-    int i;
-
     if (statement->n_statements() > 0) {
         for (int i = 0; i < statement->n_statements(); ++i) {
             print_indentation();
@@ -917,6 +928,59 @@ void CppPrinter::printEnd() {
     output << mainDef->getUniqueCppName() << "();\n";
     output << "    return 0;\n";
     output << "}";
+}
+
+void CppPrinter::checkClassDependencies(Class *klass) {
+    Type* t;
+    Def* d;
+
+    // check if variable types are already defined
+    for (int i = 0; i < klass->n_variables(); ++i) {
+        t = klass->getVariable(i)->getType();
+        checkTypeDefinition(t);
+    }
+
+    for (int i = 0; i < klass->n_methods(); ++i) {
+        d = klass->getMethod(i);
+        t = d->getReturnType();
+        checkTypeDefinition(t);
+
+        for (int j = 0; j < d->n_parameters(); ++j) {
+            t = d->getParameter(j)->getType();
+            checkTypeDefinition(t);
+        }
+
+        for (int j = 0; j < d->n_local_variables(); ++j) {
+            t = d->getLocalVariable(j)->getType();
+            checkTypeDefinition(t);
+        }
+    }
+}
+
+void CppPrinter::checkTypeDefinition(Type *t) {
+    ASTKind kind;
+    NamedType* n;
+    IdentifierExpression* id;
+    Symbol* s;
+    Class* c;
+
+    kind = t->getKind();
+
+    if (kind == AST_NAMED_TYPE) {
+        n = (NamedType*) t;
+        id = n->getName();
+        s = id->getSymbol();
+
+        switch (s->getKind()) {
+        case SYMBOL_CLASS:
+            c = (Class*) s->getDescriptor();
+            c->accept(this);
+            break;
+
+        default:
+            break;
+        }
+    }
 }
 
 void CppPrinter::generatePrototypes(SourceFile* file) {

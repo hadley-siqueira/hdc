@@ -78,6 +78,10 @@ void Symbol::setColumn(int value)
     column = value;
 }
 
+Type *Symbol::getType() {
+    return nullptr;
+}
+
 SymbolKind Symbol::getKind() const {
     return kind;
 }

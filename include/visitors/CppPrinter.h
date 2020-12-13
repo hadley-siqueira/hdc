@@ -3,6 +3,8 @@
 
 #include <sstream>
 #include <string>
+#include <set>
+
 #include "visitors/Visitor.h"
 #include "ast/AST.h"
 
@@ -154,6 +156,8 @@ namespace hdc {
             void dedent();
             void printStart();
             void printEnd();
+            void checkClassDependencies(Class* klass);
+            void checkTypeDefinition(Type* t);
 
         private:
             void generatePrototypes(SourceFile* file);
@@ -168,6 +172,8 @@ namespace hdc {
             bool isExpression;
             bool prototypeFlag;
             Def* mainDef;
+            std::set<SourceFile*> generatedSourceFiles;
+            std::set<Class*> generatedClasses;
     };
 }
 

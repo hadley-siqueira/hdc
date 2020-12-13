@@ -39,6 +39,8 @@ namespace hdc {
             int getLine();
             int getColumn();
 
+            ClassVariable* getVariable(std::string name);
+
         /* Predicates */
         public:
             bool hasParent();

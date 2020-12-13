@@ -3,10 +3,12 @@
 using namespace hdc;
 
 NamedType::NamedType() {
+    this->kind = AST_NAMED_TYPE;
     this->name = nullptr;
 }
 
 NamedType::NamedType(IdentifierExpression* name) {
+    this->kind = AST_NAMED_TYPE;
     this->name = name;
 }
 

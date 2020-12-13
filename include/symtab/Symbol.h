@@ -38,12 +38,15 @@ namespace hdc {
             int getColumn() const;
             void setColumn(int value);
 
+            Type* getType();
+
         private:
             SymbolKind kind;
             void* descriptor;
             std::vector<void*> overloadedDescriptors;
             int line;
             int column;
+            Type* type;
     };
 }
 

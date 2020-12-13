@@ -1,4 +1,59 @@
 def myprint : void
     @s : char*
 
-    $'std::cout << s << std::endl'
+    $'std::cout << p0_s << std::endl'
+
+def mysum : int
+    @a : int
+    @b : int
+
+    return a + b
+
+class Window:
+    fb : Image
+
+class Pixel:
+    r : u8
+    g : u8
+    b : u8
+    a : u8
+
+    def init : void
+        @r : u8
+        @g : u8
+        @b : u8
+
+        @r = r
+        @g = g
+        @b = b
+
+    def init : void
+        @p : Pixel
+
+        @r = p.r
+        @g = p.g
+        @b = p.b
+
+class Image:
+    w : int
+    h : int
+    p : Pixel*
+
+    def init : void
+        @w : int
+        @h : int
+
+        @w = w
+        @h = h
+
+    def clear : void
+        @color : Pixel
+
+        t = @p
+        i = 0
+
+        while i < @w * @h:
+#            (*t).init(color)
+#            t->init(color)
+            ++t            
+            ++i

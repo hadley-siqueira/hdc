@@ -156,6 +156,7 @@ namespace hdc {
         private:
             void buildInitialSymbolTable(SourceFile* sourceFile);
             SymbolTable* pushSymbolTable();
+            SymbolTable* pushSymbolTable(SymbolTable* s);
             void popSymbolTable();
             Type* typeCoercion(Type* t1, Type* t2);
 

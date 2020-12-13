@@ -50,7 +50,6 @@ namespace hdc {
 
         private:
             Program program;
-            std::map<std::string, SourceFile*> sourceFiles;
             Logger logger;
             std::string mainFilePath;
             std::string rootPath;

@@ -2,4 +2,7 @@ import foo.io
 
 def main : int
     s = 'Hello'
+    a = mysum(2, 3)
     myprint(s)
+
+    return 0

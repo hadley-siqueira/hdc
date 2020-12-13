@@ -38,6 +38,7 @@ namespace hdc {
         /* Predicates */
         public:
             Symbol* has(std::string name);
+            Symbol* hasLocal(std::string name);
             Symbol* hasLocalVariable(std::string& name);
             Symbol* hasLocalVariableOrParameter(const std::string& name);
             Symbol* hasClassVariable(std::string& name);

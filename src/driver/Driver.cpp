@@ -33,14 +33,7 @@ Driver::Driver() {
 }
 
 Driver::~Driver() {
-    std::map<std::string, SourceFile*>::iterator it;
 
-    it = sourceFiles.begin();
-
-    while (it != sourceFiles.end()) {
-        delete it->second;
-        ++it;
-    }
 }
 
 void Driver::run() {
@@ -147,7 +140,7 @@ void Driver::buildSymbolTables() {
 }
 
 void Driver::generateTAC() {
-    std::map<std::string, SourceFile*>::iterator it;
+/*    std::map<std::string, SourceFile*>::iterator it;
 
     for (it = sourceFiles.begin(); it != sourceFiles.end(); ++it) {
         TACBuilderVisitor builder;
@@ -160,7 +153,7 @@ void Driver::generateTAC() {
         for (int i = 0; i < tacs.size(); ++i) {
             std::cout << tacs[i].to_str_old(true) << '\n';
         }
-    }
+    }*/
 /*
     Graph<int> g;
 
@@ -197,7 +190,7 @@ void Driver::generateTAC() {
 }
 
 void Driver::generateIR() {
-    IRBuilderVisitor builder;
+/*    IRBuilderVisitor builder;
     IRProgram* program;
     std::map<std::string, SourceFile*>::iterator it;
 
@@ -213,7 +206,7 @@ void Driver::generateIR() {
     program->accept(&pp);
 
     std::cout << pp.getOutput();
-    delete program;
+    delete program;*/
 }
 
 void Driver::generate_x86_64() {
@@ -231,14 +224,9 @@ void Driver::generateCpp() {
 }
 
 void Driver::prettyPrintAllFiles() {
-    std::map<std::string, SourceFile*>::iterator it;
+    PrettyPrinter printer;
 
-    for (it = sourceFiles.begin(); it != sourceFiles.end(); ++it) {
-        PrettyPrinter printer;
-
-        it->second->accept(&printer);
-        printer.print();
-    }
+    program.accept(&printer);
 }
 
 void Driver::parseImports(SourceFile* file) {

@@ -77,6 +77,7 @@ Symbol*SymbolTable::add(GlobalVariable* var) {
     return symbol;
 }
 
+// searches on local file and all its imports
 Symbol* SymbolTable::has(std::string name) {
     if (symbols.count(name) > 0) {
         return symbols[name];
@@ -84,6 +85,38 @@ Symbol* SymbolTable::has(std::string name) {
 
     if (hasParent()) {
         return parent->has(name);
+    } else if (sourceFile != nullptr) {
+        Symbol* symbol;
+
+        for (int i = 0; i < sourceFile->n_imports(); ++i) {
+            Import* import = sourceFile->getImport(i);
+
+            if (import->isMultipleImport()) {
+
+            } else {
+                SourceFile* f = import->getSourceFile();
+                std::cout << "searching for " << name << " on ";
+                f->getSymbolTable()->dump();
+                symbol = f->getSymbolTable()->hasLocal(name);
+
+                if (symbol != nullptr) {
+                    return symbol;
+                }
+            }
+        }
+    }
+
+    return nullptr;
+}
+
+// searches only on the file itself without its imports
+Symbol *SymbolTable::hasLocal(std::string name) {
+    if (symbols.count(name) > 0) {
+        return symbols[name];
+    }
+
+    if (hasParent()) {
+        return parent->hasLocal(name);
     }
 
     return nullptr;
