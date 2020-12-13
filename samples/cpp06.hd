@@ -1,0 +1,30 @@
+def sum : int
+    @a : int
+    @b : int
+
+    return a + b
+
+def slen : int
+    @s : char*
+
+    c = 0
+
+    while *s != '\0':
+        ++s
+        ++c
+
+    return c
+
+def fib : int
+    @n : int
+
+    if n <= 1:
+        return n
+    else:
+        return fib(n - 1) + fib(n - 2)
+
+def main : int
+    t = sum(2, 3) + 3.4
+    println(fib(9))
+
+    return 0
