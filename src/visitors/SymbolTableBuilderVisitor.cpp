@@ -26,7 +26,11 @@ void SymbolTableBuilderVisitor::setFirstPass(bool value) {
 }
 
 void SymbolTableBuilderVisitor::visit(Program *program) {
+    std::map<std::string, SourceFile*>::iterator it;
 
+    for (it = program->begin(); it != program->end(); ++it) {
+        it->second->accept(this);
+    }
 }
 
 void SymbolTableBuilderVisitor::visit(SourceFile* file) {

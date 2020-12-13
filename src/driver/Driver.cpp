@@ -142,13 +142,8 @@ void Driver::foobar() {
 }
 
 void Driver::buildSymbolTables() {
-    std::map<std::string, SourceFile*>::iterator it;
-
-    for (it = sourceFiles.begin(); it != sourceFiles.end(); ++it) {
-        SymbolTableBuilderVisitor builder;
-
-        it->second->accept(&builder);
-    }
+    SymbolTableBuilderVisitor builder;
+    program.accept(&builder);
 }
 
 void Driver::generateTAC() {
@@ -229,11 +224,7 @@ void Driver::generate_x86_64() {
 
 void Driver::generateCpp() {
     CppPrinter pp;
-    std::map<std::string, SourceFile*>::iterator it;
-
-    for (it = sourceFiles.begin(); it != sourceFiles.end(); ++it) {
-        it->second->accept(&pp);
-    }
+    program.accept(&pp);
 
     pp.save("/tmp/gen.cpp");
     pp.print();
@@ -274,8 +265,10 @@ void Driver::parseSimpleImport(Import* import) {
     SourceFile* file;
     std::string path = buildPathForImport(import);
 
-    if (sourceFiles.count(path) > 0) {
-        import->setSourceFile(sourceFiles[path]);
+    file = program.getSourceFile(path);
+
+    if (file != nullptr) {
+        import->setSourceFile(file);
         logger.log(LOG_INTERNAL_DRIVER, "file '" + path + "' was already parsed");
     } else {
         file = parseFile(path);
@@ -298,9 +291,10 @@ void Driver::parseMultipleImport(Import* import) {
     if (files.size() > 0) {
         for (int i = 0; i < files.size(); ++i) {
             path = basePath + files[i];
+            file = program.getSourceFile(path);
 
-            if (sourceFiles.count(path) > 0) {
-                import->addSourceFile(sourceFiles[path]);
+            if (file != nullptr) {
+                import->addSourceFile(file);
                 logger.log(LOG_INTERNAL_DRIVER, "file '" + path + "' was already parsed");
             } else {
                 file = parseFile(path);
@@ -312,29 +306,6 @@ void Driver::parseMultipleImport(Import* import) {
     }
 }
 
-SourceFile* Driver::parseFile(std::string path) {
-    Parser parser;
-    SourceFile* file;
-
-    logger.log(LOG_INTERNAL_DRIVER, "parsing file '" + path + "'");
-
-    if (sourceFiles.count(path) > 0) {
-        return sourceFiles[path];
-    }
-
-    if (!fileExists(path)) {
-        logger.log(LOG_ERROR, "couldn't find file or directory '" + path + "'");
-        return nullptr;
-    }
-
-    file = parser.read(path);
-    sourceFiles[path] = file;
-
-    return file;
-}
-
-// new
-/*
 SourceFile* Driver::parseFile(std::string path) {
     Parser parser;
     SourceFile* file;
@@ -355,7 +326,7 @@ SourceFile* Driver::parseFile(std::string path) {
     program.addSourceFile(file);
 
     return file;
-}*/
+}
 
 bool Driver::fileExists(std::string path) {
     std::ifstream f(path.c_str());

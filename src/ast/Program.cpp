@@ -32,6 +32,14 @@ SourceFile *Program::getSourceFile(std::string path) {
     return nullptr;
 }
 
+std::map<std::string, SourceFile*>::iterator Program::begin() {
+    return sourceFiles.begin();
+}
+
+std::map<std::string, SourceFile*>::iterator Program::end() {
+    return sourceFiles.end();
+}
+
 void Program::accept(Visitor *visitor) {
     visitor->visit(this);
 }

@@ -25,6 +25,8 @@ namespace hdc {
         void addSourceFile(SourceFile* sfile);
         bool hasSourceFile(std::string path);
         SourceFile* getSourceFile(std::string path);
+        std::map<std::string, SourceFile*>::iterator begin();
+        std::map<std::string, SourceFile*>::iterator end();
 
     public:
         void accept(Visitor* visitor);

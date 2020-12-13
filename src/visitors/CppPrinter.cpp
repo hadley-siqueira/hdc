@@ -6,7 +6,6 @@ using namespace hdc;
 
 CppPrinter::CppPrinter() {
     n_spaces = 0;
-    printStart();
 }
 
 std::string CppPrinter::print() {
@@ -23,12 +22,22 @@ void CppPrinter::save(std::string path) {
 }
 
 void CppPrinter::visit(Program *program) {
+    std::map<std::string, SourceFile*>::iterator it;
 
+    printStart();
+
+    for (it = program->begin(); it != program->end(); ++it) {
+        generatePrototypes(it->second);
+    }
+
+    for (it = program->begin(); it != program->end(); ++it) {
+        it->second->accept(this);
+    }
+
+    printEnd();
 }
 
 void hdc::CppPrinter::visit(SourceFile* file) {
-    generatePrototypes(file);
-
     for (int i = 0; i < file->n_classes(); ++i) {
         file->getClass(i)->accept(this);
     }
@@ -36,8 +45,6 @@ void hdc::CppPrinter::visit(SourceFile* file) {
     for (int i = 0; i < file->n_defs(); ++i) {
         file->getDef(i)->accept(this);
     }
-
-    printEnd();
 }
 
 void CppPrinter::visit(Import* import) {
