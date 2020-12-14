@@ -148,6 +148,7 @@ void Class::setGlobalId(int value) {
 Type *Class::getSelfType() {
     if (selfType == nullptr) {
         selfType = new NamedType(new IdentifierExpression(name));
+        selfType->setDescriptor(this);
     }
 
     return selfType;

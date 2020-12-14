@@ -77,7 +77,7 @@ namespace hdc {
             int methodCounter;
             int id;
             int globalId;
-            Type* selfType;
+            NamedType* selfType;
 
     };
 }
