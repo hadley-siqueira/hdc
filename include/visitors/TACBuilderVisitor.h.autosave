@@ -1,27 +1,38 @@
-#ifndef HDC_SYMBOLTABLE_BUILDER_VISITOR_H
-#define HDC_SYMBOLTABLE_BUILDER_VISITOR_H
+#ifndef HDC_TAC_VISITOR_H
+#define HDC_TAC_VISITOR_H
 
-#include <stack>
+#include <vector>
 
-#include "visitors/Visitor.h"
-#include "ast/AST.h"
 #include "symtab/SymbolTable.h"
+#include "visitors/Visitor.h"
+#include "tac/TAC.h"
 
 namespace hdc {
-    class SymbolTableBuilderVisitor : public Visitor {
-        /* Constructors */
-        public:
-            SymbolTableBuilderVisitor();
+    class TACBuilderVisitor : public Visitor {
+        private:
+            int lastTemporary;
+            int tempCounter;
+            int labelCounter;
+            bool checkingAssignment;
+            bool checkingCall;
+            std::vector<TAC> tacs;
+            SymbolTable* currentSymtab;
 
-        /* Destructors */
         public:
-            ~SymbolTableBuilderVisitor();
+            TACBuilderVisitor();
 
-        public:
-            bool getFirstPass() const;
-            void setFirstPass(bool value);
+            std::vector<TAC>& getTACs();
 
-        /* Visitor interface */
+        private:
+            int newTemporary();
+            std::string newLabel();
+
+            void emit(TACKind kind, int dst, int src1, int src2);
+            void emit(TACKind kind, int tmp, std::string label);
+            void emit(TACKind kind, int dst);
+            void emit(TACKind kind, std::string label);
+            void emit(TACKind kind);
+
         public:
             void visit(Program* program);
             void visit(SourceFile* file);
@@ -153,26 +164,7 @@ namespace hdc {
             void visit(ArrayExpression* array);
 
             void visit(IdentifierExpression* id);
-
-        private:
-            void buildInitialSymbolTable(SourceFile* sourceFile);
-            SymbolTable* pushSymbolTable();
-            SymbolTable* pushSymbolTable(SymbolTable* s);
-            void popSymbolTable();
-            Type* typeCoercion(Type* t1, Type* t2);
-
-        private:
-            // pointer to the current symboltable
-            SymbolTable* symbolTable;
-            Class* currentClass;
-            Def* currentDef;
-            SourceFile* currentSourceFile;
-            bool checkingAssignment;
-            bool checkingNamedType;
-            bool firstPass;
-
-            std::stack<SymbolTable*> symbolTableStack;
-            Type* lastType;
     };
 }
+
 #endif

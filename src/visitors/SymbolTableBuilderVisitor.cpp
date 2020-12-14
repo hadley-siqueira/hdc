@@ -681,6 +681,11 @@ void SymbolTableBuilderVisitor::visit(LiteralBoolExpression* expression) {
     lastType = expression->getType();
 }
 
+void SymbolTableBuilderVisitor::visit(LiteralNullExpression *expression) {
+    expression->setType(new PointerType(new VoidType()));
+    lastType = expression->getType();
+}
+
 void SymbolTableBuilderVisitor::visit(ListExpression* list) {
 
 }

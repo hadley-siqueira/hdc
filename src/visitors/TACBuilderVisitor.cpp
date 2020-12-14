@@ -563,6 +563,10 @@ void TACBuilderVisitor::visit(LiteralFloatExpression* expression){ }
 void TACBuilderVisitor::visit(LiteralDoubleExpression* expression){ }
 void TACBuilderVisitor::visit(LiteralSymbolExpression* expression){ }
 void TACBuilderVisitor::visit(LiteralBoolExpression* expression){ }
+
+void TACBuilderVisitor::visit(LiteralNullExpression *expression) {
+
+}
 void TACBuilderVisitor::visit(ListExpression* list){ }
 void TACBuilderVisitor::visit(ArrayExpression* array){ }
 

@@ -768,6 +768,10 @@ void PrettyPrinter::visit(LiteralBoolExpression* expression) {
     output << expression->get_token().getLexem();
 }
 
+void PrettyPrinter::visit(LiteralNullExpression *expression) {
+    output << "null";
+}
+
 void PrettyPrinter::visit(ListExpression* list) {
     output << "[";
 

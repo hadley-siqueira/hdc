@@ -31,6 +31,7 @@ set(AST_SRC
     src/ast/BitwiseXorExpression.cpp
     src/ast/IdentifierExpression.cpp
     src/ast/LiteralFloatExpression.cpp
+    src/ast/LiteralNullExpression.cpp
     src/ast/ParenthesisExpression.cpp
     src/ast/SllAssignmentExpression.cpp
     src/ast/AssignmentExpression.cpp

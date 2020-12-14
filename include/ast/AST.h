@@ -102,6 +102,7 @@
 #include "ast/LiteralCharExpression.h"
 #include "ast/LiteralSymbolExpression.h"
 #include "ast/LiteralStringExpression.h"
+#include "ast/LiteralNullExpression.h"
 
 /* Types */
 #include "ast/Type.h"

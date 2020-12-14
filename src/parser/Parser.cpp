@@ -233,6 +233,8 @@ Expression* Parser::parse_primary_expression() {
         expression = new LiteralStringExpression(*matched);
     } else if (match(TK_LITERAL_SYMBOL)) {
         expression = new LiteralSymbolExpression(*matched);
+    } else if (match(TK_NULL)) {
+        expression = new LiteralNullExpression(*matched);
     } else if (match(TK_TRUE)) {
         expression = new LiteralBoolExpression(*matched);
     } else if (match(TK_FALSE)) {

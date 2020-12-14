@@ -1,0 +1,20 @@
+class Pixel:
+    r : u8
+    g : u8
+    b : u8
+
+class Image:
+    w : int
+    h : int
+    p : Pixel*
+
+    def init : void
+        @w : int
+        @h : int
+
+        @w = w
+        @h = h
+        @p = null
+
+def main : int
+    return 0

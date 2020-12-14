@@ -1,0 +1,7 @@
+def abs : int
+    @n : int
+
+    if n < 0:
+        return -n
+
+    return n

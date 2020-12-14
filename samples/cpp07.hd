@@ -1,8 +1,13 @@
+import std.io
+import std.math
+
 import foo.io
 
 def main : int
     s = 'Hello'
     a = mysum(2, 3)
     myprint(s)
+    println(s)
+    a = abs(a)
 
     return 0

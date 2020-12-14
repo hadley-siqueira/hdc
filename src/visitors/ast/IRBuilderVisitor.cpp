@@ -269,6 +269,11 @@ void IRBuilderVisitor::visit(LiteralFloatExpression* expression) { }
 void IRBuilderVisitor::visit(LiteralDoubleExpression* expression) { }
 void IRBuilderVisitor::visit(LiteralSymbolExpression* expression) { }
 void IRBuilderVisitor::visit(LiteralBoolExpression* expression) { }
+
+void IRBuilderVisitor::visit(LiteralNullExpression *expression) {
+
+}
+
 void IRBuilderVisitor::visit(ListExpression* list) { }
 void IRBuilderVisitor::visit(ArrayExpression* array) { }
 

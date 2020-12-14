@@ -3,12 +3,12 @@ import std.File
 def println : void
     @str : char*
 
-    $'std::cout << str << "\n"'
+    $'std::cout << p0_str << "\n"'
 
-def println : void
-    @ch : char
-
-    $'std::cout << ch << "\n"'
+#def println : void
+#    @ch : char
+#
+#    $'std::cout << ch << "\n"'
 
 def open : File
     @path : char*

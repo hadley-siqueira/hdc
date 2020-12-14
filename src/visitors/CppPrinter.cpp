@@ -39,6 +39,7 @@ void CppPrinter::visit(Program *program) {
 
 void hdc::CppPrinter::visit(SourceFile* file) {
     if (generatedSourceFiles.count(file) > 0) return;
+    generatedSourceFiles.insert(file);
 
     for (int i = 0; i < file->n_imports(); ++i) {
         file->getImport(i)->accept(this);
@@ -51,8 +52,6 @@ void hdc::CppPrinter::visit(SourceFile* file) {
     for (int i = 0; i < file->n_defs(); ++i) {
         file->getDef(i)->accept(this);
     }
-
-    generatedSourceFiles.insert(file);
 }
 
 void CppPrinter::visit(Import* import) {
@@ -828,6 +827,10 @@ void CppPrinter::visit(LiteralSymbolExpression* expression) {
 void CppPrinter::visit(LiteralBoolExpression* expression) {
     isExpression = true;
     output << expression->get_token().getLexem();
+}
+
+void CppPrinter::visit(LiteralNullExpression *expression) {
+    output << "nullptr";
 }
 
 void CppPrinter::visit(ListExpression* list) {
