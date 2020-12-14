@@ -91,9 +91,10 @@ Type *Symbol::getType() {
         return c->getSelfType();
 
     case SYMBOL_METHOD:
+    case SYMBOL_DEF:
         d = (Def*) descriptor;
         //return d->getSelfType();
-        return d->getReturnType();
+        return d->getReturnType(); // fix this later
 
     default:
         break;
