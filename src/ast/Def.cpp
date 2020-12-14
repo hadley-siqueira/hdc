@@ -11,6 +11,7 @@ Def::Def() {
     statements = nullptr;
     symbolTable = nullptr;
     localVarNameCounter = 0;
+    selfType = nullptr;
 }
 
 
@@ -90,6 +91,10 @@ LocalVariable*Def::getLocalVariable(int i) {
 
 Type* Def::getReturnType() {
     return return_type;
+}
+
+Type *Def::getSelfType() {
+    return selfType;
 }
 
 CompoundStatement* Def::getStatements() {

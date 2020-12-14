@@ -143,6 +143,7 @@ namespace hdc {
         void visit(LiteralDoubleExpression* expression);
         void visit(LiteralSymbolExpression* expression);
         void visit(LiteralBoolExpression* expression);
+        void visit(LiteralNullExpression* expression);
         void visit(ListExpression* list);
         void visit(ArrayExpression* array);
 

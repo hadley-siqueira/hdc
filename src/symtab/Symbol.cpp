@@ -58,27 +58,47 @@ void Symbol::setDescriptor(void* value) {
     descriptor = value;
 }
 
-int Symbol::getLine() const
-{
+int Symbol::getLine() const {
     return line;
 }
 
-void Symbol::setLine(int value)
-{
+void Symbol::setLine(int value) {
     line = value;
 }
 
-int Symbol::getColumn() const
-{
+int Symbol::getColumn() const {
     return column;
 }
 
-void Symbol::setColumn(int value)
-{
+void Symbol::setColumn(int value) {
     column = value;
 }
 
 Type *Symbol::getType() {
+    Variable* v;
+    Class* c;
+    Def* d;
+
+    switch (kind) {
+    case SYMBOL_PARAMETER:
+    case SYMBOL_LOCAL_VARIABLE:
+    case SYMBOL_CLASS_VARIABLE:
+        v = (Variable*) descriptor;
+        return v->getType();
+
+    case SYMBOL_CLASS:
+        c = (Class*) descriptor;
+        return c->getSelfType();
+
+    case SYMBOL_METHOD:
+        d = (Def*) descriptor;
+        //return d->getSelfType();
+        return d->getReturnType();
+
+    default:
+        break;
+    }
+
     return nullptr;
 }
 

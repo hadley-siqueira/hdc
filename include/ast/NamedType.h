@@ -16,6 +16,10 @@ namespace hdc {
         public:
             Type* clone();
             int getRank();
+            void setDescriptor(Class* klass);
+            void setDescriptor(Struct* st);
+            void* getDescriptor();
+            SymbolTable* getSymbolTable();
 
         public:
             void accept(Visitor* visitor);
@@ -25,6 +29,8 @@ namespace hdc {
 
         private:
             IdentifierExpression* name;
+            Class* classDescriptor;
+            Struct* structDescriptor;
     };
 }
 

@@ -42,6 +42,7 @@ namespace hdc {
             Parameter* getParameter(int i);
             LocalVariable* getLocalVariable(int i);
             Type* getReturnType();
+            Type* getSelfType();
             CompoundStatement* getStatements();
             int getLine();
             int getColumn();
@@ -77,6 +78,7 @@ namespace hdc {
             int localVarNameCounter;
             int id;
             int globald;
+            Type* selfType;
     };
 }
 

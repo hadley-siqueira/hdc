@@ -17,27 +17,11 @@ SymbolTableBuilderVisitor::~SymbolTableBuilderVisitor() {
 
 }
 
-bool SymbolTableBuilderVisitor::getFirstPass() const {
-    return firstPass;
-}
-
-void SymbolTableBuilderVisitor::setFirstPass(bool value) {
-    firstPass = value;
-}
-
 void SymbolTableBuilderVisitor::visit(Program *program) {
     std::map<std::string, SourceFile*>::iterator it;
-    SourceFile* file;
 
     for (it = program->begin(); it != program->end(); ++it) {
-        file = it->second;
-        currentSourceFile = file;
-        file->setSymbolTable(pushSymbolTable());
-
-        std::cout << "Building initial SymbolTable for file '" << file->getPath() << "'\n";
-        buildInitialSymbolTable(file);
-        symbolTable->dump();
-        popSymbolTable();
+        buildInitialSymbolTable(it->second);
     }
 
     for (it = program->begin(); it != program->end(); ++it) {
@@ -262,7 +246,7 @@ void SymbolTableBuilderVisitor::visit(CallExpression* expression) {
         expression->getArgument(i)->accept(this);
     }
 }
-
+// obj.m(...)
 void SymbolTableBuilderVisitor::visit(DotExpression* expression) {
     expression->getLeft()->accept(this);
     expression->getRight()->accept(this);
@@ -726,34 +710,8 @@ void SymbolTableBuilderVisitor::visit(IdentifierExpression* id) {
         if (symbol == nullptr) {
             std::cout << "error: '" << id->getName() << "' not defined in this scope\n";
         } else {
-            Variable* v;
-            Def* d;
-
             id->setSymbol(symbol);
-
-            switch (symbol->getKind()) {
-            case SYMBOL_LOCAL_VARIABLE:
-            case SYMBOL_CLASS_VARIABLE:
-            case SYMBOL_PARAMETER:
-                v = (Variable*) symbol->getDescriptor();
-                id->setType(v->getType()->clone());
-                break;
-
-            case SYMBOL_CLASS:
-                id->setType(new NamedType(new IdentifierExpression(id)));
-                break;
-
-            case SYMBOL_DEF:
-            case SYMBOL_METHOD:
-                d = (Def*) symbol->getDescriptor();
-
-                id->setType(d->getReturnType()->clone());
-                break;
-
-            default:
-                break;
-            }
-
+            id->setType(symbol->getType()->clone());
             lastType = id->getType();
         }
     }
@@ -761,6 +719,11 @@ void SymbolTableBuilderVisitor::visit(IdentifierExpression* id) {
 
 void SymbolTableBuilderVisitor::buildInitialSymbolTable(SourceFile* sourceFile) {
     Symbol* symbol;
+
+    currentSourceFile = sourceFile;
+    sourceFile->setSymbolTable(pushSymbolTable());
+
+    std::cout << "Building initial SymbolTable for file '" << sourceFile->getPath() << "'\n";
 
     for (int i = 0; i < sourceFile->n_defs(); ++i) {
         std::string name = sourceFile->getDef(i)->getName();
@@ -809,6 +772,8 @@ void SymbolTableBuilderVisitor::buildInitialSymbolTable(SourceFile* sourceFile) 
             symbolTable->add(sourceFile->getGlobalVariable(i));
         }
     }
+
+    popSymbolTable();
 }
 
 SymbolTable *SymbolTableBuilderVisitor::pushSymbolTable() {

@@ -100,7 +100,6 @@ void CppPrinter::visit(Def* def) {
     indent();
 
     generateDefLocalVariables(def);
-    output << "\n";
 
     def->getStatements()->accept(this);
     dedent();
@@ -1026,7 +1025,14 @@ void CppPrinter::generateDefParameters(Def* def) {
 }
 
 void CppPrinter::generateDefLocalVariables(Def* def) {
+    bool flag = false;
+
     for (int i = 0; i < def->n_local_variables(); ++i) {
         def->getLocalVariable(i)->accept(this);
+        flag = true;
+    }
+
+    if (flag) {
+        output << "\n";
     }
 }

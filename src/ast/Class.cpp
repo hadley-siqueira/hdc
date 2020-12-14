@@ -6,8 +6,9 @@ using namespace hdc;
 
 /* Constructors */
 Class::Class() {
-    parent = NULL;
-    file = NULL;
+    parent = nullptr;
+    file = nullptr;
+    selfType = nullptr;
     classVariableCounter = 0;
     methodCounter = 0;
 }
@@ -142,4 +143,12 @@ int Class::getGlobalId() const {
 
 void Class::setGlobalId(int value) {
     globalId = value;
+}
+
+Type *Class::getSelfType() {
+    if (selfType == nullptr) {
+        selfType = new NamedType(new IdentifierExpression(name));
+    }
+
+    return selfType;
 }

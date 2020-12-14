@@ -16,5 +16,10 @@ class Image:
         @h = h
         @p = null
 
+    def getWidth : int
+        return @w
+
 def main : int
+    img = Image()
+    w = img.getWidth()
     return 0

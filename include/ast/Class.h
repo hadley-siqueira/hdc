@@ -64,6 +64,8 @@ namespace hdc {
             int getGlobalId() const;
             void setGlobalId(int value);
 
+            Type *getSelfType();
+
     private:
             Token name;
             IdentifierExpression* parent;
@@ -75,6 +77,7 @@ namespace hdc {
             int methodCounter;
             int id;
             int globalId;
+            Type* selfType;
 
     };
 }
