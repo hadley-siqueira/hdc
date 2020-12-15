@@ -12,6 +12,8 @@ NamedType::NamedType() {
 NamedType::NamedType(IdentifierExpression* name) {
     this->kind = AST_NAMED_TYPE;
     this->name = name;
+    classDescriptor = nullptr;
+    structDescriptor = nullptr;
 }
 
 NamedType::~NamedType() {
@@ -19,7 +21,10 @@ NamedType::~NamedType() {
 }
 
 Type* NamedType::clone() {
-    return new NamedType(new IdentifierExpression(this->name));
+    NamedType* copy = new NamedType(new IdentifierExpression(this->name));
+    copy->classDescriptor = classDescriptor;
+    copy->structDescriptor = structDescriptor;
+    return copy;
 }
 
 int NamedType::getRank() {

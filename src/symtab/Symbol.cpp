@@ -75,9 +75,9 @@ void Symbol::setColumn(int value) {
 }
 
 Type *Symbol::getType() {
-    Variable* v;
-    Class* c;
-    Def* d;
+    Variable* v = nullptr;
+    Class* c = nullptr;
+    Def* d = nullptr;
 
     switch (kind) {
     case SYMBOL_PARAMETER:

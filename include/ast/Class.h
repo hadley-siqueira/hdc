@@ -41,6 +41,10 @@ namespace hdc {
 
             ClassVariable* getVariable(std::string name);
 
+        /* Setters */
+        public:
+            void setSourceFile(SourceFile* s);
+
         /* Predicates */
         public:
             bool hasParent();

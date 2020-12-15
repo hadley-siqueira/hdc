@@ -33,6 +33,7 @@ void SourceFile::addImport(Import* import) {
 
 void SourceFile::addClass(Class* klass) {
     classes.push_back(klass);
+    klass->setSourceFile(this);
 }
 
 void SourceFile::addStruct(Struct* s) {

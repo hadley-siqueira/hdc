@@ -90,6 +90,10 @@ ClassVariable *Class::getVariable(std::string name) {
     return nullptr;
 }
 
+void Class::setSourceFile(SourceFile *s) {
+    file = s;
+}
+
 /* Predicates */
 bool Class::hasParent() {
     return parent != NULL;

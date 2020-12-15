@@ -248,11 +248,12 @@ void SymbolTableBuilderVisitor::visit(CallExpression* expression) {
 }
 // obj.m(...)
 void SymbolTableBuilderVisitor::visit(DotExpression* expression) {
-    NamedType* t;
-    SymbolTable* s;
+    NamedType* t = nullptr;
+    Type* t2 = nullptr;
+    SymbolTable* s = nullptr;
 
     expression->getLeft()->accept(this);
-
+    t2 = expression->getLeft()->getType();
     t = (NamedType*) lastType;
 
     if (t != nullptr) {
@@ -260,6 +261,8 @@ void SymbolTableBuilderVisitor::visit(DotExpression* expression) {
 
        if (s != nullptr) {
         std::cout << "YEAH "; s->dump();
+       } else {
+           std::cout << "FUU\n";
        }
     }
 
