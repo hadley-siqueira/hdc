@@ -3,7 +3,7 @@
 using namespace hdc;
 
 StructField::StructField() {
-    this->type = NULL;
+    this->type = nullptr;
 }
 
 StructField::StructField(Token& name, Type* type) {
@@ -12,7 +12,7 @@ StructField::StructField(Token& name, Type* type) {
 }
 
 StructField::~StructField() {
-    if (type != NULL) {
+    if (type != nullptr) {
         delete type;
     }
 }

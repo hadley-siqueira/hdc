@@ -8,6 +8,7 @@ ElseStatement::ElseStatement(CompoundStatement* statements) {
 
 ElseStatement::~ElseStatement() {
     delete statements;
+    delete symbolTable;
 }
 
 CompoundStatement* ElseStatement::getStatements() {

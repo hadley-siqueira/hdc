@@ -5,7 +5,7 @@
 using namespace hdc;
 
 Parameter::Parameter() {
-    this->type = NULL;
+    this->type = nullptr;
 }
 
 Parameter::Parameter(Token& name, Type* type) {
@@ -14,9 +14,7 @@ Parameter::Parameter(Token& name, Type* type) {
 }
 
 Parameter::~Parameter() {
-    if (type != NULL) {
-        delete type;
-    }
+
 }
 
 std::string Parameter::getUniqueCppName() {

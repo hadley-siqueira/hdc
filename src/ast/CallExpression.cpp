@@ -4,7 +4,7 @@ using namespace hdc;
 
 /* Constructors */
 CallExpression::CallExpression() {
-    expression = NULL;
+    expression = nullptr;
 }
 
 CallExpression::CallExpression(Expression* expression, std::vector<Expression*> arguments) {
@@ -29,7 +29,7 @@ CallExpression::~CallExpression() {
 
 /* Setters */
 void CallExpression::setExpression(Expression* expression) {
-    if (this->expression != NULL) {
+    if (this->expression != nullptr) {
         delete this->expression;
     }
 

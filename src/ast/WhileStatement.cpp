@@ -22,6 +22,8 @@ WhileStatement::~WhileStatement() {
     if (statements != nullptr) {
         delete statements;
     }
+
+    delete symbolTable;
 }
 
 /* Getters */

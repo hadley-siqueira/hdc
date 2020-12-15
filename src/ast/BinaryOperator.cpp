@@ -4,8 +4,8 @@ using namespace hdc;
 
 /* Constructors */
 BinaryOperator::BinaryOperator() {
-    left = NULL;
-    right = NULL;
+    left = nullptr;
+    right = nullptr;
 }
 
 BinaryOperator::BinaryOperator(Expression* left, Expression* right) {
@@ -28,7 +28,7 @@ BinaryOperator::~BinaryOperator() {
 
 /* Setters */
 void BinaryOperator::setLeft(Expression* left) {
-    if (this->left != NULL) {
+    if (this->left != nullptr) {
         delete this->left;
     }
 
@@ -36,7 +36,7 @@ void BinaryOperator::setLeft(Expression* left) {
 }
 
 void BinaryOperator::setRight(Expression* right) {
-    if (this->right != NULL) {
+    if (this->right != nullptr) {
         delete this->right;
     }
 

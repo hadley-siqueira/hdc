@@ -1,3 +1,4 @@
+#include <iostream>
 #include <sstream>
 
 #include "ast/Def.h"
@@ -13,7 +14,6 @@ Def::Def() {
     localVarNameCounter = 0;
     selfType = nullptr;
 }
-
 
 Def::~Def() {
     for (int i = 0; i < parameters.size(); ++i) {
@@ -117,9 +117,6 @@ bool Def::isMethod() {
     return klass != nullptr;
 }
 
-
-#include <iostream>
-
 void Def::addParameter(hdc::Token& name, Type* type) {
     Parameter* param;
 
@@ -145,23 +142,19 @@ void Def::accept(Visitor* visitor) {
     visitor->visit(this);
 }
 
-int Def::getId() const
-{
+int Def::getId() const {
     return id;
 }
 
-void Def::setId(int value)
-{
+void Def::setId(int value) {
     id = value;
 }
 
-int Def::getGlobalId() const
-{
+int Def::getGlobalId() const {
     return globald;
 }
 
-void Def::setGlobalId(int value)
-{
+void Def::setGlobalId(int value) {
     globald = value;
 }
 

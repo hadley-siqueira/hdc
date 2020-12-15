@@ -19,8 +19,13 @@ Class::~Class() {
         delete methods[i];
     }
 
+    for (int i = 0; i < variables.size(); ++i) {
+        delete variables[i];
+    }
+
     delete symbolTable;
     delete parent;
+    delete selfType;
 }
 
 /* Setters */
@@ -29,7 +34,7 @@ void Class::setName(Token& token) {
 }
 
 void Class::setParent(IdentifierExpression* parent) {
-    if (this->parent != NULL) {
+    if (this->parent != nullptr) {
         delete this->parent;
     }
 
@@ -96,7 +101,7 @@ void Class::setSourceFile(SourceFile *s) {
 
 /* Predicates */
 bool Class::hasParent() {
-    return parent != NULL;
+    return parent != nullptr;
 }
 
 int Class::n_methods() {

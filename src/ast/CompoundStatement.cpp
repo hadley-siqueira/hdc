@@ -17,7 +17,7 @@ Statement* CompoundStatement::getStatement(int i) {
     if (i < n_statements()) {
         return statements[i];
     } else {
-        return NULL;
+        return nullptr;
     }
 }
 

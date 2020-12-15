@@ -35,16 +35,14 @@ void SymbolTableBuilderVisitor::visit(SourceFile* file) {
     currentSourceFile = file;
     pushSymbolTable(file->getSymbolTable());
 
-
     // add global variables
     // add constants
+    for (int i = 0; i < file->n_classes(); ++i) {
+        file->getClass(i)->accept(this);
+    }
 
     for (int i = 0; i < file->n_defs(); ++i) {
         file->getDef(i)->accept(this);
-    }
-
-    for (int i = 0; i < file->n_classes(); ++i) {
-        file->getClass(i)->accept(this);
     }
 
     popSymbolTable();
@@ -696,7 +694,7 @@ void SymbolTableBuilderVisitor::visit(ArrayExpression* array) {
 }
 
 void SymbolTableBuilderVisitor::visit(IdentifierExpression* id) {
-    Symbol* symbol;
+    Symbol* symbol = nullptr;
 
     if (checkingNamedType) {
         symbol = symbolTable->has(id->getName());

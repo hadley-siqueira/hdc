@@ -24,6 +24,10 @@ SourceFile::~SourceFile() {
         delete globalVariables[i];
     }
 
+    for (int i = 0; i < classes.size(); ++i) {
+        delete classes[i];
+    }
+
     delete symbolTable;
 }
 

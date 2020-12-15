@@ -2,6 +2,10 @@
 
 using namespace hdc;
 
+Variable::~Variable() {
+    delete type;
+}
+
 Type* Variable::getType() const {
     return type;
 }

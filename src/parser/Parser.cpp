@@ -86,7 +86,7 @@ Import* Parser::parse_import() {
 
 
 Type* Parser::parse_type() {
-    Type* type = NULL;
+    Type* type = nullptr;
 
     if (match(TK_INT)) {
         type = new IntType(*matched);

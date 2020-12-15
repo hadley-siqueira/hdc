@@ -10,6 +10,7 @@ namespace hdc {
         /* Visitors */
         public:
             virtual void accept(Visitor* visitor)=0;
+            ~Variable();
 
             Type* getType() const;
             void setType(Type* value);

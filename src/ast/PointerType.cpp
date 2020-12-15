@@ -6,7 +6,7 @@ using namespace hdc;
 
 PointerType::PointerType() {
     this->kind = AST_POINTER_TYPE;
-    this->subtype = NULL;
+    this->subtype = nullptr;
 }
 
 PointerType::PointerType(Type* type) {
