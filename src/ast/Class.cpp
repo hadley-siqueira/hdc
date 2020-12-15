@@ -11,6 +11,8 @@ Class::Class() {
     selfType = nullptr;
     classVariableCounter = 0;
     methodCounter = 0;
+    id = 0;
+    globalId = 0;
 }
 
 /* Destructors */

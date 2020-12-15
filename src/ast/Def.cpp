@@ -13,6 +13,8 @@ Def::Def() {
     symbolTable = nullptr;
     localVarNameCounter = 0;
     selfType = nullptr;
+    id = 0;
+    globald = 0;
 }
 
 Def::~Def() {
