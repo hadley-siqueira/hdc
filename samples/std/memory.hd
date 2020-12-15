@@ -1,0 +1,9 @@
+def alloc : void*
+    @n : int
+
+    $'return malloc(p0_n)'
+
+def free : void
+    @ptr : void*
+
+    $'free(p0_ptr)'
