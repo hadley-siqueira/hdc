@@ -308,6 +308,17 @@ void PrettyPrinter::visit(NamedType* type) {
     type->getName()->accept(this);
 }
 
+void PrettyPrinter::visit(FunctionType *type) {
+    int i;
+
+    for (i = 0; i < type->n_types() - 1; ++i) {
+        type->getType(i)->accept(this);
+        output << " -> ";
+    }
+
+    type->getType(i)->accept(this);
+}
+
 /* Statements */
 void PrettyPrinter::visit(Statement* statement) {
     output << "UNKNOWN STATEMENT";

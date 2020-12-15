@@ -90,6 +90,10 @@ void TypeCheckerVisitor::visit(NamedType* type) {
 
 }
 
+void TypeCheckerVisitor::visit(FunctionType *type) {
+
+}
+
 /* Statements */
 void TypeCheckerVisitor::visit(Statement* statement) {}
 

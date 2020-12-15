@@ -118,6 +118,7 @@ set(AST_SRC
     src/ast/ReturnStatement.cpp
     src/ast/ClassVariable.cpp
     src/ast/NamedType.cpp
+    src/ast/FunctionType.cpp
     src/ast/AtExpression.cpp
     src/ast/GlobalVariable.cpp
     src/ast/Struct.cpp

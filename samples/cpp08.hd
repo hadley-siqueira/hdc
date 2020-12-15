@@ -3,6 +3,20 @@ class Pixel:
     g : u8
     b : u8
 
+    def init : void
+        @r : u8
+        @g : u8
+        @b : u8
+
+        @r = r
+        @g = g
+        @b = b
+
+    def negative : void
+        @r = 255 - @r
+        @g = 255 - @g
+        @b = 255 - @b
+
 class Image:
     w : int
     h : int
@@ -19,7 +33,14 @@ class Image:
     def getWidth : int
         return @w
 
+    def getFirstPixel : Pixel*
+        return p
+
 def main : int
     img = Image()
     w = img.getWidth()
+    img.init(800, 600)
+    p  = img.getFirstPixel()
+    p->negative()
+    img.getFirstPixel()->negative()
     return 0

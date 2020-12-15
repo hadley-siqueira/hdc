@@ -50,6 +50,7 @@ namespace hdc {
             virtual void visit(class UInt64Type* type)=0;
             virtual void visit(class PointerType* type)=0;
             virtual void visit(class NamedType* type)=0;
+            virtual void visit(class FunctionType* type)=0;
 
             /* Statements */
             virtual void visit(class Statement* statement)=0;

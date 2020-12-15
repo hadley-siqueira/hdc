@@ -66,6 +66,7 @@ namespace hdc {
             void visit(UInt64Type* type);
             void visit(PointerType* type);
             void visit(NamedType* type);
+            void visit(FunctionType* type);
 
             /* Statements */
             void visit(Statement* statement);
@@ -160,6 +161,7 @@ namespace hdc {
             SymbolTable* pushSymbolTable(SymbolTable* s);
             void popSymbolTable();
             Type* typeCoercion(Type* t1, Type* t2);
+            void setLastType(Type* type);
 
         private:
             // pointer to the current symboltable

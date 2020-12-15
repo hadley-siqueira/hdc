@@ -46,6 +46,12 @@ void *NamedType::getDescriptor() {
         return structDescriptor;
     }
 
+    Symbol* sym = name->getSymbol();
+
+    if (sym != nullptr) {
+        return sym->getDescriptor();
+    }
+
     return nullptr;
 }
 
@@ -54,6 +60,22 @@ SymbolTable *NamedType::getSymbolTable() {
         return classDescriptor->getSymbolTable();
     } else if (structDescriptor != nullptr) {
         return structDescriptor->getSymbolTable();
+    }
+
+    Symbol* sym;
+    Class* c;
+
+    sym = name->getSymbol();
+
+    if (sym != nullptr) {
+        switch (sym->getKind()) {
+        case SYMBOL_CLASS:
+            c = (Class*) sym->getDescriptor();
+            return c->getSymbolTable();
+
+        default:
+            break;
+        }
     }
 
     return nullptr;

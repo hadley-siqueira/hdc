@@ -128,7 +128,7 @@ void CppPrinter::visit(Variable* variable) {
 void CppPrinter::visit(LocalVariable* variable) {
     print_indentation();
 
-    if (variable->getType()) {
+    if (variable->getType() != nullptr) {
         variable->getType()->accept(this);
     } else {
         output << "int";
@@ -244,6 +244,10 @@ void CppPrinter::visit(PointerType* type) {
 
 void CppPrinter::visit(NamedType* type) {
     type->getName()->accept(this);
+}
+
+void CppPrinter::visit(FunctionType *type) {
+
 }
 
 /* Statements */
@@ -867,6 +871,7 @@ void CppPrinter::visit(IdentifierExpression* id) {
             break;
 
         case SYMBOL_DEF:
+        case SYMBOL_METHOD:
             def = (Def*) s->getDescriptor();
             output << def->getUniqueCppName();
             break;
