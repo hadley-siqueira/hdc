@@ -35,6 +35,8 @@ namespace hdc {
             std::string getUniqueCppName();
             IdentifierExpression* getParent();
             Def* getMethod(int i);
+            Def* getConstructor(int i);
+            Def* getDestructor();
             ClassVariable* getVariable(int i);
             int getLine();
             int getColumn();
@@ -50,6 +52,7 @@ namespace hdc {
             bool hasParent();
             int n_methods();
             int n_variables();
+            int n_constructors();
 
         public:
             void addMethod(Def* def);
@@ -71,17 +74,22 @@ namespace hdc {
             Type *getSelfType();
 
     private:
-            Token name;
-            IdentifierExpression* parent;
-            SourceFile* file;
-            std::vector<Def*> methods;
-            std::vector<ClassVariable*> variables;
-            SymbolTable* symbolTable;
             int classVariableCounter;
             int methodCounter;
             int id;
             int globalId;
+
+            Token name;
+
+            IdentifierExpression* parent;
+            SourceFile* file;
+            Def* destructor;
+            SymbolTable* symbolTable;
             NamedType* selfType;
+
+            std::vector<ClassVariable*> variables;
+            std::vector<Def*> methods;
+            std::vector<Def*> constructors;
 
     };
 }

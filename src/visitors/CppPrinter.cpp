@@ -81,6 +81,34 @@ void hdc::CppPrinter::visit(Class* klass) {
         klass->getMethod(i)->accept(this);
     }
 
+    for (int i = 0; i < klass->n_constructors(); ++i) {
+        int j;
+        Def* c = klass->getConstructor(i);
+        output << "    " << klass->getUniqueCppName() << "(";
+        generateDefParameters(c);
+        output << ") {\n";
+        output << "        " << c->getUniqueCppName() << "(";
+
+        if (c->n_parameters() > 0) {
+            for (j = 0; j < c->n_parameters() - 1; ++j) {
+                output << c->getParameter(j)->getUniqueCppName() << ", ";
+            }
+
+            output << c->getParameter(j)->getUniqueCppName();
+        }
+
+        output << ");\n";
+        output << "    }\n";
+    }
+
+    output << "    " << klass->getUniqueCppName() << "() {}\n";
+
+    if (klass->getDestructor() != nullptr) {
+        output << "\n    ~" << klass->getUniqueCppName() << "() {\n";
+        output << "        " << klass->getDestructor()->getUniqueCppName() << "();\n";
+        output << "    }\n";
+    }
+
     dedent();
     output << "};\n\n";
 }

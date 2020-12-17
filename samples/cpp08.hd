@@ -42,10 +42,11 @@ class Image:
         return p
 
 def main : int
-    img = Image()
+    img = Image(800, 600)
     w = img.getWidth()
     img.init(800, 600)
-    p  = img.getFirstPixel()
+    p = img.getFirstPixel()
     p->negative()
     img.getFirstPixel()->negative()
+    img.destroy()
     return 0

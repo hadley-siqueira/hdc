@@ -244,11 +244,17 @@ void SymbolTableBuilderVisitor::visit(SizeOfExpression* expression) {
 }
 
 void SymbolTableBuilderVisitor::visit(CallExpression* expression) {
+    Type* t;
+
     expression->getExpression()->accept(this);
+    t = lastType;
 
     for (int i = 0; i < expression->n_arguments(); ++i) {
         expression->getArgument(i)->accept(this);
     }
+
+    expression->setType(t->clone());
+    setLastType(expression->getType());
 }
 // obj.m(...)
 void SymbolTableBuilderVisitor::visit(DotExpression* expression) {
@@ -261,6 +267,7 @@ void SymbolTableBuilderVisitor::visit(DotExpression* expression) {
 
     pushSymbolTable(s);
     expression->getRight()->accept(this);
+    setLastType(expression->getRight()->getType());
     popSymbolTable();
 }
 
@@ -274,11 +281,11 @@ void SymbolTableBuilderVisitor::visit(ArrowExpression* expression) {
     ptr = (PointerType*) lastType;
     ptr->accept(this);
     named = (NamedType*) ptr->getSubtype();
-    std::cout << "NAME: " << named->getName()->getName() << '\n';
     s = named->getSymbolTable();
 
     pushSymbolTable(s);
     expression->getRight()->accept(this);
+    setLastType(expression->getRight()->getType());
     popSymbolTable();
 }
 
@@ -491,7 +498,7 @@ void SymbolTableBuilderVisitor::visit(LessThanExpression* expression) {
     right = lastType;
 
     expression->setType(new BoolType());
-    setLastType(type);
+    setLastType(expression->getType());
 }
 
 void SymbolTableBuilderVisitor::visit(GreaterThanExpression* expression) {
@@ -506,7 +513,7 @@ void SymbolTableBuilderVisitor::visit(GreaterThanExpression* expression) {
     right = lastType;
 
     expression->setType(new BoolType());
-    setLastType(type);
+    setLastType(expression->getType());
 }
 
 void SymbolTableBuilderVisitor::visit(LessThanOrEqualExpression* expression) {
@@ -521,7 +528,7 @@ void SymbolTableBuilderVisitor::visit(LessThanOrEqualExpression* expression) {
     right = lastType;
 
     expression->setType(new BoolType());
-    setLastType(type);
+    setLastType(expression->getType());
 }
 
 void SymbolTableBuilderVisitor::visit(EqualExpression* expression) {
@@ -536,7 +543,7 @@ void SymbolTableBuilderVisitor::visit(EqualExpression* expression) {
     right = lastType;
 
     expression->setType(new BoolType());
-    setLastType(type);
+    setLastType(expression->getType());
 }
 
 void SymbolTableBuilderVisitor::visit(NotEqualExpression* expression) {
@@ -551,7 +558,7 @@ void SymbolTableBuilderVisitor::visit(NotEqualExpression* expression) {
     right = lastType;
 
     expression->setType(new BoolType());
-    setLastType(type);
+    setLastType(expression->getType());
 }
 
 void SymbolTableBuilderVisitor::visit(GreaterThanOrEqualExpression* expression) {
@@ -566,7 +573,7 @@ void SymbolTableBuilderVisitor::visit(GreaterThanOrEqualExpression* expression) 
     right = lastType;
 
     expression->setType(new BoolType());
-    setLastType(type);
+    setLastType(expression->getType());
 }
 
 void SymbolTableBuilderVisitor::visit(AssignmentExpression* expression) {

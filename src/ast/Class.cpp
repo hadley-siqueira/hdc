@@ -6,13 +6,15 @@ using namespace hdc;
 
 /* Constructors */
 Class::Class() {
-    parent = nullptr;
-    file = nullptr;
-    selfType = nullptr;
     classVariableCounter = 0;
     methodCounter = 0;
     id = 0;
     globalId = 0;
+
+    parent = nullptr;
+    file = nullptr;
+    selfType = nullptr;
+    destructor = nullptr;
 }
 
 /* Destructors */
@@ -67,6 +69,18 @@ Def* Class::getMethod(int i) {
     return nullptr;
 }
 
+Def* Class::getConstructor(int i) {
+    if (i < constructors.size()) {
+        return constructors[i];
+    }
+
+    return nullptr;
+}
+
+Def* Class::getDestructor() {
+    return destructor;
+}
+
 ClassVariable*Class::getVariable(int i) {
     if (i < variables.size()) {
         return variables[i];
@@ -114,12 +128,22 @@ int Class::n_variables() {
     return variables.size();
 }
 
+int Class::n_constructors() {
+    return constructors.size();
+}
+
 void Class::addMethod(Def* def) {
     methods.push_back(def);
     def->setClass(this);
     def->setFile(this->file);
     def->setId(methodCounter++);
     //def->setGlobalID(0);
+
+    if (def->getName().compare("init") == 0) {
+        constructors.push_back(def);
+    } else if (def->getName().compare("destroy") == 0) {
+        destructor = def;
+    }
 }
 
 void Class::addVariable(ClassVariable* variable) {
