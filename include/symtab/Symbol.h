@@ -42,6 +42,7 @@ namespace hdc {
 
             int n_overloaded();
             void* getOverloadedDescriptor(int i);
+            void addOverloaded(Def* def);
 
         private:
             SymbolKind kind;

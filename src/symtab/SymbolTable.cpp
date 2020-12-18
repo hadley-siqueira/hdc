@@ -48,8 +48,16 @@ Symbol* SymbolTable::add(Class* klass) {
 }
 
 Symbol* SymbolTable::add(Def* def) {
-    Symbol* symbol = new Symbol(def);
-    symbols[def->getName()] = symbol;
+    Symbol* symbol = nullptr;
+
+    if (symbols.count(def->getName()) > 0) {
+        symbol = symbols[def->getName()];
+        symbol->addOverloaded(def);
+    } else {
+        symbol = new Symbol(def);
+        symbols[def->getName()] = symbol;
+    }
+
     return symbol;
 }
 

@@ -115,6 +115,10 @@ void *Symbol::getOverloadedDescriptor(int i){
     return nullptr;
 }
 
+void Symbol::addOverloaded(Def *def) {
+    overloadedDescriptors.push_back(def);
+}
+
 SymbolKind Symbol::getKind() const {
     return kind;
 }
