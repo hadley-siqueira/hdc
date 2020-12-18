@@ -24,9 +24,6 @@ class Image:
     h : int
     p : Pixel*
 
-#    def init : void
-#        @p = null
-
     def init : void
         @w : int
         @h : int
@@ -44,22 +41,12 @@ class Image:
     def getFirstPixel : Pixel*
         return p
 
-#def foo : int
-#    @a : int
-#
-#    return a
-
-def foo : int
-    @a : int
-    @b : int
-
-    return a + b
-
 def main : int
-    img = Image()
+    img = Image(800, 600)
     w = img.getWidth()
     img.init(800, 600)
     p = img.getFirstPixel()
     p->negative()
     img.getFirstPixel()->negative()
+    img.destroy()
     return 0

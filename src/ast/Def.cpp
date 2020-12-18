@@ -119,6 +119,30 @@ bool Def::isMethod() {
     return klass != nullptr;
 }
 
+bool Def::sameSignature(Def* other) {
+    Type* t1;
+    Type* t2;
+
+    if (getName().compare(other->getName()) == 0) {
+        int n = n_parameters();
+
+        if (n == other->n_parameters()) {
+            for (int i = 0; i < n; ++i) {
+                t1 = getParameter(i)->getType();
+                t2 = other->getParameter(i)->getType();
+
+                if (!t1->equals(t2)) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+    }
+
+    return false;
+}
+
 void Def::addParameter(hdc::Token& name, Type* type) {
     Parameter* param;
 

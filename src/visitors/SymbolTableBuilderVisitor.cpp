@@ -1,4 +1,6 @@
 #include <iostream>
+#include <sstream>
+
 #include "visitors/SymbolTableBuilderVisitor.h"
 #include "ast/AST.h"
 
@@ -11,6 +13,7 @@ SymbolTableBuilderVisitor::SymbolTableBuilderVisitor() {
     checkingAssignment = false;
     checkingNamedType = false;
     lastType = nullptr;
+    logger = nullptr;
 }
 
 SymbolTableBuilderVisitor::~SymbolTableBuilderVisitor() {
@@ -750,37 +753,19 @@ void SymbolTableBuilderVisitor::visit(IdentifierExpression* id) {
 }
 
 void SymbolTableBuilderVisitor::buildInitialSymbolTable(SourceFile* sourceFile) {
+    std::stringstream ss;
     Symbol* symbol;
 
     currentSourceFile = sourceFile;
     sourceFile->setSymbolTable(pushSymbolTable());
 
-    std::cout << "Building initial SymbolTable for file '" << sourceFile->getPath() << "'\n";
+    ss << "Building initial SymbolTable for file '" << sourceFile->getPath() << "'";
+    log(ss);
 
-    for (int i = 0; i < sourceFile->n_defs(); ++i) {
-        std::string name = sourceFile->getDef(i)->getName();
-        symbol = symbolTable->hasLocal(name);
+    addFunctions(sourceFile);
+    addClasses(sourceFile);
 
-        if (symbol != nullptr) {
-            std::cout << "error def: '" << name << "' already declared. First occurence on line " << symbol->getLine();
-            exit(0);
-        } else {
-            symbolTable->add(sourceFile->getDef(i));
-        }
-    }
-
-    for (int i = 0; i < sourceFile->n_classes(); ++i) {
-        std::string name = sourceFile->getClass(i)->getName();
-        symbol = symbolTable->hasLocal(name);
-
-        if (symbol != nullptr) {
-            std::cout << "error class: '" << name << "' already declared. First occurence on line " << symbol->getLine();
-            exit(0);
-        } else {
-            symbolTable->add(sourceFile->getClass(i));
-        }
-    }
-
+    
     for (int i = 0; i < sourceFile->n_global_variables(); ++i) {
         std::string name = sourceFile->getGlobalVariable(i)->getName();
         symbol = symbolTable->hasLocal(name);
@@ -806,6 +791,44 @@ void SymbolTableBuilderVisitor::buildInitialSymbolTable(SourceFile* sourceFile) 
     }
 
     popSymbolTable();
+}
+
+void SymbolTableBuilderVisitor::addFunctions(SourceFile* sourceFile) {
+    std::stringstream ss;
+    Symbol* symbol;
+
+    for (int i = 0; i < sourceFile->n_defs(); ++i) {
+        std::string name = sourceFile->getDef(i)->getName();
+        symbol = symbolTable->hasLocal(name);
+
+        if (symbol != nullptr) {
+            std::cout << "error def: '" << name << "' already declared. First occurence on line " << symbol->getLine();
+            exit(0);
+        } else {
+            ss << "Adding function '" << name << "' to source file " << sourceFile->getPath();
+            log(ss);
+            symbolTable->add(sourceFile->getDef(i));
+        }
+    }
+}
+
+void SymbolTableBuilderVisitor::addClasses(SourceFile* sourceFile) {
+    std::stringstream ss;
+    Symbol* symbol;
+
+    for (int i = 0; i < sourceFile->n_classes(); ++i) {
+        std::string name = sourceFile->getClass(i)->getName();
+        symbol = symbolTable->hasLocal(name);
+
+        if (symbol != nullptr) {
+            std::cout << "error class: '" << name << "' already declared. First occurence on line " << symbol->getLine();
+            exit(0);
+        } else {
+            ss << "Adding class '" << name << "' to source file " << sourceFile->getPath();
+            log(ss);
+            symbolTable->add(sourceFile->getClass(i));
+        }
+    }
 }
 
 SymbolTable *SymbolTableBuilderVisitor::pushSymbolTable() {
@@ -854,6 +877,22 @@ void SymbolTableBuilderVisitor::setLastType(Type *type) {
     if (type != nullptr) {
         type->accept(this);
     }
+}
+
+void SymbolTableBuilderVisitor::log(std::stringstream& msg) {
+    if (logger != nullptr) {
+        logger->log(LOG_INTERNAL_SYMBOL_TABLE, msg.str());
+    }
+
+    msg.str("");
+}
+
+Logger *SymbolTableBuilderVisitor::getLogger() const {
+    return logger;
+}
+
+void SymbolTableBuilderVisitor::setLogger(Logger *value) {
+    logger = value;
 }
 
 void SymbolTableBuilderVisitor::visit(IfStatement* statement) {

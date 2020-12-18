@@ -962,7 +962,7 @@ void CppPrinter::printEnd() {
     output << "int main(int argc, char* argv[]) {\n    ";
     output << mainDef->getUniqueCppName() << "();\n";
     output << "    return 0;\n";
-    output << "}";
+    output << "}\n";
 }
 
 void CppPrinter::checkClassDependencies(Class *klass) {

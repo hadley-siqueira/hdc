@@ -16,19 +16,24 @@ namespace hdc {
             ~Logger();
 
         public:
+            void log(std::string message);
             void log(LogKind kind, std::string message);
+            void quit();
 
             void printLogs();
 
+            void setAllFlags();
             void logParser(bool flag);
             void logDriver(bool flag);
             void logLex(bool flag);
+            void logSymbolTable(bool flag);
 
         private:
             std::vector<Log*> logs;
             bool logParserFlag;
             bool logDriverFlag;
             bool logLexFlag;
+            bool logSymbolTableFlag;
     };
 }
 

@@ -52,13 +52,15 @@ void Driver::run() {
 }
 
 void Driver::setFlags(int argc, char* argv[]) {
-    logger.logDriver(true);
-    logger.logParser(true);
-    logger.logLex(true);
-
     for (int i = 1; i < argc; ++i) {
         if (strcmp(argv[i], "-cpp") == 0) {
             emitCppFlag = true;
+        } else if (strcmp(argv[i], "-log") == 0) {
+            ++i;
+
+            if (strcmp(argv[i], "all") == 0) {
+                logger.setAllFlags();
+            }
         } else if (strstr(argv[i], ".hd") != nullptr) {
             mainFilePath = std::string(argv[i]);
         }
@@ -136,6 +138,7 @@ void Driver::foobar() {
 
 void Driver::buildSymbolTables() {
     SymbolTableBuilderVisitor builder;
+    builder.setLogger(&logger);
     program.accept(&builder);
 }
 

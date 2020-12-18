@@ -10,13 +10,15 @@ namespace hdc {
         LOG_INFO,
         LOG_INTERNAL_DRIVER,
         LOG_INTERNAL_LEX,
-        LOG_INTERNAL_PARSER
+        LOG_INTERNAL_PARSER,
+        LOG_INTERNAL_SYMBOL_TABLE
     } LogKind;
 
     class Log {
         /* Constructors */
         public:
             Log();
+            Log(std::string message);
             Log(LogKind kind, std::string message);
 
         /* Destructors */

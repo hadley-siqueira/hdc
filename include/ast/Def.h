@@ -49,6 +49,7 @@ namespace hdc {
             Class* getClass();
             bool isMethod();
 
+            bool sameSignature(Def* other);
             void addParameter(hdc::Token& name, Type* type);
             int n_parameters();
             int n_local_variables();

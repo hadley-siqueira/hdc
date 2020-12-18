@@ -2,10 +2,12 @@
 #define HDC_SYMBOLTABLE_BUILDER_VISITOR_H
 
 #include <stack>
+#include <sstream>
 
 #include "visitors/Visitor.h"
 #include "ast/AST.h"
 #include "symtab/SymbolTable.h"
+#include "logger/Logger.h"
 
 namespace hdc {
     class SymbolTableBuilderVisitor : public Visitor {
@@ -155,17 +157,29 @@ namespace hdc {
 
             void visit(IdentifierExpression* id);
 
-        private:
+            Logger *getLogger() const;
+            void setLogger(Logger *value);
+
+    private:
             void buildInitialSymbolTable(SourceFile* sourceFile);
+            void addFunctions(SourceFile* sourceFile);
+            void addClasses(SourceFile* sourceFile);
+
             SymbolTable* pushSymbolTable();
             SymbolTable* pushSymbolTable(SymbolTable* s);
             void popSymbolTable();
             Type* typeCoercion(Type* t1, Type* t2);
             void setLastType(Type* type);
 
+    private:
+            void log(std::stringstream& msg);
+
         private:
             // pointer to the current symboltable
             SymbolTable* symbolTable;
+            Type* lastType;
+            Logger* logger;
+
             Class* currentClass;
             Def* currentDef;
             SourceFile* currentSourceFile;
@@ -175,7 +189,6 @@ namespace hdc {
             bool checkingNamedType;
 
             std::stack<SymbolTable*> symbolTableStack;
-            Type* lastType;
     };
 }
 #endif
