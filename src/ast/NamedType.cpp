@@ -27,6 +27,25 @@ Type* NamedType::clone() {
     return copy;
 }
 
+bool NamedType::equals(Type *other) {
+    Symbol* s1;
+    Symbol* s2;
+    NamedType* n;
+
+    if (kind == other->getKind()) {
+        n = (NamedType*) other;
+
+        s1 = getName()->getSymbol();
+        s2 = n->getName()->getSymbol();
+
+        if (s1 != nullptr && s2 != nullptr) {
+            return s1->getDescriptor() == s2->getDescriptor();
+        }
+    }
+
+    return false;
+}
+
 int NamedType::getRank() {
     return 22;
 }

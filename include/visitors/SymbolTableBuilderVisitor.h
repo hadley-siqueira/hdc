@@ -164,6 +164,8 @@ namespace hdc {
             void buildInitialSymbolTable(SourceFile* sourceFile);
             void addFunctions(SourceFile* sourceFile);
             void addClasses(SourceFile* sourceFile);
+            void addGlobalVariables(SourceFile* sourceFile);
+            void addGlobalConstants(SourceFile* sourceFile);
 
             SymbolTable* pushSymbolTable();
             SymbolTable* pushSymbolTable(SymbolTable* s);

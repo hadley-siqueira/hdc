@@ -180,6 +180,47 @@ void SymbolTableBuilderVisitor::visit(ForEachStatement* statement) {
 
 }
 
+void SymbolTableBuilderVisitor::visit(IfStatement* statement) {
+    statement->setSymbolTable(pushSymbolTable());
+    statement->getExpression()->accept(this);
+    statement->getStatements()->accept(this);
+
+    popSymbolTable();
+
+    if (statement->getElifStatement()) {
+        statement->getElifStatement()->accept(this);
+    } else if (statement->getElseStatement()) {
+        statement->getElseStatement()->accept(this);
+    }
+}
+
+void SymbolTableBuilderVisitor::visit(ElifStatement* statement) {
+    statement->setSymbolTable(pushSymbolTable());
+    statement->getExpression()->accept(this);
+    statement->getStatements()->accept(this);
+
+    popSymbolTable();
+
+    if (statement->getElifStatement()) {
+        statement->getElifStatement()->accept(this);
+    } else if (statement->getElseStatement()) {
+        statement->getElseStatement()->accept(this);
+    }
+}
+
+void SymbolTableBuilderVisitor::visit(ElseStatement* statement) {
+    statement->setSymbolTable(pushSymbolTable());
+    statement->getStatements()->accept(this);
+
+    popSymbolTable();
+}
+
+void SymbolTableBuilderVisitor::visit(ReturnStatement* statement) {
+    if (statement->getExpression() != nullptr) {
+        statement->getExpression()->accept(this);
+    }
+}
+
 void SymbolTableBuilderVisitor::visit(Expression* expression) {}
 
 void SymbolTableBuilderVisitor::visit(LogicalNotExpression* expression) {
@@ -754,7 +795,6 @@ void SymbolTableBuilderVisitor::visit(IdentifierExpression* id) {
 
 void SymbolTableBuilderVisitor::buildInitialSymbolTable(SourceFile* sourceFile) {
     std::stringstream ss;
-    Symbol* symbol;
 
     currentSourceFile = sourceFile;
     sourceFile->setSymbolTable(pushSymbolTable());
@@ -762,33 +802,10 @@ void SymbolTableBuilderVisitor::buildInitialSymbolTable(SourceFile* sourceFile) 
     ss << "Building initial SymbolTable for file '" << sourceFile->getPath() << "'";
     log(ss);
 
-    addFunctions(sourceFile);
     addClasses(sourceFile);
-
-    
-    for (int i = 0; i < sourceFile->n_global_variables(); ++i) {
-        std::string name = sourceFile->getGlobalVariable(i)->getName();
-        symbol = symbolTable->hasLocal(name);
-
-        if (symbol != nullptr) {
-            std::cout << "error global variable: '" << name << "' already declared. First occurence on line " << symbol->getLine();
-            exit(0);
-        } else {
-            symbolTable->add(sourceFile->getGlobalVariable(i));
-        }
-    }
-
-    for (int i = 0; i < sourceFile->n_global_constants(); ++i) {
-        std::string name = sourceFile->getGlobalConstant(i)->getName();
-        symbol = symbolTable->hasLocal(name);
-
-        if (symbol != nullptr) {
-            std::cout << "error gconst: '" << name << "' already declared. First occurence on line " << symbol->getLine();
-            exit(0);
-        } else {
-            symbolTable->add(sourceFile->getGlobalVariable(i));
-        }
-    }
+    addFunctions(sourceFile);
+    addGlobalVariables(sourceFile);
+    addGlobalConstants(sourceFile);
 
     popSymbolTable();
 }
@@ -796,18 +813,19 @@ void SymbolTableBuilderVisitor::buildInitialSymbolTable(SourceFile* sourceFile) 
 void SymbolTableBuilderVisitor::addFunctions(SourceFile* sourceFile) {
     std::stringstream ss;
     Symbol* symbol;
+    Def* func;
 
     for (int i = 0; i < sourceFile->n_defs(); ++i) {
-        std::string name = sourceFile->getDef(i)->getName();
-        symbol = symbolTable->hasLocal(name);
+        func = sourceFile->getDef(i);
+        symbol = symbolTable->hasLocalFunction(func);
 
         if (symbol != nullptr) {
-            std::cout << "error def: '" << name << "' already declared. First occurence on line " << symbol->getLine();
+            std::cout << "error def: '" << func->getName() << "' already declared. First occurence on line " << symbol->getLine();
             exit(0);
         } else {
-            ss << "Adding function '" << name << "' to source file " << sourceFile->getPath();
+            ss << "Adding function '" << func->getName() << "' to source file " << sourceFile->getPath();
             log(ss);
-            symbolTable->add(sourceFile->getDef(i));
+            symbolTable->add(func);
         }
     }
 }
@@ -827,6 +845,44 @@ void SymbolTableBuilderVisitor::addClasses(SourceFile* sourceFile) {
             ss << "Adding class '" << name << "' to source file " << sourceFile->getPath();
             log(ss);
             symbolTable->add(sourceFile->getClass(i));
+        }
+    }
+}
+
+void SymbolTableBuilderVisitor::addGlobalVariables(SourceFile* sourceFile) {
+    std::stringstream ss;
+    Symbol* symbol;
+
+    for (int i = 0; i < sourceFile->n_global_variables(); ++i) {
+        std::string name = sourceFile->getGlobalVariable(i)->getName();
+        symbol = symbolTable->hasLocal(name);
+
+        if (symbol != nullptr) {
+            std::cout << "error global variable: '" << name << "' already declared. First occurence on line " << symbol->getLine();
+            exit(0);
+        } else {
+            ss << "Adding global variable '" << name << "' to source file " << sourceFile->getPath();
+            log(ss);
+            symbolTable->add(sourceFile->getGlobalVariable(i));
+        }
+    }
+}
+
+void SymbolTableBuilderVisitor::addGlobalConstants(SourceFile *sourceFile) {
+    std::stringstream ss;
+    Symbol* symbol;
+
+    for (int i = 0; i < sourceFile->n_global_constants(); ++i) {
+        std::string name = sourceFile->getGlobalConstant(i)->getName();
+        symbol = symbolTable->hasLocal(name);
+
+        if (symbol != nullptr) {
+            std::cout << "error gconst: '" << name << "' already declared. First occurence on line " << symbol->getLine();
+            exit(0);
+        } else {
+            ss << "Adding global constant '" << name << "' to source file " << sourceFile->getPath();
+            log(ss);
+            symbolTable->add(sourceFile->getGlobalVariable(i));
         }
     }
 }
@@ -893,45 +949,4 @@ Logger *SymbolTableBuilderVisitor::getLogger() const {
 
 void SymbolTableBuilderVisitor::setLogger(Logger *value) {
     logger = value;
-}
-
-void SymbolTableBuilderVisitor::visit(IfStatement* statement) {
-    statement->setSymbolTable(pushSymbolTable());
-    statement->getExpression()->accept(this);
-    statement->getStatements()->accept(this);
-
-    popSymbolTable();
-
-    if (statement->getElifStatement()) {
-        statement->getElifStatement()->accept(this);
-    } else if (statement->getElseStatement()) {
-        statement->getElseStatement()->accept(this);
-    }
-}
-
-void SymbolTableBuilderVisitor::visit(ElifStatement* statement) {
-    statement->setSymbolTable(pushSymbolTable());
-    statement->getExpression()->accept(this);
-    statement->getStatements()->accept(this);
-
-    popSymbolTable();
-
-    if (statement->getElifStatement()) {
-        statement->getElifStatement()->accept(this);
-    } else if (statement->getElseStatement()) {
-        statement->getElseStatement()->accept(this);
-    }
-}
-
-void SymbolTableBuilderVisitor::visit(ElseStatement* statement) {
-    statement->setSymbolTable(pushSymbolTable());
-    statement->getStatements()->accept(this);
-
-    popSymbolTable();
-}
-
-void SymbolTableBuilderVisitor::visit(ReturnStatement* statement) {
-    if (statement->getExpression() != nullptr) {
-        statement->getExpression()->accept(this);
-    }
 }

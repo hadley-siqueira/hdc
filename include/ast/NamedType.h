@@ -15,7 +15,9 @@ namespace hdc {
 
         public:
             Type* clone();
+            bool equals(Type *other);
             int getRank();
+
             void setDescriptor(Class* klass);
             void setDescriptor(Struct* st);
             void* getDescriptor();

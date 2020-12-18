@@ -44,10 +44,10 @@ class Image:
     def getFirstPixel : Pixel*
         return p
 
-#def foo : int
-#    @a : int
-#
-#    return a
+def foo : int
+    @a : int
+
+    return a
 
 def foo : int
     @a : int

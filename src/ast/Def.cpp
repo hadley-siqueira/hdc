@@ -123,20 +123,22 @@ bool Def::sameSignature(Def* other) {
     Type* t1;
     Type* t2;
 
-    if (getName().compare(other->getName()) == 0) {
-        int n = n_parameters();
+    if (klass == other->klass) {
+        if (getName().compare(other->getName()) == 0) {
+            int n = n_parameters();
 
-        if (n == other->n_parameters()) {
-            for (int i = 0; i < n; ++i) {
-                t1 = getParameter(i)->getType();
-                t2 = other->getParameter(i)->getType();
+            if (n == other->n_parameters()) {
+                for (int i = 0; i < n; ++i) {
+                    t1 = getParameter(i)->getType();
+                    t2 = other->getParameter(i)->getType();
 
-                if (!t1->equals(t2)) {
-                    return false;
+                    if (!t1->equals(t2)) {
+                        return false;
+                    }
                 }
-            }
 
-            return true;
+                return true;
+            }
         }
     }
 

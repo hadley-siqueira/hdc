@@ -158,6 +158,36 @@ Symbol*SymbolTable::hasLocalVariableOrParameter(const std::string& name) {
     return nullptr;
 }
 
+Symbol* SymbolTable::hasLocalFunction(Def *def) {
+    Symbol* symbol;
+    SymbolKind kind;
+    Def* f;
+    std::string name = def->getName();
+
+    if (symbols.count(name) > 0) {
+        symbol = symbols[name];
+        kind = symbol->getKind();
+
+        if (kind == SYMBOL_DEF) {
+            f = (Def*) symbol->getDescriptor();
+
+            if (def->sameSignature(f)) {
+                return symbol;
+            }
+
+            for (int i = 0; i < symbol->n_overloaded(); ++i) {
+                f = (Def*) symbol->getOverloadedDescriptor(i);
+
+                if (def->sameSignature(f)) {
+                    return symbol;
+                }
+            }
+        }
+    }
+
+    return nullptr;
+}
+
 Symbol* SymbolTable::hasClassVariable(std::string& name) {
     if (symbols.count(name) > 0) {
         Symbol* symbol = symbols[name];

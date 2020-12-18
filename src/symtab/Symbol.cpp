@@ -103,6 +103,18 @@ Type *Symbol::getType() {
     return nullptr;
 }
 
+int Symbol::n_overloaded() {
+    return overloadedDescriptors.size();
+}
+
+void *Symbol::getOverloadedDescriptor(int i){
+    if (i < overloadedDescriptors.size()) {
+        return overloadedDescriptors[i];
+    }
+
+    return nullptr;
+}
+
 SymbolKind Symbol::getKind() const {
     return kind;
 }
