@@ -29,6 +29,9 @@ cmake ..
 make
 ```
 
+Examples of code can be found at the samples folder. Note, however, that
+they are just example of code. Many of them are not running yet.
+
 ## The language
 
 The programming language is named Haard. The name is a play of the 
