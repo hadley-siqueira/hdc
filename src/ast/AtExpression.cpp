@@ -4,15 +4,15 @@ using namespace hdc;
 
 /* Constructors */
 AtExpression::AtExpression() {
-    /* Empty */
+    setKind(AST_AT);
 }
 
 AtExpression::AtExpression(Expression* expression) : UnaryOperator(expression) {
-    /* Empty */
+    setKind(AST_AT);
 }
 
 AtExpression::AtExpression(Token& oper, Expression* expression) : UnaryOperator(oper, expression) {
-    /* Empty */
+    setKind(AST_AT);
 }
 
 /* Destructors */

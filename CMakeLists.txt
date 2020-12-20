@@ -111,7 +111,6 @@ set(AST_SRC
     src/ast/GreaterThanExpression.cpp
     src/ast/LiteralDoubleExpression.cpp
     src/ast/ModuloAssignmentExpression.cpp
-    src/ast/SizeofExpression.cpp
     src/ast/UnaryPlusExpression.cpp
     src/ast/Statement.cpp
     src/ast/CompoundStatement.cpp

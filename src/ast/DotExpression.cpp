@@ -4,15 +4,15 @@ using namespace hdc;
 
 /* Constructors */
 DotExpression::DotExpression() {
-    /* Empty */
+    setKind(AST_DOT);
 }
 
 DotExpression::DotExpression(Expression* left, Expression* right) : BinaryOperator(left, right) {
-    /* Empty */
+    setKind(AST_DOT);
 }
 
 DotExpression::DotExpression(Token& oper, Expression* left, Expression* right) : BinaryOperator(oper, left, right) {
-    /* Empty */
+    setKind(AST_DOT);
 }
 
 /* Destructors */

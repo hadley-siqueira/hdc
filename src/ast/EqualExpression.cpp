@@ -4,15 +4,15 @@ using namespace hdc;
 
 /* Constructors */
 EqualExpression::EqualExpression() {
-    /* Empty */
+    setKind(AST_EQ);
 }
 
 EqualExpression::EqualExpression(Expression* left, Expression* right) : BinaryOperator(left, right) {
-    /* Empty */
+    setKind(AST_EQ);
 }
 
 EqualExpression::EqualExpression(Token& oper, Expression* left, Expression* right) : BinaryOperator(oper, left, right) {
-    /* Empty */
+    setKind(AST_EQ);
 }
 
 /* Destructors */

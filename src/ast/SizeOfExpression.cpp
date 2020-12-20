@@ -4,15 +4,15 @@ using namespace hdc;
 
 /* Constructors */
 SizeOfExpression::SizeOfExpression() {
-    /* Empty */
+    setKind(AST_SIZEOF);
 }
 
 SizeOfExpression::SizeOfExpression(Expression* expression) : UnaryOperator(expression) {
-    /* Empty */
+    setKind(AST_SIZEOF);
 }
 
 SizeOfExpression::SizeOfExpression(Token& oper, Expression* expression) : UnaryOperator(oper, expression) {
-    /* Empty */
+    setKind(AST_SIZEOF);
 }
 
 /* Destructors */

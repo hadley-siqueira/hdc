@@ -4,15 +4,15 @@ using namespace hdc;
 
 /* Constructors */
 TimesAssignmentExpression::TimesAssignmentExpression() {
-    /* Empty */
+    setKind(AST_TIMES_ASSIGNMENT);
 }
 
 TimesAssignmentExpression::TimesAssignmentExpression(Expression* left, Expression* right) : BinaryOperator(left, right) {
-    /* Empty */
+    setKind(AST_TIMES_ASSIGNMENT);
 }
 
 TimesAssignmentExpression::TimesAssignmentExpression(Token& oper, Expression* left, Expression* right) : BinaryOperator(oper, left, right) {
-    /* Empty */
+    setKind(AST_TIMES_ASSIGNMENT);
 }
 
 /* Destructors */

@@ -4,15 +4,15 @@ using namespace hdc;
 
 /* Constructors */
 ModuloExpression::ModuloExpression() {
-    /* Empty */
+    setKind(AST_MODULO);
 }
 
 ModuloExpression::ModuloExpression(Expression* left, Expression* right) : BinaryOperator(left, right) {
-    /* Empty */
+    setKind(AST_MODULO);
 }
 
 ModuloExpression::ModuloExpression(Token& oper, Expression* left, Expression* right) : BinaryOperator(oper, left, right) {
-    /* Empty */
+    setKind(AST_MODULO);
 }
 
 /* Destructors */

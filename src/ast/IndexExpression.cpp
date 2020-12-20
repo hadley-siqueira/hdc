@@ -4,15 +4,15 @@ using namespace hdc;
 
 /* Constructors */
 IndexExpression::IndexExpression() {
-    /* Empty */
+    setKind(AST_INDEX);
 }
 
 IndexExpression::IndexExpression(Expression* left, Expression* right) : BinaryOperator(left, right) {
-    /* Empty */
+    setKind(AST_INDEX);
 }
 
 IndexExpression::IndexExpression(Token& oper, Expression* left, Expression* right) : BinaryOperator(oper, left, right) {
-    /* Empty */
+    setKind(AST_INDEX);
 }
 
 /* Destructors */

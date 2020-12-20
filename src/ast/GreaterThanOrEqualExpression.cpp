@@ -4,15 +4,15 @@ using namespace hdc;
 
 /* Constructors */
 GreaterThanOrEqualExpression::GreaterThanOrEqualExpression() {
-    /* Empty */
+    setKind(AST_GE);
 }
 
 GreaterThanOrEqualExpression::GreaterThanOrEqualExpression(Expression* left, Expression* right) : BinaryOperator(left, right) {
-    /* Empty */
+    setKind(AST_GE);
 }
 
 GreaterThanOrEqualExpression::GreaterThanOrEqualExpression(Token& oper, Expression* left, Expression* right) : BinaryOperator(oper, left, right) {
-    /* Empty */
+    setKind(AST_GE);
 }
 
 /* Destructors */

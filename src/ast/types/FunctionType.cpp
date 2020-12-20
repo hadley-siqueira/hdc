@@ -3,7 +3,7 @@
 using namespace hdc;
 
 FunctionType::FunctionType() {
-
+    setKind(AST_FUNCTION_TYPE);
 }
 
 FunctionType::~FunctionType() {

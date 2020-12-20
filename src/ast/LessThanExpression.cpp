@@ -4,15 +4,15 @@ using namespace hdc;
 
 /* Constructors */
 LessThanExpression::LessThanExpression() {
-    /* Empty */
+    setKind(AST_LT);
 }
 
 LessThanExpression::LessThanExpression(Expression* left, Expression* right) : BinaryOperator(left, right) {
-    /* Empty */
+    setKind(AST_LT);
 }
 
 LessThanExpression::LessThanExpression(Token& oper, Expression* left, Expression* right) : BinaryOperator(oper, left, right) {
-    /* Empty */
+    setKind(AST_LT);
 }
 
 /* Destructors */

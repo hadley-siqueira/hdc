@@ -2,6 +2,10 @@
 
 using namespace hdc;
 
+CompoundStatement::CompoundStatement() {
+    setKind(AST_COMPOUND_STATEMENT);
+}
+
 CompoundStatement::~CompoundStatement() {
     for (int i = 0; i < statements.size(); ++i) {
         delete statements[i];

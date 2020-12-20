@@ -4,15 +4,15 @@ using namespace hdc;
 
 /* Constructors */
 PlusExpression::PlusExpression() {
-    /* Empty */
+    setKind(AST_PLUS);
 }
 
 PlusExpression::PlusExpression(Expression* left, Expression* right) : BinaryOperator(left, right) {
-    /* Empty */
+    setKind(AST_PLUS);
 }
 
 PlusExpression::PlusExpression(Token& oper, Expression* left, Expression* right) : BinaryOperator(oper, left, right) {
-    /* Empty */
+    setKind(AST_PLUS);
 }
 
 /* Destructors */

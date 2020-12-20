@@ -6,11 +6,13 @@ using namespace hdc;
 
 Parameter::Parameter() {
     this->type = nullptr;
+    setKind(AST_PARAMETER);
 }
 
 Parameter::Parameter(Token& name, Type* type) {
     this->token = name;
     this->type = type;
+    setKind(AST_PARAMETER);
 }
 
 Parameter::~Parameter() {

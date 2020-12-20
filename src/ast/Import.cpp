@@ -5,6 +5,11 @@
 
 using namespace hdc;
 
+Import::Import() {
+    sourceFile = nullptr;
+    setKind(AST_IMPORT);
+}
+
 bool Import::hasAlias() {
     return alias.getLexem().size() > 0;
 }

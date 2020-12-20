@@ -4,11 +4,12 @@ using namespace hdc;
 
 /* Constructors */
 LiteralSymbolExpression::LiteralSymbolExpression() {
-
+    setKind(AST_LITERAL_SYMBOL);
 }
 
 LiteralSymbolExpression::LiteralSymbolExpression(Token token) {
     this->token = token;
+    setKind(AST_LITERAL_SYMBOL);
 }
 
 /* Destructors */

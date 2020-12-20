@@ -12,29 +12,32 @@ namespace hdc {
     class SourceFile;
 
     class Import : public ASTNode {
-        public:
-            bool hasAlias();
-            void add(hdc::Token& token);
-            void set_alias(hdc::Token& token);
-            std::string str();
-            bool isMultipleImport();
+    public:
+        Import();
 
-        public:
-            virtual void accept(Visitor* visitor);
+    public:
+        bool hasAlias();
+        void add(hdc::Token& token);
+        void set_alias(hdc::Token& token);
+        std::string str();
+        bool isMultipleImport();
 
-            SourceFile* getSourceFile() const;
-            void setSourceFile(SourceFile* value);
+    public:
+        virtual void accept(Visitor* visitor);
 
-            std::vector<hdc::Token> getPath() const;
-            void setPath(const std::vector<hdc::Token>& value);
+        SourceFile* getSourceFile() const;
+        void setSourceFile(SourceFile* value);
 
-            void addSourceFile(SourceFile* file);
+        std::vector<hdc::Token> getPath() const;
+        void setPath(const std::vector<hdc::Token>& value);
 
-        private:
-            std::vector<hdc::Token> path;
-            hdc::Token alias;
-            SourceFile* sourceFile;
-            std::vector<SourceFile*> sourceFiles; // for multiple import
+        void addSourceFile(SourceFile* file);
+
+    private:
+        std::vector<hdc::Token> path;
+        hdc::Token alias;
+        SourceFile* sourceFile;
+        std::vector<SourceFile*> sourceFiles; // for multiple import
     };
 }
 

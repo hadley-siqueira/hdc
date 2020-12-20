@@ -6,16 +6,19 @@ using namespace hdc;
 
 ClassVariable::ClassVariable() {
     this->type = nullptr;
+    setKind(AST_CLASS_VARIABLE);
 }
 
 ClassVariable::ClassVariable(Token& token) {
     this->token = token;
     this->type = nullptr;
+    setKind(AST_CLASS_VARIABLE);
 }
 
 ClassVariable::ClassVariable(Token& token, Type* type) {
     this->token = token;
     this->type = type;
+    setKind(AST_CLASS_VARIABLE);
 }
 
 std::string ClassVariable::getUniqueCppName() {

@@ -4,15 +4,15 @@ using namespace hdc;
 
 /* Constructors */
 ShiftRightArithmeticExpression::ShiftRightArithmeticExpression() {
-    /* Empty */
+    setKind(AST_SRA);
 }
 
 ShiftRightArithmeticExpression::ShiftRightArithmeticExpression(Expression* left, Expression* right) : BinaryOperator(left, right) {
-    /* Empty */
+    setKind(AST_SRA);
 }
 
 ShiftRightArithmeticExpression::ShiftRightArithmeticExpression(Token& oper, Expression* left, Expression* right) : BinaryOperator(oper, left, right) {
-    /* Empty */
+    setKind(AST_SRA);
 }
 
 /* Destructors */

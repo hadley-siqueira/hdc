@@ -4,15 +4,15 @@ using namespace hdc;
 
 /* Constructors */
 BitwiseAndExpression::BitwiseAndExpression() {
-    /* Empty */
+    setKind(AST_BITWISE_AND);
 }
 
 BitwiseAndExpression::BitwiseAndExpression(Expression* left, Expression* right) : BinaryOperator(left, right) {
-    /* Empty */
+    setKind(AST_BITWISE_AND);
 }
 
 BitwiseAndExpression::BitwiseAndExpression(Token& oper, Expression* left, Expression* right) : BinaryOperator(oper, left, right) {
-    /* Empty */
+    setKind(AST_BITWISE_AND);
 }
 
 /* Destructors */

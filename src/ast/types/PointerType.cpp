@@ -11,6 +11,7 @@ PointerType::PointerType() {
 
 PointerType::PointerType(Type* type) {
     this->subtype = type;
+    this->kind = AST_POINTER_TYPE;
 }
 
 

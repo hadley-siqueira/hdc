@@ -8,6 +8,7 @@ IfStatement::IfStatement(Expression* expression, CompoundStatement* statements) 
     this->elifStatement = nullptr;
     this->elseStatement = nullptr;
     this->symbolTable = nullptr;
+    setKind(AST_IF);
 }
 
 IfStatement::IfStatement(Expression* expression, CompoundStatement* statements, ElifStatement* elifStatement) {
@@ -16,6 +17,7 @@ IfStatement::IfStatement(Expression* expression, CompoundStatement* statements, 
     this->elifStatement = elifStatement;
     this->elseStatement = nullptr;
     this->symbolTable = nullptr;
+    setKind(AST_IF);
 }
 
 IfStatement::IfStatement(Expression* expression, CompoundStatement* statements, ElseStatement* elseStatement) {
@@ -24,6 +26,7 @@ IfStatement::IfStatement(Expression* expression, CompoundStatement* statements, 
     this->elifStatement = nullptr;
     this->elseStatement = elseStatement;
     this->symbolTable = nullptr;
+    setKind(AST_IF);
 }
 
 IfStatement::~IfStatement() {

@@ -4,11 +4,13 @@ using namespace hdc;
 
 SourceFile::SourceFile() {
     this->symbolTable = nullptr;
+    setKind(AST_SOURCE);
 }
 
 SourceFile::SourceFile(std::string& path) {
     this->path = path;
     this->symbolTable = nullptr;
+    setKind(AST_SOURCE);
 }
 
 SourceFile::~SourceFile() {

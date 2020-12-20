@@ -4,15 +4,15 @@ using namespace hdc;
 
 /* Constructors */
 DereferenceExpression::DereferenceExpression() {
-    /* Empty */
+    setKind(AST_DEREFERENCE);
 }
 
 DereferenceExpression::DereferenceExpression(Expression* expression) : UnaryOperator(expression) {
-    /* Empty */
+    setKind(AST_DEREFERENCE);
 }
 
 DereferenceExpression::DereferenceExpression(Token& oper, Expression* expression) : UnaryOperator(oper, expression) {
-    /* Empty */
+    setKind(AST_DEREFERENCE);
 }
 
 /* Destructors */

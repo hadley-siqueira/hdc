@@ -4,15 +4,15 @@ using namespace hdc;
 
 /* Constructors */
 NotEqualExpression::NotEqualExpression() {
-    /* Empty */
+    setKind(AST_NE);
 }
 
 NotEqualExpression::NotEqualExpression(Expression* left, Expression* right) : BinaryOperator(left, right) {
-    /* Empty */
+    setKind(AST_NE);
 }
 
 NotEqualExpression::NotEqualExpression(Token& oper, Expression* left, Expression* right) : BinaryOperator(oper, left, right) {
-    /* Empty */
+    setKind(AST_NE);
 }
 
 /* Destructors */

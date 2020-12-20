@@ -4,15 +4,15 @@ using namespace hdc;
 
 /* Constructors */
 AddressOfExpression::AddressOfExpression() {
-    /* Empty */
+    setKind(AST_ADDRESS_OF);
 }
 
 AddressOfExpression::AddressOfExpression(Expression* expression) : UnaryOperator(expression) {
-    /* Empty */
+    setKind(AST_ADDRESS_OF);
 }
 
 AddressOfExpression::AddressOfExpression(Token& oper, Expression* expression) : UnaryOperator(oper, expression) {
-    /* Empty */
+    setKind(AST_ADDRESS_OF);
 }
 
 /* Destructors */

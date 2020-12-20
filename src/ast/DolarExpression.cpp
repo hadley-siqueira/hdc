@@ -4,15 +4,15 @@ using namespace hdc;
 
 /* Constructors */
 DolarExpression::DolarExpression() {
-    /* Empty */
+    setKind(AST_DOLAR);
 }
 
 DolarExpression::DolarExpression(Expression* expression) : UnaryOperator(expression) {
-    /* Empty */
+    setKind(AST_DOLAR);
 }
 
 DolarExpression::DolarExpression(Token& oper, Expression* expression) : UnaryOperator(oper, expression) {
-    /* Empty */
+    setKind(AST_DOLAR);
 }
 
 /* Destructors */

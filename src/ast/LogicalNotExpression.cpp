@@ -4,15 +4,15 @@ using namespace hdc;
 
 /* Constructors */
 LogicalNotExpression::LogicalNotExpression() {
-    /* Empty */
+    setKind(AST_LOGICAL_NOT);
 }
 
 LogicalNotExpression::LogicalNotExpression(Expression* expression) : UnaryOperator(expression) {
-    /* Empty */
+    setKind(AST_LOGICAL_NOT);
 }
 
 LogicalNotExpression::LogicalNotExpression(Token& oper, Expression* expression) : UnaryOperator(oper, expression) {
-    /* Empty */
+    setKind(AST_LOGICAL_NOT);
 }
 
 /* Destructors */

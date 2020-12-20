@@ -4,11 +4,12 @@ using namespace hdc;
 
 /* Constructors */
 LiteralFloatExpression::LiteralFloatExpression() {
-
+    setKind(AST_LITERAL_FLOAT);
 }
 
 LiteralFloatExpression::LiteralFloatExpression(Token token) {
     this->token = token;
+    setKind(AST_LITERAL_FLOAT);
 }
 
 /* Destructors */

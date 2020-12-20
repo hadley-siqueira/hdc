@@ -4,11 +4,12 @@ using namespace hdc;
 
 /* Constructors */
 LiteralDoubleExpression::LiteralDoubleExpression() {
-
+    setKind(AST_LITERAL_DOUBLE);
 }
 
 LiteralDoubleExpression::LiteralDoubleExpression(Token token) {
     this->token = token;
+    setKind(AST_LITERAL_DOUBLE);
 }
 
 /* Destructors */

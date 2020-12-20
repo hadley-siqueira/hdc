@@ -4,11 +4,12 @@ using namespace hdc;
 
 /* Constructors */
 LiteralStringExpression::LiteralStringExpression() {
-
+    setKind(AST_LITERAL_STRING);
 }
 
 LiteralStringExpression::LiteralStringExpression(Token token) {
     this->token = token;
+    setKind(AST_LITERAL_STRING);
 }
 
 /* Destructors */

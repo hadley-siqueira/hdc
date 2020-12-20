@@ -6,6 +6,7 @@ hdc::GlobalVariable::GlobalVariable() {
     this->type = nullptr;
     this->expression = nullptr;
     this->isConstant = false;
+    setKind(AST_GLOBAL_VARIABLE);
 }
 
 hdc::GlobalVariable::GlobalVariable(hdc::Token& token) {
@@ -13,6 +14,7 @@ hdc::GlobalVariable::GlobalVariable(hdc::Token& token) {
     this->type = nullptr;
     this->expression = nullptr;
     this->isConstant = false;
+    setKind(AST_GLOBAL_VARIABLE);
 }
 
 hdc::GlobalVariable::GlobalVariable(hdc::Token& token, hdc::Type* type) {
@@ -20,6 +22,7 @@ hdc::GlobalVariable::GlobalVariable(hdc::Token& token, hdc::Type* type) {
     this->type = type;
     this->expression = nullptr;
     this->isConstant = false;
+    setKind(AST_GLOBAL_VARIABLE);
 }
 
 hdc::GlobalVariable::GlobalVariable(hdc::Token& token, hdc::Type* type, hdc::Expression* expression) {
@@ -27,6 +30,7 @@ hdc::GlobalVariable::GlobalVariable(hdc::Token& token, hdc::Type* type, hdc::Exp
     this->type = type;
     this->expression = expression;
     this->isConstant = false;
+    setKind(AST_GLOBAL_VARIABLE);
 }
 
 hdc::GlobalVariable::GlobalVariable(hdc::Token& token, hdc::Expression* expression) {
@@ -34,6 +38,7 @@ hdc::GlobalVariable::GlobalVariable(hdc::Token& token, hdc::Expression* expressi
     this->type = nullptr;
     this->expression = expression;
     this->isConstant = false;
+    setKind(AST_GLOBAL_VARIABLE);
 }
 
 GlobalVariable::~GlobalVariable() {

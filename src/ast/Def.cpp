@@ -15,6 +15,8 @@ Def::Def() {
     selfType = nullptr;
     id = 0;
     globald = 0;
+
+    setKind(AST_DEF);
 }
 
 Def::~Def() {

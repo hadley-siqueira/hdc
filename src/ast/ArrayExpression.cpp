@@ -3,7 +3,7 @@
 using namespace hdc;
 
 ArrayExpression::ArrayExpression() {
-
+    setKind(AST_ARRAY_EXPRESSION);
 }
 
 ArrayExpression::~ArrayExpression() {

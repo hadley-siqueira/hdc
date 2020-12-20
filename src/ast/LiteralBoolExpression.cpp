@@ -4,11 +4,12 @@ using namespace hdc;
 
 /* Constructors */
 LiteralBoolExpression::LiteralBoolExpression() {
-
+    setKind(AST_LITERAL_BOOL);
 }
 
 LiteralBoolExpression::LiteralBoolExpression(Token token) {
     this->token = token;
+    setKind(AST_LITERAL_BOOL);
 }
 
 /* Destructors */

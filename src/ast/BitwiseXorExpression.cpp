@@ -4,15 +4,15 @@ using namespace hdc;
 
 /* Constructors */
 BitwiseXorExpression::BitwiseXorExpression() {
-    /* Empty */
+    setKind(AST_BITWISE_XOR);
 }
 
 BitwiseXorExpression::BitwiseXorExpression(Expression* left, Expression* right) : BinaryOperator(left, right) {
-    /* Empty */
+    setKind(AST_BITWISE_XOR);
 }
 
 BitwiseXorExpression::BitwiseXorExpression(Token& oper, Expression* left, Expression* right) : BinaryOperator(oper, left, right) {
-    /* Empty */
+    setKind(AST_BITWISE_XOR);
 }
 
 /* Destructors */

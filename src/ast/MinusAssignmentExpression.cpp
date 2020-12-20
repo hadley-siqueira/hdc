@@ -4,15 +4,15 @@ using namespace hdc;
 
 /* Constructors */
 MinusAssignmentExpression::MinusAssignmentExpression() {
-    /* Empty */
+    setKind(AST_MINUS_ASSIGNMENT);
 }
 
 MinusAssignmentExpression::MinusAssignmentExpression(Expression* left, Expression* right) : BinaryOperator(left, right) {
-    /* Empty */
+    setKind(AST_MINUS_ASSIGNMENT);
 }
 
 MinusAssignmentExpression::MinusAssignmentExpression(Token& oper, Expression* left, Expression* right) : BinaryOperator(oper, left, right) {
-    /* Empty */
+    setKind(AST_MINUS_ASSIGNMENT);
 }
 
 /* Destructors */

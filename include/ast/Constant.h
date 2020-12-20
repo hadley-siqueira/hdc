@@ -9,41 +9,44 @@ namespace hdc {
     class Expression;
 
     class Constant : public ASTNode {
-        /* Visitors */
-        public:
-            virtual void accept(Visitor* visitor)=0;
+    public:
+        Constant();
 
-            Type* getType() const;
-            void setType(Type* value);
+    /* Visitors */
+    public:
+        virtual void accept(Visitor* visitor)=0;
 
-            int getOffset() const;
-            void setOffset(int value);
+        Type* getType() const;
+        void setType(Type* value);
 
-            std::string getName();
+        int getOffset() const;
+        void setOffset(int value);
 
-            int getLocalName() const;
-            void setLocalName(int value);
+        std::string getName();
 
-            unsigned long long getGlobalName() const;
-            void setGlobalName(unsigned long long value);
+        int getLocalName() const;
+        void setLocalName(int value);
 
-            bool getIsConstant() const;
-            void setIsConstant(bool value);
+        unsigned long long getGlobalName() const;
+        void setGlobalName(unsigned long long value);
 
-            int getLine();
-            int getColumn();
+        bool getIsConstant() const;
+        void setIsConstant(bool value);
 
-            Expression* getExpression() const;
-            void setExpression(Expression* value);
+        int getLine();
+        int getColumn();
 
-        protected:
-            Token token;
-            Type* type;
-            int offset;
-            int localName;
-            bool isConstant;
-            unsigned long long globalName;
-            Expression* expression;
+        Expression* getExpression() const;
+        void setExpression(Expression* value);
+
+    protected:
+        Token token;
+        Type* type;
+        int offset;
+        int localName;
+        bool isConstant;
+        unsigned long long globalName;
+        Expression* expression;
     };
 }
 

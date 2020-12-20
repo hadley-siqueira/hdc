@@ -15,6 +15,8 @@ Class::Class() {
     file = nullptr;
     selfType = nullptr;
     destructor = nullptr;
+
+    setKind(AST_CLASS);
 }
 
 /* Destructors */

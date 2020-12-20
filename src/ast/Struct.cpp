@@ -6,6 +6,7 @@ Struct::Struct() {
     superStruct = nullptr;
     file = nullptr;
     symbolTable = nullptr;
+    setKind(AST_STRUCT);
 }
 
 Struct::~Struct() {

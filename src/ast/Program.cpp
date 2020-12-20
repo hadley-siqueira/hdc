@@ -5,6 +5,7 @@ using namespace hdc;
 Program::Program() {
     functionCounter = 0;
     classCounter = 0;
+    setKind(AST_PROGRAM);
 }
 
 Program::~Program() {

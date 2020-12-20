@@ -3,7 +3,7 @@
 using namespace hdc;
 
 ListExpression::ListExpression() {
-
+    setKind(AST_LIST_EXPRESSION);
 }
 
 ListExpression::~ListExpression() {

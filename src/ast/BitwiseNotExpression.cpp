@@ -4,15 +4,15 @@ using namespace hdc;
 
 /* Constructors */
 BitwiseNotExpression::BitwiseNotExpression() {
-    /* Empty */
+    setKind(AST_BITWISE_NOT);
 }
 
 BitwiseNotExpression::BitwiseNotExpression(Expression* expression) : UnaryOperator(expression) {
-    /* Empty */
+    setKind(AST_BITWISE_NOT);
 }
 
 BitwiseNotExpression::BitwiseNotExpression(Token& oper, Expression* expression) : UnaryOperator(oper, expression) {
-    /* Empty */
+    setKind(AST_BITWISE_NOT);
 }
 
 /* Destructors */

@@ -4,16 +4,19 @@ using namespace hdc;
 
 ReturnStatement::ReturnStatement() {
     expression = nullptr;
+    setKind(AST_RETURN);
 }
 
 ReturnStatement::ReturnStatement(Token& token) {
     this->token = token;
     this->expression = nullptr;
+    setKind(AST_RETURN);
 }
 
 ReturnStatement::ReturnStatement(Token& token, Expression* expression) {
     this->token = token;
     this->expression = expression;
+    setKind(AST_RETURN);
 }
 
 ReturnStatement::~ReturnStatement() {

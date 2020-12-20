@@ -4,15 +4,15 @@ using namespace hdc;
 
 /* Constructors */
 SraAssignmentExpression::SraAssignmentExpression() {
-    /* Empty */
+    setKind(AST_SRA_ASSIGNMENT);
 }
 
 SraAssignmentExpression::SraAssignmentExpression(Expression* left, Expression* right) : BinaryOperator(left, right) {
-    /* Empty */
+    setKind(AST_SRA_ASSIGNMENT);
 }
 
 SraAssignmentExpression::SraAssignmentExpression(Token& oper, Expression* left, Expression* right) : BinaryOperator(oper, left, right) {
-    /* Empty */
+    setKind(AST_SRA_ASSIGNMENT);
 }
 
 /* Destructors */

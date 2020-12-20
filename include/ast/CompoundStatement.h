@@ -7,23 +7,25 @@
 
 namespace hdc {
     class CompoundStatement : public Statement {
-        private:
-            std::vector<Statement*> statements;
+    public:
+        CompoundStatement();
 
-        public:
-            virtual ~CompoundStatement();
+    public:
+        virtual ~CompoundStatement();
 
-        public:
-            void addStatement(Statement* statement);
+    public:
+        void addStatement(Statement* statement);
+        int n_statements();
 
-            int n_statements();
+    /* Getters */
+    public:
+        Statement* getStatement(int i);
 
-        /* Getters */
-        public:
-            Statement* getStatement(int i);
+    public:
+        virtual void accept(Visitor* visitor);
 
-        public:
-            virtual void accept(Visitor* visitor);
+    private:
+        std::vector<Statement*> statements;
     };
 }
 

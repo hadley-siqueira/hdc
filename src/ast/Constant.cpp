@@ -2,6 +2,12 @@
 
 using namespace hdc;
 
+Constant::Constant() {
+    setKind(AST_CONSTANT);
+    type = nullptr;
+    expression = nullptr;
+}
+
 Type* Constant::getType() const {
     return type;
 }

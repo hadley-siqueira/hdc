@@ -4,15 +4,15 @@ using namespace hdc;
 
 /* Constructors */
 ParenthesisExpression::ParenthesisExpression() {
-    /* Empty */
+    setKind(AST_PARENTHESIS);
 }
 
 ParenthesisExpression::ParenthesisExpression(Expression* expression) : UnaryOperator(expression) {
-    /* Empty */
+    setKind(AST_PARENTHESIS);
 }
 
 ParenthesisExpression::ParenthesisExpression(Token& oper, Expression* expression) : UnaryOperator(oper, expression) {
-    /* Empty */
+    setKind(AST_PARENTHESIS);
 }
 
 /* Destructors */

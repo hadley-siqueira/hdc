@@ -4,6 +4,7 @@ using namespace hdc;
 
 ElseStatement::ElseStatement(CompoundStatement* statements) {
     this->statements = statements;
+    setKind(AST_ELSE);
 }
 
 ElseStatement::~ElseStatement() {

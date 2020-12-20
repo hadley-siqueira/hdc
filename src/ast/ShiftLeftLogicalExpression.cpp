@@ -4,15 +4,15 @@ using namespace hdc;
 
 /* Constructors */
 ShiftLeftLogicalExpression::ShiftLeftLogicalExpression() {
-    /* Empty */
+    setKind(AST_SLL);
 }
 
 ShiftLeftLogicalExpression::ShiftLeftLogicalExpression(Expression* left, Expression* right) : BinaryOperator(left, right) {
-    /* Empty */
+    setKind(AST_SLL);
 }
 
 ShiftLeftLogicalExpression::ShiftLeftLogicalExpression(Token& oper, Expression* left, Expression* right) : BinaryOperator(oper, left, right) {
-    /* Empty */
+    setKind(AST_SLL);
 }
 
 /* Destructors */

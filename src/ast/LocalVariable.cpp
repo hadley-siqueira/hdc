@@ -6,11 +6,13 @@ using namespace hdc;
 
 LocalVariable::LocalVariable() {
     this->type = nullptr;
+    setKind(AST_LOCAL_VARIABLE);
 }
 
 LocalVariable::LocalVariable(Token& token) {
     this->token = token;
     this->type = nullptr;
+    setKind(AST_LOCAL_VARIABLE);
 }
 
 std::string LocalVariable::getUniqueCppName() {

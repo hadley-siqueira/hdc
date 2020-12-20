@@ -4,15 +4,15 @@ using namespace hdc;
 
 /* Constructors */
 PreIncrementExpression::PreIncrementExpression() {
-    /* Empty */
+    setKind(AST_PRE_INCREMENT);
 }
 
 PreIncrementExpression::PreIncrementExpression(Expression* expression) : UnaryOperator(expression) {
-    /* Empty */
+    setKind(AST_PRE_INCREMENT);
 }
 
 PreIncrementExpression::PreIncrementExpression(Token& oper, Expression* expression) : UnaryOperator(oper, expression) {
-    /* Empty */
+    setKind(AST_PRE_INCREMENT);
 }
 
 /* Destructors */

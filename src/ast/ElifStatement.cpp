@@ -8,6 +8,7 @@ hdc::ElifStatement::ElifStatement(hdc::Expression* expression, hdc::CompoundStat
     this->elifStatement = nullptr;
     this->elseStatement = nullptr;
     this->symbolTable = nullptr;
+    setKind(AST_ELIF);
 }
 
 hdc::ElifStatement::ElifStatement(hdc::Expression* expression, hdc::CompoundStatement* statements, hdc::ElifStatement* elifStatement) {
@@ -16,6 +17,7 @@ hdc::ElifStatement::ElifStatement(hdc::Expression* expression, hdc::CompoundStat
     this->elifStatement = elifStatement;
     this->elseStatement = nullptr;
     this->symbolTable = nullptr;
+    setKind(AST_ELIF);
 }
 
 hdc::ElifStatement::ElifStatement(hdc::Expression* expression, hdc::CompoundStatement* statements, hdc::ElseStatement* elseStatement) {
@@ -24,6 +26,7 @@ hdc::ElifStatement::ElifStatement(hdc::Expression* expression, hdc::CompoundStat
     this->elifStatement = nullptr;
     this->elseStatement = elseStatement;
     this->symbolTable = nullptr;
+    setKind(AST_ELIF);
 }
 
 ElifStatement::~ElifStatement() {

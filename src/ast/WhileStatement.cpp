@@ -5,12 +5,14 @@ using namespace hdc;
 WhileStatement::WhileStatement() {
     expression = nullptr;
     statements = nullptr;
+    setKind(AST_WHILE);
 }
 
 
 WhileStatement::WhileStatement(Expression* expression, CompoundStatement* statements) {
     this->expression = expression;
     this->statements = statements;
+    setKind(AST_WHILE);
 }
 
 

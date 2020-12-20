@@ -4,15 +4,15 @@ using namespace hdc;
 
 /* Constructors */
 UnaryPlusExpression::UnaryPlusExpression() {
-    /* Empty */
+    setKind(AST_UNARY_PLUS);
 }
 
 UnaryPlusExpression::UnaryPlusExpression(Expression* expression) : UnaryOperator(expression) {
-    /* Empty */
+    setKind(AST_UNARY_PLUS);
 }
 
 UnaryPlusExpression::UnaryPlusExpression(Token& oper, Expression* expression) : UnaryOperator(oper, expression) {
-    /* Empty */
+    setKind(AST_UNARY_PLUS);
 }
 
 /* Destructors */
