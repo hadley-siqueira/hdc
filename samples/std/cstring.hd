@@ -1,0 +1,23 @@
+def strlen : int
+    @s : char*
+
+    c = 0
+
+    while *s != '\0':
+        ++c
+        ++s
+
+    return c
+
+def strcpy : char*
+    @dest : char*
+    @src  : char*
+
+    while *src != '\0':
+        *dest = *src
+        ++dest
+        ++src
+
+    *dest = '\0'
+    return dest
+

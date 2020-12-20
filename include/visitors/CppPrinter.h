@@ -149,7 +149,6 @@ namespace hdc {
             void visit(ListExpression* list);
             void visit(ArrayExpression* array);
 
-
             void visit(IdentifierExpression* id);
 
         private:
@@ -160,6 +159,7 @@ namespace hdc {
             void printEnd();
             void checkClassDependencies(Class* klass);
             void checkTypeDefinition(Type* t);
+            bool isConstructorCall(AssignmentExpression* expr);
 
         private:
             void generatePrototypes(SourceFile* file);
@@ -167,12 +167,12 @@ namespace hdc {
             void generatePrototype(Class* klass);
             void generateDefParameters(Def* def);
             void generateDefLocalVariables(Def* def);
+            void generateConstructorCall(AssignmentExpression* expression);
 
         private:
             int n_spaces;
             std::stringstream output;
             bool isExpression;
-            bool prototypeFlag;
             Def* mainDef;
             std::set<SourceFile*> generatedSourceFiles;
             std::set<Class*> generatedClasses;

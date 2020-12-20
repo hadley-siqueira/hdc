@@ -5,17 +5,21 @@ using namespace hdc;
 /* Constructors */
 CallExpression::CallExpression() {
     expression = nullptr;
+
+    setKind(AST_CALL);
 }
 
 CallExpression::CallExpression(Expression* expression, std::vector<Expression*> arguments) {
     this->expression = expression;
     this->arguments = arguments;
+    setKind(AST_CALL);
 }
 
 CallExpression::CallExpression(Token& oper, Expression* expression, std::vector<Expression*> arguments) {
     this->oper = oper;
     this->expression = expression;
     this->arguments = arguments;
+    setKind(AST_CALL);
 }
 
 /* Destructors */

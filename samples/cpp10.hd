@@ -1,0 +1,24 @@
+import std.memory
+import std.cstring
+
+class String:
+    size_ : int
+    chars : char*
+
+    def init : void
+        @chars = null
+
+    def init : void
+        @s : char*
+
+        @size_ = strlen(s)
+        @chars = alloc(@size_ + 1)
+        strcpy(@chars, s)
+
+    def size : int
+        return @size_ # if change to size, it bugs. Fix it
+
+def main : int
+    s = String('Hello, world!')
+
+    return 0

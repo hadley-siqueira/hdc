@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.11.0, 2020-12-18T20:23:31. -->
+<!-- Written by QtCreator 4.11.0, 2020-12-20T00:42:00. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -333,7 +333,7 @@
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">hdc</value>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">CMakeProjectManager.CMakeRunConfiguration.hdc</value>
     <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">hdc</value>
-    <value type="QString" key="RunConfiguration.Arguments">-cpp /home/hadley/Projects/hdc/samples/cpp08.hd</value>
+    <value type="QString" key="RunConfiguration.Arguments">-cpp /home/hadley/Projects/hdc/samples/cpp10.hd</value>
     <value type="bool" key="RunConfiguration.Arguments.multi">false</value>
     <value type="QString" key="RunConfiguration.OverrideDebuggerStartup"></value>
     <value type="bool" key="RunConfiguration.UseCppDebugger">false</value>

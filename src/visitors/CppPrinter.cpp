@@ -6,6 +6,8 @@ using namespace hdc;
 
 CppPrinter::CppPrinter() {
     n_spaces = 0;
+    mainDef = nullptr;
+    isExpression = false;
 }
 
 std::string CppPrinter::print() {
@@ -101,7 +103,7 @@ void hdc::CppPrinter::visit(Class* klass) {
         output << "    }\n";
     }
 
-    output << "    " << klass->getUniqueCppName() << "() {}\n";
+    //output << "    " << klass->getUniqueCppName() << "() {}\n";
 
     if (klass->getDestructor() != nullptr) {
         output << "\n    ~" << klass->getUniqueCppName() << "() {\n";
@@ -692,9 +694,13 @@ void CppPrinter::visit(NotEqualExpression* expression) {
 void CppPrinter::visit(AssignmentExpression* expression) {
     isExpression = true;
 
-    expression->getLeft()->accept(this);
-    output << " = ";
-    expression->getRight()->accept(this);
+    if (isConstructorCall(expression)) {
+        generateConstructorCall(expression);
+    } else {
+        expression->getLeft()->accept(this);
+        output << " = ";
+        expression->getRight()->accept(this);
+    }
 }
 
 void CppPrinter::visit(BitwiseAndAssignmentExpression* expression) {
@@ -960,7 +966,10 @@ void CppPrinter::printStart() {
 
 void CppPrinter::printEnd() {
     output << "int main(int argc, char* argv[]) {\n    ";
-    output << mainDef->getUniqueCppName() << "();\n";
+
+    if (mainDef != nullptr) {
+        output << mainDef->getUniqueCppName() << "();\n";
+    }
     output << "    return 0;\n";
     output << "}\n";
 }
@@ -1018,6 +1027,23 @@ void CppPrinter::checkTypeDefinition(Type *t) {
     }
 }
 
+bool CppPrinter::isConstructorCall(AssignmentExpression *expr) {
+    Expression* right = expr->getRight();
+
+    if (right->getKind() == AST_CALL) {
+        CallExpression* c = (CallExpression*) right;
+
+        if (c->getExpression()->getKind() == AST_IDENTIFIER) {
+            IdentifierExpression* id = (IdentifierExpression*) c->getExpression();
+            Symbol* sym = id->getSymbol();
+
+            return sym->getKind() == SYMBOL_CLASS;
+        }
+    }
+
+    return false;
+}
+
 void CppPrinter::generatePrototypes(SourceFile* file) {
     for (int i = 0; i < file->n_classes(); ++i) {
         generatePrototype(file->getClass(i));
@@ -1068,4 +1094,30 @@ void CppPrinter::generateDefLocalVariables(Def* def) {
     if (flag) {
         output << "\n";
     }
+}
+
+void CppPrinter::generateConstructorCall(AssignmentExpression *expression) {
+    CallExpression* call;
+    IdentifierExpression* id;
+    int i = 0;
+
+    expression->getLeft()->accept(this);
+    output << ".m1_init";
+
+    call = (CallExpression*) expression->getRight();
+    id = (IdentifierExpression*) call->getExpression();
+
+    isExpression = true;
+    output << "(";
+
+    if (call->n_arguments() > 0) {
+        for (i = 0; i < call->n_arguments() - 1; ++i) {
+            call->getArgument(i)->accept(this);
+            output << ", ";
+        }
+
+        call->getArgument(i)->accept(this);
+    }
+
+    output << ")";
 }

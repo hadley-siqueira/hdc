@@ -36,6 +36,7 @@ namespace hdc {
         AST_NAMED_TYPE,
 
         /* operators */
+        AST_CALL,
         AST_PLUS,
         AST_MINUS,
         AST_TIMES
