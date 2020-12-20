@@ -1,9 +1,25 @@
+#include <iostream>
+
 #include "ast/ASTNode.h"
 
-void hdc::ASTNode::setKind(hdc::ASTKind kind) {
+using namespace hdc;
+
+ASTNode::ASTNode() {
+    parentNode = nullptr;
+}
+
+void ASTNode::setKind(hdc::ASTKind kind) {
     this->kind = kind;
 }
 
-hdc::ASTKind hdc::ASTNode::getKind() {
+ASTKind ASTNode::getKind() {
     return kind;
+}
+
+ASTNode *ASTNode::getParentNode() const {
+    return parentNode;
+}
+
+void ASTNode::setParentNode(ASTNode *value) {
+    parentNode = value;
 }

@@ -1,4 +1,4 @@
-#include "ast/ShortType.h"
+#include "ast/types/ShortType.h"
 
 using namespace hdc;
 

@@ -24,7 +24,6 @@ bool Parser::match(TokenKind kind) {
     return false;
 }
 
-
 void Parser::expect(TokenKind kind) {
     Token expected;
 
@@ -756,7 +755,7 @@ Class* Parser::parse_class() {
     name = *matched;
 
     if (match(TK_LEFT_PARENTHESIS)) {
-        klass->setParent(parse_identifier_expression());
+        klass->setSuperClass(parse_identifier_expression());
         expect(TK_RIGHT_PARENTHESIS);
     }
 
@@ -789,7 +788,7 @@ Struct*Parser::parse_struct() {
     s->setName(*matched);
 
     if (match(TK_LEFT_PARENTHESIS)) {
-        s->setParent(parse_identifier_expression());
+        s->setSuperStruct(parse_identifier_expression());
         expect(TK_RIGHT_PARENTHESIS);
     }
 

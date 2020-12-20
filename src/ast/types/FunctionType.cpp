@@ -1,4 +1,4 @@
-#include "ast/FunctionType.h"
+#include "ast/types/FunctionType.h"
 
 using namespace hdc;
 

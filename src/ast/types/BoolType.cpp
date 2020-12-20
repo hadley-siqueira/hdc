@@ -1,4 +1,4 @@
-#include "ast/BoolType.h"
+#include "ast/types/BoolType.h"
 
 using namespace hdc;
 

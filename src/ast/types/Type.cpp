@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "ast/Type.h"
+#include "ast/types/Type.h"
 
 using namespace hdc;
 

@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "ast/PointerType.h"
+#include "ast/types/PointerType.h"
 
 using namespace hdc;
 

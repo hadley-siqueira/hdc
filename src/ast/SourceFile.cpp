@@ -38,15 +38,18 @@ void SourceFile::addImport(Import* import) {
 void SourceFile::addClass(Class* klass) {
     classes.push_back(klass);
     klass->setSourceFile(this);
+    klass->setParentNode(this);
 }
 
 void SourceFile::addStruct(Struct* s) {
     structures.push_back(s);
+    s->setParentNode(this);
 }
 
 void SourceFile::addDef(Def* def) {
     defs.push_back(def);
     def->setFile(this);
+    def->setParentNode(this);
 }
 
 void SourceFile::addGlobalVariable(GlobalVariable* var) {

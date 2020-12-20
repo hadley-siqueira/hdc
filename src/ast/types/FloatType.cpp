@@ -1,4 +1,4 @@
-#include "ast/FloatType.h"
+#include "ast/types/FloatType.h"
 
 using namespace hdc;
 

@@ -1,4 +1,4 @@
-#include "ast/UInt8Type.h"
+#include "ast/types/UInt8Type.h"
 
 using namespace hdc;
 

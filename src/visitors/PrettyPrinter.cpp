@@ -88,9 +88,9 @@ void PrettyPrinter::visit(Import* import) {
 void PrettyPrinter::visit(Class* klass) {
     output << "class " << klass->getName();
 
-    if (klass->hasParent()) {
+    if (klass->hasSuperClass()) {
         output << "(";
-        klass->getParent()->accept(this);
+        klass->getParentNode()->accept(this);
         output << ")";
     }
 
@@ -108,9 +108,9 @@ void PrettyPrinter::visit(Class* klass) {
 void PrettyPrinter::visit(Struct* s) {
     output << "struct " << s->getName();
 
-    if (s->hasParent()) {
+    if (s->hasSuperStruct()) {
         output << "(";
-        s->getParent()->accept(this);
+        s->getSuperStruct()->accept(this);
         output << ")";
     }
 

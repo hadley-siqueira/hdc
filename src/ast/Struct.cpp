@@ -3,13 +3,13 @@
 using namespace hdc;
 
 Struct::Struct() {
-    parent = nullptr;
+    superStruct = nullptr;
     file = nullptr;
     symbolTable = nullptr;
 }
 
 Struct::~Struct() {
-    delete parent;
+    delete superStruct;
     delete file;
     delete symbolTable;
 }
@@ -18,16 +18,16 @@ void Struct::setName(Token& token) {
     this->name = token;
 }
 
-void Struct::setParent(IdentifierExpression* parent) {
-    this->parent = parent;
+void Struct::setSuperStruct(IdentifierExpression* parent) {
+    this->superStruct = parent;
 }
 
 std::string Struct::getName() {
     return name.getLexem();
 }
 
-IdentifierExpression*Struct::getParent() {
-    return this->parent;
+IdentifierExpression*Struct::getSuperStruct() {
+    return this->superStruct;
 }
 
 StructField*Struct::getField(int i) {
@@ -46,8 +46,8 @@ int Struct::getColumn() {
     return name.getColumn();
 }
 
-bool Struct::hasParent() {
-    return parent != nullptr;
+bool Struct::hasSuperStruct() {
+    return superStruct != nullptr;
 }
 
 int Struct::n_fields() {

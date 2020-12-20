@@ -1,4 +1,4 @@
-#include "ast/VoidType.h"
+#include "ast/types/VoidType.h"
 
 using namespace hdc;
 

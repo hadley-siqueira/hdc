@@ -1,4 +1,4 @@
-#include "ast/UInt64Type.h"
+#include "ast/types/UInt64Type.h"
 
 using namespace hdc;
 

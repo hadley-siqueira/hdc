@@ -941,19 +941,6 @@ void CppPrinter::printStart() {
     output << "typedef int16_t i16;\n";
     output << "typedef int32_t i32;\n";
     output << "typedef int64_t i64;\n\n";
-/*
-    output << "void print(char v) { std::cout << v; }\n";
-    output << "void print(int v) { std::cout << v; }\n";
-    output << "void print(float v) { std::cout << v; }\n";
-    output << "void print(double v) { std::cout << v; }\n";
-    output << "void print(char* v) { std::cout << v; }\n";
-
-    output << "void println(char v) { std::cout << v << '\\n'; }\n";
-    output << "void println(int v) { std::cout << v << '\\n'; }\n";
-    output << "void println(float v) { std::cout << v << '\\n'; }\n";
-    output << "void println(double v) { std::cout << v << '\\n'; }\n";
-    output << "void println(char* v) { std::cout << v << '\\n'; }\n";*/
-    output << "\n";
 }
 
 void CppPrinter::printEnd() {

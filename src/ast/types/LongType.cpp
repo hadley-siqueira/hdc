@@ -1,4 +1,4 @@
-#include "ast/LongType.h"
+#include "ast/types/LongType.h"
 
 using namespace hdc;
 

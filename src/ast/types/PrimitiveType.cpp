@@ -1,4 +1,4 @@
-#include "ast/PrimitiveType.h"
+#include "ast/types/PrimitiveType.h"
 
 using namespace hdc;
 

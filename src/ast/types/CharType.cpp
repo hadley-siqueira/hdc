@@ -1,4 +1,4 @@
-#include "ast/CharType.h"
+#include "ast/types/CharType.h"
 
 using namespace hdc;
 

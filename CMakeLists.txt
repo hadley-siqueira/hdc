@@ -9,7 +9,37 @@ set(TOKEN_SRC src/token/Token.cpp)
 set(LEX_SRC src/lex/Lex.cpp)
 set(PARSER_SRC src/parser/Parser.cpp)
 
+set(AST_TYPES_SRC
+    src/ast/types/Type.cpp
+    src/ast/types/Int64Type.cpp
+    src/ast/types/ShortType.cpp
+    src/ast/types/UInt8Type.cpp
+    src/ast/types/BoolType.cpp
+    src/ast/types/SymbolType.cpp
+    src/ast/types/UIntType.cpp
+    src/ast/types/CharType.cpp
+    src/ast/types/Int8Type.cpp
+    src/ast/types/DoubleType.cpp
+    src/ast/types/IntType.cpp
+    src/ast/types/UCharType.cpp
+    src/ast/types/ULongType.cpp
+    src/ast/types/FloatType.cpp
+    src/ast/types/LongType.cpp
+    src/ast/types/UInt16Type.cpp
+    src/ast/types/UShortType.cpp
+    src/ast/types/Int16Type.cpp
+    src/ast/types/PointerType.cpp
+    src/ast/types/UInt32Type.cpp
+    src/ast/types/VoidType.cpp
+    src/ast/types/Int32Type.cpp
+    src/ast/types/PrimitiveType.cpp
+    src/ast/types/UInt64Type.cpp
+    src/ast/types/NamedType.cpp
+    src/ast/types/FunctionType.cpp
+)
+
 set(AST_SRC
+    ${AST_TYPES_SRC}
     src/ast/ASTNode.cpp
     src/ast/Program.cpp
     src/ast/SourceFile.cpp
@@ -83,30 +113,6 @@ set(AST_SRC
     src/ast/ModuloAssignmentExpression.cpp
     src/ast/SizeofExpression.cpp
     src/ast/UnaryPlusExpression.cpp
-    src/ast/BoolType.cpp
-    src/ast/SymbolType.cpp
-    src/ast/UIntType.cpp
-    src/ast/CharType.cpp
-    src/ast/Int8Type.cpp
-    src/ast/Type.cpp
-    src/ast/DoubleType.cpp
-    src/ast/IntType.cpp
-    src/ast/UCharType.cpp
-    src/ast/ULongType.cpp
-    src/ast/FloatType.cpp
-    src/ast/LongType.cpp
-    src/ast/UInt16Type.cpp
-    src/ast/UShortType.cpp
-    src/ast/Int16Type.cpp
-    src/ast/PointerType.cpp
-    src/ast/UInt32Type.cpp
-    src/ast/VoidType.cpp
-    src/ast/Int32Type.cpp
-    src/ast/PrimitiveType.cpp
-    src/ast/UInt64Type.cpp
-    src/ast/Int64Type.cpp
-    src/ast/ShortType.cpp
-    src/ast/UInt8Type.cpp
     src/ast/Statement.cpp
     src/ast/CompoundStatement.cpp
     src/ast/Variable.cpp
@@ -117,8 +123,6 @@ set(AST_SRC
     src/ast/ElseStatement.cpp
     src/ast/ReturnStatement.cpp
     src/ast/ClassVariable.cpp
-    src/ast/NamedType.cpp
-    src/ast/FunctionType.cpp
     src/ast/AtExpression.cpp
     src/ast/GlobalVariable.cpp
     src/ast/Struct.cpp

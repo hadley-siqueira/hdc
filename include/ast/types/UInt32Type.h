@@ -2,7 +2,7 @@
 #define HDC_UINT32_TYPE_H
 
 #include "token/Token.h"
-#include "ast/PrimitiveType.h"
+#include "ast/types/PrimitiveType.h"
 
 namespace hdc {
     class UInt32Type : public PrimitiveType {

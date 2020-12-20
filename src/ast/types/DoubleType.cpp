@@ -1,4 +1,4 @@
-#include "ast/DoubleType.h"
+#include "ast/types/DoubleType.h"
 
 using namespace hdc;
 

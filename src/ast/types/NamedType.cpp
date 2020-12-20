@@ -1,4 +1,4 @@
-#include "ast/NamedType.h"
+#include "ast/types/NamedType.h"
 
 using namespace hdc;
 

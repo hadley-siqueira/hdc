@@ -11,7 +11,7 @@ Class::Class() {
     id = 0;
     globalId = 0;
 
-    parent = nullptr;
+    superClass = nullptr;
     file = nullptr;
     selfType = nullptr;
     destructor = nullptr;
@@ -28,7 +28,7 @@ Class::~Class() {
     }
 
     delete symbolTable;
-    delete parent;
+    delete superClass;
     delete selfType;
 }
 
@@ -37,12 +37,12 @@ void Class::setName(Token& token) {
     name = token;
 }
 
-void Class::setParent(IdentifierExpression* parent) {
-    if (this->parent != nullptr) {
-        delete this->parent;
+void Class::setSuperClass(IdentifierExpression* parent) {
+    if (this->superClass != nullptr) {
+        delete this->superClass;
     }
 
-    this->parent = parent;
+    this->superClass = parent;
 }
 
 /* Getters */
@@ -57,8 +57,8 @@ std::string Class::getUniqueCppName() {
     return s.str();
 }
 
-IdentifierExpression* Class::getParent() {
-    return parent;
+IdentifierExpression* Class::getParentNode() {
+    return superClass;
 }
 
 Def* Class::getMethod(int i) {
@@ -116,8 +116,8 @@ void Class::setSourceFile(SourceFile *s) {
 }
 
 /* Predicates */
-bool Class::hasParent() {
-    return parent != nullptr;
+bool Class::hasSuperClass() {
+    return superClass != nullptr;
 }
 
 int Class::n_methods() {

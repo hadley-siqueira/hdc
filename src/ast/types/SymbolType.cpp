@@ -1,4 +1,4 @@
-#include "ast/SymbolType.h"
+#include "ast/types/SymbolType.h"
 
 using namespace hdc;
 
