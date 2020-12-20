@@ -2,7 +2,7 @@
 #define HDC_PRIMITIVE_TYPE
 
 #include "token/Token.h"
-#include "ast/Type.h"
+#include "ast/types/Type.h"
 
 namespace hdc {
     class PrimitiveType : public Type {

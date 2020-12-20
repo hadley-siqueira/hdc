@@ -1,17 +1,17 @@
-#ifndef HDC_INT32_TYPE_H
-#define HDC_INT32_TYPE_H
+#ifndef HDC_UINT_TYPE_H
+#define HDC_UINT_TYPE_H
 
 #include "token/Token.h"
-#include "ast/PrimitiveType.h"
+#include "ast/types/PrimitiveType.h"
 
 namespace hdc {
-    class Int32Type : public PrimitiveType {
+    class UIntType : public PrimitiveType {
         private:
             Token token;
 
         public:
-            Int32Type();
-            Int32Type(Token& token);
+            UIntType();
+            UIntType(Token& token);
 
         public:
             Type* clone();

@@ -2,7 +2,7 @@
 #define HDC_NAMED_TYPE_H
 
 #include "ast/IdentifierExpression.h"
-#include "ast/Type.h"
+#include "ast/types/Type.h"
 
 namespace hdc {
     class NamedType : public Type {

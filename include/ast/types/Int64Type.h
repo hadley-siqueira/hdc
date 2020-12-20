@@ -1,17 +1,17 @@
-#ifndef HDC_SYMBOL_TYPE_H
-#define HDC_SYMBOL_TYPE_H
+#ifndef HDC_INT64_TYPE_H
+#define HDC_INT64_TYPE_H
 
 #include "token/Token.h"
-#include "ast/PrimitiveType.h"
+#include "ast/types/PrimitiveType.h"
 
 namespace hdc {
-    class SymbolType : public PrimitiveType {
+    class Int64Type : public PrimitiveType {
         private:
             Token token;
 
         public:
-            SymbolType();
-            SymbolType(Token& token);
+            Int64Type();
+            Int64Type(Token& token);
 
         public:
             Type* clone();

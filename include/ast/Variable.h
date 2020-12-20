@@ -3,7 +3,7 @@
 
 #include "token/Token.h"
 #include "ast/ASTNode.h"
-#include "ast/Type.h"
+#include "ast/types/Type.h"
 
 namespace hdc {
     class Variable : public ASTNode {

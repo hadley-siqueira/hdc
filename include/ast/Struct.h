@@ -25,19 +25,19 @@ namespace hdc {
         /* Setters */
         public:
             void setName(Token& token);
-            void setParent(IdentifierExpression* parent);
+            void setSuperStruct(IdentifierExpression* superStruct);
 
         /* Getters */
         public:
             std::string getName();
-            IdentifierExpression* getParent();
+            IdentifierExpression* getSuperStruct();
             StructField* getField(int i);
             int getLine();
             int getColumn();
 
         /* Predicates */
         public:
-            bool hasParent();
+            bool hasSuperStruct();
             int n_fields();
 
         public:
@@ -52,7 +52,7 @@ namespace hdc {
 
         private:
             Token name;
-            IdentifierExpression* parent;
+            IdentifierExpression* superStruct;
             SourceFile* file;
             std::vector<StructField*> fields;
             SymbolTable* symbolTable;

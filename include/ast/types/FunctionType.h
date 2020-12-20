@@ -3,7 +3,7 @@
 
 #include <vector>
 
-#include "ast/Type.h"
+#include "ast/types/Type.h"
 
 namespace hdc {
     class FunctionType : public Type {

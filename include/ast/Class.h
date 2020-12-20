@@ -27,13 +27,13 @@ namespace hdc {
         /* Setters */
         public:
             void setName(Token& token);
-            void setParent(IdentifierExpression* parent);
+            void setSuperClass(IdentifierExpression* superClass);
 
         /* Getters */
         public:
             std::string getName();
             std::string getUniqueCppName();
-            IdentifierExpression* getParent();
+            IdentifierExpression* getParentNode();
             Def* getMethod(int i);
             Def* getConstructor(int i);
             Def* getDestructor();
@@ -49,7 +49,7 @@ namespace hdc {
 
         /* Predicates */
         public:
-            bool hasParent();
+            bool hasSuperClass();
             int n_methods();
             int n_variables();
             int n_constructors();
@@ -81,7 +81,7 @@ namespace hdc {
 
             Token name;
 
-            IdentifierExpression* parent;
+            IdentifierExpression* superClass;
             SourceFile* file;
             Def* destructor;
             SymbolTable* symbolTable;

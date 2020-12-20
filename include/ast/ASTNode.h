@@ -44,6 +44,7 @@ namespace hdc {
 
     class ASTNode {
         public:
+            ASTNode();
             void setKind(ASTKind kind);
             ASTKind getKind();
 
@@ -51,8 +52,12 @@ namespace hdc {
         public:
             virtual void accept(Visitor* visitor)=0;
 
-        protected:
+            ASTNode *getParentNode() const;
+            void setParentNode(ASTNode *value);
+
+    protected:
             ASTKind kind;
+            ASTNode* parentNode;
     };
 }
 #endif

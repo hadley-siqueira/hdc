@@ -7,7 +7,7 @@
 
 #include "ast/ASTNode.h"
 #include "ast/Class.h"
-#include "ast/Type.h"
+#include "ast/types/Type.h"
 #include "ast/LocalVariable.h"
 #include "ast/Parameter.h"
 #include "ast/Statement.h"

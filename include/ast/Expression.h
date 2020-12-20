@@ -1,7 +1,7 @@
 #ifndef HDC_EXPRESSION_H
 #define HDC_EXPRESSION_H
 
-#include "ast/Type.h"
+#include "ast/types/Type.h"
 #include "ast/Statement.h"
 
 namespace hdc {
