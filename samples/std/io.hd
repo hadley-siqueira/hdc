@@ -5,10 +5,25 @@ def println : void
 
     $'std::cout << p0_str << "\n"'
 
-#def println : void
-#    @ch : char
-#
-#    $'std::cout << ch << "\n"'
+def println : void
+    @v : char
+
+    $'std::cout << p0_v << "\n"'
+
+def println : void
+    @v : int
+
+    $'std::cout << p0_v << "\n"'
+
+def println : void
+    @v : float
+
+    $'std::cout << p0_v << "\n"'
+
+def println : void
+    @v : double
+
+    $'std::cout << p0_v << "\n"'
 
 def open : File
     @path : char*

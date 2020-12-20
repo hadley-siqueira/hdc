@@ -885,14 +885,6 @@ void CppPrinter::visit(IdentifierExpression* id) {
 
     isExpression = true;
 
-    if (id->getName().compare("println") == 0) {
-        output << "println";
-        return;
-    } else if (id->getName().compare("print") == 0) {
-        output << "print";
-        return;
-    }
-
     Symbol* s = id->getSymbol();
 
     if (s != nullptr) {
@@ -949,7 +941,7 @@ void CppPrinter::printStart() {
     output << "typedef int16_t i16;\n";
     output << "typedef int32_t i32;\n";
     output << "typedef int64_t i64;\n\n";
-
+/*
     output << "void print(char v) { std::cout << v; }\n";
     output << "void print(int v) { std::cout << v; }\n";
     output << "void print(float v) { std::cout << v; }\n";
@@ -960,7 +952,7 @@ void CppPrinter::printStart() {
     output << "void println(int v) { std::cout << v << '\\n'; }\n";
     output << "void println(float v) { std::cout << v << '\\n'; }\n";
     output << "void println(double v) { std::cout << v << '\\n'; }\n";
-    output << "void println(char* v) { std::cout << v << '\\n'; }\n";
+    output << "void println(char* v) { std::cout << v << '\\n'; }\n";*/
     output << "\n";
 }
 

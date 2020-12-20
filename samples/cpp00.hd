@@ -1,2 +1,5 @@
+import std.io
+
 def main : int
     println('Hello, world!')
+    println(2 + 3)
