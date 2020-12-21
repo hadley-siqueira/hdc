@@ -128,6 +128,16 @@ Import* SourceFile::getImport(int i) {
     }
 }
 
+Import* SourceFile::getImportWithAlias(std::string alias) {
+    for (int i = 0; i < imports.size(); ++i) {
+        if (alias.compare(imports[i]->getAlias().getLexem()) == 0) {
+            return imports[i];
+        }
+    }
+
+    return nullptr;
+}
+
 GlobalVariable* SourceFile::getGlobalVariable(int i) {
     if (i < globalVariables.size()) {
         return globalVariables[i];

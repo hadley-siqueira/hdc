@@ -1,0 +1,12 @@
+import std.io as io
+
+def println : void
+    @s : char*
+
+    pass
+
+def main : int
+    println('Hello, world!')
+    io::println(2 + 3)
+
+    return 0

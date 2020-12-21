@@ -19,7 +19,7 @@ void Import::add(hdc::Token& token) {
 }
 
 
-void Import::set_alias(hdc::Token& token) {
+void Import::setAlias(hdc::Token& token) {
     alias = token;
 }
 
@@ -79,3 +79,8 @@ void Import::setPath(const std::vector<hdc::Token>& value)
 void Import::addSourceFile(SourceFile* file) {
     sourceFiles.push_back(file);
 }
+
+hdc::Token Import::getAlias() const {
+    return alias;
+}
+

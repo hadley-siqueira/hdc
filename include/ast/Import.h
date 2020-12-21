@@ -18,7 +18,7 @@ namespace hdc {
     public:
         bool hasAlias();
         void add(hdc::Token& token);
-        void set_alias(hdc::Token& token);
+        void setAlias(hdc::Token& token);
         std::string str();
         bool isMultipleImport();
 
@@ -32,6 +32,8 @@ namespace hdc {
         void setPath(const std::vector<hdc::Token>& value);
 
         void addSourceFile(SourceFile* file);
+
+        hdc::Token getAlias() const;
 
     private:
         std::vector<hdc::Token> path;

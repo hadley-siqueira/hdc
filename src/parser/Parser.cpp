@@ -76,7 +76,7 @@ Import* Parser::parse_import() {
 
     if (match(TK_AS)) {
         expect(TK_ID);
-        import->set_alias(*matched);
+        import->setAlias(*matched);
     }
 
     expect(TK_NEWLINE);

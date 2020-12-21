@@ -191,6 +191,10 @@ namespace hdc {
             bool checkingNamedType;
 
             std::stack<SymbolTable*> symbolTableStack;
+
+            // counters for unique name
+            int classIdCounter;
+            int defIdCounter;
     };
 }
 #endif

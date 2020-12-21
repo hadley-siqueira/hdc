@@ -14,6 +14,8 @@ SymbolTableBuilderVisitor::SymbolTableBuilderVisitor() {
     checkingNamedType = false;
     lastType = nullptr;
     logger = nullptr;
+    classIdCounter = 0;
+    defIdCounter = 0;
 }
 
 SymbolTableBuilderVisitor::~SymbolTableBuilderVisitor() {
@@ -71,6 +73,7 @@ void SymbolTableBuilderVisitor::visit(Class* klass) {
 
     for (int i = 0; i < klass->n_methods(); ++i) {
         klass->getMethod(i)->accept(this);
+        klass->getMethod(i)->setId(defIdCounter++);
     }
 
     popSymbolTable();
@@ -757,6 +760,12 @@ void SymbolTableBuilderVisitor::visit(ArrayExpression* array) {
 void SymbolTableBuilderVisitor::visit(IdentifierExpression* id) {
     Symbol* symbol = nullptr;
 
+    if (id->hasAlias()) {
+        Import* i = currentSourceFile->getImportWithAlias(id->getAlias());
+        SourceFile* f = i->getSourceFile();
+        pushSymbolTable(f->getSymbolTable());
+    }
+
     if (checkingNamedType) {
         symbol = symbolTable->has(id->getName());
 
@@ -791,6 +800,10 @@ void SymbolTableBuilderVisitor::visit(IdentifierExpression* id) {
             setLastType(id->getType());
         }
     }
+
+    if (id->hasAlias()) {
+        popSymbolTable();
+    }
 }
 
 void SymbolTableBuilderVisitor::buildInitialSymbolTable(SourceFile* sourceFile) {
@@ -818,6 +831,7 @@ void SymbolTableBuilderVisitor::addFunctions(SourceFile* sourceFile) {
     for (int i = 0; i < sourceFile->n_defs(); ++i) {
         func = sourceFile->getDef(i);
         symbol = symbolTable->hasLocalFunction(func);
+        func->setId(defIdCounter++);
 
         if (symbol != nullptr) {
             std::cout << "error def: '" << func->getName() << "' already declared. First occurence on line " << symbol->getLine();
@@ -835,8 +849,10 @@ void SymbolTableBuilderVisitor::addClasses(SourceFile* sourceFile) {
     Symbol* symbol;
 
     for (int i = 0; i < sourceFile->n_classes(); ++i) {
-        std::string name = sourceFile->getClass(i)->getName();
+        Class* klass = sourceFile->getClass(i);
+        std::string name = klass->getName();
         symbol = symbolTable->hasLocal(name);
+        klass->setId(classIdCounter++);
 
         if (symbol != nullptr) {
             std::cout << "error class: '" << name << "' already declared. First occurence on line " << symbol->getLine();
@@ -844,7 +860,7 @@ void SymbolTableBuilderVisitor::addClasses(SourceFile* sourceFile) {
         } else {
             ss << "Adding class '" << name << "' to source file " << sourceFile->getPath();
             log(ss);
-            symbolTable->add(sourceFile->getClass(i));
+            symbolTable->add(klass);
         }
     }
 }

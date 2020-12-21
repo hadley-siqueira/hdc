@@ -47,6 +47,8 @@ void hdc::CppPrinter::visit(SourceFile* file) {
         file->getImport(i)->accept(this);
     }
 
+    output << "// file '" << file->getPath() << "'\n\n";
+
     for (int i = 0; i < file->n_classes(); ++i) {
         file->getClass(i)->accept(this);
     }

@@ -44,6 +44,7 @@ namespace hdc {
             Struct* getStruct(int i);
             Def* getDef(int i);
             Import* getImport(int i);
+            Import* getImportWithAlias(std::string alias);
             GlobalVariable* getGlobalVariable(int i);
             GlobalConstant* getGlobalConstant(int i);
 
