@@ -12,6 +12,7 @@ PointerType::PointerType() {
 PointerType::PointerType(Type* type) {
     this->subtype = type;
     this->kind = AST_POINTER_TYPE;
+    type->setParentNode(this);
 }
 
 
@@ -19,6 +20,7 @@ PointerType::PointerType(Type* type, Token& token) {
     this->kind = AST_POINTER_TYPE;
     this->subtype = type;
     this->token = token;
+    type->setParentNode(this);
 }
 
 PointerType::~PointerType() {

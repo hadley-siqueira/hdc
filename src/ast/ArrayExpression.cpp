@@ -14,6 +14,7 @@ ArrayExpression::~ArrayExpression() {
 
 void ArrayExpression::addExpression(Expression* expression) {
     expressions.push_back(expression);
+    expression->setParentNode(this);
 }
 
 int ArrayExpression::n_expressions() {

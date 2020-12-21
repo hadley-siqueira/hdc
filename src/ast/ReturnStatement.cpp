@@ -17,6 +17,7 @@ ReturnStatement::ReturnStatement(Token& token, Expression* expression) {
     this->token = token;
     this->expression = expression;
     setKind(AST_RETURN);
+    expression->setParentNode(this);
 }
 
 ReturnStatement::~ReturnStatement() {

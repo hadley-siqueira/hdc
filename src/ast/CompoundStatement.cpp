@@ -27,6 +27,7 @@ Statement* CompoundStatement::getStatement(int i) {
 
 void CompoundStatement::addStatement(Statement* statement) {
     statements.push_back(statement);
+    statement->setParentNode(this);
 }
 
 void CompoundStatement::accept(Visitor* visitor) {

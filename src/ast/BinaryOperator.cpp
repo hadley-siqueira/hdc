@@ -11,14 +11,17 @@ BinaryOperator::BinaryOperator() {
 BinaryOperator::BinaryOperator(Expression* left, Expression* right) {
     this->left = left;
     this->right = right;
+    left->setParentNode(this);
+    right->setParentNode(this);
 }
 
 BinaryOperator::BinaryOperator(Token& oper, Expression* left, Expression* right) {
     this->left = left;
     this->right = right;
     this->oper = oper;
+    left->setParentNode(this);
+    right->setParentNode(this);
 }
-
 
 /* Destructors */
 BinaryOperator::~BinaryOperator() {
@@ -33,6 +36,7 @@ void BinaryOperator::setLeft(Expression* left) {
     }
 
     this->left = left;
+    left->setParentNode(this);
 }
 
 void BinaryOperator::setRight(Expression* right) {
@@ -41,6 +45,7 @@ void BinaryOperator::setRight(Expression* right) {
     }
 
     this->right = right;
+    right->setParentNode(this);
 }
 
 /* Getters */

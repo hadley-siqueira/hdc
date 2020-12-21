@@ -8,6 +8,22 @@ ForStatement::ForStatement(Expression* e1, Expression* e2, Expression* e3, Compo
     this->e3 = e3;
     this->statements = statements;
     setKind(AST_FOR);
+
+    if (e1 != nullptr) {
+        e1->setParentNode(this);
+    }
+
+    if (e2 != nullptr) {
+        e2->setParentNode(this);
+    }
+
+    if (e3 != nullptr) {
+        e3->setParentNode(this);
+    }
+
+    if (statements != nullptr) {
+        statements->setParentNode(this);
+    }
 }
 
 ForStatement::~ForStatement() {

@@ -13,6 +13,12 @@ CallExpression::CallExpression(Expression* expression, std::vector<Expression*> 
     this->expression = expression;
     this->arguments = arguments;
     setKind(AST_CALL);
+
+    this->expression->setParentNode(this);
+
+    for (int i = 0; i < this->arguments.size(); ++i) {
+        this->arguments[i]->setParentNode(this);
+    }
 }
 
 CallExpression::CallExpression(Token& oper, Expression* expression, std::vector<Expression*> arguments) {
@@ -20,6 +26,12 @@ CallExpression::CallExpression(Token& oper, Expression* expression, std::vector<
     this->expression = expression;
     this->arguments = arguments;
     setKind(AST_CALL);
+
+    this->expression->setParentNode(this);
+
+    for (int i = 0; i < this->arguments.size(); ++i) {
+        this->arguments[i]->setParentNode(this);
+    }
 }
 
 /* Destructors */

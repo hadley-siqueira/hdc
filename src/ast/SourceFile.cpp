@@ -35,6 +35,7 @@ SourceFile::~SourceFile() {
 
 void SourceFile::addImport(Import* import) {
     imports.push_back(import);
+    import->setParentNode(this);
 }
 
 void SourceFile::addClass(Class* klass) {

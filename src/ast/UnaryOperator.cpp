@@ -9,11 +9,13 @@ UnaryOperator::UnaryOperator() {
 
 UnaryOperator::UnaryOperator(Expression* expression) {
     this->expression = expression;
+    expression->setParentNode(this);
 }
 
 UnaryOperator::UnaryOperator(Token& oper, Expression* expression) {
     this->oper = oper;
     this->expression = expression;
+    expression->setParentNode(this);
 }
 
 

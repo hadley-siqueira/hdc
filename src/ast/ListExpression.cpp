@@ -14,6 +14,7 @@ ListExpression::~ListExpression() {
 
 void ListExpression::addExpression(Expression* expression) {
     expressions.push_back(expression);
+    expression->setParentNode(this);
 }
 
 int ListExpression::n_expressions() {

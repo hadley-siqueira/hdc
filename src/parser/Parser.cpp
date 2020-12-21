@@ -575,10 +575,10 @@ WhileStatement* Parser::parse_while_statement() {
 
 Statement* Parser::parse_for_statement() {
     Statement* for_stmt = nullptr;
-    Expression* e1;
-    Expression* e2;
-    Expression* e3;
-    CompoundStatement* statements;
+    Expression* e1 = nullptr;
+    Expression* e2 = nullptr;
+    Expression* e3 = nullptr;
+    CompoundStatement* statements = nullptr;
 
     expect(TK_FOR);
     e1 = parse_expression();

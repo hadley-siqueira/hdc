@@ -13,6 +13,8 @@ WhileStatement::WhileStatement(Expression* expression, CompoundStatement* statem
     this->expression = expression;
     this->statements = statements;
     setKind(AST_WHILE);
+    expression->setParentNode(this);
+    statements->setParentNode(this);
 }
 
 

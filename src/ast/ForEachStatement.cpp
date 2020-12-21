@@ -7,6 +7,18 @@ ForEachStatement::ForEachStatement(Expression* e1, Expression* e2, CompoundState
     this->e2 = e2;
     this->statements = statements;
     setKind(AST_FOREACH);
+
+    if (e1 != nullptr) {
+        e1->setParentNode(this);
+    }
+
+    if (e2 != nullptr) {
+        e2->setParentNode(this);
+    }
+
+    if (statements != nullptr) {
+        statements->setParentNode(this);
+    }
 }
 
 ForEachStatement::~ForEachStatement() {
