@@ -29,6 +29,7 @@ namespace hdc {
             SymbolKind getKind() const;
             void setKind(const SymbolKind& value);
 
+            void* getDescriptor(int idx) const;
             void* getDescriptor() const;
             void setDescriptor(void* value);
 
@@ -40,8 +41,10 @@ namespace hdc {
 
             Type* getType();
 
+            bool isOverloaded();
             int n_overloaded();
-            void* getOverloadedDescriptor(int i);
+            void* getOverloadedDescriptorIndex(int i);
+            int getOverloadedDescriptorIndex(const std::vector<Type*>& types);
             void addOverloaded(Def* def);
 
         private:

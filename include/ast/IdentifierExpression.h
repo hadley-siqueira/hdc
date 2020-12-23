@@ -30,16 +30,21 @@ namespace hdc {
             Token& getNameAsToken();
             Symbol* getSymbol() const;
             void setSymbol(Symbol* value);
+            int getIdxOverloaded() const;
+            void setIdxOverloaded(int value);
 
         /* Visitors */
         public:
             virtual void accept(Visitor* visitor);
 
-        private:
+
+
+    private:
             Token name;
             Token alias;
             bool alias_flag;
             Symbol* symbol;
+            int idxOverloaded;
     };
 }
 

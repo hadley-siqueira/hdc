@@ -394,13 +394,40 @@ void SymbolTableBuilderVisitor::visit(SizeOfExpression* expression) {
 }
 
 void SymbolTableBuilderVisitor::visit(CallExpression* expression) {
-    Type* t;
+    int idx = -1;
+    Symbol* sym = nullptr;
+    IdentifierExpression* id = nullptr;
+    DotExpression* dot = nullptr;
+    Expression* expr;
+    Type* t = nullptr;
+    std::vector<Type*> argTypes;
 
     expression->getExpression()->accept(this);
     t = lastType;
 
     for (int i = 0; i < expression->n_arguments(); ++i) {
         expression->getArgument(i)->accept(this);
+        argTypes.push_back(lastType);
+    }
+
+    expr = expression->getExpression();
+    if (expr->getKind() == AST_DOT) {
+        dot = (DotExpression*) expression->getExpression();
+        id = (IdentifierExpression*) dot->getRight();
+        sym = id->getSymbol();
+
+        if (sym->isOverloaded()) {
+            idx = sym->getOverloadedDescriptorIndex(argTypes);
+            id->setIdxOverloaded(idx);
+        }
+    } else if (expr->getKind() == AST_IDENTIFIER) {
+        id = (IdentifierExpression*) expr;
+        sym = id->getSymbol();
+
+        if (sym->isOverloaded()) {
+            idx = sym->getOverloadedDescriptorIndex(argTypes);
+            id->setIdxOverloaded(idx);
+        }
     }
 
     expression->setType(t->clone());
@@ -414,7 +441,6 @@ void SymbolTableBuilderVisitor::visit(DotExpression* expression) {
     expression->getLeft()->accept(this);
     t = (NamedType*) lastType;
     s = t->getSymbolTable();
-    //s->dump(); exit(0);
 
     pushSymbolTable(s);
     expression->getRight()->accept(this);
@@ -897,7 +923,9 @@ void SymbolTableBuilderVisitor::visit(IdentifierExpression* id) {
         symbol = symbolTable->has(id->getName());
 
         if (symbol == nullptr) {
-            std::cout << "error: '" << id->getName() << "' not defined in this scope\n";
+            std::cout << currentSourceFile->getPath() << ":" << id->getNameAsToken().getLine() << ":" << id->getNameAsToken().getColumn() << ":";
+            std::cout << " error: '" << id->getName() << "' not defined in this scope\n";
+            exit(0);
         } else {
             id->setSymbol(symbol);
             id->setType(symbol->getType()->clone());

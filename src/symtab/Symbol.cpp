@@ -54,6 +54,14 @@ void* Symbol::getDescriptor() const {
     return descriptor;
 }
 
+void *Symbol::getDescriptor(int idx) const {
+    if (idx == -1) {
+        return descriptor;
+    }
+
+    return overloadedDescriptors[idx];
+}
+
 void Symbol::setDescriptor(void* value) {
     descriptor = value;
 }
@@ -103,16 +111,52 @@ Type *Symbol::getType() {
     return nullptr;
 }
 
+bool Symbol::isOverloaded() {
+    return overloadedDescriptors.size() > 0;
+}
+
 int Symbol::n_overloaded() {
     return overloadedDescriptors.size();
 }
 
-void *Symbol::getOverloadedDescriptor(int i){
+void *Symbol::getOverloadedDescriptorIndex(int i){
     if (i < overloadedDescriptors.size()) {
         return overloadedDescriptors[i];
     }
 
     return nullptr;
+}
+
+int Symbol::getOverloadedDescriptorIndex(const std::vector<Type *> &types) {
+    Type* t1;
+    Type* t2;
+    Def* def;
+    bool flag;
+
+    for (int i = 0; i < overloadedDescriptors.size(); ++i) {
+        def = (Def*) overloadedDescriptors[i];
+        flag = false;
+
+        if (def->n_parameters() == types.size()) {
+            flag = true;
+
+            for (int j = 0; j < def->n_parameters(); ++j) {
+                t1 = def->getParameter(j)->getType();
+                t2 = types[j];
+
+                if (!t1->equals(t2)) {
+                    flag = false;
+                    break;
+                }
+            }
+        }
+
+        if (flag) {
+            return i;
+        }
+    }
+
+    return -1;
 }
 
 void Symbol::addOverloaded(Def *def) {

@@ -6,6 +6,7 @@ IdentifierExpression::IdentifierExpression() {
     this->alias_flag = false;
     this->setKind(AST_IDENTIFIER);
     this->symbol = nullptr;
+    this->idxOverloaded = -1;
 }
 
 
@@ -14,6 +15,7 @@ IdentifierExpression::IdentifierExpression(Token& name) {
     this->alias_flag = false;
     this->setKind(AST_IDENTIFIER);
     this->symbol = nullptr;
+    this->idxOverloaded = -1;
 }
 
 
@@ -23,6 +25,7 @@ IdentifierExpression::IdentifierExpression(Token& alias, Token& name) {
     this->alias_flag = true;
     this->setKind(AST_IDENTIFIER);
     this->symbol = nullptr;
+    this->idxOverloaded = -1;
 }
 
 IdentifierExpression::IdentifierExpression(IdentifierExpression* id) {
@@ -31,8 +34,8 @@ IdentifierExpression::IdentifierExpression(IdentifierExpression* id) {
     this->alias_flag = id->alias_flag;
     this->setKind(AST_IDENTIFIER);
     this->symbol = id->symbol;
+    this->idxOverloaded = id->idxOverloaded;
 }
-
 
 IdentifierExpression::~IdentifierExpression() {
     /* empty */
@@ -59,6 +62,14 @@ Token& IdentifierExpression::getNameAsToken() {
 /* Visitors */
 void IdentifierExpression::accept(Visitor* visitor) {
     visitor->visit(this);
+}
+
+int IdentifierExpression::getIdxOverloaded() const {
+    return idxOverloaded;
+}
+
+void IdentifierExpression::setIdxOverloaded(int value) {
+    idxOverloaded = value;
 }
 
 Symbol* IdentifierExpression::getSymbol() const {

@@ -1,3 +1,5 @@
+import std.io
+
 def sum : int
     @a : int
     @b : int

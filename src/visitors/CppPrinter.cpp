@@ -904,7 +904,7 @@ void CppPrinter::visit(IdentifierExpression* id) {
 
         case SYMBOL_DEF:
         case SYMBOL_METHOD:
-            def = (Def*) s->getDescriptor();
+            def = (Def*) s->getDescriptor(id->getIdxOverloaded());
             output << def->getUniqueCppName();
             break;
 

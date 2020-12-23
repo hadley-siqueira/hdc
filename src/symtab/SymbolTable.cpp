@@ -184,7 +184,7 @@ Symbol* SymbolTable::hasLocalFunction(Def *def) {
             }
 
             for (int i = 0; i < symbol->n_overloaded(); ++i) {
-                f = (Def*) symbol->getOverloadedDescriptor(i);
+                f = (Def*) symbol->getOverloadedDescriptorIndex(i);
 
                 if (def->sameSignature(f)) {
                     return symbol;
@@ -218,7 +218,7 @@ Symbol *SymbolTable::hasMethod(Def *def) {
             }
 
             for (int i = 0; i < symbol->n_overloaded(); ++i) {
-                f = (Def*) symbol->getOverloadedDescriptor(i);
+                f = (Def*) symbol->getOverloadedDescriptorIndex(i);
 
                 if (def->sameSignature(f)) {
                     return symbol;
