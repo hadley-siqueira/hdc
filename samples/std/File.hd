@@ -1,9 +1,0 @@
-import std.io
-
-class File:
-    name : char*
-
-    def open : void
-        @path : char*
-
-        pass

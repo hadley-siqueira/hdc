@@ -32,6 +32,7 @@ namespace hdc {
             void visit(Variable* variable);
             void visit(LocalVariable* variable);
             void visit(GlobalVariable* variable);
+            void visit(ClassVariable* variable);
 
             /* Constants */
             void visit(Constant* c);

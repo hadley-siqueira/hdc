@@ -1,4 +1,5 @@
-import std.File
+import std.memory
+import std.cstring
 
 def println : void
     @str : char*
@@ -30,3 +31,43 @@ def open : File
     @mode : char*
 
     pass
+
+class File:
+    path : char*
+    desc : void*
+
+    def init : void
+        @path : char*
+        @mode : char
+
+        pass
+
+    def init : void
+        pass
+
+    def destroy : void
+        $'fclose((FILE*) cv1_desc)'
+
+    def open : void
+        @path : char*
+        @mode : char
+
+        # @path = alloc(sizeof(*name) * strlen(path))
+        # strcpy(@path, path)
+        @desc = null
+
+        if mode == 'r':
+            $'cv1_desc = fopen(p0_path, "r")'
+        else:
+            $'cv1_desc = fopen(p0_path, "w")'
+
+    def close : void
+        if @desc != null:
+            $'fclose((FILE*) cv1_desc)'
+
+    def write : void
+        @str : char*
+
+        if @desc != null:
+            $'fprintf((FILE*) cv1_desc, "%s", p0_str)'
+

@@ -53,6 +53,10 @@ void TypeCheckerVisitor::visit(GlobalVariable* variable) {
 
 }
 
+void TypeCheckerVisitor::visit(ClassVariable *variable) {
+
+}
+
 void TypeCheckerVisitor::visit(Constant* c) {
 
 }

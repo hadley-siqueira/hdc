@@ -195,6 +195,10 @@ void PrettyPrinter::visit(GlobalVariable* variable) {
     }
 }
 
+void PrettyPrinter::visit(ClassVariable *variable) {
+
+}
+
 void PrettyPrinter::visit(Constant* c) {
 
 }

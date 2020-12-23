@@ -27,19 +27,26 @@ namespace hdc {
         /* Setters */
         public:
             void setName(Token& token);
-            void setSuperClass(IdentifierExpression* superClass);
+            void setSuperClass(NamedType* superClass);
+            void setSymbolTable(SymbolTable* value);
+            void setId(int value);
+            void setGlobalId(int value);
 
         /* Getters */
         public:
             std::string getName();
             std::string getUniqueCppName();
-            IdentifierExpression* getParentNode();
             Def* getMethod(int i);
             Def* getConstructor(int i);
             Def* getDestructor();
             ClassVariable* getVariable(int i);
             int getLine();
             int getColumn();
+            Type *getSelfType();
+            int getGlobalId() const;
+            int getId() const;
+            SymbolTable* getSymbolTable() const;
+            NamedType *getSuperClass() const;
 
             ClassVariable* getVariable(std::string name);
 
@@ -62,17 +69,6 @@ namespace hdc {
         public:
             void accept(Visitor* visitor);
 
-            SymbolTable* getSymbolTable() const;
-            void setSymbolTable(SymbolTable* value);
-
-            int getId() const;
-            void setId(int value);
-
-            int getGlobalId() const;
-            void setGlobalId(int value);
-
-            Type *getSelfType();
-
     private:
             int classVariableCounter;
             int methodCounter;
@@ -81,7 +77,7 @@ namespace hdc {
 
             Token name;
 
-            IdentifierExpression* superClass;
+            NamedType* superClass;
             SourceFile* file;
             Def* destructor;
             SymbolTable* symbolTable;

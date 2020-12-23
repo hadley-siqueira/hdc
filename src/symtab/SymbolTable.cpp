@@ -193,6 +193,44 @@ Symbol* SymbolTable::hasLocalFunction(Def *def) {
         }
     }
 
+    if (hasParent()) {
+        return parent->hasLocalFunction(def);
+    }
+
+    return nullptr;
+}
+
+Symbol *SymbolTable::hasMethod(Def *def) {
+    Symbol* symbol;
+    SymbolKind kind;
+    Def* f;
+    std::string name = def->getName();
+
+    if (symbols.count(name) > 0) {
+        symbol = symbols[name];
+        kind = symbol->getKind();
+
+        if (kind == SYMBOL_METHOD) {
+            f = (Def*) symbol->getDescriptor();
+
+            if (def->sameSignature(f)) {
+                return symbol;
+            }
+
+            for (int i = 0; i < symbol->n_overloaded(); ++i) {
+                f = (Def*) symbol->getOverloadedDescriptor(i);
+
+                if (def->sameSignature(f)) {
+                    return symbol;
+                }
+            }
+        }
+    }
+
+    if (hasParent()) {
+        return parent->hasMethod(def);
+    }
+
     return nullptr;
 }
 

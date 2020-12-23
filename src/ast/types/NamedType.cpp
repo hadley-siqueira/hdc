@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include "ast/types/NamedType.h"
 
 using namespace hdc;
@@ -5,15 +7,11 @@ using namespace hdc;
 NamedType::NamedType() {
     this->kind = AST_NAMED_TYPE;
     this->name = nullptr;
-    classDescriptor = nullptr;
-    structDescriptor = nullptr;
 }
 
 NamedType::NamedType(IdentifierExpression* name) {
     this->kind = AST_NAMED_TYPE;
     this->name = name;
-    classDescriptor = nullptr;
-    structDescriptor = nullptr;
 }
 
 NamedType::~NamedType() {
@@ -22,8 +20,6 @@ NamedType::~NamedType() {
 
 Type* NamedType::clone() {
     NamedType* copy = new NamedType(new IdentifierExpression(this->name));
-    copy->classDescriptor = classDescriptor;
-    copy->structDescriptor = structDescriptor;
     return copy;
 }
 
@@ -50,21 +46,7 @@ int NamedType::getRank() {
     return 22;
 }
 
-void NamedType::setDescriptor(Class *klass) {
-    classDescriptor = klass;
-}
-
-void NamedType::setDescriptor(Struct *st) {
-    structDescriptor = st;
-}
-
 void *NamedType::getDescriptor() {
-    if (classDescriptor != nullptr) {
-        return classDescriptor;
-    } else if (structDescriptor != nullptr) {
-        return structDescriptor;
-    }
-
     Symbol* sym = name->getSymbol();
 
     if (sym != nullptr) {
@@ -75,16 +57,10 @@ void *NamedType::getDescriptor() {
 }
 
 SymbolTable *NamedType::getSymbolTable() {
-    if (classDescriptor != nullptr) {
-        return classDescriptor->getSymbolTable();
-    } else if (structDescriptor != nullptr) {
-        return structDescriptor->getSymbolTable();
-    }
-
     Symbol* sym;
     Class* c;
 
-    sym = name->getSymbol();
+    sym = name->getSymbol(); std::cout << name->getName() << "<---" << std::endl;
 
     if (sym != nullptr) {
         switch (sym->getKind()) {

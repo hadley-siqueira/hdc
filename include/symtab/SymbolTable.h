@@ -42,6 +42,7 @@ namespace hdc {
             Symbol* hasLocalVariable(std::string& name);
             Symbol* hasLocalVariableOrParameter(const std::string& name);
             Symbol* hasLocalFunction(Def* def);
+            Symbol* hasMethod(Def* def);
             Symbol* hasClassVariable(std::string& name);
 
         /* Getters */

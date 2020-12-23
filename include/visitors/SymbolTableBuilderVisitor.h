@@ -38,6 +38,7 @@ namespace hdc {
             void visit(Variable* variable);
             void visit(LocalVariable* variable);
             void visit(GlobalVariable* variable);
+            void visit(ClassVariable* variable);
 
             /* Constants */
             void visit(Constant* c);
@@ -161,9 +162,6 @@ namespace hdc {
             void setLogger(Logger *value);
 
     private:
-            void buildInitialSymbolTable(SourceFile* sourceFile);
-            void addFunctions(SourceFile* sourceFile);
-            void addClasses(SourceFile* sourceFile);
             void addGlobalVariables(SourceFile* sourceFile);
             void addGlobalConstants(SourceFile* sourceFile);
 
@@ -195,6 +193,7 @@ namespace hdc {
             // counters for unique name
             int classIdCounter;
             int defIdCounter;
+            int pass;
     };
 }
 #endif

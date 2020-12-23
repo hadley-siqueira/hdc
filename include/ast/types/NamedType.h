@@ -31,8 +31,6 @@ namespace hdc {
 
         private:
             IdentifierExpression* name;
-            Class* classDescriptor;
-            Struct* structDescriptor;
     };
 }
 

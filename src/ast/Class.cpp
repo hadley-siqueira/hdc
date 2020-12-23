@@ -15,6 +15,7 @@ Class::Class() {
     file = nullptr;
     selfType = nullptr;
     destructor = nullptr;
+    symbolTable = nullptr;
 
     setKind(AST_CLASS);
 }
@@ -39,7 +40,7 @@ void Class::setName(Token& token) {
     name = token;
 }
 
-void Class::setSuperClass(IdentifierExpression* parent) {
+void Class::setSuperClass(NamedType *parent) {
     if (this->superClass != nullptr) {
         delete this->superClass;
     }
@@ -57,10 +58,6 @@ std::string Class::getUniqueCppName() {
 
     s << "c" << id << '_' << getName();
     return s.str();
-}
-
-IdentifierExpression* Class::getParentNode() {
-    return superClass;
 }
 
 Def* Class::getMethod(int i) {
@@ -158,6 +155,10 @@ void Class::accept(Visitor* visitor) {
     visitor->visit(this);
 }
 
+NamedType *Class::getSuperClass() const {
+    return superClass;
+}
+
 SymbolTable* Class::getSymbolTable() const {
     return symbolTable;
 }
@@ -185,7 +186,6 @@ void Class::setGlobalId(int value) {
 Type *Class::getSelfType() {
     if (selfType == nullptr) {
         selfType = new NamedType(new IdentifierExpression(name));
-        selfType->setDescriptor(this);
     }
 
     return selfType;

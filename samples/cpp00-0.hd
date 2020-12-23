@@ -9,4 +9,14 @@ def main : int
     println('Hello, world!')
     io::println(2 + 3)
 
+    f = File()
+    f.write('P3\n800 600\n255\n')
+
+    i = 0
+#    while i < 800 * 600:
+#        f.write('255 255 255')
+#        ++i
+
+#    f.close()
+
     return 0

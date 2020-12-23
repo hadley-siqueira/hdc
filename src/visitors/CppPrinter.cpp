@@ -174,6 +174,10 @@ void CppPrinter::visit(GlobalVariable* variable) {
 
 }
 
+void CppPrinter::visit(ClassVariable *variable) {
+
+}
+
 void CppPrinter::visit(Constant* c) {
 
 }

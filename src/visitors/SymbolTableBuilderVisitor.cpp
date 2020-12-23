@@ -16,6 +16,7 @@ SymbolTableBuilderVisitor::SymbolTableBuilderVisitor() {
     logger = nullptr;
     classIdCounter = 0;
     defIdCounter = 0;
+    pass = 0;
 }
 
 SymbolTableBuilderVisitor::~SymbolTableBuilderVisitor() {
@@ -25,32 +26,73 @@ SymbolTableBuilderVisitor::~SymbolTableBuilderVisitor() {
 void SymbolTableBuilderVisitor::visit(Program *program) {
     std::map<std::string, SourceFile*>::iterator it;
 
+    // First, we add all classes, structs, enums and other named types to
+    // the symbol table of a source file.
     for (it = program->begin(); it != program->end(); ++it) {
-        buildInitialSymbolTable(it->second);
+        it->second->accept(this);
     }
 
+    ++pass;
+
+    // Now that named types are inserted on symbol tables, some form of type
+    // checking can be done. But first we link types to their descriptors. The types
+    // we are linking to its descriptors are: return types of methods and functions,
+    // parameters' types, class variable types, parent class and stuff like that.
+    // Note that we are linking only types to its descriptors. The insertion
+    // on symbol table comes latter. In other words, we are linking everything now
+    // and on later passes we may discard some of these associations. For example,
+    // two methods with the same signature or two class variables with same name
+    for (it = program->begin(); it != program->end(); ++it) {
+        it->second->accept(this);
+    }
+
+    ++pass;
+
+    // now we build the symbol table for the function and method bodies
     for (it = program->begin(); it != program->end(); ++it) {
         it->second->accept(this);
     }
 }
 
 void SymbolTableBuilderVisitor::visit(SourceFile* file) {
-    std::cout << "Building SymbolTable for file '" << file->getPath() << "'\n";
-
     currentSourceFile = file;
-    pushSymbolTable(file->getSymbolTable());
 
-    // add global variables
-    // add constants
-    for (int i = 0; i < file->n_classes(); ++i) {
-        file->getClass(i)->accept(this);
+    if (pass == 0) {
+        file->setSymbolTable(pushSymbolTable());
+
+        for (int i = 0; i < file->n_classes(); ++i) {
+            file->getClass(i)->accept(this);
+        }
+
+        popSymbolTable();
+    } else if (pass == 1) {
+        pushSymbolTable(file->getSymbolTable());
+
+        for (int i = 0; i < file->n_classes(); ++i) {
+            file->getClass(i)->accept(this);
+        }
+
+        for (int i = 0; i < file->n_defs(); ++i) {
+            file->getDef(i)->accept(this);
+        }
+
+        popSymbolTable();
+    } else {
+        std::cout << "Building SymbolTable for file '" << file->getPath() << "'\n";
+
+        currentSourceFile = file;
+        pushSymbolTable(file->getSymbolTable());
+
+        for (int i = 0; i < file->n_classes(); ++i) {
+            file->getClass(i)->accept(this);
+        }
+
+        for (int i = 0; i < file->n_defs(); ++i) {
+            file->getDef(i)->accept(this);
+        }
+
+        popSymbolTable();
     }
-
-    for (int i = 0; i < file->n_defs(); ++i) {
-        file->getDef(i)->accept(this);
-    }
-
-    popSymbolTable();
 }
 
 void SymbolTableBuilderVisitor::visit(Import* import) {
@@ -58,25 +100,52 @@ void SymbolTableBuilderVisitor::visit(Import* import) {
 }
 
 void SymbolTableBuilderVisitor::visit(Class* klass) {
+    std::stringstream ss;
+    std::string name;
+    Symbol* symbol;
+
     currentClass = klass;
-    klass->setSymbolTable(pushSymbolTable());
+    symbol = nullptr;
+    name = klass->getName();
 
-    for (int i = 0; i < klass->n_methods(); ++i) {
-        klass->getMethod(i)->getReturnType()->accept(this);
-        symbolTable->add(klass->getMethod(i));
+    if (pass == 0) {
+        symbol = symbolTable->hasLocal(name);
+
+        if (symbol != nullptr) {
+            std::cout << "Error: class '" << name << "' already declared. First occurence on line " << symbol->getLine();
+            exit(0);
+        } else {
+            ss << "Adding class '" << name << "' to source file " << currentSourceFile->getPath();
+            log(ss);
+            symbolTable->add(klass);
+            klass->setId(classIdCounter++);
+        }
+    } else if (pass == 1) {
+        if (klass->hasSuperClass()) {
+            klass->getSuperClass()->accept(this);
+        }
+
+        klass->getSelfType()->accept(this);
+        klass->setSymbolTable(pushSymbolTable());
+
+        for (int i = 0; i < klass->n_variables(); ++i) {
+            klass->getVariable(i)->accept(this);
+        }
+
+        for (int i = 0; i < klass->n_methods(); ++i) {
+            klass->getMethod(i)->accept(this);
+        }
+
+        popSymbolTable();
+    } else if (pass == 2) {
+        pushSymbolTable(klass->getSymbolTable());
+
+        for (int i = 0; i < klass->n_methods(); ++i) {
+            klass->getMethod(i)->accept(this);
+        }
+
+        popSymbolTable();
     }
-
-    for (int i = 0; i < klass->n_variables(); ++i) {
-        klass->getVariable(i)->getType()->accept(this);
-        symbolTable->add(klass->getVariable(i));
-    }
-
-    for (int i = 0; i < klass->n_methods(); ++i) {
-        klass->getMethod(i)->accept(this);
-        klass->getMethod(i)->setId(defIdCounter++);
-    }
-
-    popSymbolTable();
 }
 
 void SymbolTableBuilderVisitor::visit(Struct* s) {
@@ -84,21 +153,50 @@ void SymbolTableBuilderVisitor::visit(Struct* s) {
 }
 
 void SymbolTableBuilderVisitor::visit(Def* def) {
+    std::stringstream ss;
+
     currentDef = def;
 
-    def->getReturnType()->accept(this);
-    def->setSymbolTable(pushSymbolTable());
+    if (pass == 1) {
+        Symbol* symbol = nullptr;
 
-    for (int i = 0; i < def->n_parameters(); ++i) {
-        symbolTable->add(def->getParameter(i));
-        def->getParameter(i)->getType()->accept(this);
+        if (def->isMethod()) {
+            symbol = symbolTable->hasMethod(def);
+        } else {
+            symbol = symbolTable->hasLocalFunction(def);
+        }
+
+        if (symbol != nullptr) {
+            std::cout << "error def: '" << def->getName() << "' already declared. First occurence on line " << symbol->getLine();
+            exit(0);
+        } else {
+            ss << "Adding function '" << def->getName() << "' to source file " << currentSourceFile->getPath();
+            log(ss);
+            symbolTable->add(def);
+        }
+
+        symbolTable->add(def);
+
+        def->setId(defIdCounter++);
+        def->getReturnType()->accept(this);
+        def->setSymbolTable(pushSymbolTable());
+
+        for (int i = 0; i < def->n_parameters(); ++i) {
+            def->getParameter(i)->accept(this);
+        }
+
+        popSymbolTable();
+    } else if (pass == 2) {
+        pushSymbolTable(def->getSymbolTable());
+        def->getStatements()->accept(this);
+        popSymbolTable();
     }
-
-    def->getStatements()->accept(this);
-    popSymbolTable();
 }
 
-void SymbolTableBuilderVisitor::visit(Parameter* parameter) {}
+void SymbolTableBuilderVisitor::visit(Parameter* parameter) {
+    symbolTable->add(parameter);
+    parameter->getType()->accept(this);
+}
 
 void SymbolTableBuilderVisitor::visit(Variable* variable) {
 
@@ -110,6 +208,11 @@ void SymbolTableBuilderVisitor::visit(LocalVariable* variable) {
 
 void SymbolTableBuilderVisitor::visit(GlobalVariable* variable) {
 
+}
+
+void SymbolTableBuilderVisitor::visit(ClassVariable *variable) {
+    symbolTable->add(variable);
+    variable->getType()->accept(this);
 }
 
 void SymbolTableBuilderVisitor::visit(Constant* c) {
@@ -311,6 +414,7 @@ void SymbolTableBuilderVisitor::visit(DotExpression* expression) {
     expression->getLeft()->accept(this);
     t = (NamedType*) lastType;
     s = t->getSymbolTable();
+    //s->dump(); exit(0);
 
     pushSymbolTable(s);
     expression->getRight()->accept(this);
@@ -803,65 +907,6 @@ void SymbolTableBuilderVisitor::visit(IdentifierExpression* id) {
 
     if (id->hasAlias()) {
         popSymbolTable();
-    }
-}
-
-void SymbolTableBuilderVisitor::buildInitialSymbolTable(SourceFile* sourceFile) {
-    std::stringstream ss;
-
-    currentSourceFile = sourceFile;
-    sourceFile->setSymbolTable(pushSymbolTable());
-
-    ss << "Building initial SymbolTable for file '" << sourceFile->getPath() << "'";
-    log(ss);
-
-    addClasses(sourceFile);
-    addFunctions(sourceFile);
-    addGlobalVariables(sourceFile);
-    addGlobalConstants(sourceFile);
-
-    popSymbolTable();
-}
-
-void SymbolTableBuilderVisitor::addFunctions(SourceFile* sourceFile) {
-    std::stringstream ss;
-    Symbol* symbol;
-    Def* func;
-
-    for (int i = 0; i < sourceFile->n_defs(); ++i) {
-        func = sourceFile->getDef(i);
-        symbol = symbolTable->hasLocalFunction(func);
-        func->setId(defIdCounter++);
-
-        if (symbol != nullptr) {
-            std::cout << "error def: '" << func->getName() << "' already declared. First occurence on line " << symbol->getLine();
-            exit(0);
-        } else {
-            ss << "Adding function '" << func->getName() << "' to source file " << sourceFile->getPath();
-            log(ss);
-            symbolTable->add(func);
-        }
-    }
-}
-
-void SymbolTableBuilderVisitor::addClasses(SourceFile* sourceFile) {
-    std::stringstream ss;
-    Symbol* symbol;
-
-    for (int i = 0; i < sourceFile->n_classes(); ++i) {
-        Class* klass = sourceFile->getClass(i);
-        std::string name = klass->getName();
-        symbol = symbolTable->hasLocal(name);
-        klass->setId(classIdCounter++);
-
-        if (symbol != nullptr) {
-            std::cout << "error class: '" << name << "' already declared. First occurence on line " << symbol->getLine();
-            exit(0);
-        } else {
-            ss << "Adding class '" << name << "' to source file " << sourceFile->getPath();
-            log(ss);
-            symbolTable->add(klass);
-        }
     }
 }
 

@@ -687,7 +687,7 @@ Statement* Parser::parse_statement() {
     return statement;
 }
 
-Type* Parser::parse_named_type() {
+NamedType* Parser::parse_named_type() {
     IdentifierExpression* name;
 
     name = parse_identifier_expression();
@@ -755,7 +755,7 @@ Class* Parser::parse_class() {
     name = *matched;
 
     if (match(TK_LEFT_PARENTHESIS)) {
-        klass->setSuperClass(parse_identifier_expression());
+        klass->setSuperClass(parse_named_type());
         expect(TK_RIGHT_PARENTHESIS);
     }
 

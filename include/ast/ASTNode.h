@@ -138,12 +138,12 @@ namespace hdc {
             void setKind(ASTKind kind);
             ASTKind getKind();
 
+            ASTNode *getParentNode() const;
+            void setParentNode(ASTNode *value);
+
         /* Visitors */
         public:
             virtual void accept(Visitor* visitor)=0;
-
-            ASTNode *getParentNode() const;
-            void setParentNode(ASTNode *value);
 
     protected:
             ASTKind kind;

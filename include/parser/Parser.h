@@ -60,7 +60,7 @@ namespace hdc {
             CompoundStatement* parse_statements();
             Statement* parse_statement();
 
-            Type* parse_named_type();
+            NamedType *parse_named_type();
             Type* parse_type();
 
         private:
