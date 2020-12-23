@@ -43,6 +43,8 @@ namespace hdc {
             bool fileExists(std::string path);
             std::string buildPathForImport(Import* import);
             std::string buildPathForMultipleImport(Import* import);
+            std::string getEnvPath(std::string key);
+            void configureSearchPath();
 
             void setRootPathFromMainFile();
 
@@ -53,6 +55,7 @@ namespace hdc {
             Logger logger;
             std::string mainFilePath;
             std::string rootPath;
+            std::vector<std::string> searchPath;
             char pathDelimiter;
 
             std::vector<TAC> tacs;

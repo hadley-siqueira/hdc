@@ -2,6 +2,7 @@
 #include <fstream>
 #include <cstdio>
 #include <cstring>
+#include <cstdlib>
 #include <sys/types.h>
 #include <dirent.h>
 #include <vector>
@@ -37,6 +38,9 @@ Driver::~Driver() {
 }
 
 void Driver::run() {
+    setRootPathFromMainFile();
+    configureSearchPath();
+
     parseProgram();
     buildSymbolTables();
     //generateTAC();
@@ -61,12 +65,14 @@ void Driver::setFlags(int argc, char* argv[]) {
             if (strcmp(argv[i], "all") == 0) {
                 logger.setAllFlags();
             }
+        } else if (strcmp(argv[i], "-i") == 0) {
+            ++i;
+
+            searchPath.push_back(argv[i]);
         } else if (strstr(argv[i], ".hd") != nullptr) {
             mainFilePath = std::string(argv[i]);
         }
     }
-
-    setRootPathFromMainFile();
 }
 
 void Driver::parseProgram() {
@@ -310,6 +316,7 @@ SourceFile* Driver::parseFile(std::string path) {
 
     if (!fileExists(path)) {
         logger.log(LOG_ERROR, "couldn't find file or directory '" + path + "'");
+        logger.quit();
         return nullptr;
     }
 
@@ -325,7 +332,7 @@ bool Driver::fileExists(std::string path) {
 }
 
 std::string Driver::buildPathForImport(Import* import) {
-    std::string str = rootPath;
+    std::string str;
     std::vector<Token> path = import->getPath();
 
     for (int i = 0; i < path.size(); ++i) {
@@ -334,6 +341,16 @@ std::string Driver::buildPathForImport(Import* import) {
     }
 
     str += ".hd";
+
+    for (int i = 0; i < searchPath.size(); ++i) {
+        std::string fullPath = searchPath[i] + str;
+        std::cout << "path: " << fullPath << std::endl;
+
+        if (fileExists(fullPath)) {
+            return fullPath;
+        }
+    }
+
     return str;
 }
 
@@ -348,6 +365,23 @@ std::string Driver::buildPathForMultipleImport(Import* import) {
 
     str += pathDelimiter;
     return str;
+}
+
+std::string Driver::getEnvPath(std::string key) {
+    char * val;
+    val = std::getenv( key.c_str() );
+    std::string retval = "";
+
+    if (val != NULL) {
+        retval = val;
+    }
+
+    return retval;
+}
+
+void Driver::configureSearchPath() {
+    searchPath.push_back(rootPath);
+    searchPath.push_back(getEnvPath("HDC_PATH"));
 }
 
 void Driver::setRootPathFromMainFile() {
