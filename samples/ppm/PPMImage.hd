@@ -22,14 +22,20 @@ class PPMImage:
     def destroy : void
         free(@pixels)
 
+    def save : void
+        @path : char*
+
+        f = File(path, 'w')
+        f.write('P3\n')
+
     def clear : void
         @pixel : Pixel
 
         i = 0
         ptr = @pixels
         while i < @width * @height:
-            ptr->r = 0#pixel.r
-            ptr->g = 0#pixel.g
-            ptr->b = 0#pixel.b
+            ptr->r = pixel.r
+            ptr->g = pixel.g
+            ptr->b = pixel.b
             ++ptr
             ++i

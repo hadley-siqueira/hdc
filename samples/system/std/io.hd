@@ -71,3 +71,9 @@ class File:
         if @desc != null:
             $'fprintf((FILE*) cv1_desc, "%s", p0_str)'
 
+    def write : void
+        @str : int
+
+        if @desc != null:
+            $'fprintf((FILE*) cv1_desc, "%i", p0_str)'
+

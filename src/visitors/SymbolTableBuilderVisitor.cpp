@@ -471,10 +471,10 @@ void SymbolTableBuilderVisitor::visit(ArrowExpression* expression) {
     expression->getLeft()->accept(this);
 
     ptr = (PointerType*) lastType;
-    ptr->accept(this);
     named = (NamedType*) ptr->getSubtype();
     s = named->getSymbolTable();
 
+    checkingAssignment = false;
     pushSymbolTable(s);
     expression->getRight()->accept(this);
     setLastType(expression->getRight()->getType());
@@ -936,8 +936,11 @@ void SymbolTableBuilderVisitor::visit(IdentifierExpression* id) {
             currentDef->addLocalVariable(var);
             id->setType(lastType->clone());
             id->setSymbol(symbol);
+            setLastType(id->getType());
         } else {
             id->setSymbol(symbol);
+            id->setType(symbol->getType()->clone());
+            setLastType(id->getType());
 
             // check types here maybe?
         }

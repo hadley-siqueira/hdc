@@ -60,7 +60,7 @@ SymbolTable *NamedType::getSymbolTable() {
     Symbol* sym;
     Class* c;
 
-    sym = name->getSymbol(); std::cout << name->getName() << "<---" << std::endl;
+    sym = name->getSymbol();
 
     if (sym != nullptr) {
         switch (sym->getKind()) {

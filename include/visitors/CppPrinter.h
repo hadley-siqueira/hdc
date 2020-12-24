@@ -160,7 +160,6 @@ namespace hdc {
             void printEnd();
             void checkClassDependencies(Class* klass);
             void checkTypeDefinition(Type* t);
-            bool isConstructorCall(AssignmentExpression* expr);
 
         private:
             void generatePrototypes(SourceFile* file);
