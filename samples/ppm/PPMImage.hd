@@ -1,0 +1,35 @@
+import std.io
+import std.memory
+
+import Pixel
+
+class PPMImage:
+    width  : int
+    height : int
+    pixels : Pixel*
+
+    def init : void
+        pass
+
+    def init : void
+        @width  : int
+        @height : int
+
+        @width = width
+        @height = height
+        @pixels = alloc(width * height * sizeof(Pixel))
+
+    def destroy : void
+        free(@pixels)
+
+    def clear : void
+        @pixel : Pixel
+
+        i = 0
+        ptr = @pixels
+        while i < @width * @height:
+            ptr->r = 0#pixel.r
+            ptr->g = 0#pixel.g
+            ptr->b = 0#pixel.b
+            ++ptr
+            ++i

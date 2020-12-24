@@ -1,0 +1,6 @@
+import std.io
+import PPMImage
+
+def main : int
+    img = PPMImage(800, 600)
+    return 0

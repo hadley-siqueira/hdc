@@ -781,6 +781,7 @@ void SymbolTableBuilderVisitor::visit(AssignmentExpression* expression) {
     expression->setType(lastType->clone());
     setLastType(expression->getType());
 
+    // checks if it is a constructor call
     if (expression->getRight()->getKind() == AST_CALL) {
         CallExpression* call = (CallExpression*) expression->getRight();
 

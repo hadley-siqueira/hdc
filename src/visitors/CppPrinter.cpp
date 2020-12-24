@@ -84,34 +84,6 @@ void hdc::CppPrinter::visit(Class* klass) {
     for (int i = 0; i < klass->n_methods(); ++i) {
         klass->getMethod(i)->accept(this);
     }
-/*
-    for (int i = 0; i < klass->n_constructors(); ++i) {
-        int j;
-        Def* c = klass->getConstructor(i);
-        output << "    " << klass->getUniqueCppName() << "(";
-        generateDefParameters(c);
-        output << ") {\n";
-        output << "        " << c->getUniqueCppName() << "(";
-
-        if (c->n_parameters() > 0) {
-            for (j = 0; j < c->n_parameters() - 1; ++j) {
-                output << c->getParameter(j)->getUniqueCppName() << ", ";
-            }
-
-            output << c->getParameter(j)->getUniqueCppName();
-        }
-
-        output << ");\n";
-        output << "    }\n";
-    }
-
-    //output << "    " << klass->getUniqueCppName() << "() {}\n";
-
-    if (klass->getDestructor() != nullptr) {
-        output << "\n    ~" << klass->getUniqueCppName() << "() {\n";
-        output << "        " << klass->getDestructor()->getUniqueCppName() << "();\n";
-        output << "    }\n";
-    }*/
 
     dedent();
     output << "};\n\n";
@@ -1034,23 +1006,6 @@ void CppPrinter::checkTypeDefinition(Type *t) {
             break;
         }
     }
-}
-
-bool CppPrinter::isConstructorCall(AssignmentExpression *expr) {
-    Expression* right = expr->getRight();
-
-    if (right->getKind() == AST_CALL) {
-        CallExpression* c = (CallExpression*) right;
-
-        if (c->getExpression()->getKind() == AST_IDENTIFIER) {
-            IdentifierExpression* id = (IdentifierExpression*) c->getExpression();
-            Symbol* sym = id->getSymbol();
-
-            return sym->getKind() == SYMBOL_CLASS;
-        }
-    }
-
-    return false;
 }
 
 void CppPrinter::generatePrototypes(SourceFile* file) {
