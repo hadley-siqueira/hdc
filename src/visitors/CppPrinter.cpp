@@ -84,7 +84,7 @@ void hdc::CppPrinter::visit(Class* klass) {
     for (int i = 0; i < klass->n_methods(); ++i) {
         klass->getMethod(i)->accept(this);
     }
-
+/*
     for (int i = 0; i < klass->n_constructors(); ++i) {
         int j;
         Def* c = klass->getConstructor(i);
@@ -111,7 +111,7 @@ void hdc::CppPrinter::visit(Class* klass) {
         output << "\n    ~" << klass->getUniqueCppName() << "() {\n";
         output << "        " << klass->getDestructor()->getUniqueCppName() << "();\n";
         output << "    }\n";
-    }
+    }*/
 
     dedent();
     output << "};\n\n";
@@ -374,6 +374,30 @@ void CppPrinter::visit(ElseStatement* statement) {
 }
 
 void CppPrinter::visit(ReturnStatement* statement) {
+    std::vector<Variable*> vars = statement->getLiveVariables();
+
+    for (int i = 0; i < vars.size(); ++i) {
+        Variable* var = vars[i];
+        Type* type = var->getType();
+
+        if (type->getKind() == AST_NAMED_TYPE) {
+            NamedType* n = (NamedType*) type;
+            IdentifierExpression* id = n->getName();
+            Symbol* sym = id->getSymbol();
+
+            if (sym->getKind() == SYMBOL_CLASS) {
+                Class* klass = (Class*) sym->getDescriptor();
+
+                if (klass->getDestructor() != nullptr) {
+                    print_indentation();
+                    output << var->getUniqueCppName() << ".";
+                    output << klass->getDestructor()->getUniqueCppName() << "();\n";
+                }
+            }
+        }
+    }
+
+    print_indentation();
     output << "return";
 
     if (statement->getExpression()) {
@@ -700,7 +724,7 @@ void CppPrinter::visit(NotEqualExpression* expression) {
 void CppPrinter::visit(AssignmentExpression* expression) {
     isExpression = true;
 
-    if (isConstructorCall(expression)) {
+    if (expression->getConstructorFlag()) {
         generateConstructorCall(expression);
     } else {
         expression->getLeft()->accept(this);
@@ -1087,10 +1111,11 @@ void CppPrinter::generateConstructorCall(AssignmentExpression *expression) {
     int i = 0;
 
     expression->getLeft()->accept(this);
-    output << ".m1_init";
 
     call = (CallExpression*) expression->getRight();
     id = (IdentifierExpression*) call->getExpression();
+    output << ".";
+    id->accept(this);
 
     isExpression = true;
     output << "(";

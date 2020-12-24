@@ -35,6 +35,9 @@ class Image:
         @h = h
         @p = alloc(w * h * sizeof(Pixel))
 
+    def init : void
+        pass
+
     def destroy : void
         free(p)
 

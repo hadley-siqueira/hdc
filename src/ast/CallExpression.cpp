@@ -5,6 +5,7 @@ using namespace hdc;
 /* Constructors */
 CallExpression::CallExpression() {
     expression = nullptr;
+    constructorFlag = false;
 
     setKind(AST_CALL);
 }
@@ -12,6 +13,7 @@ CallExpression::CallExpression() {
 CallExpression::CallExpression(Expression* expression, std::vector<Expression*> arguments) {
     this->expression = expression;
     this->arguments = arguments;
+    constructorFlag = false;
     setKind(AST_CALL);
 
     this->expression->setParentNode(this);
@@ -25,6 +27,7 @@ CallExpression::CallExpression(Token& oper, Expression* expression, std::vector<
     this->oper = oper;
     this->expression = expression;
     this->arguments = arguments;
+    constructorFlag = false;
     setKind(AST_CALL);
 
     this->expression->setParentNode(this);
@@ -85,5 +88,15 @@ void CallExpression::addArgument(Expression* expression) {
 /* Visitors */
 void CallExpression::accept(Visitor* visitor) {
     visitor->visit(this);
+}
+
+bool CallExpression::getConstructorFlag() const
+{
+    return constructorFlag;
+}
+
+void CallExpression::setConstructorFlag(bool value)
+{
+    constructorFlag = value;
 }
 

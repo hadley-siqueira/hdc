@@ -1,6 +1,8 @@
 #ifndef HDC_RETURN_STATEMENT_H
 #define HDC_RETURN_STATEMENT_H
 
+#include <vector>
+
 #include "token/Token.h"
 #include "ast/Statement.h"
 #include "ast/Expression.h"
@@ -21,13 +23,20 @@ namespace hdc {
             Expression* getExpression() const;
             void setExpression(Expression* value);
 
+            void addLiveVariable(Variable* var);
+
+
         /* Visitors */
         public:
             virtual void accept(Visitor* visitor);
 
-        private:
+            std::vector<Variable *> getLiveVariables() const;
+            void setLiveVariables(const std::vector<Variable *> &value);
+
+    private:
             Token token;
             Expression* expression;
+            std::vector<Variable*> liveVariables;
     };
 }
 

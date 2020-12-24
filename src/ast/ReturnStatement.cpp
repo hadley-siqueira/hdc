@@ -32,6 +32,20 @@ void ReturnStatement::setExpression(Expression* value) {
     expression = value;
 }
 
+void ReturnStatement::addLiveVariable(Variable *var) {
+    liveVariables.push_back(var);
+}
+
 void ReturnStatement::accept(Visitor* visitor) {
     visitor->visit(this);
+}
+
+std::vector<Variable *> ReturnStatement::getLiveVariables() const
+{
+    return liveVariables;
+}
+
+void ReturnStatement::setLiveVariables(const std::vector<Variable *> &value)
+{
+    liveVariables = value;
 }

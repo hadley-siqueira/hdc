@@ -262,6 +262,41 @@ SourceFile* SymbolTable::getSourceFile() const {
     return sourceFile;
 }
 
+std::vector<Variable *> SymbolTable::getLocalLiveVariables() {
+    std::vector<Variable*> res;
+    std::map<std::string, Symbol*>::iterator it;
+
+    for (it = symbols.begin(); it != symbols.end(); ++it) {
+        Symbol* sym = it->second;
+
+        if (sym->getKind() == SYMBOL_LOCAL_VARIABLE) {
+            res.push_back((Variable*) sym->getDescriptor());
+        }
+    }
+
+    return res;
+}
+
+std::vector<Variable *> SymbolTable::getDefVariables() {
+    std::vector<Variable*> res, tmp;
+    std::map<std::string, Symbol*>::iterator it;
+
+    for (it = symbols.begin(); it != symbols.end(); ++it) {
+        Symbol* sym = it->second;
+
+        if (sym->getKind() == SYMBOL_LOCAL_VARIABLE) {
+            res.push_back((Variable*) sym->getDescriptor());
+        }
+    }
+
+    if (hasParent()) {
+        tmp = parent->getDefVariables();
+        res.insert(res.end(), tmp.begin(), tmp.end());
+    }
+
+    return res;
+}
+
 void SymbolTable::setSourceFile(SourceFile* value) {
     sourceFile = value;
 }

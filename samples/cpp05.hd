@@ -18,11 +18,17 @@ class Image:
         @p = 0
         @w = sum(w, h)
 
+    def init : void
+        pass
+
     def sum : int
         @a : int
         @b : int
 
         return a + b
+
+    def destroy : void
+        pass
 
 def sum : int
     @a : int

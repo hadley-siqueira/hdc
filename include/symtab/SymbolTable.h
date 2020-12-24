@@ -34,6 +34,7 @@ namespace hdc {
             Symbol* add(Parameter* parameter);
             Symbol* add(ClassVariable* var);
             Symbol* add(GlobalVariable* var);
+            void addLiveVariable(Variable* var);
 
         /* Predicates */
         public:
@@ -45,17 +46,23 @@ namespace hdc {
             Symbol* hasMethod(Def* def);
             Symbol* hasClassVariable(std::string& name);
 
+            int n_liveVariables();
+
         /* Getters */
         public:
             SymbolTable* getParent() const;
             SourceFile* getSourceFile() const;
+
+            std::vector<Variable*> getLocalLiveVariables();
+            std::vector<Variable*> getDefVariables();
+
 
         /* Setters */
         public:
             void setParent(SymbolTable* parent);
             void setSourceFile(SourceFile* value);
 
-        private:
+    private:
             SymbolTable* parent;
 
             // pointer to search definitions on SourceFile

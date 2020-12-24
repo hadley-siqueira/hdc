@@ -42,6 +42,12 @@ namespace hdc {
         /* Visitors */
         public:
             virtual void accept(Visitor* visitor);
+
+            bool getConstructorFlag() const;
+            void setConstructorFlag(bool value);
+
+    private:
+            bool constructorFlag;
     };
 }
 

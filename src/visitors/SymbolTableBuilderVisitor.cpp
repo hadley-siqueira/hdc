@@ -325,6 +325,8 @@ void SymbolTableBuilderVisitor::visit(ReturnStatement* statement) {
     if (statement->getExpression() != nullptr) {
         statement->getExpression()->accept(this);
     }
+
+    statement->setLiveVariables(symbolTable->getDefVariables());
 }
 
 void SymbolTableBuilderVisitor::visit(Expression* expression) {}
@@ -424,7 +426,20 @@ void SymbolTableBuilderVisitor::visit(CallExpression* expression) {
         id = (IdentifierExpression*) expr;
         sym = id->getSymbol();
 
-        if (sym->isOverloaded()) {
+        // constructor calls
+        if (sym->getKind() == SYMBOL_CLASS) {
+            Class* klass = (Class*) sym->getDescriptor();
+
+            sym = klass->getSymbolTable()->has("init");
+            id->setSymbol(sym);
+
+            if (sym->isOverloaded()) {
+                idx = sym->getOverloadedDescriptorIndex(argTypes);
+                id->setIdxOverloaded(idx);
+            }
+
+            expression->setConstructorFlag(true);
+        } else if (sym->isOverloaded()) {
             idx = sym->getOverloadedDescriptorIndex(argTypes);
             id->setIdxOverloaded(idx);
         }
@@ -433,7 +448,7 @@ void SymbolTableBuilderVisitor::visit(CallExpression* expression) {
     expression->setType(t->clone());
     setLastType(expression->getType());
 }
-// obj.m(...)
+
 void SymbolTableBuilderVisitor::visit(DotExpression* expression) {
     NamedType* t = nullptr;
     SymbolTable* s = nullptr;
@@ -765,6 +780,12 @@ void SymbolTableBuilderVisitor::visit(AssignmentExpression* expression) {
     expression->getLeft()->accept(this);
     expression->setType(lastType->clone());
     setLastType(expression->getType());
+
+    if (expression->getRight()->getKind() == AST_CALL) {
+        CallExpression* call = (CallExpression*) expression->getRight();
+
+        expression->setConstructorFlag(call->getConstructorFlag());
+    }
 
     checkingAssignment = oldCheckingAssignment;
 }
