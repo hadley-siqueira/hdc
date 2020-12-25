@@ -380,8 +380,24 @@ std::string Driver::getEnvPath(std::string key) {
 }
 
 void Driver::configureSearchPath() {
+    std::string tmp;
+
     searchPath.push_back(rootPath);
-    searchPath.push_back(getEnvPath("HDC_PATH"));
+
+    std::string hdc_path = getEnvPath("HDC_PATH");
+
+    for (int i = 0; i < hdc_path.size(); ++i) {
+        if (hdc_path[i] != ':') {
+            tmp += hdc_path[i];
+        } else {
+            searchPath.push_back(tmp);
+            tmp = "";
+        }
+    }
+
+    if (tmp.size() > 0) {
+        searchPath.push_back(tmp);
+    }
 }
 
 void Driver::setRootPathFromMainFile() {
