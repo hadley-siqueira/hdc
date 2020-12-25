@@ -703,6 +703,16 @@ void CppPrinter::visit(LogicalAndExpression *expression) {
     output << ")";
 }
 
+void CppPrinter::visit(LogicalOrExpression *expression) {
+    isExpression = true;
+
+    output << "(";
+    expression->getLeft()->accept(this);
+    output << " || ";
+    expression->getRight()->accept(this);
+    output << ")";
+}
+
 void CppPrinter::visit(AssignmentExpression* expression) {
     isExpression = true;
 

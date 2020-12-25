@@ -66,16 +66,10 @@ class PPMImage:
 
         flag = 1
 
-        if x < 0:
+        if x < 0 or x > @width:
             flag = 0
 
-        if x > @width:
-            flag = 0
-
-        if y < 0:
-            flag = 0
-
-        if y > @height:
+        if y < 0 or y > @height:
             flag = 0
 
         if flag:

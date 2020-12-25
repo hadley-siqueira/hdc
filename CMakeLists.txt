@@ -40,6 +40,7 @@ set(AST_TYPES_SRC
 
 set(AST_OPERATORS_SRC
     src/ast/operators/binary/LogicalAndExpression.cpp
+    src/ast/operators/binary/LogicalOrExpression.cpp
 )
 
 set(AST_SRC

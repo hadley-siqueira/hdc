@@ -101,6 +101,7 @@ namespace hdc {
 
         AST_LOGICAL_NOT,
         AST_LOGICAL_AND,
+        AST_LOGICAL_OR,
 
         AST_ASSIGNMENT,
         AST_BITWISE_AND_ASSIGNMENT,

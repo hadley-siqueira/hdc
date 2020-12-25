@@ -129,6 +129,7 @@ namespace hdc {
             void visit(NotEqualExpression* expression);
 
             void visit(LogicalAndExpression* expression);
+            void visit(LogicalOrExpression* expression);
 
             void visit(AssignmentExpression* expression);
             void visit(BitwiseAndAssignmentExpression* expression);

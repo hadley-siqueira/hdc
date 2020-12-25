@@ -511,9 +511,28 @@ Expression* Parser::parse_logical_and_expression() {
     return expression;
 }
 
-Expression* Parser::parse_assignment_expression() {
+Expression* Parser::parse_logical_or_expression() {
     Token oper;
     Expression* expression = parse_logical_and_expression();
+
+    while (true) {
+        if (match(TK_OR)) {
+            oper = *matched;
+            expression = new LogicalOrExpression(oper, expression, parse_logical_and_expression());
+        } else if (match(TK_LOGICAL_OR)) {
+            oper = *matched;
+            expression = new LogicalOrExpression(oper, expression, parse_logical_and_expression());
+        } else {
+            break;
+        }
+    }
+
+    return expression;
+}
+
+Expression* Parser::parse_assignment_expression() {
+    Token oper;
+    Expression* expression = parse_logical_or_expression();
 
     while (true) {
         if (match(TK_ASSIGNMENT)) {

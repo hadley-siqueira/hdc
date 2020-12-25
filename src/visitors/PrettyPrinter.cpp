@@ -676,6 +676,18 @@ void PrettyPrinter::visit(LogicalAndExpression *expression) {
     expression->getRight()->accept(this);
 }
 
+void PrettyPrinter::visit(LogicalOrExpression *expression) {
+    expression->getLeft()->accept(this);
+
+    if (expression->getOper().getKind() == TK_OR) {
+        output << " or ";
+    } else {
+        output << " || ";
+    }
+
+    expression->getRight()->accept(this);
+}
+
 void PrettyPrinter::visit(AssignmentExpression* expression) {
     expression->getLeft()->accept(this);
     output << " = ";
