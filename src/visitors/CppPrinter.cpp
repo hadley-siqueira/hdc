@@ -865,7 +865,12 @@ void CppPrinter::visit(LiteralSymbolExpression* expression) {
 
 void CppPrinter::visit(LiteralBoolExpression* expression) {
     isExpression = true;
-    output << expression->get_token().getLexem();
+
+    if (expression->get_token().getKind() == TK_TRUE) {
+        output << "true";
+    } else {
+        output << "false";
+    }
 }
 
 void CppPrinter::visit(LiteralNullExpression *expression) {

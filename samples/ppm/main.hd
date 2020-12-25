@@ -10,4 +10,6 @@ def main : int
     img.line(200, 200, 200, 100, rgb(11, 181, 139))
     img.circle(200, 100, 50, rgb(0, 0, 0))
     img.save('/tmp/img.ppm')
+    t = true
+    t = false
     return 0

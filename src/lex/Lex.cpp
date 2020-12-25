@@ -39,6 +39,8 @@ Lex::Lex() {
         keywordsMap["as"] = TK_AS;
         keywordsMap["in"] = TK_IN;
         keywordsMap["null"] = TK_NULL;
+        keywordsMap["true"] = TK_TRUE;
+        keywordsMap["false"] = TK_FALSE;
 
         keywordsMap["if"] = TK_IF;
         keywordsMap["elif"] = TK_ELIF;
