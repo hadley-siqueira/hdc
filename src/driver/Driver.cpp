@@ -228,7 +228,7 @@ void Driver::generateCpp() {
     CppPrinter pp;
     program.accept(&pp);
 
-    pp.save("/tmp/gen.cpp");
+    pp.save("gen.cpp");
     pp.print();
 }
 
