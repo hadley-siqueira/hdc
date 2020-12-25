@@ -40,7 +40,7 @@ class File:
         @path : char*
         @mode : char
 
-        pass
+        open(path, mode)
 
     def init : void
         pass
@@ -73,6 +73,18 @@ class File:
 
     def write : void
         @str : int
+
+        if @desc != null:
+            $'fprintf((FILE*) cv1_desc, "%i", p0_str)'
+
+    def write : void
+        @str : char
+
+        if @desc != null:
+            $'fprintf((FILE*) cv1_desc, "%c", p0_str)'
+
+    def write : void
+        @str : u8
 
         if @desc != null:
             $'fprintf((FILE*) cv1_desc, "%i", p0_str)'

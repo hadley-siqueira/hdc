@@ -1,4 +1,5 @@
 import std.io
+import std.math
 import std.memory
 
 import Pixel
@@ -27,6 +28,24 @@ class PPMImage:
 
         f = File(path, 'w')
         f.write('P3\n')
+        f.write(@width)
+        f.write(' ')
+        f.write(@height)
+        f.write('\n255\n')
+
+        i = 0
+        ptr = @pixels
+        while i < @width * @height:
+            f.write(ptr->r)
+            f.write(' ')
+            f.write(ptr->g)
+            f.write(' ')
+            f.write(ptr->b)
+            f.write('\n')
+            ++i
+            ++ptr
+
+        f.close()
 
     def clear : void
         @pixel : Pixel
@@ -39,3 +58,113 @@ class PPMImage:
             ptr->b = pixel.b
             ++ptr
             ++i
+
+    def setPixel : void
+        @x : int
+        @y : int
+        @color : Pixel
+
+        flag = 1
+
+        if x < 0:
+            flag = 0
+
+        if x > @width:
+            flag = 0
+
+        if y < 0:
+            flag = 0
+
+        if y > @height:
+            flag = 0
+
+        if flag:
+            addr = y * @width + x
+            ptr = @pixels + addr
+
+            ptr->r = color.r
+            ptr->g = color.g
+            ptr->b = color.b
+
+    def line : void
+        @x0 : int
+        @y0 : int
+        @x1 : int
+        @y1 : int
+        @color : Pixel
+
+        dx = abs(x1 - x0)
+        dy = abs(y1 - y0)
+        sx = 1
+        sy = 1
+        err = 0
+        e2 = 0
+
+        if x0 < x1:
+            sx = 1
+        else:
+            sx = -1
+
+        if y0 < y1:
+            sy = 1
+        else:
+            sy = -1
+
+        if dx > dy:
+            err = dx / 2
+        else:
+            err = -dy / 2
+
+        flag = 1
+        while flag:
+            setPixel(x0, y0, color)
+
+            if x0 == x1:
+                if y0 == y1:
+                    flag = 0
+
+            if flag:
+                e2 = err
+                if e2 > -dx:
+                    err = err - dy
+                    x0 = x0 + sx
+                if e2 < dy:
+                    err = err + dx
+                    y0 = y0 + sy
+
+    def circle : void
+        @x0 : int
+        @y0 : int
+        @radius : int
+        @color : Pixel
+
+        f = 1 - radius
+        ddF_x = 0
+        ddF_y = -2 * radius
+        x = 0
+        y = radius
+
+        setPixel(x0, y0 + radius, color)
+        setPixel(x0, y0 - radius, color)
+        setPixel(x0 + radius, y0, color)
+        setPixel(x0 - radius, y0, color)
+
+        while x < y:
+            if f >= 0:
+                y = y - 1
+                ddF_y = ddF_y + 2
+                f = f + ddF_y
+
+            x = x + 1
+            ddF_x = ddF_x + 2
+            f = f + ddF_x + 1
+            setPixel(x0 + x, y0 + y, color)
+            setPixel(x0 - x, y0 + y, color)
+            setPixel(x0 + x, y0 - y, color)
+            setPixel(x0 - x, y0 - y, color)
+            setPixel(x0 + y, y0 + x, color)
+            setPixel(x0 - y, y0 + x, color)
+            setPixel(x0 + y, y0 - x, color)
+            setPixel(x0 - y, y0 - x, color)
+
+

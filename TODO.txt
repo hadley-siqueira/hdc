@@ -1,0 +1,5 @@
+- Implement and, or, not, &&, ||, ?, +=, -=, ...
+- Implement true, false literals
+- Implement break, continue, return
+- *(ptr + offset)
+

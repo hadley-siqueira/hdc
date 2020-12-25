@@ -1,6 +1,13 @@
 import std.io
 import PPMImage
+import Pixel
 
 def main : int
     img = PPMImage(800, 600)
+    img.clear(rgb(255, 255, 255))
+    img.line(10, 10, 100, 100, rgb(0, 0, 0))
+    img.line(100, 100, 200, 200, rgb(255, 0, 0))
+    img.line(200, 200, 200, 100, rgb(11, 181, 139))
+    img.circle(200, 100, 50, rgb(0, 0, 0))
+    img.save('/tmp/img.ppm')
     return 0

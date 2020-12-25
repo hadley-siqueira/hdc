@@ -2,3 +2,20 @@ class Pixel:
     r : u8
     g : u8
     b : u8
+
+    def init : void
+        @r : u8
+        @g : u8
+        @b : u8
+
+        @r = r
+        @g = g
+        @b = b
+
+def rgb : Pixel
+    @r : u8
+    @g : u8
+    @b : u8
+
+    p = Pixel(r, g, b)
+    return p
