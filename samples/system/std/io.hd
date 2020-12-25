@@ -1,6 +1,31 @@
 import std.memory
 import std.cstring
 
+def print : void
+    @str : char*
+
+    $'std::cout << p0_str'
+
+def print : void
+    @v : char
+
+    $'std::cout << p0_v'
+
+def print : void
+    @v : int
+
+    $'std::cout << p0_v'
+
+def print : void
+    @v : float
+
+    $'std::cout << p0_v'
+
+def print : void
+    @v : double
+
+    $'std::cout << p0_v'
+
 def println : void
     @str : char*
 
@@ -25,6 +50,14 @@ def println : void
     @v : double
 
     $'std::cout << p0_v << "\n"'
+
+def input_i : int
+    @msg : char*
+
+    print(msg)
+    v = 0
+    $'std::cin >> lv1_v'
+    return v
 
 def open : File
     @path : char*

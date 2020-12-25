@@ -3,7 +3,9 @@ import PPMImage
 import Pixel
 
 def main : int
-    img = PPMImage(800, 600)
+    w = input_i('Width: ')
+    h = input_i('Height: ')
+    img = PPMImage(w, h)
     img.clear(rgb(255, 255, 255))
     img.line(10, 10, 100, 100, rgb(0, 0, 0))
     img.line(100, 100, 200, 200, rgb(255, 0, 0))
