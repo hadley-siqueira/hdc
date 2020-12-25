@@ -664,6 +664,18 @@ void PrettyPrinter::visit(NotEqualExpression* expression) {
     expression->getRight()->accept(this);
 }
 
+void PrettyPrinter::visit(LogicalAndExpression *expression) {
+    expression->getLeft()->accept(this);
+
+    if (expression->getOper().getKind() == TK_AND) {
+        output << " and ";
+    } else {
+        output << " && ";
+    }
+
+    expression->getRight()->accept(this);
+}
+
 void PrettyPrinter::visit(AssignmentExpression* expression) {
     expression->getLeft()->accept(this);
     output << " = ";

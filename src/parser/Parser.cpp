@@ -492,9 +492,28 @@ Expression*Parser::parse_equality_expression() {
     return expression;
 }
 
-Expression* Parser::parse_assignment_expression() {
+Expression* Parser::parse_logical_and_expression() {
     Token oper;
     Expression* expression = parse_equality_expression();
+
+    while (true) {
+        if (match(TK_AND)) {
+            oper = *matched;
+            expression = new LogicalAndExpression(oper, expression, parse_equality_expression());
+        } else if (match(TK_LOGICAL_AND)) {
+            oper = *matched;
+            expression = new LogicalAndExpression(oper, expression, parse_equality_expression());
+        } else {
+            break;
+        }
+    }
+
+    return expression;
+}
+
+Expression* Parser::parse_assignment_expression() {
+    Token oper;
+    Expression* expression = parse_logical_and_expression();
 
     while (true) {
         if (match(TK_ASSIGNMENT)) {

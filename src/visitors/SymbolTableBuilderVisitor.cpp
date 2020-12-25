@@ -753,6 +753,21 @@ void SymbolTableBuilderVisitor::visit(NotEqualExpression* expression) {
     setLastType(expression->getType());
 }
 
+void SymbolTableBuilderVisitor::visit(LogicalAndExpression *expression) {
+    Type* left;
+    Type* right;
+    Type* type;
+
+    expression->getLeft()->accept(this);
+    left = lastType;
+
+    expression->getRight()->accept(this);
+    right = lastType;
+
+    expression->setType(new BoolType());
+    setLastType(expression->getType());
+}
+
 void SymbolTableBuilderVisitor::visit(GreaterThanOrEqualExpression* expression) {
     Type* left;
     Type* right;

@@ -20,17 +20,19 @@ namespace hdc {
         public:
             void setLeft(Expression* left);
             void setRight(Expression* right);
+            void setOper(const Token &value);
 
         /* Getters */
         public:
             Expression* getLeft();
             Expression* getRight();
+            Token getOper() const;
 
         /* Visitors */
         public:
-            virtual void accept(Visitor* visitor);
+            virtual void accept(Visitor* visitor);            
 
-        protected:
+    protected:
             Expression* left;
             Expression* right;
             Token oper;

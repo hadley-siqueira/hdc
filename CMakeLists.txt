@@ -38,8 +38,13 @@ set(AST_TYPES_SRC
     src/ast/types/FunctionType.cpp
 )
 
+set(AST_OPERATORS_SRC
+    src/ast/operators/binary/LogicalAndExpression.cpp
+)
+
 set(AST_SRC
     ${AST_TYPES_SRC}
+    ${AST_OPERATORS_SRC}
     src/ast/ASTNode.cpp
     src/ast/Program.cpp
     src/ast/SourceFile.cpp

@@ -62,3 +62,13 @@ void BinaryOperator::accept(Visitor* visitor) {
     visitor->visit(this);
 }
 
+Token BinaryOperator::getOper() const
+{
+    return oper;
+}
+
+void BinaryOperator::setOper(const Token &value)
+{
+    oper = value;
+}
+

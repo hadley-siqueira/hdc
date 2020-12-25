@@ -77,6 +77,8 @@
 #include "ast/EqualExpression.h"
 #include "ast/NotEqualExpression.h"
 
+#include "ast/operators/binary/LogicalAndExpression.h"
+
 #include "ast/AssignmentExpression.h"
 #include "ast/BitwiseAndAssignmentExpression.h"
 #include "ast/BitwiseXorAssignmentExpression.h"
