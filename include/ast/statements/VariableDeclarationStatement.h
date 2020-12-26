@@ -10,6 +10,7 @@ namespace hdc {
     class VariableDeclarationStatement : public Statement {
     public:
         VariableDeclarationStatement(IdentifierExpression* name, Type* type, Expression* expression);
+        virtual ~VariableDeclarationStatement();
 
     public:
         void accept(Visitor* visitor);

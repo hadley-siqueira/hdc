@@ -17,13 +17,16 @@ namespace hdc {
         public:
             Type* getType() const;
             void setType(Type* value);
+            int getCppTemp() const;
+            void setCppTemp(int value);
 
         /* Visitors */
         public:
             virtual void accept(Visitor* visitor);
 
-        private:
+    private:
             Type* type;
+            int cppTemp;
     };
 }
 

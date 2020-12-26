@@ -9,6 +9,12 @@ VariableDeclarationStatement::VariableDeclarationStatement(IdentifierExpression*
     setKind(AST_VARIABLE_DECLARATION);
 }
 
+VariableDeclarationStatement::~VariableDeclarationStatement() {
+    delete name;
+    delete type;
+    delete expression;
+}
+
 void VariableDeclarationStatement::accept(Visitor *visitor) {
     visitor->visit(this);
 }

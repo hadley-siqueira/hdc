@@ -254,8 +254,12 @@ Symbol* SymbolTable::hasLocalVariableOnCurrentScope(const std::string& name) {
     if (symbols.count(name) > 0) {
         Symbol* symbol = symbols[name];
 
-        if (symbol != nullptr && symbol->getKind() == SYMBOL_LOCAL_VARIABLE) {
-            return symbol;
+        if (symbol != nullptr) {
+            SymbolKind kind = symbol->getKind();
+
+            if (kind == SYMBOL_LOCAL_VARIABLE || kind == SYMBOL_PARAMETER) {
+                return symbol;
+            }
         }
     }
 

@@ -5,6 +5,7 @@
 using namespace hdc;
 
 CppPrinter::CppPrinter() {
+    tmpCounter = 0;
     n_spaces = 0;
     mainDef = nullptr;
     isExpression = false;
@@ -105,6 +106,7 @@ void CppPrinter::visit(Def* def) {
 
     generateDefLocalVariables(def);
 
+    tmpCounter = 0;
     def->getStatements()->accept(this);
     dedent();
     print_indentation();
@@ -135,7 +137,7 @@ void CppPrinter::visit(LocalVariable* variable) {
     if (variable->getType() != nullptr) {
         variable->getType()->accept(this);
     } else {
-        output << "int";
+        output << "ERROR";
     }
 
     output << " lv" << variable->getLocalName() << "_";
@@ -629,6 +631,16 @@ void CppPrinter::visit(PlusExpression* expression) {
     output << " + ";
     expression->getRight()->accept(this);
     output << ")";
+
+    /*expression->getLeft()->accept(this);
+    expression->getRight()->accept(this);
+
+    expression->setCppTemp(tmpCounter++);
+    expression->getType()->accept(this);
+    output << "_tmp" << expression->getCppTemp() << "_ = ";
+    output << expression->getLeft()->getCppTemp();
+    output << " + ";
+    output << expression->getLeft()->getCppTemp();*/
 }
 
 void CppPrinter::visit(MinusExpression* expression) {
@@ -1118,4 +1130,8 @@ void CppPrinter::generateConstructorCall(AssignmentExpression *expression) {
     }
 
     output << ")";
+}
+
+void CppPrinter::generateBinaryOperator(BinaryOperator *bin) {
+    isExpression = true;
 }

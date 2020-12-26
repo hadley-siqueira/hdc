@@ -172,8 +172,10 @@ namespace hdc {
             void generateDefParameters(Def* def);
             void generateDefLocalVariables(Def* def);
             void generateConstructorCall(AssignmentExpression* expression);
+            void generateBinaryOperator(BinaryOperator* bin);
 
         private:
+            int tmpCounter;
             int n_spaces;
             std::stringstream output;
             bool isExpression;
