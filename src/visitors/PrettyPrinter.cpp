@@ -445,6 +445,21 @@ void PrettyPrinter::visit(ReturnStatement* statement) {
     }
 }
 
+void PrettyPrinter::visit(VariableDeclarationStatement *statement) {
+    output << "var ";
+    statement->getName()->accept(this);
+
+    if (statement->getType() != nullptr) {
+        output << " : ";
+        statement->getType()->accept(this);
+    }
+
+    if (statement->getExpression() != nullptr) {
+        output << " = ";
+        statement->getExpression()->accept(this);
+    }
+}
+
 /* Expressions */
 void PrettyPrinter::visit(Expression* expression) {
     output << "UNKNOWN EXPRESSION";

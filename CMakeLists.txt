@@ -43,9 +43,14 @@ set(AST_OPERATORS_SRC
     src/ast/operators/binary/LogicalOrExpression.cpp
 )
 
+set(AST_STATEMENTS_SRC
+    src/ast/statements/VariableDeclarationStatement.cpp
+)
+
 set(AST_SRC
     ${AST_TYPES_SRC}
     ${AST_OPERATORS_SRC}
+    ${AST_STATEMENTS_SRC}
     src/ast/ASTNode.cpp
     src/ast/Program.cpp
     src/ast/SourceFile.cpp

@@ -250,6 +250,18 @@ Symbol* SymbolTable::hasClassVariable(std::string& name) {
     return nullptr;
 }
 
+Symbol* SymbolTable::hasLocalVariableOnCurrentScope(const std::string& name) {
+    if (symbols.count(name) > 0) {
+        Symbol* symbol = symbols[name];
+
+        if (symbol != nullptr && symbol->getKind() == SYMBOL_LOCAL_VARIABLE) {
+            return symbol;
+        }
+    }
+
+    return nullptr;
+}
+
 SymbolTable* SymbolTable::getParent() const {
     return parent;
 }

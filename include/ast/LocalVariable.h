@@ -1,6 +1,7 @@
 #ifndef HDC_LOCALVARIABLE_H
 #define HDC_LOCALVARIABLE_H
 
+#include "ast/Expression.h"
 #include "ast/Variable.h"
 
 namespace hdc {
@@ -13,6 +14,7 @@ namespace hdc {
         /* Visitors */
         public:
             virtual void accept(Visitor* visitor);
+
     };
 }
 

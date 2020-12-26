@@ -80,6 +80,7 @@ namespace hdc {
             void visit(ElifStatement* statement);
             void visit(ElseStatement* statement);
             void visit(ReturnStatement* statement);
+            void visit(VariableDeclarationStatement* statement);
 
             /* Expressions */
             void visit(Expression* expression);

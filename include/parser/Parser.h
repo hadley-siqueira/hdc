@@ -25,6 +25,7 @@ namespace hdc {
             Struct* parse_struct();
             ClassVariable* parse_class_variable();
             GlobalVariable* parse_global_variable();
+            VariableDeclarationStatement *parse_local_variable();
             GlobalConstant* parse_global_constant();
 
             std::vector<Expression*> parse_argument_list();

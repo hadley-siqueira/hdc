@@ -45,6 +45,7 @@ namespace hdc {
             Symbol* hasLocalFunction(Def* def);
             Symbol* hasMethod(Def* def);
             Symbol* hasClassVariable(std::string& name);
+            Symbol* hasLocalVariableOnCurrentScope(const std::string &name);
 
             int n_liveVariables();
 

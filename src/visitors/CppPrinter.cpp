@@ -378,6 +378,14 @@ void CppPrinter::visit(ReturnStatement* statement) {
     }
 }
 
+void CppPrinter::visit(VariableDeclarationStatement *statement) {
+    if (statement->getExpression() != nullptr) {
+        statement->getName()->accept(this);
+        output << " = ";
+        statement->getExpression()->accept(this);
+    }
+}
+
 /* Expressions */
 void CppPrinter::visit(Expression* expression) {}
 

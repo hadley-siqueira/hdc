@@ -27,6 +27,7 @@
 #include "ast/ElifStatement.h"
 #include "ast/ElseStatement.h"
 #include "ast/ReturnStatement.h"
+#include "ast/statements/VariableDeclarationStatement.h"
 
 /* Expressions */
 #include "ast/Expression.h"

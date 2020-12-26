@@ -1,0 +1,15 @@
+import std.io
+
+def main : int
+    x = 2
+    var array : int
+    var array2 : int = 2
+    var x = 2.7
+    p = 2.3
+    ptr = &p
+    p2 = &ptr
+    p3 = *p2
+    p3[2] = 7
+    t = p3[2]
+
+    return 0

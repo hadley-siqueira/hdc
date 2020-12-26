@@ -344,7 +344,6 @@ std::string Driver::buildPathForImport(Import* import) {
 
     for (int i = 0; i < searchPath.size(); ++i) {
         std::string fullPath = searchPath[i] + str;
-        std::cout << "path: " << fullPath << std::endl;
 
         if (fileExists(fullPath)) {
             return fullPath;
@@ -384,6 +383,7 @@ void Driver::configureSearchPath() {
 
     searchPath.push_back(rootPath);
 
+    // add HDC_PATH
     std::string hdc_path = getEnvPath("HDC_PATH");
 
     for (int i = 0; i < hdc_path.size(); ++i) {

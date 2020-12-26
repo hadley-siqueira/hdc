@@ -6,6 +6,7 @@ Logger::Logger() {
     logParserFlag = false;
     logLexFlag = false;
     logDriverFlag = false;
+    logSymbolTableFlag = false;
 }
 
 Logger::~Logger() {
@@ -51,6 +52,7 @@ void Logger::log(LogKind kind, std::string message) {
     if (kind == LOG_INTERNAL_DRIVER && !logDriverFlag) return;
     if (kind == LOG_INTERNAL_LEX && !logLexFlag) return;
     if (kind == LOG_INTERNAL_PARSER && !logParserFlag) return;
+    if (kind == LOG_INTERNAL_SYMBOL_TABLE && !logSymbolTableFlag) return;
 
     logs.push_back(new Log(kind, message));
 }

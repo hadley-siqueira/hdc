@@ -329,6 +329,42 @@ void SymbolTableBuilderVisitor::visit(ReturnStatement* statement) {
     statement->setLiveVariables(symbolTable->getDefVariables());
 }
 
+void SymbolTableBuilderVisitor::visit(VariableDeclarationStatement *statement) {
+    Type* type = nullptr;
+    Symbol* symbol = nullptr;
+    IdentifierExpression* id;
+
+    id = statement->getName();
+
+    if (statement->getType() != nullptr) {
+        statement->getType()->accept(this);
+        type = statement->getType();
+    }
+
+    if (statement->getExpression() != nullptr) {
+        statement->getExpression()->accept(this);
+
+        if (type == nullptr) {
+            type = lastType;
+        }
+    }
+
+    symbol = symbolTable->hasLocalVariableOnCurrentScope(id->getName());
+
+    if (symbol == nullptr) {
+        LocalVariable* var = new LocalVariable(id->getNameAsToken());
+        var->setType(type->clone());
+        symbol = symbolTable->add(var);
+        currentDef->addLocalVariable(var);
+        id->setType(type->clone());
+        id->setSymbol(symbol);
+        setLastType(id->getType());
+    } else {
+        std::cout << "Error: redefinition of variable on current scope\n";
+        exit(0);
+    }
+}
+
 void SymbolTableBuilderVisitor::visit(Expression* expression) {}
 
 void SymbolTableBuilderVisitor::visit(LogicalNotExpression* expression) {
@@ -340,7 +376,14 @@ void SymbolTableBuilderVisitor::visit(BitwiseNotExpression* expression) {
 }
 
 void SymbolTableBuilderVisitor::visit(AddressOfExpression* expression) {
+    Type* type;
+
     expression->getExpression()->accept(this);
+
+    type = new PointerType(lastType->clone());
+    type->accept(this);
+    expression->setType(type);
+    setLastType(expression->getType());
 }
 
 void SymbolTableBuilderVisitor::visit(UnaryMinusExpression* expression) {
@@ -380,7 +423,19 @@ void SymbolTableBuilderVisitor::visit(ParenthesisExpression* expression) {
 }
 
 void SymbolTableBuilderVisitor::visit(DereferenceExpression* expression) {
+    Type* type;
+
     expression->getExpression()->accept(this);
+
+    if (lastType->getKind() != AST_POINTER_TYPE) {
+        std::cout << "Invalid pointer type " << __FILE__ << std::endl;
+        exit(0);
+    } else {
+        PointerType* ptr = (PointerType*) lastType;
+        type = ptr->getSubtype();
+        expression->setType(type->clone());
+        setLastType(expression->getType());
+    }
 }
 
 void SymbolTableBuilderVisitor::visit(PreIncrementExpression* expression) {
@@ -482,8 +537,19 @@ void SymbolTableBuilderVisitor::visit(ArrowExpression* expression) {
 }
 
 void SymbolTableBuilderVisitor::visit(IndexExpression* expression) {
+    Type* type = nullptr;
+    PointerType* ptr = nullptr;
+
     expression->getLeft()->accept(this);
+    type = lastType;
+
     expression->getRight()->accept(this);
+
+    if (type->getKind() == AST_POINTER_TYPE) {
+        ptr = (PointerType*) type;
+        expression->setType(ptr->getSubtype()->clone());
+        setLastType(expression->getType());
+    }
 }
 
 void SymbolTableBuilderVisitor::visit(ShiftLeftLogicalExpression* expression) {

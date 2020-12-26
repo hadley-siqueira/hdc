@@ -717,6 +717,8 @@ Statement* Parser::parse_statement() {
         statement = parse_if_statement();
     } else if (lookahead(TK_RETURN)) {
         statement = parse_return_statement();
+    } else if (lookahead(TK_VAR)) {
+        statement = parse_local_variable();
     } else {
         statement = parse_expression();
         expect(TK_NEWLINE);
@@ -887,6 +889,29 @@ GlobalVariable* Parser::parse_global_variable() {
 
     expect(TK_NEWLINE);
     return new GlobalVariable(name, type, expression);
+}
+
+VariableDeclarationStatement* Parser::parse_local_variable() {
+    IdentifierExpression* name;
+    Type* type = nullptr;
+    Expression* expression = nullptr;
+
+    expect(TK_VAR);
+    name = parse_identifier_expression();
+
+    if (match(TK_COLON)) {
+        type = parse_type();
+
+        if (match(TK_ASSIGNMENT)) {
+            expression = parse_expression();
+        }
+    } else {
+        expect(TK_ASSIGNMENT);
+        expression = parse_expression();
+    }
+
+    expect(TK_NEWLINE);
+    return new VariableDeclarationStatement(name, type, expression);
 }
 
 GlobalConstant* Parser::parse_global_constant() {

@@ -29,6 +29,7 @@ namespace hdc {
         AST_ELIF,
         AST_ELSE,
         AST_WHILE,
+        AST_VARIABLE_DECLARATION,
 
         AST_RETURN,
 
