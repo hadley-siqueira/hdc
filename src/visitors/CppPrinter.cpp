@@ -121,7 +121,7 @@ void CppPrinter::visit(Parameter* parameter) {
     if (parameter->getType()) {
         parameter->getType()->accept(this);
     } else {
-        output << "int";
+        output << "ERROR";
     }
 
     output << " p" << parameter->getLocalName() << "_" << parameter->getName();
@@ -631,16 +631,6 @@ void CppPrinter::visit(PlusExpression* expression) {
     output << " + ";
     expression->getRight()->accept(this);
     output << ")";
-
-    /*expression->getLeft()->accept(this);
-    expression->getRight()->accept(this);
-
-    expression->setCppTemp(tmpCounter++);
-    expression->getType()->accept(this);
-    output << "_tmp" << expression->getCppTemp() << "_ = ";
-    output << expression->getLeft()->getCppTemp();
-    output << " + ";
-    output << expression->getLeft()->getCppTemp();*/
 }
 
 void CppPrinter::visit(MinusExpression* expression) {

@@ -31,6 +31,7 @@ using namespace hdc;
 Driver::Driver() {
     pathDelimiter = '/';
     emitCppFlag = false;
+    outputName = "a.out";
 }
 
 Driver::~Driver() {
@@ -47,6 +48,7 @@ void Driver::run() {
 
     if (emitCppFlag) {
         generateCpp();
+        callCppCompiler();
     } else {
         generateIR();
     }
@@ -69,6 +71,10 @@ void Driver::setFlags(int argc, char* argv[]) {
             ++i;
 
             searchPath.push_back(argv[i]);
+        } else if (strcmp(argv[i], "-o") == 0) {
+            ++i;
+
+            outputName = argv[i];
         } else if (strstr(argv[i], ".hd") != nullptr) {
             mainFilePath = std::string(argv[i]);
         }
@@ -236,6 +242,13 @@ void Driver::prettyPrintAllFiles() {
     PrettyPrinter printer;
 
     program.accept(&printer);
+}
+
+void Driver::callCppCompiler() {
+    std::stringstream s;
+
+    s << "g++ gen.cpp -fpermissive -o " << outputName;
+    system(s.str().c_str());
 }
 
 void Driver::parseImports(SourceFile* file) {

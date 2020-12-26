@@ -34,6 +34,7 @@ namespace hdc {
             void generate_x86_64();
             void generateCpp();
             void prettyPrintAllFiles();
+            void callCppCompiler();
 
             SourceFile* parseFile(std::string path);
             void parseImports(SourceFile* file);
@@ -55,6 +56,7 @@ namespace hdc {
             Logger logger;
             std::string mainFilePath;
             std::string rootPath;
+            std::string outputName;
             std::vector<std::string> searchPath;
             char pathDelimiter;
 
