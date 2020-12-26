@@ -1,10 +1,20 @@
 import std.io
 
 def main : int
-    x = 2
     var array : int
     var array2 : int = 2
     var x = 2.7
+
+    if array > 0:
+        var x : int = 0
+
+    flag = true
+    if !flag:
+        x = 0
+
+    if not flag:
+        x = 0
+
     p = 2.3
     ptr = &p
     p2 = &ptr

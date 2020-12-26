@@ -297,6 +297,9 @@ Expression* Parser::parse_unary_expression() {
     if (match(TK_LOGICAL_NOT)) {
         oper = *matched;
         expression = new LogicalNotExpression(oper, parse_unary_expression());
+    } else if (match(TK_NOT)) {
+        oper = *matched;
+        expression = new LogicalNotExpression(oper, parse_unary_expression());
     } else if (match(TK_BITWISE_AND)) {
         oper = *matched;
         expression = new AddressOfExpression(oper, parse_unary_expression());
