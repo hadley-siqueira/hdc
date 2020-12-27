@@ -5,13 +5,17 @@
 
 #include "lex/Lex.h"
 #include "ast/AST.h"
+#include "logger/Logger.h"
 
 namespace hdc {
     class Parser {
         public:
             SourceFile* read(std::string path);
 
-        private:
+            Logger* getLogger() const;
+            void setLogger(Logger* value);
+
+    private:
             void advance();
             bool lookahead(TokenKind kind);
             bool match(TokenKind kind);
@@ -73,6 +77,8 @@ namespace hdc {
         private:
              std::vector<Token>::iterator current_token;
              std::vector<Token>::iterator matched;
+             Logger* logger;
+             std::string filePath;
 
 
     };

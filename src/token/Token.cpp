@@ -589,6 +589,551 @@ std::string Token::getKindAsString() {
     return kind_as_str;
 }
 
+std::string Token::getKindAsPrettyString() {
+    std::string kind_as_str;
+
+    switch (kind) {
+    case TK_DEF:
+        kind_as_str = "def";
+        break;
+
+    case TK_CLASS:
+        kind_as_str = "class";
+        break;
+
+    case TK_VAR:
+        kind_as_str = "var";
+        break;
+
+    case TK_CONSTANT:
+        kind_as_str = "const";
+        break;
+
+
+    case TK_STRUCT:
+        kind_as_str = "struct";
+        break;
+
+    case TK_ENUM:
+        kind_as_str = "enum";
+        break;
+
+    case TK_UNION:
+        kind_as_str = "union";
+        break;
+
+
+    case TK_IF:
+        kind_as_str = "if";
+        break;
+
+    case TK_ELIF:
+        kind_as_str = "elif";
+        break;
+
+    case TK_ELSE:
+        kind_as_str = "else";
+        break;
+
+
+    case TK_FOR:
+        kind_as_str = "for";
+        break;
+
+    case TK_WHILE:
+        kind_as_str = "while";
+        break;
+
+
+    case TK_CONTINUE:
+        kind_as_str = "continue";
+        break;
+
+    case TK_RETURN:
+        kind_as_str = "return";
+        break;
+
+    case TK_GOTO:
+        kind_as_str = "goto";
+        break;
+
+    case TK_BREAK:
+        kind_as_str = "break";
+        break;
+
+    case TK_YIELD:
+        kind_as_str = "yield";
+        break;
+
+
+    case TK_FROM:
+        kind_as_str = "from";
+        break;
+
+    case TK_AS:
+        kind_as_str = "as";
+        break;
+
+    case TK_IMPORT:
+        kind_as_str = "import";
+        break;
+
+    case TK_DO:
+        kind_as_str = "do";
+        break;
+
+    case TK_IN:
+        kind_as_str = "in";
+        break;
+
+    case TK_PASS:
+        kind_as_str = "pass";
+        break;
+
+
+    case TK_NEW:
+        kind_as_str = "new";
+        break;
+
+    case TK_DELETE:
+        kind_as_str = "delete";
+        break;
+
+    case TK_CASE:
+        kind_as_str = "case";
+        break;
+
+    case TK_DEFAULT:
+        kind_as_str = "default";
+        break;
+
+    case TK_WITH:
+        kind_as_str = "with";
+        break;
+
+    case TK_SIZEOF:
+        kind_as_str = "sizeof";
+        break;
+
+
+    case TK_AND:
+        kind_as_str = "and";
+        break;
+
+    case TK_OR:
+        kind_as_str = "or";
+        break;
+
+    case TK_NOT:
+        kind_as_str = "not";
+        break;
+
+
+    case TK_U8:
+        kind_as_str = "u8";
+        break;
+
+    case TK_U16:
+        kind_as_str = "u16";
+        break;
+
+    case TK_U32:
+        kind_as_str = "u32";
+        break;
+
+    case TK_U64:
+        kind_as_str = "u64";
+        break;
+
+    case TK_I8:
+        kind_as_str = "i8";
+        break;
+
+    case TK_I16:
+        kind_as_str = "i16";
+        break;
+
+    case TK_I32:
+        kind_as_str = "i32";
+        break;
+
+    case TK_I64:
+        kind_as_str = "i64";
+        break;
+
+
+    case TK_VOID:
+        kind_as_str = "void";
+        break;
+
+    case TK_SYMBOL:
+        kind_as_str = "symbol";
+        break;
+
+    case TK_BOOL:
+        kind_as_str = "bool";
+        break;
+
+    case TK_UCHAR:
+        kind_as_str = "uchar";
+        break;
+
+    case TK_CHAR:
+        kind_as_str = "char";
+        break;
+
+    case TK_USHORT:
+        kind_as_str = "ushort";
+        break;
+
+    case TK_SHORT:
+        kind_as_str = "short";
+        break;
+
+    case TK_UINT:
+        kind_as_str = "uint";
+        break;
+
+    case TK_INT:
+        kind_as_str = "int";
+        break;
+
+    case TK_ULONG:
+        kind_as_str = "ulong";
+        break;
+
+    case TK_LONG:
+        kind_as_str = "long";
+        break;
+
+    case TK_FLOAT:
+        kind_as_str = "float";
+        break;
+
+    case TK_DOUBLE:
+        kind_as_str = "double";
+        break;
+
+
+
+    /* Identifiers and literals */
+    case TK_ID:
+        kind_as_str = "identifier";
+        break;
+
+    case TK_TRUE:
+        kind_as_str = "true";
+        break;
+
+    case TK_FALSE:
+        kind_as_str = "false";
+        break;
+
+    case TK_NULL:
+        kind_as_str = "null";
+        break;
+
+    case TK_LITERAL_CHAR:
+        kind_as_str = "literal char";
+        break;
+
+    case TK_LITERAL_INTEGER:
+        kind_as_str = "literal integer";
+        break;
+
+    case TK_LITERAL_FLOAT:
+        kind_as_str = "literal float";
+        break;
+
+    case TK_LITERAL_DOUBLE:
+        kind_as_str = "literal double";
+        break;
+
+    case TK_LITERAL_STRING:
+        kind_as_str = "literal string";
+        break;
+
+    case TK_LITERAL_SYMBOL:
+        kind_as_str = "literal symbol";
+        break;
+
+
+    /* Operators */
+
+    /* arithmetic */
+    case TK_PLUS:
+        kind_as_str = "+";
+        break;
+
+    case TK_MINUS:
+        kind_as_str = "-";
+        break;
+
+    case TK_TIMES:
+        kind_as_str = "*";
+        break;
+
+    case TK_DIVISION:
+        kind_as_str = "/";
+        break;
+
+    case TK_INTEGER_DIVISION:
+        kind_as_str = "//";
+        break;
+
+    case TK_MODULO:
+        kind_as_str = "%";
+        break;
+
+    case TK_POWER:
+        kind_as_str = "**";
+        break;
+
+
+    case TK_INC:
+        kind_as_str = "++";
+        break;
+
+    case TK_DEC:
+        kind_as_str = "--";
+        break;
+
+
+    /* bitwise */
+    case TK_BITWISE_AND:
+        kind_as_str = "&";
+        break;
+
+    case TK_BITWISE_NOT:
+        kind_as_str = "~";
+        break;
+
+    case TK_BITWISE_OR:
+        kind_as_str = "|";
+        break;
+
+    case TK_BITWISE_XOR:
+        kind_as_str = "^";
+        break;
+
+    case TK_SLL:
+        kind_as_str = "<<";
+        break;
+
+    case TK_SRL:
+        kind_as_str = ">>>";
+        break;
+
+    case TK_SRA:
+        kind_as_str = ">>";
+        break;
+
+
+    /* member access operators */
+    case TK_ARROW:
+        kind_as_str = "->";
+        break;
+
+    case TK_DOT:
+        kind_as_str = ".";
+        break;
+
+
+    /* scope */
+    case TK_DOLAR:
+        kind_as_str = "$";
+        break;
+
+    case TK_SCOPE:
+        kind_as_str = "::";
+        break;
+
+
+    /* ranges */
+    case TK_INCLUSIVE_RANGE:
+        kind_as_str = "..";
+        break;
+
+    case TK_EXCLUSIVE_RANGE:
+        kind_as_str = "...";
+        break;
+
+
+    /* relational operators */
+    case TK_EQ:
+        kind_as_str = "==";
+        break;
+
+    case TK_NE:
+        kind_as_str = "!=";
+        break;
+
+    case TK_GT:
+        kind_as_str = ">";
+        break;
+
+    case TK_LT:
+        kind_as_str = "<";
+        break;
+
+    case TK_GE:
+        kind_as_str = ">=";
+        break;
+
+    case TK_LE:
+        kind_as_str = "<=";
+        break;
+
+
+    /* logical operators */
+    case TK_LOGICAL_AND:
+        kind_as_str = "&&";
+        break;
+
+    case TK_LOGICAL_OR:
+        kind_as_str = "||";
+        break;
+
+    case TK_LOGICAL_NOT:
+        kind_as_str = "!";
+        break;
+
+
+    /* conditional */
+    case TK_TERNARY:
+        kind_as_str = "?";
+        break;
+
+
+    /* assignments */
+    case TK_ASSIGNMENT:
+        kind_as_str = "=";
+        break;
+
+    case TK_BITWISE_AND_ASSIGNMENT:
+        kind_as_str = "&=";
+        break;
+
+    case TK_BITWISE_XOR_ASSIGNMENT:
+        kind_as_str = "^=";
+        break;
+
+    case TK_BITWISE_OR_ASSIGNMENT:
+        kind_as_str = "|=";
+        break;
+
+    case TK_BITWISE_NOT_ASSIGNMENT:
+        kind_as_str = "~=";
+        break;
+
+    case TK_DIVISION_ASSIGNMENT:
+        kind_as_str = "/=";
+        break;
+
+    case TK_INTEGER_DIVISION_ASSIGNMENT:
+        kind_as_str = "//=";
+        break;
+
+    case TK_MINUS_ASSIGNMENT:
+        kind_as_str = "-=";
+        break;
+
+    case TK_MODULO_ASSIGNMENT:
+        kind_as_str = "%=";
+        break;
+
+    case TK_PLUS_ASSIGNMENT:
+        kind_as_str = "+=";
+        break;
+
+    case TK_TIMES_ASSIGNMENT:
+        kind_as_str = "*=";
+        break;
+
+    case TK_SLL_ASSIGNMENT:
+        kind_as_str = "<<=";
+        break;
+
+    case TK_SRA_ASSIGNMENT:
+        kind_as_str = ">>=";
+        break;
+
+    case TK_SRL_ASSIGNMENT:
+        kind_as_str = ">>>=";
+        break;
+
+    case TK_SPECIAL_ASSIGNMENT:
+        kind_as_str = ":=";
+        break;
+
+
+    /* others */
+    case TK_HASH_ARROW:
+        kind_as_str = "=>";
+        break;
+
+
+    /* punctuation */
+    case TK_NEWLINE:
+        kind_as_str = "\\n";
+        break;
+
+    case TK_EOF:
+        kind_as_str = "EOF";
+        break;
+
+    case TK_AT:
+        kind_as_str = "@";
+        break;
+
+    case TK_BEGIN:
+        kind_as_str = "begin";
+        break;
+
+    case TK_END:
+        kind_as_str = "end";
+        break;
+
+    case TK_COLON:
+        kind_as_str = ":";
+        break;
+
+    case TK_COMMA:
+        kind_as_str = ",";
+        break;
+
+    case TK_SEMICOLON:
+        kind_as_str = ";";
+        break;
+
+    case TK_LEFT_CURLY_BRACKET:
+        kind_as_str = "{";
+        break;
+
+    case TK_LEFT_PARENTHESIS:
+        kind_as_str = "(";
+        break;
+
+    case TK_LEFT_SQUARE_BRACKET:
+        kind_as_str = "[";
+        break;
+
+    case TK_RIGHT_CURLY_BRACKET:
+        kind_as_str = "}";
+        break;
+
+    case TK_RIGHT_PARENTHESIS:
+        kind_as_str = ")";
+        break;
+
+    case TK_RIGHT_SQUARE_BRACKET:
+        kind_as_str = "]";
+        break;
+    }
+
+    return kind_as_str;
+}
+
 std::string Token::toStr() {
     std::stringstream ss;
 

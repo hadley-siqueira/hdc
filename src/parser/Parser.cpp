@@ -1,4 +1,5 @@
 #include <iostream>
+#include <sstream>
 
 #include "parser/Parser.h"
 
@@ -25,17 +26,24 @@ bool Parser::match(TokenKind kind) {
 }
 
 void Parser::expect(TokenKind kind) {
+    int line;
+    int column;
+    std::stringstream error_msg;
     Token expected;
 
     if (match(kind)) return;
 
     expected.setKind(kind);
 
-    std::cout << (*current_token).getLine() << ": ";
-    std::cout << "expected a " << expected.getKindAsString()
-        << " but got a " << (*current_token).getKindAsString() << " instead\n";
+    line = (*current_token).getLine();
+    column = (*current_token).getColumn();
 
-    exit(0);
+    error_msg << "Expected a '" << expected.getKindAsPrettyString()
+              << "' but got a '" << (*current_token).getKindAsPrettyString()
+              << "' instead";
+
+    logger->log(LOG_ERROR, error_msg.str(), filePath.c_str(), line, column);
+    logger->quit();
 }
 
 bool Parser::hasParameters() {
@@ -144,6 +152,14 @@ Type* Parser::parse_type() {
     }
 
     return type;
+}
+
+Logger* Parser::getLogger() const {
+    return logger;
+}
+
+void Parser::setLogger(Logger* value) {
+    logger = value;
 }
 
 IdentifierExpression* Parser::parse_identifier_expression() {
@@ -947,6 +963,7 @@ SourceFile* Parser::read(std::string path) {
     tokens = lex.getTokens(path);
     file = new SourceFile(path);
     current_token = tokens.begin();
+    filePath = path;
 
     while (true) { 
         if (lookahead(TK_IMPORT)) {

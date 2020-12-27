@@ -333,6 +333,7 @@ SourceFile* Driver::parseFile(std::string path) {
         return nullptr;
     }
 
+    parser.setLogger(&logger);
     file = parser.read(path);
     program.addSourceFile(file);
 

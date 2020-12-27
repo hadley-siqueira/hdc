@@ -18,6 +18,7 @@ namespace hdc {
         public:
             void log(std::string message);
             void log(LogKind kind, std::string message);
+            void log(LogKind kind, std::string message, const char* path, int line, int column);
             void quit();
 
             void printLogs();
@@ -27,6 +28,10 @@ namespace hdc {
             void logDriver(bool flag);
             void logLex(bool flag);
             void logSymbolTable(bool flag);
+
+        private:
+            bool enabled(LogKind kind);
+
 
         private:
             std::vector<Log*> logs;

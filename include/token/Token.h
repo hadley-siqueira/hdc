@@ -176,6 +176,7 @@ namespace hdc {
             int getColumn();
             std::string& getLexem();
             std::string getKindAsString();
+            std::string getKindAsPrettyString();
             std::string toStr();
 
         /* Private members */
