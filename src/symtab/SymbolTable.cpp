@@ -7,10 +7,12 @@ using namespace hdc;
 /* Constructors */
 SymbolTable::SymbolTable() {
     parent = nullptr;
+    superTable = nullptr;
 }
 
 SymbolTable::SymbolTable(SymbolTable* parent) {
     this->parent = parent;
+    superTable = nullptr;
 }
 
 /* Destructors */
@@ -22,6 +24,10 @@ SymbolTable::~SymbolTable() {
 
 bool hdc::SymbolTable::hasParent() {
     return parent != nullptr;
+}
+
+bool SymbolTable::hasSuper() {
+    return superTable != nullptr;
 }
 
 void SymbolTable::dump() {
@@ -91,7 +97,9 @@ Symbol* SymbolTable::has(std::string name) {
         return symbols[name];
     }
 
-    if (hasParent()) {
+    if (hasSuper()) {
+        return superTable->has(name);
+    } else if (hasParent()) {
         return parent->has(name);
     } else if (sourceFile != nullptr) {
         Symbol* symbol;
@@ -103,8 +111,6 @@ Symbol* SymbolTable::has(std::string name) {
 
             } else {
                 SourceFile* f = import->getSourceFile();
-                std::cout << "searching for " << name << " on ";
-                f->getSymbolTable()->dump();
                 symbol = f->getSymbolTable()->hasLocal(name);
 
                 if (symbol != nullptr) {
@@ -243,7 +249,9 @@ Symbol* SymbolTable::hasClassVariable(std::string& name) {
         }
     }
 
-    if (hasParent()) {
+    if (hasSuper()) {
+        return superTable->hasClassVariable(name);
+    } else if (hasParent()) {
         return parent->hasClassVariable(name);
     }
 
@@ -315,4 +323,14 @@ std::vector<Variable *> SymbolTable::getDefVariables() {
 
 void SymbolTable::setSourceFile(SourceFile* value) {
     sourceFile = value;
+}
+
+SymbolTable *SymbolTable::getSuperTable() const
+{
+    return superTable;
+}
+
+void SymbolTable::setSuperTable(SymbolTable *value)
+{
+    superTable = value;
 }

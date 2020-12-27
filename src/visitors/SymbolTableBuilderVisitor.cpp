@@ -140,6 +140,11 @@ void SymbolTableBuilderVisitor::visit(Class* klass) {
     } else if (pass == 2) {
         pushSymbolTable(klass->getSymbolTable());
 
+        if (klass->hasSuperClass()) {
+            Class* c = (Class*) klass->getSuperClass()->getDescriptor();
+            klass->getSymbolTable()->setSuperTable(c->getSymbolTable());
+        }
+
         for (int i = 0; i < klass->n_methods(); ++i) {
             klass->getMethod(i)->accept(this);
         }
@@ -410,8 +415,7 @@ void SymbolTableBuilderVisitor::visit(AtExpression* expression) {
 
     if (symbol != nullptr) {
         id->setSymbol(symbol);
-        v = currentClass->getVariable(id->getName());
-        id->setType(v->getType()->clone());
+        id->setType(symbol->getType()->clone());
         setLastType(id->getType());
     }
 

@@ -1,0 +1,5 @@
+import std.io
+
+class LifeForm:
+    def hello : void
+        println('hello!')

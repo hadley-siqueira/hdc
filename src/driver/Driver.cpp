@@ -235,7 +235,6 @@ void Driver::generateCpp() {
     program.accept(&pp);
 
     pp.save("gen.cpp");
-    pp.print();
 }
 
 void Driver::prettyPrintAllFiles() {

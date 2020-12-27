@@ -1,0 +1,50 @@
+import std.io
+import cpp130 as life
+
+class Animal(life::LifeForm):
+    height : int
+    weight : int
+
+    def init : void
+        @height = 10
+        @weight = 20
+
+        println('Building an animal')
+
+    def destroy : void
+        println('Destroying an animal')
+
+    def getHeight : int
+        return @height
+
+
+class Dog(Animal):
+    def init : void
+        @height = 10
+
+        println('Building a dog')
+
+    def destroy : void
+        println('Destroying a dog')
+
+class SuperDog(Dog):
+    def init : void
+        @height = 20
+
+        println('Building a super dog')
+
+    def destroy : void
+        println('Destroying a super dog')
+
+def main : int
+    a = Animal()
+    dog = Dog()
+    a.getHeight()
+    dog.getHeight()
+
+    s = SuperDog()
+    s.getHeight()
+    a.hello()
+
+    return 0
+

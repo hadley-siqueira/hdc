@@ -70,6 +70,12 @@ void hdc::CppPrinter::visit(Class* klass) {
     checkClassDependencies(klass);
 
     output << "class " << klass->getUniqueCppName();
+
+    if (klass->hasSuperClass()) {
+        output << " : public ";
+        klass->getSuperClass()->accept(this);
+    }
+
     output << " {\npublic:\n";
 
     indent();

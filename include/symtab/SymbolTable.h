@@ -24,6 +24,7 @@ namespace hdc {
 
         public:
             bool hasParent();
+            bool hasSuper();
             void dump();
 
         /* Actions */
@@ -63,8 +64,12 @@ namespace hdc {
             void setParent(SymbolTable* parent);
             void setSourceFile(SourceFile* value);
 
+            SymbolTable *getSuperTable() const;
+            void setSuperTable(SymbolTable *value);
+
     private:
             SymbolTable* parent;
+            SymbolTable* superTable; // a pointer to parent class symtab
 
             // pointer to search definitions on SourceFile
             SourceFile* sourceFile;
