@@ -36,6 +36,7 @@ set(AST_TYPES_SRC
     src/ast/types/UInt64Type.cpp
     src/ast/types/NamedType.cpp
     src/ast/types/FunctionType.cpp
+    src/ast/types/ArrayType.cpp
 )
 
 set(AST_OPERATORS_SRC

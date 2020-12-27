@@ -131,6 +131,10 @@ void CppPrinter::visit(Parameter* parameter) {
     }
 
     output << " p" << parameter->getLocalName() << "_" << parameter->getName();
+
+    if (parameter->getType() != nullptr) {
+        generateArrayTypeEnd(parameter->getType());
+    }
 }
 
 void CppPrinter::visit(Variable* variable) {
@@ -147,7 +151,12 @@ void CppPrinter::visit(LocalVariable* variable) {
     }
 
     output << " lv" << variable->getLocalName() << "_";
-    output << variable->getName() << ";\n";
+    output << variable->getName();
+
+    if (variable->getType() != nullptr) {
+        generateArrayTypeEnd(variable->getType());
+    }
+    output << ";\n";
 }
 
 void CppPrinter::visit(GlobalVariable* variable) {
@@ -264,6 +273,14 @@ void CppPrinter::visit(NamedType* type) {
 
 void CppPrinter::visit(FunctionType *type) {
 
+}
+
+void CppPrinter::visit(ArrayType *type) {
+    type->getSubtype()->accept(this);
+
+    /*if (type->getExpression() != nullptr) {
+        type->getExpression()->accept(this);
+    }*/
 }
 
 /* Statements */
@@ -1130,4 +1147,26 @@ void CppPrinter::generateConstructorCall(AssignmentExpression *expression) {
 
 void CppPrinter::generateBinaryOperator(BinaryOperator *bin) {
     isExpression = true;
+}
+
+void CppPrinter::generateArrayTypeEnd(Type *type_) {
+    ArrayType* type;
+
+    if (type_->getKind() != AST_ARRAY_TYPE) {
+        return;
+    }
+
+    type = (ArrayType*) type_;
+
+    if (type->getSubtype()->getKind() == AST_ARRAY_TYPE) {
+        generateArrayTypeEnd((ArrayType*) type->getSubtype());
+    }
+
+    output << "[";
+
+    if (type->getExpression() != nullptr) {
+        type->getExpression()->accept(this);
+    }
+
+    output << "]";
 }

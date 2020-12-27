@@ -1,0 +1,43 @@
+import std.io
+
+def print_matrix : void
+    @m : int[5][5]
+
+    i = 0
+    while i < 5:
+        j = 0
+
+        while j < 5:
+            print(m[i][j])
+            print(' ')
+            ++j
+
+        ++i
+        print('\n')
+
+def identity_matrix : void
+    @m : int[5][5]
+
+    i = 0
+    while i < 5:
+        j = 0
+
+        while j < 5:
+            if i == j:
+                m[i][j] = 1
+            else:
+                m[i][j] = 0
+
+            ++j
+
+        ++i
+
+
+def main : int
+    x = 7
+    var array : int[5][5]
+
+    identity_matrix(array)
+    print_matrix(array)
+    
+    return 0

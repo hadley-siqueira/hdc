@@ -59,6 +59,7 @@ namespace hdc {
         AST_POINTER_TYPE,
         AST_NAMED_TYPE,
         AST_FUNCTION_TYPE,
+        AST_ARRAY_TYPE,
 
         /* operators */
         AST_AT,

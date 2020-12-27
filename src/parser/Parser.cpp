@@ -93,6 +93,7 @@ Import* Parser::parse_import() {
 
 
 Type* Parser::parse_type() {
+    Expression* expr;
     Type* type = nullptr;
 
     if (match(TK_INT)) {
@@ -146,6 +147,14 @@ Type* Parser::parse_type() {
             type = new PointerType(type, *matched);
         } else if (match(TK_POWER)) {
             type = new PointerType(new PointerType(type, *matched), *matched);
+        } else if (match(TK_LEFT_SQUARE_BRACKET)) {
+            if (match(TK_RIGHT_CURLY_BRACKET)) {
+                type = new ArrayType(type, *matched);
+            } else {
+                expr = parse_expression();
+                expect(TK_RIGHT_SQUARE_BRACKET);
+                type = new ArrayType(type, expr, *matched);
+            }
         } else {
             break;
         }

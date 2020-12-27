@@ -115,6 +115,7 @@
 #include "ast/types/IntType.h"
 #include "ast/types/NamedType.h"
 #include "ast/types/FunctionType.h"
+#include "ast/types/ArrayType.h"
 
 #include "ast/types/UIntType.h"
 #include "ast/types/ShortType.h"

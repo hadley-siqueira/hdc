@@ -61,9 +61,10 @@ def input_i : int
 
 def open : File
     @path : char*
-    @mode : char*
+    @mode : char
 
-    pass
+    f = File(path, mode)
+    return f
 
 class File:
     path : char*

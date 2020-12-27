@@ -48,7 +48,7 @@ void Driver::run() {
 
     if (emitCppFlag) {
         generateCpp();
-        callCppCompiler();
+      //  callCppCompiler();
     } else {
         generateIR();
     }

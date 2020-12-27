@@ -323,6 +323,17 @@ void PrettyPrinter::visit(FunctionType *type) {
     type->getType(i)->accept(this);
 }
 
+void PrettyPrinter::visit(ArrayType *type) {
+    type->getSubtype()->accept(this);
+    output << "[";
+
+    if (type->getExpression() != nullptr) {
+        type->getExpression()->accept(this);
+    }
+
+    output << "]";
+}
+
 /* Statements */
 void PrettyPrinter::visit(Statement* statement) {
     output << "UNKNOWN STATEMENT";

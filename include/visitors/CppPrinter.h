@@ -64,6 +64,7 @@ namespace hdc {
             void visit(PointerType* type);
             void visit(NamedType* type);
             void visit(FunctionType* type);
+            void visit(ArrayType* type);
 
             /* Statements */
             void visit(Statement* statement);
@@ -173,6 +174,7 @@ namespace hdc {
             void generateDefLocalVariables(Def* def);
             void generateConstructorCall(AssignmentExpression* expression);
             void generateBinaryOperator(BinaryOperator* bin);
+            void generateArrayTypeEnd(Type *type_);
 
         private:
             int tmpCounter;

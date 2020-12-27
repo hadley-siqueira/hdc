@@ -268,6 +268,14 @@ void SymbolTableBuilderVisitor::visit(FunctionType *type) {
     }
 }
 
+void SymbolTableBuilderVisitor::visit(ArrayType *type) {
+    type->getSubtype()->accept(this);
+
+    if (type->getExpression() != nullptr) {
+        type->getExpression()->accept(this);
+    }
+}
+
 void SymbolTableBuilderVisitor::visit(Statement* statement) {}
 
 void SymbolTableBuilderVisitor::visit(CompoundStatement* statement) {
