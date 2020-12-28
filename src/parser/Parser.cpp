@@ -93,7 +93,7 @@ Import* Parser::parse_import() {
 
 
 Type* Parser::parse_type() {
-    Expression* expr;
+    Expression* expr = nullptr;
     Type* type = nullptr;
 
     if (match(TK_INT)) {
@@ -558,9 +558,29 @@ Expression* Parser::parse_logical_or_expression() {
     return expression;
 }
 
-Expression* Parser::parse_assignment_expression() {
+Expression *Parser::parse_range_expression() {
     Token oper;
     Expression* expression = parse_logical_or_expression();
+
+    while (true) {
+        if (match(TK_INCLUSIVE_RANGE)) {
+            oper = *matched;
+            expression = new InclusiveRangeExpression(oper, expression, parse_logical_or_expression());
+        } else if (match(TK_EXCLUSIVE_RANGE)) {
+            oper = *matched;
+            expression = new ExclusiveRangeExpression(oper, expression, parse_logical_or_expression());
+        } else {
+            break;
+        }
+    }
+
+    return expression;
+}
+
+
+Expression* Parser::parse_assignment_expression() {
+    Token oper;
+    Expression* expression = parse_range_expression();
 
     while (true) {
         if (match(TK_ASSIGNMENT)) {

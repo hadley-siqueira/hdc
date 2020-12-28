@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include "ast/types/ArrayType.h"
 
 using namespace hdc;
@@ -18,10 +20,11 @@ ArrayType::ArrayType(Type *subtype, Expression *expression, Token &token) {
 
 ArrayType::~ArrayType() {
     delete subtype;
-    //delete expression;
+    delete expression;
 }
 
 Type* ArrayType::clone() {
+    std::cout << __FILE__ << ' ' << __LINE__ << " please implement me\n";
     return new ArrayType(subtype->clone(), expression, token);
 }
 
@@ -41,13 +44,11 @@ void ArrayType::accept(Visitor *visitor) {
     visitor->visit(this);
 }
 
-Type *ArrayType::getSubtype() const
-{
+Type *ArrayType::getSubtype() const {
     return subtype;
 }
 
-void ArrayType::setSubtype(Type *value)
-{
+void ArrayType::setSubtype(Type *value) {
     subtype = value;
 }
 

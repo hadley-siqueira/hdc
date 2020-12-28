@@ -1,0 +1,18 @@
+import std.io
+
+def main : int
+    for i = 0; i < 10; ++i:
+        println(i)
+
+    i = 2
+
+    n = 20
+    for j in 0 .. n:
+        println(j)
+
+    println('new iteration...')
+
+    for j in 0 ... n:
+        println(j)
+
+    return 0

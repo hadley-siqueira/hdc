@@ -81,6 +81,9 @@
 #include "ast/operators/binary/LogicalAndExpression.h"
 #include "ast/operators/binary/LogicalOrExpression.h"
 
+#include "ast/operators/binary/InclusiveRangeExpression.h"
+#include "ast/operators/binary/ExclusiveRangeExpression.h"
+
 #include "ast/AssignmentExpression.h"
 #include "ast/BitwiseAndAssignmentExpression.h"
 #include "ast/BitwiseXorAssignmentExpression.h"

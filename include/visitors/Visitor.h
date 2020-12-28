@@ -115,6 +115,9 @@ namespace hdc {
             virtual void visit(class LogicalAndExpression* expression)=0;
             virtual void visit(class LogicalOrExpression* expression)=0;
 
+            virtual void visit(class InclusiveRangeExpression* expression)=0;
+            virtual void visit(class ExclusiveRangeExpression* expression)=0;
+
             virtual void visit(class AssignmentExpression* expression)=0;
             virtual void visit(class BitwiseAndAssignmentExpression* expression)=0;
             virtual void visit(class BitwiseXorAssignmentExpression* expression)=0;

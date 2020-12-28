@@ -4,6 +4,7 @@
 #include "ast/Statement.h"
 #include "ast/CompoundStatement.h"
 #include "ast/Expression.h"
+#include "symtab/SymbolTable.h"
 
 namespace hdc {
     class ForStatement : public Statement {
@@ -28,11 +29,15 @@ namespace hdc {
         public:
             void accept(Visitor* visitor);
 
-        private:
+            SymbolTable *getSymbolTable() const;
+            void setSymbolTable(SymbolTable *value);
+
+    private:
             Expression* e1;
             Expression* e2;
             Expression* e3;
             CompoundStatement* statements;
+            SymbolTable* symbolTable;
     };
 }
 

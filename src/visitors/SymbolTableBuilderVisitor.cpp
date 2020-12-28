@@ -292,11 +292,39 @@ void SymbolTableBuilderVisitor::visit(WhileStatement* statement) {
 }
 
 void SymbolTableBuilderVisitor::visit(ForStatement* statement) {
+    statement->setSymbolTable(pushSymbolTable());
 
+    if (statement->getE1() != nullptr) {
+        statement->getE1()->accept(this);
+    }
+
+    if (statement->getE2() != nullptr) {
+        statement->getE2()->accept(this);
+    }
+
+    if (statement->getE3() != nullptr) {
+        statement->getE3()->accept(this);
+    }
+
+    statement->getStatements()->accept(this);
+    popSymbolTable();
 }
 
 void SymbolTableBuilderVisitor::visit(ForEachStatement* statement) {
+    Type* type;
 
+    statement->setSymbolTable(pushSymbolTable());
+
+    statement->getE2()->accept(this);
+    type = lastType;
+
+    std::cout << __FILE__ << __LINE__ << "FIXME flag\n";
+    checkingAssignment = true;
+    statement->getE1()->accept(this);
+    checkingAssignment = false;
+
+    statement->getStatements()->accept(this);
+    popSymbolTable();
 }
 
 void SymbolTableBuilderVisitor::visit(IfStatement* statement) {
@@ -859,6 +887,24 @@ void SymbolTableBuilderVisitor::visit(LogicalOrExpression *expression) {
 
     expression->setType(new BoolType());
     setLastType(expression->getType());
+}
+
+void SymbolTableBuilderVisitor::visit(InclusiveRangeExpression *expression) {
+    expression->getLeft()->accept(this);
+    expression->getRight()->accept(this);
+
+    expression->setType(new IntType());
+    setLastType(expression->getType());
+    std::cout << __FILE__ << " " << __LINE__ << " implement type checking\n";
+}
+
+void SymbolTableBuilderVisitor::visit(ExclusiveRangeExpression *expression) {
+    expression->getLeft()->accept(this);
+    expression->getRight()->accept(this);
+
+    expression->setType(new IntType());
+    setLastType(expression->getType());
+    std::cout << __FILE__ << " " << __LINE__ << " implement type checking\n";
 }
 
 void SymbolTableBuilderVisitor::visit(GreaterThanOrEqualExpression* expression) {

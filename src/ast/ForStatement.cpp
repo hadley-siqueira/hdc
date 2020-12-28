@@ -69,3 +69,13 @@ void ForStatement::setStatements(CompoundStatement* value) {
 void ForStatement::accept(Visitor* visitor) {
     visitor->visit(this);
 }
+
+SymbolTable *ForStatement::getSymbolTable() const
+{
+    return symbolTable;
+}
+
+void ForStatement::setSymbolTable(SymbolTable *value)
+{
+    symbolTable = value;
+}

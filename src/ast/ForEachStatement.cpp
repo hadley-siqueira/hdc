@@ -60,3 +60,13 @@ void ForEachStatement::setStatements(CompoundStatement* value)
 void ForEachStatement::accept(Visitor* visitor) {
     visitor->visit(this);
 }
+
+SymbolTable *ForEachStatement::getSymbolTable() const
+{
+    return symbolTable;
+}
+
+void ForEachStatement::setSymbolTable(SymbolTable *value)
+{
+    symbolTable = value;
+}

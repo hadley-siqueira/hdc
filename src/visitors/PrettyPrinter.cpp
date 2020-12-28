@@ -714,6 +714,18 @@ void PrettyPrinter::visit(LogicalOrExpression *expression) {
     expression->getRight()->accept(this);
 }
 
+void PrettyPrinter::visit(InclusiveRangeExpression *expression) {
+    expression->getLeft()->accept(this);
+    output << " .. ";
+    expression->getRight()->accept(this);
+}
+
+void PrettyPrinter::visit(ExclusiveRangeExpression *expression) {
+    expression->getLeft()->accept(this);
+    output << " ... ";
+    expression->getRight()->accept(this);
+}
+
 void PrettyPrinter::visit(AssignmentExpression* expression) {
     expression->getLeft()->accept(this);
     output << " = ";

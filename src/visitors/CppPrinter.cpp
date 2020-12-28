@@ -313,11 +313,84 @@ void CppPrinter::visit(WhileStatement* statement) {
 }
 
 void CppPrinter::visit(ForStatement* statement) {
+    output << "for (";
 
+    if (statement->getE1() != nullptr) {
+        statement->getE1()->accept(this);
+    }
+
+    output << "; ";
+
+    if (statement->getE2() != nullptr) {
+        statement->getE2()->accept(this);
+    }
+
+    output << "; ";
+
+    if (statement->getE3() != nullptr) {
+        statement->getE3()->accept(this);
+    }
+
+    output << ") {\n";
+
+    indent();
+    statement->getStatements()->accept(this);
+    dedent();
+    print_indentation();
+    output << "}\n";
+    isExpression = false;
 }
 
 void CppPrinter::visit(ForEachStatement* statement) {
+    if (statement->getE2()->getKind() == AST_INCLUSIVE_RANGE) {
+        InclusiveRangeExpression* r = (InclusiveRangeExpression*) statement->getE2();
 
+        output << "for (";
+
+        statement->getE1()->accept(this);
+        output << " = ";
+        r->getLeft()->accept(this);
+
+        output << "; ";
+        statement->getE1()->accept(this);
+        output << " <= ";
+        r->getRight()->accept(this);
+        output << "; ++";
+        statement->getE1()->accept(this);
+
+        output << ") {\n";
+
+        indent();
+        statement->getStatements()->accept(this);
+        dedent();
+        print_indentation();
+        output << "}\n";
+        isExpression = false;
+    } else if (statement->getE2()->getKind() == AST_EXCLUSIVE_RANGE) {
+        ExclusiveRangeExpression* r = (ExclusiveRangeExpression*) statement->getE2();
+
+        output << "for (";
+
+        statement->getE1()->accept(this);
+        output << " = ";
+        r->getLeft()->accept(this);
+
+        output << "; ";
+        statement->getE1()->accept(this);
+        output << " < ";
+        r->getRight()->accept(this);
+        output << "; ++";
+        statement->getE1()->accept(this);
+
+        output << ") {\n";
+
+        indent();
+        statement->getStatements()->accept(this);
+        dedent();
+        print_indentation();
+        output << "}\n";
+        isExpression = false;
+    }
 }
 
 void CppPrinter::visit(IfStatement* statement) {
@@ -744,6 +817,14 @@ void CppPrinter::visit(LogicalOrExpression *expression) {
     output << " || ";
     expression->getRight()->accept(this);
     output << ")";
+}
+
+void CppPrinter::visit(InclusiveRangeExpression *expression) {
+    std::cout << __FILE__ << ' ' << __LINE__ << " TODO\n";
+}
+
+void CppPrinter::visit(ExclusiveRangeExpression *expression) {
+    std::cout << __FILE__ << ' ' << __LINE__ << " TODO\n";
 }
 
 void CppPrinter::visit(AssignmentExpression* expression) {

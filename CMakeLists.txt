@@ -42,6 +42,8 @@ set(AST_TYPES_SRC
 set(AST_OPERATORS_SRC
     src/ast/operators/binary/LogicalAndExpression.cpp
     src/ast/operators/binary/LogicalOrExpression.cpp
+    src/ast/operators/binary/InclusiveRangeExpression.cpp
+    src/ast/operators/binary/ExclusiveRangeExpression.cpp
 )
 
 set(AST_STATEMENTS_SRC

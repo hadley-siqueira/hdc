@@ -53,6 +53,7 @@ namespace hdc {
             Expression* parse_equality_expression();
             Expression* parse_logical_and_expression();
             Expression* parse_logical_or_expression();
+            Expression* parse_range_expression();
 
             Expression* parse_assignment_expression();
 

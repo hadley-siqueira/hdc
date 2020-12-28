@@ -4,7 +4,7 @@
 #include <sstream>
 
 #include "visitors/Visitor.h"
-//#include "ast/AST.h"
+#include "ast/AST.h"
 
 namespace hdc {
     class PrettyPrinter : public Visitor {
@@ -131,6 +131,9 @@ namespace hdc {
 
             void visit(LogicalAndExpression* expression);
             void visit(LogicalOrExpression* expression);
+
+            void visit(InclusiveRangeExpression* expression);
+            void visit(ExclusiveRangeExpression* expression);
 
             void visit(AssignmentExpression* expression);
             void visit(BitwiseAndAssignmentExpression* expression);

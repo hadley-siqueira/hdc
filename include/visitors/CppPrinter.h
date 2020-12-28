@@ -127,6 +127,9 @@ namespace hdc {
             void visit(LogicalAndExpression* expression);
             void visit(LogicalOrExpression* expression);
 
+            void visit(InclusiveRangeExpression* expression);
+            void visit(ExclusiveRangeExpression* expression);
+
             void visit(AssignmentExpression* expression);
             void visit(BitwiseAndAssignmentExpression* expression);
             void visit(BitwiseXorAssignmentExpression* expression);
